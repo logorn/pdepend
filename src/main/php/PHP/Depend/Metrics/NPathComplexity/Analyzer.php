@@ -60,12 +60,9 @@
  * @version    Release: @package_version@
  * @link       http://www.pdepend.org/
  */
-class PHP_Depend_Metrics_NPathComplexity_Analyzer
+class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
     extends PHP_Depend_Metrics_AbstractCachingAnalyzer
-    /* TODO 2.0
-   implements PHP_Depend_Metrics_Analyzer,
-              PHP_Depend_Metrics_FilterAware,
-              PHP_Depend_Metrics_NodeAware,
+   implements PHP_Depend_Metrics_NodeAware,
               PHP_Depend_Code_ASTVisitor*/
 {
     /**

@@ -76,11 +76,9 @@
  */
 class PHP_Depend_Metrics_NodeLoc_Analyzer
     extends PHP_Depend_Metrics_AbstractCachingAnalyzer
-    /* TODO 2.0
    implements PHP_Depend_Metrics_Analyzer,
               PHP_Depend_Metrics_NodeAware,
-              PHP_Depend_Metrics_FilterAware,
-              PHP_Depend_Metrics_ProjectAware*/
+              PHP_Depend_Metrics_ProjectAware
 {
     /**
      * Type of this analyzer class.
@@ -90,11 +88,11 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer
     /**
      * Metrics provided by the analyzer implementation.
      */
-    const M_LINES_OF_CODE           = 'loc',
-        M_COMMENT_LINES_OF_CODE     = 'cloc',
-        M_EXECUTABLE_LINES_OF_CODE  = 'eloc',
-        M_LOGICAL_LINES_OF_CODE     = 'lloc',
-        M_NON_COMMENT_LINES_OF_CODE = 'ncloc';
+    const M_LINES_OF_CODE             = 'loc',
+          M_COMMENT_LINES_OF_CODE     = 'cloc',
+          M_EXECUTABLE_LINES_OF_CODE  = 'eloc',
+          M_LOGICAL_LINES_OF_CODE     = 'lloc',
+          M_NON_COMMENT_LINES_OF_CODE = 'ncloc';
 
     /**
      * Collected project metrics.
@@ -239,7 +237,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer
     /**
      * Visits a file node.
      *
-     * @param PHP_Depend_Code_File $file The current file node.
+     * @param PHP_Depend_AST_File $file The current file node.
      *
      * @return void
      * @see PHP_Depend_Visitor_AbstractVisitor::visitFile()

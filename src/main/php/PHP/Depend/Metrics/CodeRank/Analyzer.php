@@ -127,30 +127,6 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         );
     }
 
-
-    /**
-     * Processes all {@link PHP_Depend_Code_Package} code nodes.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages All code packages.
-     * @return void
-     */
-    public function analyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-        if ($this->metrics === null) {
-
-            $this->fireStartAnalyzer();
-
-            $factory = new PHP_Depend_Metrics_CodeRank_StrategyFactory();
-            if (isset($this->options[self::STRATEGY_OPTION])) {
-                foreach ($this->options[self::STRATEGY_OPTION] as $identifier) {
-                    $this->_strategies[] = $factory->createStrategy($identifier);
-                }
-            } else {
-                $this->_strategies[] = $factory->createDefaultStrategy();
-            }
-        }
-    }
-
     /**
      * This method will return an <b>array</b> with all generated metric values
      * for the given node or node identifier. If there are no metrics for the

@@ -94,13 +94,6 @@ class PHP_Depend
     private $_files = array();
 
     /**
-     * Generated {@link PHP_Depend_Code_Package} objects.
-     *
-     * @var Iterator $_packages
-     */
-    private $_packages = null;
-
-    /**
      * List of all registered loggers.
      *
      * @var PHP_Depend_Log_Logger[]
