@@ -36,36 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics;
 
 require_once dirname(__FILE__) . '/../AbstractTest.php';
 
 /**
- * Test case for the {@link PHP_Depend_Metrics_AnalyzerIterator} class.
+ * Test case for the {@link \PHP_Depend_Metrics_AnalyzerIterator} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Metrics_AnalyzerIterator
- * @group      pdepend
- * @group      pdepend::metrics
- * @group      unittest
+ * @covers \PHP_Depend_Metrics_AnalyzerIterator
+ * @group  pdepend
+ * @group  pdepend::metrics
+ * @group  unittest
+ * @group  2.0
  */
-class PHP_Depend_Metrics_AnalyzerIteratorTest extends PHP_Depend_AbstractTest
+class AnalyzerIteratorTest extends \PHP_Depend_AbstractTest
 {
     /**
      * testIteratorReturnsEnabledAnalyzerInstances
@@ -79,7 +78,7 @@ class PHP_Depend_Metrics_AnalyzerIteratorTest extends PHP_Depend_AbstractTest
             ->method('isEnabled')
             ->will($this->returnValue(true));
 
-        $iterator = new PHP_Depend_Metrics_AnalyzerIterator(array($analyzer, $analyzer));
+        $iterator = new \PHP_Depend_Metrics_AnalyzerIterator(array($analyzer, $analyzer));
         self::assertEquals(2, iterator_count($iterator));
     }
 
@@ -90,7 +89,7 @@ class PHP_Depend_Metrics_AnalyzerIteratorTest extends PHP_Depend_AbstractTest
      */
     public function testIteratorDoesNotReturnDisabledAnalyzerInstances()
     {
-        $analyzer = $this->getMock('PHP_Depend_Metrics_AnalyzerI');
+        $analyzer = $this->getMock('PHP_Depend_Metrics_Analyzer');
         $analyzer->expects($this->at(0))
             ->method('isEnabled')
             ->will($this->returnValue(true));
@@ -98,7 +97,7 @@ class PHP_Depend_Metrics_AnalyzerIteratorTest extends PHP_Depend_AbstractTest
             ->method('isEnabled')
             ->will($this->returnValue(false));
 
-        $iterator = new PHP_Depend_Metrics_AnalyzerIterator(array($analyzer, $analyzer));
+        $iterator = new \PHP_Depend_Metrics_AnalyzerIterator(array($analyzer, $analyzer));
         self::assertEquals(1, iterator_count($iterator));
     }
 }
