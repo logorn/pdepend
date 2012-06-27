@@ -96,7 +96,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
      */
     public function getId()
     {
-        return $this->context->getType($this->name)->getId();
+        return $this->getType()->getId();
     }
 
     /**
@@ -106,7 +106,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
      */
     public function getName()
     {
-        return $this->context->getType($this->name)->getName();
+        return $this->getType()->getName();
     }
 
     /**
@@ -116,7 +116,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
      */
     public function getMethods()
     {
-        return $this->context->getType($this->name)->getMethods();
+        return $this->getType()->getMethods();
     }
 
     /**
@@ -126,7 +126,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
      */
     public function getNamespace()
     {
-        return $this->context->getType($this->name)->getNamespace();
+        return $this->getType()->getNamespace();
     }
 
     /**
@@ -138,6 +138,16 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
      */
     public function isSubtypeOf(PHP_Depend_AST_Type $type)
     {
-        return $this->context->getType($this->name)->isSubtypeOf($type);
+        return $this->getType()->isSubtypeOf($type);
+    }
+
+    /**
+     * Returns the original type referenced by this object.
+     *
+     * @return \PHP_Depend_AST_Type
+     */
+    public function getType()
+    {
+        return $this->context->getType($this->name);
     }
 }

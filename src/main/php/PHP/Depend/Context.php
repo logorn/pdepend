@@ -117,6 +117,7 @@ class PHP_Depend_Context
         }
 
         if ($id) {
+
             // TODO 2.0 extract name/namespace from id.
             return new PHP_Depend_AST_Class(
                 new PHPParser_Node_Stmt_Class(
@@ -142,10 +143,12 @@ class PHP_Depend_Context
     public function getInterface($id)
     {
         if ($interface = $this->getNode("{$id}#i")) {
+
             return $interface;
         }
 
         if ($id) {
+
             // TODO 2.0 extract name/namespace from id.
             return new PHP_Depend_AST_Interface(
                 new PHPParser_Node_Stmt_Interface(

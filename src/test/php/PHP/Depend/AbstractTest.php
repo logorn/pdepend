@@ -580,7 +580,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     {
         list($class, $method) = explode('::', self::getCallingTestMethod());
 
-        $parts = explode('_', $class);
+        $parts = preg_split('([_\\\\])', $class);
 
         // Strip first two parts
         array_shift($parts);
