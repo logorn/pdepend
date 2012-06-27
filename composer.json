@@ -2,7 +2,7 @@
     "name": "pdepend/pdepend",
     "description": "Official version of pdepend to be handled with Composer",
     "require": {
-        "php": ">=5.2.3"
+        "php": ">=5.3"
     },
     "bin": ["src/bin/pdepend"]
 }
