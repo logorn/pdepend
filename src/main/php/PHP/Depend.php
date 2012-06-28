@@ -45,6 +45,7 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Log\LogProcessor;
 use \PHP\Depend\Metrics\Processor\CompositeProcessor;
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
@@ -490,7 +491,7 @@ class PHP_Depend
     {
         $this->fireStartLogProcess();
 
-        $processor = new PHP_Depend_Log_Processor();
+        $processor = new LogProcessor();
         foreach ($this->_loggers as $logger) {
             if ($logger instanceof PHP_Depend_Log_CodeAware) {
                 $processor->register($logger);
@@ -611,13 +612,5 @@ class PHP_Depend
         );
 
         return $this->initAnalyseListeners($loader);
-    }
-}
-
-class PHP_Depend_Log_Processor extends \PHP\Depend\Util\Processor
-{
-    public function register(PHP_Depend_Log_Logger $logger)
-    {
-        $this->registerVisitor($logger);
     }
 }

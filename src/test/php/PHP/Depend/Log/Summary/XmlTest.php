@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Log\LogProcessor;
+
 require_once dirname(__FILE__) . '/../../AbstractTest.php';
 require_once dirname(__FILE__) . '/AnalyzerNodeAwareDummy.php';
 require_once dirname(__FILE__) . '/AnalyzerProjectAwareDummy.php';
@@ -171,7 +173,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
         $log = new PHP_Depend_Log_Summary_Xml();
         $log->setLogFile($this->resultFile);
 
-        $processor = new PHP_Depend_Log_Processor();
+        $processor = new LogProcessor();
         $processor->register($log);
         $processor->process(self::parseCodeResourceForTest());
 
@@ -230,7 +232,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
         $log->log($analyzer);
         $log->setLogFile($this->resultFile);
 
-        $processor = new PHP_Depend_Log_Processor();
+        $processor = new LogProcessor();
         $processor->register($log);
         $processor->process(self::parseCodeResourceForTest());
 
@@ -283,7 +285,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
         $log->log($resultOne);
         $log->log($resultTwo);
 
-        $processor = new PHP_Depend_Log_Processor();
+        $processor = new LogProcessor();
         $processor->register($log);
         $processor->process(self::parseCodeResourceForTest());
 
