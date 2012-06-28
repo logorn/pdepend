@@ -74,11 +74,11 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Metrics_NodeLoc_Analyzer
+class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     extends PHP_Depend_Metrics_AbstractCachingAnalyzer
    implements PHP_Depend_Metrics_Analyzer,
               PHP_Depend_Metrics_NodeAware,
-              PHP_Depend_Metrics_ProjectAware
+              PHP_Depend_Metrics_ProjectAware*/
 {
     /**
      * Type of this analyzer class.
