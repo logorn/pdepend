@@ -324,17 +324,4 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
             $function->unsetPackage();
         }
     }
-
-    /**
-     * Visitor method for node tree traversal.
-     *
-     * @param PHP_Depend_VisitorI $visitor          The context visitor
-     *                                              implementation.
-     *
-     * @return void
-     */
-    public function accept(PHP_Depend_VisitorI $visitor)
-    {
-        $visitor->visitPackage($this);
-    }
 }

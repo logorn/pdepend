@@ -516,12 +516,10 @@ class PHP_Depend
     )
     {
         foreach ($analyzerLoader as $analyzer) {
-            foreach ($this->_listeners as $listener) {
-                $analyzer->addAnalyzeListener($listener);
 
-                if ($analyzer instanceof PHP_Depend_VisitorI) {
-                    $analyzer->addVisitListener($listener);
-                }
+            foreach ($this->_listeners as $listener) {
+
+                $analyzer->addAnalyzeListener($listener);
             }
         }
 

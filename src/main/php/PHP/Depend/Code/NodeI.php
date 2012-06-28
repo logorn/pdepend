@@ -75,16 +75,6 @@ interface PHP_Depend_Code_NodeI
      * @return string
      */
     function getUUID();
-
-    /**
-     * Visitor method for node tree traversal.
-     *
-     * @param PHP_Depend_VisitorI $visitor          The context visitor
-     *                                              implementation.
-     *
-     * @return void
-     */
-    function accept(PHP_Depend_VisitorI $visitor);
 }
 
 // @codeCoverageIgnoreEnd

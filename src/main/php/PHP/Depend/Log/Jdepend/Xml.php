@@ -228,7 +228,6 @@ class PHP_Depend_Log_Jdepend_Xml
      * @param PHP_Depend_AST_Class $class The current class node.
      *
      * @return void
-     * @see PHP_Depend_VisitorI::visitClass()
      */
     public function visitClass(PHP_Depend_AST_Class $class)
     {
@@ -255,7 +254,6 @@ class PHP_Depend_Log_Jdepend_Xml
      * @param PHP_Depend_AST_Interface $interface The context code interface.
      *
      * @return void
-     * @see PHP_Depend_VisitorI::visitInterface()
      */
     public function visitInterface(PHP_Depend_AST_Interface $interface)
     {
@@ -278,7 +276,6 @@ class PHP_Depend_Log_Jdepend_Xml
      * @param PHP_Depend_AST_Class $package The package class node.
      *
      * @return void
-     * @see PHP_Depend_VisitorI::visitPackage()
      */
     public function visitPackage(PHP_Depend_AST_Package $package)
     {

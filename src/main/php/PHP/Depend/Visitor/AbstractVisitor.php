@@ -60,7 +60,6 @@
  * @link       http://pdepend.org/
  */
 abstract class PHP_Depend_Visitor_AbstractVisitor
-    implements PHP_Depend_VisitorI
 {
     /**
      * List of all registered listeners.
