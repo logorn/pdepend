@@ -63,10 +63,8 @@
  */
 class PHP_Depend_Metrics_ClassLevel_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
-    /* TODO 2.0
         implements PHP_Depend_Metrics_AggregateAnalyzerI,
                    PHP_Depend_Metrics_NodeAware
-    */
 {
     /**
      * Type of this analyzer class.
@@ -117,37 +115,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     private $_cyclomaticAnalyzer = null;
 
     /**
-     * Processes all {@link PHP_Depend_Code_Package} code nodes.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages All code packages.
-     *
-     * @return void
-     */
-    public function analyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-        if ($this->_nodeMetrics === null) {
-            // First check for the require cc analyzer
-            if ($this->_cyclomaticAnalyzer === null) {
-                throw new RuntimeException('Missing required CC analyzer.');
-            }
-
-            $this->fireStartAnalyzer();
-
-            $this->_cyclomaticAnalyzer->analyze($packages);
-
-            // Init node metrics
-            $this->_nodeMetrics = array();
-
-            // Visit all nodes
-            foreach ($packages as $package) {
-                $package->accept($this);
-            }
-
-            $this->fireEndAnalyzer();
-        }
-    }
-
-    /**
      * This method must return an <b>array</b> of class names for required
      * analyzers.
      *
@@ -177,19 +144,30 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
     /**
      * This method will return an <b>array</b> with all generated metric values
-     * for the given <b>$node</b>. If there are no metrics for the requested
-     * node, this method will return an empty <b>array</b>.
+     * for the given node or node identifier. If there are no metrics for the
+     * requested node, this method will return an empty <b>array</b>.
      *
-     * @param PHP_Depend_Code_NodeI $node The context node instance.
-     * @return array(string=>mixed)
+     * <code>
+     * array(
+     *     'noc'  =>  23,
+     *     'nom'  =>  17,
+     *     'nof'  =>  42
+     * )
+     * </code>
+     *
+     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     *
+     * @return array
      */
     public function getNodeMetrics($node)
     {
-        $metrics = array();
-        if (isset($this->_nodeMetrics[$node->getUUID()])) {
-            $metrics = $this->_nodeMetrics[$node->getUUID()];
+        $nodeId = (string) is_object($node) ? $node->getId() : $node;
+
+        if (isset($this->metrics[$nodeId])) {
+
+            return $this->metrics[$nodeId];
         }
-        return $metrics;
+        return array();
     }
 
     /**
@@ -203,8 +181,8 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         $this->fireStartClass($class);
 
         $impl  = $class->getInterfaces()->count();
-        $varsi = $this->_calculateVARSi($class);
-        $wmci  = $this->_calculateWMCiForClass($class);
+        $varsi = $this->calculateVARSi($class);
+        $wmci  = $this->calculateWMCiForClass($class);
 
         $this->_nodeMetrics[$class->getUUID()] = array(
             self::M_IMPLEMENTED_INTERFACES       => $impl,
@@ -251,7 +229,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     {
         $this->fireStartTrait($trait);
 
-        $wmci = $this->_calculateWMCiForTrait($trait);
+        $wmci = $this->calculateWMCiForTrait($trait);
 
         $this->_nodeMetrics[$trait->getUUID()] = array(
             self::M_IMPLEMENTED_INTERFACES       => 0,
@@ -344,7 +322,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * @param PHP_Depend_Code_Class $class The context class instance.
      * @return integer
      */
-    private function _calculateVARSi(PHP_Depend_Code_Class $class)
+    private function calculateVARSi(PHP_Depend_Code_Class $class)
     {
         // List of properties, this method only counts not overwritten properties
         $properties = array();
@@ -370,9 +348,9 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * @param PHP_Depend_Code_Class $class The context class instance.
      * @return integer
      */
-    private function _calculateWMCiForClass(PHP_Depend_Code_Class $class)
+    private function calculateWMCiForClass(PHP_Depend_Code_Class $class)
     {
-        $ccn = $this->_calculateWMCi($class);
+        $ccn = $this->calculateWMCi($class);
 
         foreach ($class->getParentClasses() as $parent) {
             foreach ($parent->getMethods() as $method) {
@@ -396,9 +374,9 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * @return integer
      * @since 1.0.6
      */
-    private function _calculateWMCiForTrait(PHP_Depend_AST_Trait $trait)
+    private function calculateWMCiForTrait(PHP_Depend_AST_Trait $trait)
     {
-        return array_sum($this->_calculateWMCi($trait));
+        return array_sum($this->calculateWMCi($trait));
     }
 
     /**
@@ -408,7 +386,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * @return integer[]
      * @since 1.0.6
      */
-    private function _calculateWMCi(PHP_Depend_Code_AbstractType $type)
+    private function calculateWMCi(PHP_Depend_Code_AbstractType $type)
     {
         $ccn = array();
 

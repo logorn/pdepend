@@ -42,14 +42,15 @@
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   SVN: $Id$
  * @link      http://pdepend.org/
+ * @since     2.0.0
  */
 
-namespace PHP\Depend\Metrics;
+namespace PHP\Depend\Metrics\Processor;
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
+use \PHP\Depend\Metrics\Processor;
 
 /**
- * Test case for the {@link \PHP_Depend_Metrics_AnalyzerIterator} class.
+ * Composite that aggregates several other processors.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -57,47 +58,56 @@ require_once dirname(__FILE__) . '/../AbstractTest.php';
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
- *
- * @covers \PHP_Depend_Metrics_AnalyzerIterator
- * @group  pdepend
- * @group  pdepend::metrics
- * @group  unittest
- * @group  2.0
+ * @since     2.0.0
  */
-class AnalyzerIteratorTest extends \PHP_Depend_AbstractTest
+class CompositeProcessor implements Processor
 {
     /**
-     * testIteratorReturnsEnabledAnalyzerInstances
+     * Composed metric processors.
+     *
+     * @var \PHP\Depend\Metrics\Processor[]
+     */
+    private $processors = array();
+
+    /**
+     * Adds a sub processor to this composite.
+     *
+     * @param \PHP\Depend\Metrics\Processor $processor
      *
      * @return void
      */
-    public function testIteratorReturnsEnabledAnalyzerInstances()
+    public function add(Processor $processor)
     {
-        $analyzer = $this->getMock('PHP_Depend_Metrics_Analyzer');
-        $analyzer->expects($this->exactly(2))
-            ->method('isEnabled')
-            ->will($this->returnValue(true));
-
-        $iterator = new \PHP_Depend_Metrics_AnalyzerIterator(array($analyzer, $analyzer));
-        self::assertEquals(2, iterator_count($iterator));
+        $this->processors[] = $processor;
     }
 
     /**
-     * testIteratorDoesNotReturnDisabledAnalyzerInstances
+     * Processes the given compilation units with all registered analyzers.
+     *
+     * @param \PHP_Depend_AST_CompilationUnit[] $compilationUnit
      *
      * @return void
      */
-    public function testIteratorDoesNotReturnDisabledAnalyzerInstances()
+    public function process(array $compilationUnit)
     {
-        $analyzer = $this->getMock('PHP_Depend_Metrics_Analyzer');
-        $analyzer->expects($this->at(0))
-            ->method('isEnabled')
-            ->will($this->returnValue(true));
-        $analyzer->expects($this->at(1))
-            ->method('isEnabled')
-            ->will($this->returnValue(false));
+        foreach ($this->processors as $processor) {
 
-        $iterator = new \PHP_Depend_Metrics_AnalyzerIterator(array($analyzer, $analyzer));
-        self::assertEquals(1, iterator_count($iterator));
+            $processor->process($compilationUnit);
+        }
+    }
+
+    /**
+     * Returns all analyzers available in this processor.
+     *
+     * @return \PHP_Depend_Metrics_Analyzer[]
+     */
+    public function getAnalyzers()
+    {
+        $analyzers = array();
+        foreach ($this->processors as $processor) {
+
+            $analyzers = array_merge($analyzers, $processor->getAnalyzers());
+        }
+        return $analyzers;
     }
 }

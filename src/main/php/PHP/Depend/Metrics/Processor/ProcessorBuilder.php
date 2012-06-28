@@ -37,52 +37,59 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   SVN: $Id$
  * @link      http://pdepend.org/
- * @since     0.10.0
+ * @since     2.0.0
  */
 
+namespace PHP\Depend\Metrics\Processor;
+
+use \PHP_Depend_Util_Cache_Factory as CacheFactory;
+
 /**
- * Class that implements autoloading for PHP_Depend.
+ * Builder that creates a processor from a given set of loggers.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
- * @since     0.10.0
+ * @since     2.0.0
  */
-class PHP_Depend_Autoload
+class ProcessorBuilder
 {
     /**
-     * Registers this autoload instance at the spl autoloader stack.
+     * The configured cache factory.
      *
-     * @return void
+     * @var \PHP_Depend_Util_Cache_Factory
      */
-    public function register()
-    {
-        spl_autoload_register(array($this, 'autoload'));
-    }
+    private $cacheFactory;
 
     /**
-     * Callback method that will be called by the PHP runtime environment when
-     * a class with the given name does not exist.
+     * Additional command line options for the analyzers.
      *
-     * @param string $className Name of the missing class.
-     *
-     * @return void
+     * @var array
      */
-    public function autoload($className)
-    {
-        if (1 === preg_match('(^PHP([_\\\\])Depend)', $className, $match)) {
+    private $options;
 
-            include strtr($className, $match[1], '//') . '.php';
-        }
+    /**
+     * Constructs a new processor builder
+     *
+     * @param \PHP_Depend_Util_Cache_Factory $cacheFactory
+     * @param array $options
+     */
+    public function __construct(CacheFactory $cacheFactory, array $options)
+    {
+        $this->cacheFactory = $cacheFactory;
+        $this->options = $options;
+    }
+
+    public function buildFromLog(array $logs)
+    {
+
     }
 }

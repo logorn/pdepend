@@ -36,30 +36,34 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util;
+
+use \PHPParser_Node;
+use \PHPParser_NodeTraverser;
+use \PHPParser_NodeVisitor;
 
 /**
  * Generic compilation unit processor that traverses a node tree.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-abstract class PHP_Depend_Util_Processor extends PHPParser_NodeTraverser implements PHPParser_NodeVisitor
+abstract class Processor
+    extends PHPParser_NodeTraverser
+    implements PHPParser_NodeVisitor
 {
     /**
      * Array with all registered visitors
@@ -117,6 +121,16 @@ abstract class PHP_Depend_Util_Processor extends PHPParser_NodeTraverser impleme
     }
 
     /**
+     * Returns all registered visitor objects.
+     *
+     * @return stdClass[]
+     */
+    public function getVisitors()
+    {
+        return $this->nodeVisitors;
+    }
+
+    /**
      * Processes the given compilation units with all registered analyzers.
      *
      * @param PHP_Depend_AST_CompilationUnit[] $compilationUnit
@@ -168,7 +182,8 @@ abstract class PHP_Depend_Util_Processor extends PHPParser_NodeTraverser impleme
      * Return value semantics:
      *  * null:      $node stays as-is
      *  * false:     $node is removed from the parent array
-     *  * array:     The return value is merged into the parent array (at the position of the $node)
+     *  * array:     The return value is merged into the parent array (at the
+     *               position of the $node)
      *  * otherwise: $node is set to the return value
      *
      * @param PHPParser_Node $node Node
@@ -221,7 +236,11 @@ abstract class PHP_Depend_Util_Processor extends PHPParser_NodeTraverser impleme
         }
 
         foreach ($this->callbacks[$callback] as $class) {
-            $this->data[$class] = $this->nodeVisitors[$class]->$callback($node, $this->data[$class]);
+
+            $this->data[$class] = $this->nodeVisitors[$class]->$callback(
+                $node,
+                $this->data[$class]
+            );
         }
     }
 }

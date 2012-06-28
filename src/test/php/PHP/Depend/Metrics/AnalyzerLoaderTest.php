@@ -124,8 +124,12 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
         );
 
         $actual = array();
-        foreach ($loader->getIterator() as $analyzer) {
-            $actual[] = get_class($analyzer);
+        foreach ($loader->getAnalyzers() as $analyzers) {
+
+            foreach ($analyzers as $analyzer) {
+
+                $actual[] = get_class($analyzer);
+            }
         }
         sort($actual);
 
@@ -160,7 +164,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
             array('PHP_Depend_Metrics_Analyzer')
         );
 
-        self::assertEquals(1, iterator_count($loader->getIterator()));
+        self::assertEquals(1, count($loader->getAnalyzers()));
     }
 
 
@@ -192,6 +196,6 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
             array('PHP_Depend_Metrics_Analyzer')
         );
 
-        self::assertEquals(0, iterator_count($loader->getIterator()));
+        self::assertEquals(0, count($loader->getAnalyzers()));
     }
 }

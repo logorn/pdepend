@@ -45,6 +45,8 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 require_once dirname(__FILE__) . '/../AbstractTest.php';
 
 /**
@@ -450,7 +452,7 @@ class PHP_Depend_Metrics_CodeRank_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      */
     private function getMetrics(array $ids, array $options = array())
     {
-        $processor = new PHP_Depend_Metrics_Processor();
+        $processor = new DefaultProcessor();
         $processor->register($analyzer = new PHP_Depend_Metrics_CodeRank_Analyzer($options));
         $processor->process(self::parseCodeResourceForTest());
 

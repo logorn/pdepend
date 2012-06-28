@@ -69,14 +69,15 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
      *
      * @var string
      */
-    private $_classPath = null;
+    private $classPath = null;
 
     /**
-     * Array containing reflection classes for all found analyzer implementations.
+     * Array containing reflection classes for all found analyzer
+     * implementations.
      *
-     * @var array(ReflectionClass)
+     * @var ReflectionClass[]
      */
-    private $_analyzers = null;
+    private $analyzers = null;
 
     /**
      * Constructs a new locator instance.
@@ -86,31 +87,31 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
     public function __construct($classPath = null)
     {
         if ($classPath === null) {
-            $classPath = dirname(__FILE__) . '/../../../';
+            $classPath = __DIR__ . '/../../../';
         }
-        $this->_classPath = realpath($classPath) . DIRECTORY_SEPARATOR;
+        $this->classPath = realpath($classPath) . DIRECTORY_SEPARATOR;
     }
 
     /**
      * Returns an array with reflection instances for all analyzer classes.
      *
-     * @return array(ReflectionClass)
+     * @return ReflectionClass[]
      */
     public function findAll()
     {
-        if ($this->_analyzers === null) {
-            $this->_analyzers = $this->_find();
+        if ($this->analyzers === null) {
+            $this->analyzers = $this->findInPath();
         }
-        return $this->_analyzers;
+        return $this->analyzers;
     }
 
     /**
      * Performs a recursive search for analyzers in the configured class path
      * directory.
      *
-     * @return array(ReflectionClass)
+     * @return ReflectionClass[]
      */
-    private function _find()
+    private function findInPath()
     {
         $result = array();
 
@@ -128,22 +129,27 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
                 continue;
             }
 
-            $this->_classPath = $dir;
+            $this->classPath = $dir;
 
             $iterator = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($dir)
             );
 
             foreach ($iterator as $file) {
+
                 if ($file->getFilename() === 'Analyzer.php') {
-                    $className = $this->_createClassNameFromPath(
+
+                    $className = $this->createClassNameFromPath(
                         $dir, $file->getPathname()
                     );
+
                     if (!class_exists($className)) {
+
                         include_once $file->getPathname();
                     }
 
-                    if ($this->_isAnalyzerClass($className)) {
+                    if ($this->isAnalyzerClass($className)) {
+
                         $result[$className] = new ReflectionClass($className);
                     }
                 }
@@ -163,34 +169,34 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
      *
      * @return string
      */
-    private function _createClassNameFromPath($classPath, $path)
+    private function createClassNameFromPath($classPath, $path)
     {
         $localPath = substr($path, strlen($classPath), -4);
         return 'PHP_Depend_Metrics_' . strtr($localPath, DIRECTORY_SEPARATOR, '_');
     }
 
     /**
-     * Checks if the given class name represents a valid analyzer implementation.
+     * Checks if the given class represents a valid analyzer implementation.
      *
-     * @param string $className Class name of a possible analyzer implementation.
+     * @param string $class
      *
      * @return boolean
      */
-    private function _isAnalyzerClass($className)
+    private function isAnalyzerClass($class)
     {
-        return class_exists($className) && $this->_implementsInterface($className);
+        return class_exists($class) && $this->implementsInterface($class);
     }
 
     /**
      * Checks if the given class implements the analyzer interface.
      *
-     * @param string $className Class name of a possible analyzer implementation.
+     * @param string $class
      *
      * @return boolean
      */
-    private function _implementsInterface($className)
+    private function implementsInterface($class)
     {
         $expectedType = 'PHP_Depend_Metrics_Analyzer';
-        return in_array($expectedType, class_implements($className));
+        return in_array($expectedType, class_implements($class));
     }
 }

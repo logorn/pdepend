@@ -59,14 +59,19 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
+class PHP_Depend_Metrics_AnalyzerLoader
 {
     /**
-     * All matching analyzer instances.
-     *
-     * @var PHP_Depend_Metrics_Analyzer[]
+     * @var boolean
      */
-    private $_analyzers;
+    private $initialized = false;
+
+    /**
+     * Stack of loaded analyzers.
+     *
+     * @var PHP_Depend_Metrics_Analyzer[][]
+     */
+    private $steps = array();
 
     private $_acceptedTypes;
 
@@ -90,14 +95,10 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
     /**
      * Constructs a new analyzer loader.
      *
-     * @param PHP_Depend_Metrics_AnalyzerClassLocator $classLocator  Class locator
-     *                                                               used to find analyzer source files on the current system.
-     * @param PHP_Depend_Util_Cache_Driver            $cache         The cache
-     *                                                               driver may be used by some analyzers to store calculated metrics.
-     * @param array                                   $acceptedTypes This property
-     *                                                               contains the class names of the required analyzer.
-     * @param array                                   $options       Array with
-     *                                                               additional options supplied on the command line.
+     * @param PHP_Depend_Metrics_AnalyzerClassLocator $classLocator
+     * @param PHP_Depend_Util_Cache_Driver $cache
+     * @param string[] $acceptedTypes
+     * @param array $options
      */
     public function __construct(
         PHP_Depend_Metrics_AnalyzerClassLocator $classLocator,
@@ -114,17 +115,19 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
     }
 
     /**
-     * Returns a countable iterator of {@link PHP_Depend_Metrics_Analyzer}
-     * instances that match against the given accepted types.
+     * Returns an array of {@link PHP_Depend_Metrics_Analyzer} objects
+     * that match against the configured analyzer types.
      *
-     * @return Iterator
+     * @return PHP_Depend_Metrics_Analyzer[][]
      */
-    public function getIterator()
+    public function getAnalyzers()
     {
-        if ($this->_analyzers === null) {
-            $this->_initAnalyzers();
+        if (false === $this->initialized) {
+
+            $this->initialize();
+            $this->initialized = true;
         }
-        return new PHP_Depend_Metrics_AnalyzerIterator($this->_analyzers);
+        return $this->steps;
     }
 
     /**
@@ -133,25 +136,52 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
      * @return void
      * @since 0.9.10
      */
-    private function _initAnalyzers()
+    private function initialize()
     {
-        $this->_analyzers = array();
-        $this->_loadAcceptedAnalyzers($this->_acceptedTypes);
+        $this->loadByType($this->_acceptedTypes);
+
+        foreach ($this->steps as $step => $analyzers) {
+
+            $this->steps[$step] = $this->filter($analyzers);
+        }
+        $this->steps = array_filter($this->steps);
+    }
+
+    /**
+     * Filters all analyzers that are not enabled.
+     *
+     * @param PHP_Depend_Metrics_Analyzer[] $analyzers
+     *
+     * @return PHP_Depend_Metrics_Analyzer[]
+     */
+    private function filter(array $analyzers)
+    {
+        foreach ($analyzers as $name => $analyzer) {
+
+            if ($analyzer->isEnabled()) {
+                continue;
+            }
+            unset($analyzers[$name]);
+        }
+
+        return $analyzers;
     }
 
     /**
      * Loads all accepted node analyzers.
      *
-     * @param array $acceptedTypes Accepted/expected analyzer types.
+     * @param array $types Accepted/expected analyzer types.
      *
-     * @return PHP_Depend_Metrics_Analyzer
+     * @return PHP_Depend_Metrics_Analyzer[]
      */
-    private function _loadAcceptedAnalyzers(array $acceptedTypes)
+    private function loadByType(array $types)
     {
         $analyzers = array();
         foreach ($this->_classLocator->findAll() as $reflection) {
-            if ($this->_isInstanceOf($reflection, $acceptedTypes)) {
-                $analyzers[] = $this->_createOrReturnAnalyzer($reflection);
+
+            if ($this->isInstanceOf($reflection, $types)) {
+
+                $analyzers[] = $this->createOrReturnAnalyzer($reflection);
             }
         }
         return $analyzers;
@@ -161,22 +191,24 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
      * This method checks if the given analyzer class implements one of the
      * expected analyzer types.
      *
-     * @param ReflectionClass $reflection    Reflection class for an analyzer.
-     * @param array           $expectedTypes List of accepted analyzer types.
+     * @param ReflectionClass $reflection
+     * @param array $types
      *
      * @return boolean
      * @since 0.9.10
      */
-    private function _isInstanceOf(ReflectionClass $reflection, array $expectedTypes)
+    private function isInstanceOf(ReflectionClass $reflection, array $types)
     {
+        foreach ($types as $type) {
 
-        foreach ($expectedTypes as $type) {
             if (interface_exists($type) && $reflection->implementsInterface($type)) {
                 return true;
             }
+
             if (class_exists($type) && $reflection->isSubclassOf($type)) {
                 return true;
             }
+
             if (strcasecmp($reflection->getName(), $type) === 0) {
                 return true;
             }
@@ -193,13 +225,17 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
      * @return PHP_Depend_Metrics_Analyzer
      * @since 0.9.10
      */
-    private function _createOrReturnAnalyzer(ReflectionClass $reflection)
+    private function createOrReturnAnalyzer(ReflectionClass $reflection)
     {
         $name = $reflection->getName();
-        if (!isset($this->_analyzers[$name])) {
-            $this->_analyzers[$name] = $this->_createAndConfigure($reflection);
+        foreach ($this->steps as $step) {
+
+            if (isset($step[$name])) {
+
+                return $step[$name];
+            }
         }
-        return $this->_analyzers[$name];
+        return $this->createAndConfigure($reflection);
     }
 
     /**
@@ -210,14 +246,17 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
      * @return PHP_Depend_Metrics_Analyzer
      * @since 0.9.10
      */
-    private function _createAndConfigure(ReflectionClass $reflection)
+    private function createAndConfigure(ReflectionClass $reflection)
     {
         if ($reflection->getConstructor()) {
+
             $analyzer = $reflection->newInstance($this->_options);
         } else {
+
             $analyzer = $reflection->newInstance();
         }
-        return $this->_configure($analyzer);
+
+        return $this->configure($analyzer);
     }
 
     /**
@@ -228,20 +267,38 @@ class PHP_Depend_Metrics_AnalyzerLoader implements IteratorAggregate
      * @return PHP_Depend_Metrics_Analyzer
      * @since 0.9.10
      */
-    private function _configure(PHP_Depend_Metrics_Analyzer $analyzer)
+    private function configure(PHP_Depend_Metrics_Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_CacheAware) {
             $analyzer->setCache($this->_cache);
         }
 
         if (!($analyzer instanceof PHP_Depend_Metrics_AggregateAnalyzerI)) {
+
+            $this->steps[0][get_class($analyzer)] = $analyzer;
+
             return $analyzer;
         }
 
-        $required = $this->_loadAcceptedAnalyzers($analyzer->getRequiredAnalyzers());
+        $required = $this->loadByType($analyzer->getRequiredAnalyzers());
         foreach ($required as $requiredAnalyzer) {
             $analyzer->addAnalyzer($requiredAnalyzer);
         }
+
+        $index = 0;
+        foreach ($required as $requiredAnalyzer) {
+
+            foreach ($this->steps as $i => $step) {
+
+                if (isset($step[get_class($requiredAnalyzer)])) {
+
+                    $index = max($i, $index);
+                }
+            }
+        }
+
+        $this->steps[$index + 1][get_class($analyzer)] = $analyzer;
+
         return $analyzer;
     }
 }

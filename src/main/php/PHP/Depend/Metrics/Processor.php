@@ -36,43 +36,43 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
 
+namespace PHP\Depend\Metrics;
+
 /**
- * Main processor for the different metric analyzers.
+ * Base interface for a metric analyzer processor.
  *
- * This class will traverse the parsed node trees and it invokes the available
- * visit callback methods in the registered analyzers.
- *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_Metrics_Processor extends PHP_Depend_Util_Processor
+interface Processor
 {
     /**
-     * Registers the given analyzer for the next AST processing.
+     * Processes the given compilation units with all registered analyzers.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer
+     * @param \PHP_Depend_AST_CompilationUnit[] $compilationUnit
      *
      * @return void
      */
-    public function register(PHP_Depend_Metrics_Analyzer $analyzer)
-    {
-        $this->registerVisitor($analyzer);
-    }
+    public function process(array $compilationUnit);
+
+    /**
+     * Returns all analyzers available in this processor.
+     *
+     * @return \PHP_Depend_Metrics_Analyzer[]
+     */
+    public function getAnalyzers();
 }

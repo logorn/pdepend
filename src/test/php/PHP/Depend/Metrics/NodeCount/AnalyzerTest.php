@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 require_once dirname(__FILE__) . '/../AbstractTest.php';
 
 /**
@@ -60,12 +62,12 @@ require_once dirname(__FILE__) . '/../AbstractTest.php';
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers     PHP_Depend_Metrics_NodeCount_Analyzer
- * @group      pdepend
- * @group      pdepend::metrics
- * @group      pdepend::metrics::nodecount
- * @group      unittest
- * @group      2.0
+ * @covers PHP_Depend_Metrics_NodeCount_Analyzer
+ * @group  pdepend
+ * @group  pdepend::metrics
+ * @group  pdepend::metrics::nodecount
+ * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
 {
@@ -76,7 +78,7 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testGetProjectMetricsReturnsExpectedSetOfMetrics()
     {
-        $processor = new PHP_Depend_Metrics_Processor();
+        $processor = new DefaultProcessor();
         $processor->register($analyzer = new PHP_Depend_Metrics_NodeCount_Analyzer());
         $processor->process(self::parseTestCaseSource(__METHOD__));
 
@@ -195,7 +197,7 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testGetNodeMetricsOnNamespace()
     {
-        $processor = new PHP_Depend_Metrics_Processor();
+        $processor = new DefaultProcessor();
         $processor->register($analyzer = new PHP_Depend_Metrics_NodeCount_Analyzer());
         $processor->process(self::parseTestCaseSource(__METHOD__));
 

@@ -36,50 +36,56 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.9.10
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
 
+namespace PHP\Depend\Metrics\Processor;
+
+use \PHP_Depend_Metrics_Analyzer;
+use \PHP\Depend\Metrics\Processor;
+use \PHP\Depend\Util;
+
 /**
- * Filter iterator that only returns enabled {@link PHP_Depend_Metrics_Analyzer}
- * instances.
+ * Main processor for the different metric analyzers.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.9.10
+ * This class will traverse the parsed node trees and it invokes the available
+ * visit callback methods in the registered analyzers.
+ *
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_Metrics_AnalyzerIterator extends FilterIterator
+class DefaultProcessor extends Util\Processor implements Processor
 {
     /**
-     * Constructs a new iterator instance.
+     * Registers the given analyzer for the next AST processing.
      *
-     * @param PHP_Depend_Metrics_Analyzer[] $analyzers List of found analyzers.
+     * @param \PHP_Depend_Metrics_Analyzer $analyzer
+     *
+     * @return void
      */
-    public function __construct(array $analyzers)
+    public function register(PHP_Depend_Metrics_Analyzer $analyzer)
     {
-        parent::__construct(new ArrayIterator($analyzers));
+        $this->registerVisitor($analyzer);
     }
 
     /**
-     * Returns <b>true</b> when the current analyzer instance is enabled.
+     * Returns all analyzers available in this processor.
      *
-     * @return boolean
+     * @return \PHP_Depend_Metrics_Analyzer[]
      */
-    public function accept()
+    public function getAnalyzers()
     {
-        return $this->getInnerIterator()->current()->isEnabled();
+        return $this->getVisitors();
     }
 }

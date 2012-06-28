@@ -654,7 +654,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     {
         $basedir = realpath(dirname(__FILE__) . '/../../../../../');
 
-        $file = strtr($className, '_', '/') . '.php';
+        $file = strtr($className, '_\\', '//') . '.php';
         if (is_file($basedir . '/src/main/php/' . $file)) {
             $file = $basedir . '/src/main/php/' . $file;
         } else if (is_file($basedir . '/lib/PHP-Parser/lib/' . $file)) {

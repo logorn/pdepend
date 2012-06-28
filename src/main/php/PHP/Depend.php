@@ -45,6 +45,9 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Processor\CompositeProcessor;
+use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 /**
  * PHP_Depend analyzes php class files and generates metrics.
  *
@@ -77,7 +80,7 @@ class PHP_Depend
      * @var PHP_Depend_Util_Configuration
      * @since 0.10.0
      */
-    protected $configuration = null;
+    private $configuration = null;
 
     /**
      * List of source directories.
@@ -417,7 +420,7 @@ class PHP_Depend
 
         ini_set('xdebug.max_nesting_level', $this->configuration->parser->nesting);
 
-        foreach ($this->_createFileIterator() as $file) {
+        foreach ($this->createFileIterator() as $file) {
             //if ($this->_withoutAnnotations === true) {
             //    $parser->setIgnoreAnnotations();
             //}
@@ -451,30 +454,35 @@ class PHP_Depend
      */
     private function processAnalyzing(array $compilationUnits)
     {
-        $analyzerLoader = $this->_createAnalyzerLoader($this->_options);
+        $analyzerLoader = $this->createAnalyzerLoader($this->_options);
 
         $this->fireStartAnalyzeProcess();
 
         ini_set('xdebug.max_nesting_level', $this->configuration->parser->nesting);
 
-        $processor = new PHP_Depend_Metrics_Processor();
+        $composite = new CompositeProcessor();
+        foreach ($analyzerLoader->getAnalyzers() as $analyzers) {
 
-        foreach ($analyzerLoader as $analyzer) {
-            $processor->register($analyzer);
+            $processor = new DefaultProcessor();
+            foreach ($analyzers as $analyzer) {
+
+                $processor->register($analyzer);
+            }
+            $composite->add($processor);
         }
 
-        $processor->process($compilationUnits);
+        $composite->process($compilationUnits);
 
         ini_restore('xdebug.max_nesting_level');
 
         $this->fireEndAnalyzeProcess();
 
-        return iterator_to_array($analyzerLoader->getIterator());
+        return $composite->getAnalyzers();
     }
 
     /**
      * @param PHP_Depend_AST_CompilationUnit[] $compilationUnits
-     * @param PHP_Depend_Metrics_Analyzer[]    $analyzers
+     * @param PHP_Depend_Metrics_Analyzer[] $analyzers
      *
      * @return void
      */
@@ -506,12 +514,11 @@ class PHP_Depend
      * This method will initialize all code analysers and register the
      * interested listeners.
      *
-     * @param PHP_Depend_Metrics_AnalyzerLoader $analyzerLoader The used loader
-     *                                                          instance for all code analysers.
+     * @param PHP_Depend_Metrics_AnalyzerLoader $analyzerLoader
      *
      * @return PHP_Depend_Metrics_AnalyzerLoader
      */
-    private function _initAnalyseListeners(
+    private function initAnalyseListeners(
         PHP_Depend_Metrics_AnalyzerLoader $analyzerLoader
     )
     {
@@ -532,7 +539,7 @@ class PHP_Depend
      *
      * @return Iterator
      */
-    private function _createFileIterator()
+    private function createFileIterator()
     {
         if (count($this->_directories) === 0 && count($this->_files) === 0) {
             throw new RuntimeException('No source directory and file set.');
@@ -581,7 +588,7 @@ class PHP_Depend
      *
      * @return PHP_Depend_Metrics_AnalyzerLoader
      */
-    private function _createAnalyzerLoader(array $options)
+    private function createAnalyzerLoader(array $options)
     {
         $analyzerSet = array();
 
@@ -603,11 +610,11 @@ class PHP_Depend
             $options
         );
 
-        return $this->_initAnalyseListeners($loader);
+        return $this->initAnalyseListeners($loader);
     }
 }
 
-class PHP_Depend_Log_Processor extends PHP_Depend_Util_Processor
+class PHP_Depend_Log_Processor extends \PHP\Depend\Util\Processor
 {
     public function register(PHP_Depend_Log_Logger $logger)
     {
