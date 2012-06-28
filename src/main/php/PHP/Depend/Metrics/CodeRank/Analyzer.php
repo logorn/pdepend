@@ -147,6 +147,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
     public function getNodeMetrics($node)
     {
         if (null === $this->metrics) {
+
             $this->buildCodeRankMetrics();
         }
 
