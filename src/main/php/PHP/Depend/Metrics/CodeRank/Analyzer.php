@@ -288,8 +288,6 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
     }
 
-
-
     private function updateType(PHP_Depend_AST_Type $in, PHP_Depend_AST_Type $out)
     {
         $this->update($in, $out);
