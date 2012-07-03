@@ -50,10 +50,7 @@ class PHP_Depend_AST_ClassRefs
         if (null === $this->parentClassId) {
             return null;
         }
-        if ($parentClass = $this->context->getClass($this->parentClassId)) {
-            return $parentClass;
-        }
-        // TODO Return dummy class
+        return $this->context->getClass($this->parentClassId);
     }
 
     /**
@@ -61,16 +58,12 @@ class PHP_Depend_AST_ClassRefs
      */
     public function getImplementedInterfaces()
     {
-        $implementedInterfaces = array();
+        $implemented = array();
         foreach ($this->implementedInterfaceIds as $interfaceId) {
-            if ($interface = $this->context->getInterface($interfaceId)) {
-                $implementedInterfaces[] = $interface;
-            } else {
-                // TODO Create dummy interface
-                continue;
-            }
+
+            $implemented[] = $this->context->getInterface($interfaceId);
         }
-        return $implementedInterfaces;
+        return $implemented;
     }
 
     public function initialize(PHP_Depend_AST_Class $class)
