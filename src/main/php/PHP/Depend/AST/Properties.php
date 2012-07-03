@@ -73,7 +73,9 @@ use \PHPParser_Node_Stmt_Property;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class Properties extends PHPParser_Node_Stmt_Property implements PHP_Depend_AST_Node
+class Properties
+    extends PHPParser_Node_Stmt_Property
+    implements PHP_Depend_AST_Node
 {
     /**
      * Constructs a new properties collection.
@@ -97,6 +99,16 @@ class Properties extends PHPParser_Node_Stmt_Property implements PHP_Depend_AST_
     public function getProperties()
     {
         return $this->props;
+    }
+
+    /**
+     * Returns <b>true</b> when this properties collection is declared public.
+     *
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return (boolean) ($this->type & PHP_Depend_AST_Class::MODIFIER_PUBLIC);
     }
 
     /**
