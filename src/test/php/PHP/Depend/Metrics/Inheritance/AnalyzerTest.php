@@ -161,12 +161,22 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      */
     public function testGetNodeMetricsReturnsExpectedSetOfMetrics()
     {
+        $analyzer = new PHP_Depend_Metrics_Inheritance_Analyzer();
+
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_Inheritance_Analyzer());
+        $processor->register($analyzer);
         $processor->process(self::parseTestCaseSource(__METHOD__));
 
         $metrics = $analyzer->getNodeMetrics('NoInheritance#c');
-        $this->assertEquals(array('dit', 'noam', 'nocc', 'noom'), array_keys($metrics));
+        $this->assertEquals(
+            array(
+                'dit',
+                'noam',
+                'nocc',
+                'noom'
+            ),
+            array_keys($metrics)
+        );
 
         return $analyzer;
     }
@@ -405,8 +415,8 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      */
     public function testAnalyzerIgnoresClassesThatAreNotUserDefined($analyzer)
     {
-        $metrics = $analyzer->getNodeMetrics('UnknownInheritClass#c');
-        $this->assertEquals(array(), $metrics);
+        $metrics = $analyzer->getNodeMetrics('MyUnknownInheritClass#c');
+        $this->assertSame(array(), $metrics);
     }
 
     /**
