@@ -184,6 +184,19 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     }
 
     /**
+     * testCalculateNpmMetricZeroInheritance
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateNpmMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(1, $metrics['npm']);
+    }
+
+    /**
      * Tests that the analyzer calculates the correct VARS metric
      *
      * @param array $metrics
@@ -194,6 +207,71 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     public function testCalculateVARSMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(3, $metrics['vars']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct VARSi metric
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateVARSiMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(3, $metrics['varsi']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct VARSnp metric
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateVARSnpMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(1, $metrics['varsnp']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct WMC metric.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateWMCMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(3, $metrics['wmc']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct WMCi metric.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateWMCiMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(3, $metrics['wmci']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct WMCnp metric.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateWMCnpMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(1, $metrics['wmcnp']);
     }
 
     /**
@@ -307,16 +385,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     }
 
     /**
-     * testCalculateNpmMetricForClassWithPublicMethod
-     *
-     * @return void
-     */
-    public function testCalculateNpmMetricForClassWithPublicMethod()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('npm'));
-    }
-
-    /**
      * testCalculateNpmMetricForClassWithPublicMethods
      *
      * @return void
@@ -381,16 +449,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      *
      * @return void
      */
-    public function testCalculateVARSiMetric()
-    {
-        $this->assertEquals(4, $this->calculateClassMetric('varsi'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct VARSi metric
-     *
-     * @return void
-     */
     public function testCalculateVARSiMetricWithInheritance()
     {
         $this->assertEquals(5, $this->calculateClassMetric('varsi'));
@@ -401,29 +459,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      *
      * @return void
      */
-    public function testCalculateVARSnpMetric()
-    {
-        $this->assertEquals(2, $this->calculateClassMetric('varsnp'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct VARSnp metric
-     *
-     * @return void
-     */
     public function testCalculateVARSnpMetricWithInheritance()
     {
         $this->assertEquals(1, $this->calculateClassMetric('varsnp'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct WMC metric.
-     *
-     * @return void
-     */
-    public function testCalculateWMCMetric()
-    {
-        $this->assertEquals(3, $this->calculateClassMetric('wmc'));
     }
 
     /**
@@ -451,16 +489,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      *
      * @return void
      */
-    public function testCalculateWMCiMetric()
-    {
-        $this->assertEquals(3, $this->calculateClassMetric('wmci'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct WMCi metric.
-     *
-     * @return void
-     */
     public function testCalculateWMCiMetricOneLevelInheritance()
     {
         $this->assertEquals(4, $this->calculateClassMetric('wmci'));
@@ -474,16 +502,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     public function testCalculateWMCiMetricTwoLevelInheritance()
     {
         $this->assertEquals(5, $this->calculateClassMetric('wmci'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct WMCnp metric.
-     *
-     * @return void
-     */
-    public function testCalculateWMCnpMetric()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('wmcnp'));
     }
 
     /**
@@ -530,15 +548,21 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      */
     private function calculateClassMetrics($class = 'Foo')
     {
+        $source = self::parseTestCaseSource(self::getCallingTestMethod());
+
         $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
         $ccnAnalyzer->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+
+        $processor = new DefaultProcessor();
+        $processor->register($ccnAnalyzer);
+        $processor->process($source);
 
         $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
         $analyzer->addAnalyzer($ccnAnalyzer);
 
         $processor = new DefaultProcessor();
         $processor->register($analyzer);
-        $processor->process(self::parseTestCaseSource(self::getCallingTestMethod()));
+        $processor->process($source);
 
         return $analyzer->getNodeMetrics("{$class}#c");
     }

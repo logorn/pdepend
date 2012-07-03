@@ -280,10 +280,17 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
     public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
     {
+        $ccn = $this->_cyclomaticAnalyzer->getCCN2($method->getId());
+
+        $data[self::M_WEIGHTED_METHODS] += $ccn;
+
         ++$data[self::M_CLASS_SIZE];
 
         if ($method->isPublic()) {
 
+            $data[self::M_WEIGHTED_METHODS_NON_PRIVATE] += $ccn;
+
+            ++$data[self::M_NUMBER_OF_PUBLIC_METHODS];
             ++$data[self::M_CLASS_INTERFACE_SIZE];
         }
 
@@ -336,6 +343,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
         if ($this->public) {
 
+            ++$data[self::M_PROPERTIES_NON_PRIVATE];
             ++$data[self::M_CLASS_INTERFACE_SIZE];
         }
 
