@@ -868,7 +868,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     }
 
     /**
-     * testGetNodeMetricsForTraitReturnsExpectedMetricSet
+     * testReturnedMetricSetForTrait
      *
      * @param array $metrics Calculated coupling metrics.
      *
