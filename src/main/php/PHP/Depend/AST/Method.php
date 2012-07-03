@@ -161,6 +161,16 @@ class PHP_Depend_AST_Method extends PHPParser_Node_Stmt_ClassMethod implements P
     }
 
     /**
+     * Returns <b>true</b> when this method was declared as public.
+     *
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return (bool) ($this->type & PHP_Depend_AST_Class::MODIFIER_PUBLIC);
+    }
+
+    /**
      * Returns <b>true</b> when this method was declared as private.
      *
      * @return boolean

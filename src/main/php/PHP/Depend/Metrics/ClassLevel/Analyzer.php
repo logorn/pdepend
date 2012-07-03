@@ -111,6 +111,13 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     private $metrics = array();
 
     /**
+     * Internal status flag used to check if properties are public.
+     *
+     * @var boolean
+     */
+    private $public = false;
+
+    /**
      * The internal used cyclomatic complexity analyzer.
      *
      * @var PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
@@ -173,43 +180,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         return array();
     }
 
-    /**
-     * Visits a class node.
-     *
-     * @param PHP_Depend_Code_Class $class The current class node.
-     * @return void
-     */
-    public function visitClass(PHP_Depend_AST_Class $class)
-    {
-        $this->fireStartClass($class);
-
-        $impl  = $class->getInterfaces()->count();
-        $varsi = $this->calculateVARSi($class);
-        $wmci  = $this->calculateWMCiForClass($class);
-
-        $this->metrics[$class->getUUID()] = array(
-            self::M_IMPLEMENTED_INTERFACES       => $impl,
-            self::M_CLASS_INTERFACE_SIZE         => 0,
-            self::M_CLASS_SIZE                   => 0,
-            self::M_NUMBER_OF_PUBLIC_METHODS     => 0,
-            self::M_PROPERTIES                   => 0,
-            self::M_PROPERTIES_INHERIT           => $varsi,
-            self::M_PROPERTIES_NON_PRIVATE       => 0,
-            self::M_WEIGHTED_METHODS             => 0,
-            self::M_WEIGHTED_METHODS_INHERIT     => $wmci,
-            self::M_WEIGHTED_METHODS_NON_PRIVATE => 0
-        );
-
-        foreach ($class->getProperties() as $property) {
-            $property->accept($this);
-        }
-        foreach ($class->getMethods() as $method) {
-            $method->accept($this);
-        }
-
-        $this->fireEndClass($class);
-    }
-
     public function visitClassBefore(PHP_Depend_AST_Class $class)
     {
         $impl  = $this->calculateImpl($class);
@@ -237,17 +207,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         $this->metrics[$class->getId()] = $data;
 
         return null;
-    }
-
-    /**
-     * Visits a code interface object.
-     *
-     * @param PHP_Depend_Code_Interface $interface The context code interface.
-     * @return void
-     */
-    public function visitInterface(PHP_Depend_AST_Interface $interface)
-    {
-        // Empty visit method, we don't want interface metrics
     }
 
     /**
@@ -319,6 +278,18 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         $this->fireEndMethod($method);
     }
 
+    public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
+    {
+        ++$data[self::M_CLASS_SIZE];
+
+        if ($method->isPublic()) {
+
+            ++$data[self::M_CLASS_INTERFACE_SIZE];
+        }
+
+        return $data;
+    }
+
     /**
      * Visits a property node.
      *
@@ -346,7 +317,27 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
     public function visitPropertiesBefore(Properties $properties, $data)
     {
+        $this->public = $properties->isPublic();
+
+        return $data;
+    }
+
+    public function visitPropertiesAfter(Properties $properties, $data )
+    {
+        $this->public = false;
+
+        return $data;
+    }
+
+    public function visitPropertyBefore(Property $property, $data)
+    {
         ++$data[self::M_PROPERTIES];
+        ++$data[self::M_CLASS_SIZE];
+
+        if ($this->public) {
+
+            ++$data[self::M_CLASS_INTERFACE_SIZE];
+        }
 
         return $data;
     }
