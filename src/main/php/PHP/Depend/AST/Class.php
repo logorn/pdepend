@@ -147,7 +147,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
     /**
      * Returns all properties declared by this class.
      *
-     * @return \PHP\Depend\AST\Properties[]
+     * @return \PHP\Depend\AST\Property[]
      */
     public function getProperties()
     {
@@ -156,7 +156,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
 
             if ($stmt instanceof Properties) {
 
-                $properties[] = $stmt;
+                $properties = array_merge($properties, $stmt->props);
             }
         }
         return $properties;
