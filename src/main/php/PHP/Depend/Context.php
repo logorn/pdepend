@@ -79,12 +79,12 @@ class PHP_Depend_Context
     }
 
     /**
-     * Returns a namespace for the given <b>$id</b> or <b>NULL</b> when no
+     * Returns a namespace for the given <b>$id</b> or a dummy namespace when no
      * matching namespace exists.
      *
      * @param string $id
      *
-     * @return null|PHP_Depend_AST_Namespace
+     * @return PHP_Depend_AST_Namespace
      */
     public function getNamespace($id)
     {
@@ -108,7 +108,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return null|PHP_Depend_AST_Class
+     * @return PHP_Depend_AST_Class
      */
     public function getClass($id)
     {
@@ -123,7 +123,7 @@ class PHP_Depend_Context
                 new PHPParser_Node_Stmt_Class(
                     $id,
                     array('namespacedName' => $id),
-                    array('user_defined' => false, 'id' => $id)
+                    array('user_defined' => false, 'id' => "{$id}#c")
                 ),
                 new PHP_Depend_AST_ClassRefs(
                     $this, '+global', null, array()
@@ -154,7 +154,7 @@ class PHP_Depend_Context
                 new PHPParser_Node_Stmt_Interface(
                     $id,
                     array('namespacedName' => $id),
-                    array('user_defined' => false, 'id' => $id)
+                    array('user_defined' => false, 'id' => "{$id}#i")
                 ),
                 new PHP_Depend_AST_InterfaceRefs(
                     $this, '+global', array()
