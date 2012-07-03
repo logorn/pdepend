@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Properties;
+
 /**
  * Visitor class that generates custom nodes used by PHP_Depend.
  *
@@ -87,17 +89,6 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      * @var PHP_Depend_Context
      */
     private $context;
-
-    /**
-     * Special names that can be used as class references.
-     *
-     * @var array
-     */
-    protected static $specialNames = array(
-        'self'   => true,
-        'parent' => true,
-        'static' => true,
-    );
 
     /**
      * Initializes the node context.
@@ -145,6 +136,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
     {
         $newNode = null;
         if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+
             $newNode = new PHP_Depend_AST_Namespace(
                 $node, new PHP_Depend_AST_NamespaceRefs($this->context)
             );
@@ -154,6 +146,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $implemented = array();
             foreach ($node->implements as $implements) {
+
                 $implemented[] = (string) $implements;
             }
 
@@ -175,6 +168,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $extends = array();
             foreach ($node->extends as $extend) {
+
                 $extends[] = (string) $extend;
             }
 
@@ -191,6 +185,9 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $this->declaringType    = null;
             $this->declaringPackage = null;
+        } else if ($node instanceof PHPParser_Node_Stmt_Property) {
+
+            $newNode = new Properties($node);
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
 
             $newNode = new PHP_Depend_AST_Property(
@@ -228,6 +225,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
+
                 $thrownExceptions[] = new PHP_Depend_AST_TypeRef(
                     $this->context,
                     (string) $exception
