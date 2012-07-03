@@ -83,7 +83,10 @@ class PHP_Depend_AST_Property extends PHPParser_Node_Stmt_PropertyProperty imple
      * @param PHPParser_Node_Stmt_PropertyProperty $property
      * @param PHP_Depend_AST_PropertyRefs          $refs
      */
-    public function __construct(PHPParser_Node_Stmt_PropertyProperty $property, PHP_Depend_AST_PropertyRefs $refs)
+    public function __construct(
+        PHPParser_Node_Stmt_PropertyProperty $property,
+        PHP_Depend_AST_PropertyRefs $refs
+    )
     {
         parent::__construct(
             $property->name,
