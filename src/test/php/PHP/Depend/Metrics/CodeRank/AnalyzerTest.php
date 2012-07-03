@@ -358,7 +358,7 @@ class PHP_Depend_Metrics_CodeRank_AnalyzerTest extends PHP_Depend_Metrics_Abstra
             'pkg1FooI#i'    => array('cr'  => 0.5325, 'rcr'  => 0.15),
             'pkg1Bar#c'     => array('cr'  => 0.59625, 'rcr'  => 0.15),
             'pkg3FooI#i'    => array('cr'  => 0.21375, 'rcr'  => 0.2775),
-            'Iterator'      => array('cr'  => 0.3316875, 'rcr'  => 0.15),
+            'Iterator#i'    => array('cr'  => 0.3316875, 'rcr'  => 0.15),
         );
 
         $this->assertEquals(
@@ -452,8 +452,10 @@ class PHP_Depend_Metrics_CodeRank_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      */
     private function getMetrics(array $ids, array $options = array())
     {
+        $analyzer = new PHP_Depend_Metrics_CodeRank_Analyzer($options);
+
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_CodeRank_Analyzer($options));
+        $processor->register($analyzer);
         $processor->process(self::parseCodeResourceForTest());
 
         $metrics = array();
