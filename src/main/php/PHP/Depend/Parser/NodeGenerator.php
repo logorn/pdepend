@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\Properties;
+use \PHP\Depend\AST\Property;
 
 /**
  * Visitor class that generates custom nodes used by PHP_Depend.
@@ -190,7 +191,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             $newNode = new Properties($node);
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
 
-            $newNode = new PHP_Depend_AST_Property(
+            $newNode = new Property(
                 $node,
                 new PHP_Depend_AST_PropertyRefs(
                     $this->context,

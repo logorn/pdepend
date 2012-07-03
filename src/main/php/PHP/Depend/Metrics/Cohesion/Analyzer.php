@@ -125,7 +125,7 @@ class PHP_Depend_Metrics_Cohesion_Analyzer
     }
 
     /*
-    public function visitProperty(PHP_Depend_AST_Property $property)
+    public function visitProperty(Property $property)
     {
         $this->fireStartProperty($property);
         echo ltrim($property->getName(), '$'), PHP_EOL;

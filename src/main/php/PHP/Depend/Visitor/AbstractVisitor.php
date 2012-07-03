@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Property;
+
 /**
  * This abstract visitor implementation provides a default traversal algorithm
  * that can be used for custom visitors.
@@ -241,10 +243,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a property node.
      *
-     * @param PHP_Depend_AST_Property $property The property class node.
+     * @param \PHP\Depend\AST\Property $property The property class node.
      * @return void
      */
-    public function visitProperty(PHP_Depend_AST_Property $property)
+    public function visitProperty(Property $property)
     {
         $this->fireStartProperty($property);
         $this->fireEndProperty($property);
@@ -466,10 +468,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends a start property event.
      *
-     * @param PHP_Depend_AST_Property $property The context property instance.
+     * @param \PHP\Depend\AST\Property $property The context property instance.
      * @return void
      */
-    protected function fireStartProperty(PHP_Depend_AST_Property $property)
+    protected function fireStartProperty(Property $property)
     {
         foreach ($this->_listeners as $listener) {
             $listener->startVisitProperty($property);
@@ -479,10 +481,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends an end property event.
      *
-     * @param PHP_Depend_AST_Property $property The context property instance.
+     * @param \PHP\Depend\AST\Property $property The context property instance.
      * @return void
      */
-    protected function fireEndProperty(PHP_Depend_AST_Property $property)
+    protected function fireEndProperty(Property $property)
     {
         foreach ($this->_listeners as $listener) {
             $listener->endVisitProperty($property);

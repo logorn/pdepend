@@ -92,7 +92,7 @@ class Properties extends PHPParser_Node_Stmt_Property implements PHP_Depend_AST_
     /**
      * Returns all properties available in this collection.
      *
-     * @return \PHP_Depend_AST_Property[]
+     * @return \PHP\Depend\AST\Property[]
      */
     public function getProperties()
     {
@@ -117,7 +117,7 @@ class Properties extends PHPParser_Node_Stmt_Property implements PHP_Depend_AST_
     public function getId()
     {
         return join('-', array_map(
-            function(\PHP_Depend_AST_Property $property) {
+            function(Property $property) {
                 return $property->getId();
             },
             $this->props
@@ -132,7 +132,7 @@ class Properties extends PHPParser_Node_Stmt_Property implements PHP_Depend_AST_
     public function getName()
     {
         return join('-', array_map(
-            function(\PHP_Depend_AST_Property $property) {
+            function(Property $property) {
                 return $property->getName();
             },
             $this->props

@@ -158,6 +158,32 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     }
 
     /**
+     * Tests that the calculated Class Interface Size(CSI) is correct.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateCISMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(2, $metrics['cis']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct VARS metric
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testReturnedMetricSetForClass
+     */
+    public function testCalculateVARSMetricZeroInheritance(array $metrics)
+    {
+        $this->assertEquals(3, $metrics['vars']);
+    }
+
+    /**
      * Tests that the analyzer calculates the correct IMPL values.
      *
      * @return void
@@ -205,16 +231,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     public function testCalculateIMPLMetricContainsInternalImplementedInterface()
     {
         $this->assertEquals(1, $this->calculateClassMetric('impl'));
-    }
-
-    /**
-     * Tests that the calculated Class Interface Size(CSI) is correct.
-     *
-     * @return void
-     */
-    public function testCalculateCISMetricZeroInheritance()
-    {
-        $this->assertEquals(2, $this->calculateClassMetric('cis'));
     }
 
     /**
@@ -345,16 +361,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     public function testCalculateNpmMetricForClassWithAllVisibilityMethods()
     {
         $this->assertEquals(1, $this->calculateClassMetric('npm'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct VARS metric
-     *
-     * @return void
-     */
-    public function testCalculateVARSMetricZeroInheritance()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('vars'));
     }
 
     /**

@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Property;
+
 /**
  * This abstract class provides a default implementation of the node visitor
  * listener.
@@ -259,11 +261,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor starts a new property instance.
      *
-     * @param PHP_Depend_AST_Property $property The context property instance.
+     * @param \PHP\Depend\AST\Property $property The context property instance.
      *
      * @return void
      */
-    public function startVisitProperty(PHP_Depend_AST_Property $property)
+    public function startVisitProperty(Property $property)
     {
         $this->startVisitNode($property);
     }
@@ -271,11 +273,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor ends with a property instance.
      *
-     * @param PHP_Depend_AST_Property $property The context property instance.
+     * @param \PHP\Depend\AST\Property $property The context property instance.
      *
      * @return void
      */
-    public function endVisitProperty(PHP_Depend_AST_Property $property)
+    public function endVisitProperty(Property $property)
     {
         $this->endVisitNode($property);
     }

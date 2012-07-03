@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Property;
+
 /**
  * Base interface for a visitor listener.
  *
@@ -209,18 +211,18 @@ interface PHP_Depend_Visitor_ListenerI
     /**
      * Is called when the visitor starts a new property instance.
      *
-     * @param PHP_Depend_AST_Property $property The context property instance.
+     * @param \PHP\Depend\AST\Property $property The context property instance.
      *
      * @return void
      */
-    function startVisitProperty(PHP_Depend_AST_Property $property);
+    function startVisitProperty(Property $property);
 
     /**
      * Is called when the visitor ends with a property instance.
      *
-     * @param PHP_Depend_AST_Property $property The context property instance.
+     * @param \PHP\Depend\AST\Property $property The context property instance.
      *
      * @return void
      */
-    function endVisitProperty(PHP_Depend_AST_Property $property);
+    function endVisitProperty(Property $property);
 }

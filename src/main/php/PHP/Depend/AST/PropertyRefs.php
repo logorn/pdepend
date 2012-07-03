@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Property;
+
 /**
  * Container class that holds nodes referenced by a property.
  *
@@ -84,10 +86,10 @@ class PHP_Depend_AST_PropertyRefs
     /**
      * Constructs a new reference context for an object property.
      *
-     * @param PHP_Depend_Context $context
-     * @param string             $namespace
-     * @param string             $declaringType
-     * @param string             $type
+     * @param \PHP_Depend_Context $context
+     * @param string $namespace
+     * @param string $declaringType
+     * @param string $type
      */
     public function __construct(PHP_Depend_Context $context, $namespace, $declaringType, $type = null)
     {
@@ -100,7 +102,7 @@ class PHP_Depend_AST_PropertyRefs
     /**
      * Returns the namespace for the context interface.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -110,7 +112,7 @@ class PHP_Depend_AST_PropertyRefs
     /**
      * Returns the declaring type for the context method.
      *
-     * @return PHP_Depend_AST_Type
+     * @return \PHP_Depend_AST_Type
      */
     public function getDeclaringType()
     {
@@ -118,7 +120,7 @@ class PHP_Depend_AST_PropertyRefs
     }
 
     /**
-     * @return null|PHP_Depend_AST_Type
+     * @return null|\PHP_Depend_AST_Type
      */
     public function getType()
     {
@@ -131,11 +133,11 @@ class PHP_Depend_AST_PropertyRefs
     /**
      * Initializes this reference instance for the given property.
      *
-     * @param PHP_Depend_AST_Property $property
+     * @param \PHP\Depend\AST\Property $property
      *
      * @return void
      */
-    public function initialize(PHP_Depend_AST_Property $property)
+    public function initialize(Property $property)
     {
         $this->context->registerNode($property);
     }

@@ -46,6 +46,12 @@
  * @link       http://pdepend.org/
  */
 
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_AST_Node;
+use \PHP_Depend_AST_PropertyRefs;
+use \PHPParser_Node_Stmt_PropertyProperty;
+
 /**
  * Custom AST node that represents a PHP property.
  *
@@ -59,9 +65,9 @@
  * @link       http://pdepend.org/
  * @since      2.0.0
  *
- * @property PHPParser_Node_Name $type
+ * @property \PHPParser_Node_Name $type
  */
-class PHP_Depend_AST_Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depend_AST_Node
+class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depend_AST_Node
 {
     /**
      * Will be true when this object was restored from cache.
@@ -73,15 +79,15 @@ class PHP_Depend_AST_Property extends PHPParser_Node_Stmt_PropertyProperty imple
     /**
      * Reference context used to retrieve referenced nodes.
      *
-     * @var PHP_Depend_AST_PropertyRefs
+     * @var \PHP_Depend_AST_PropertyRefs
      */
     private $refs;
 
     /**
      * Constructs a new property AST node.
      *
-     * @param PHPParser_Node_Stmt_PropertyProperty $property
-     * @param PHP_Depend_AST_PropertyRefs          $refs
+     * @param \PHPParser_Node_Stmt_PropertyProperty $property
+     * @param \PHP_Depend_AST_PropertyRefs          $refs
      */
     public function __construct(
         PHPParser_Node_Stmt_PropertyProperty $property,
@@ -124,7 +130,7 @@ class PHP_Depend_AST_Property extends PHPParser_Node_Stmt_PropertyProperty imple
     /**
      * Returns the namespace where this property is declared.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -134,7 +140,7 @@ class PHP_Depend_AST_Property extends PHPParser_Node_Stmt_PropertyProperty imple
     /**
      * Returns the declaring type for this property.
      *
-     * @return PHP_Depend_AST_Type
+     * @return \PHP_Depend_AST_Type
      */
     public function getDeclaringType()
     {
@@ -145,7 +151,7 @@ class PHP_Depend_AST_Property extends PHPParser_Node_Stmt_PropertyProperty imple
      * Returns the type of this property or <b>NULL</b> when this property does
      * not reference another none scalar type.
      *
-     * @return PHP_Depend_AST_Type
+     * @return \PHP_Depend_AST_Type
      */
     public function getType()
     {

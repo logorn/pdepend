@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Property;
+
 /**
  * This analyzer collects coupling values for the hole project. It calculates
  * all function and method <b>calls</b> and the <b>fanout</b>, that means the
@@ -388,11 +390,11 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits a property node.
      *
-     * @param PHP_Depend_AST_Property $property
+     * @param \PHP\Depend\AST\Property $property
      *
      * @return void
      */
-    public function visitPropertyBefore(PHP_Depend_AST_Property $property)
+    public function visitPropertyBefore(Property $property)
     {
         $this->fireStartProperty($property);
 

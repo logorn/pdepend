@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Property;
+
 /**
  * Calculates the code ranke metric for classes and packages.
  *
@@ -243,7 +245,12 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
     }
 
-    public function visitPropertyBefore(PHP_Depend_AST_Property $property)
+    /**
+     * @param \PHP\Depend\AST\Property $property
+     *
+     * @return mixed
+     */
+    public function visitPropertyBefore(Property $property)
     {
         if ($this->isPropertyDisabled()) {
             return;

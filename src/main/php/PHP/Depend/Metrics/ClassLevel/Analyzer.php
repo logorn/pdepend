@@ -46,6 +46,9 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Properties;
+use \PHP\Depend\AST\Property;
+
 /**
  * Generates some class level based metrics. This analyzer is based on the
  * metrics specified in the following document.
@@ -319,11 +322,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     /**
      * Visits a property node.
      *
-     * @param PHP_Depend_Code_Property $property The property class node.
+     * @param \PHP\Depend\AST\Property $property The property class node.
      *
      * @return void
      */
-    public function visitProperty(PHP_Depend_AST_Property $property)
+    public function visitProperty(Property $property)
     {
         $this->fireStartProperty($property);
 
@@ -339,6 +342,13 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         }
 
         $this->fireEndProperty($property);
+    }
+
+    public function visitPropertiesBefore(Properties $properties, $data)
+    {
+        ++$data[self::M_PROPERTIES];
+
+        return $data;
     }
 
     private function calculateImpl(PHP_Depend_AST_Class $class)
