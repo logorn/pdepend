@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\Properties;
+
 /**
  * Custom AST node that represents a PHP class.
  *
@@ -143,6 +145,24 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
     }
 
     /**
+     * Returns all properties declared by this class.
+     *
+     * @return \PHP\Depend\AST\Properties[]
+     */
+    public function getProperties()
+    {
+        $properties = array();
+        foreach ($this->stmts as $stmt) {
+
+            if ($stmt instanceof Properties) {
+
+                $properties[] = $stmt;
+            }
+        }
+        return $properties;
+    }
+
+    /**
      * Returns all methods declared by this class.
      *
      * @return PHP_Depend_AST_Method[]
@@ -151,7 +171,9 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
     {
         $methods = array();
         foreach ($this->stmts as $stmt) {
+
             if ($stmt instanceof PHP_Depend_AST_Method) {
+
                 $methods[] = $stmt;
             }
         }
@@ -175,7 +197,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
      */
     public function isAbstract()
     {
-        return (($this->type & self::MODIFIER_ABSTRACT) === self::MODIFIER_ABSTRACT);
+        return ($this->type & self::MODIFIER_ABSTRACT);
     }
 
     /**
@@ -187,13 +209,16 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
      */
     public function isSubtypeOf(PHP_Depend_AST_Type $type)
     {
-        if ($type->namespacedName === $this->namespacedName) {
+        if ($type->getId() === $this->getId()) {
             return true;
         }
+
         if ($this->extends && $type->isSubtypeOf($this->refs->getParentClass())) {
             return true;
         }
+
         foreach ($this->refs->getImplementedInterfaces() as $interface) {
+
             if ($type->isSubtypeOf($interface)) {
                 return true;
             }
