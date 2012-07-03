@@ -111,18 +111,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     private $metrics = array();
 
     /**
-     * Internal status flag used to check if properties are public.
-     *
-     * @var boolean
-     */
-    private $public = false;
-
-    /**
      * The internal used cyclomatic complexity analyzer.
      *
      * @var PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      */
-    private $_cyclomaticAnalyzer = null;
+    private $_ccnAnalyzer = null;
 
     /**
      * This method must return an <b>array</b> of class names for required
@@ -146,7 +139,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     public function addAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
-            $this->_cyclomaticAnalyzer = $analyzer;
+            $this->_ccnAnalyzer = $analyzer;
         } else {
             throw new InvalidArgumentException('CC Analyzer required.');
         }
@@ -171,22 +164,35 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      */
     public function getNodeMetrics($node)
     {
+        if (null === $this->metrics) {
+
+            $this->buildCodeRankMetrics();
+        }
+
         $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
-
             return $this->metrics[$nodeId];
         }
         return array();
     }
 
+    /**
+     * Initializes the some main metrics for the given class and returns a data
+     * structure that is used by the the other visit* methods to store metrics
+     * for <b>$class</b>.
+     *
+     * @param PHP_Depend_AST_Class $class
+     *
+     * @return array
+     */
     public function visitClassBefore(PHP_Depend_AST_Class $class)
     {
         $impl  = $this->calculateImpl($class);
         $varsi = $this->calculateVARSi($class);
         $wmci  = $this->calculateWMCiForClass($class);
 
-        $metrics = array(
+        return array(
             self::M_IMPLEMENTED_INTERFACES       => $impl,
             self::M_CLASS_INTERFACE_SIZE         => 0,
             self::M_CLASS_SIZE                   => 0,
@@ -198,14 +204,54 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
             self::M_WEIGHTED_METHODS_INHERIT     => $wmci,
             self::M_WEIGHTED_METHODS_NON_PRIVATE => 0
         );
-
-        return $metrics;
     }
 
+    /**
+     * Stores the calculated metrics in <b>$data</b> for the given class and
+     * resets the metrics data structure.
+     *
+     * @param PHP_Depend_AST_Class $class
+     * @param array $data
+     *
+     * @return null
+     */
     public function visitClassAfter(PHP_Depend_AST_Class $class, $data)
     {
         $this->metrics[$class->getId()] = $data;
 
+        return null;
+    }
+
+    /**
+     * Returns a dummy data structure for the context interface, so that we can
+     * handle classes, traits and interface similar, even if we do not measure
+     * any interface related metrics.
+     *
+     * @return array
+     */
+    public function visitInterfaceBefore()
+    {
+        return array(
+            self::M_IMPLEMENTED_INTERFACES       => 0,
+            self::M_CLASS_INTERFACE_SIZE         => 0,
+            self::M_CLASS_SIZE                   => 0,
+            self::M_NUMBER_OF_PUBLIC_METHODS     => 0,
+            self::M_PROPERTIES                   => 0,
+            self::M_PROPERTIES_INHERIT           => 0,
+            self::M_PROPERTIES_NON_PRIVATE       => 0,
+            self::M_WEIGHTED_METHODS             => 0,
+            self::M_WEIGHTED_METHODS_INHERIT     => 0,
+            self::M_WEIGHTED_METHODS_NON_PRIVATE => 0
+        );
+    }
+
+    /**
+     * Just resets all metrics calculated for the context interface.
+     *
+     * @return null
+     */
+    public function visitInterfaceAfter()
+    {
         return null;
     }
 
@@ -246,41 +292,17 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     }
 
     /**
-     * Visits a method node.
+     * Visits the given property and increments several wmc* and class size
+     * related metrics.
      *
-     * @param PHP_Depend_Code_Class $method The method class node.
+     * @param \PHP_Depend_AST_Method $method
+     * @param $data
      *
-     * @return void
+     * @return mixed
      */
-    public function visitMethod(PHP_Depend_AST_Method $method)
-    {
-        $this->fireStartMethod($method);
-
-        // Get parent class uuid
-        $uuid = $method->getParent()->getUUID();
-
-        $ccn = $this->_cyclomaticAnalyzer->getCCN2($method);
-
-        // Increment Weighted Methods Per Class(WMC) value
-        $this->metrics[$uuid][self::M_WEIGHTED_METHODS] += $ccn;
-        // Increment Class Size(CSZ) value
-        ++$this->metrics[$uuid][self::M_CLASS_SIZE];
-
-        // Increment Non Private values
-        if ($method->isPublic()) {
-            ++$this->metrics[$uuid][self::M_NUMBER_OF_PUBLIC_METHODS];
-            // Increment Non Private WMC value
-            $this->metrics[$uuid][self::M_WEIGHTED_METHODS_NON_PRIVATE] += $ccn;
-            // Increment Class Interface Size(CIS) value
-            ++$this->metrics[$uuid][self::M_CLASS_INTERFACE_SIZE];
-        }
-
-        $this->fireEndMethod($method);
-    }
-
     public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
     {
-        $ccn = $this->_cyclomaticAnalyzer->getCCN2($method->getId());
+        $ccn = $this->_ccnAnalyzer->getCCN2($method->getId());
 
         $data[self::M_WEIGHTED_METHODS] += $ccn;
 
@@ -298,50 +320,20 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     }
 
     /**
-     * Visits a property node.
+     * Visits the given property and increments several vars* and class size
+     * related metrics.
      *
-     * @param \PHP\Depend\AST\Property $property The property class node.
+     * @param \PHP\Depend\AST\Property $property
+     * @param $data
      *
-     * @return void
+     * @return mixed
      */
-    public function visitProperty(Property $property)
-    {
-        $this->fireStartProperty($property);
-
-        $uuid = $property->getDeclaringClass()->getUUID();
-
-        ++$this->metrics[$uuid][self::M_PROPERTIES];
-        ++$this->metrics[$uuid][self::M_CLASS_SIZE];
-
-        if ($property->isPublic()) {
-
-            ++$this->metrics[$uuid][self::M_PROPERTIES_NON_PRIVATE];
-            ++$this->metrics[$uuid][self::M_CLASS_INTERFACE_SIZE];
-        }
-
-        $this->fireEndProperty($property);
-    }
-
-    public function visitPropertiesBefore(Properties $properties, $data)
-    {
-        $this->public = $properties->isPublic();
-
-        return $data;
-    }
-
-    public function visitPropertiesAfter(Properties $properties, $data )
-    {
-        $this->public = false;
-
-        return $data;
-    }
-
     public function visitPropertyBefore(Property $property, $data)
     {
         ++$data[self::M_PROPERTIES];
         ++$data[self::M_CLASS_SIZE];
 
-        if ($this->public) {
+        if ($property->isPublic()) {
 
             ++$data[self::M_PROPERTIES_NON_PRIVATE];
             ++$data[self::M_CLASS_INTERFACE_SIZE];
@@ -350,27 +342,60 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         return $data;
     }
 
+    /**
+     * Calculates the total number of interfaces in the whole inheritance
+     * hierarchy of this given class.
+     *
+     * @param \PHP_Depend_AST_Class $class
+     *
+     * @return integer
+     */
     private function calculateImpl(PHP_Depend_AST_Class $class)
     {
+        return count($this->collectImpl($class));
+    }
+
+    /**
+     * Collects a unique set with all interfaces implemented by the given class,
+     * one of it's parents or any implemented interface.
+     *
+     * @param null|PHP_Depend_AST_Class $class
+     *
+     * @return array
+     */
+    private function collectImpl(PHP_Depend_AST_Class $class = null)
+    {
+        if (null === $class) {
+            return array();
+        }
+
+        return array_merge(
+            $this->collectInterfaces($class->getInterfaces()),
+            $this->collectImpl($class->getParentClass())
+        );
+    }
+
+    /**
+     * Collect a unique set of interfaces with the whole interface inheritance
+     * hierarchy.
+     *
+     * @param array $interfaces
+     *
+     * @return array
+     */
+    private function collectInterfaces(array $interfaces)
+    {
         $implemented = array();
-        foreach ($class->getInterfaces() as $interface) {
+        foreach ($interfaces as $interface) {
 
             $implemented[$interface->getId()] = true;
-            foreach ($interface->getInterfaces() as $interface) {
 
-                $implemented[$interface->getId()] = true;
-            }
+            $implemented = array_merge(
+                $implemented,
+                $this->collectInterfaces($interface->getInterfaces())
+            );
         }
-
-        if ($parentClass = $class->getParentClass()) {
-
-            foreach ($parentClass->getInterfaces() as $interface) {
-
-                $implemented[$interface->getId()] = true;
-            }
-        }
-
-        return count($implemented);
+        return $implemented;
     }
 
     /**
@@ -435,7 +460,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
                 if (isset($ccn[($name = $method->getName())])) {
                     continue;
                 }
-                $ccn[$name] = $this->_cyclomaticAnalyzer->getCCN2($method);
+                $ccn[$name] = $this->_ccnAnalyzer->getCCN2($method);
             }
 
             $parentClass = $parentClass->getParentClass();
@@ -468,7 +493,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
         foreach ($type->getMethods() as $method) {
 
-            $ccn[$method->getName()] = $this->_cyclomaticAnalyzer->getCCN2($method);
+            $ccn[$method->getName()] = $this->_ccnAnalyzer->getCCN2($method);
         }
         return $ccn;
     }

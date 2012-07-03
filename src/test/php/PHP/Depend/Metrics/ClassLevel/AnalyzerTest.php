@@ -117,11 +117,11 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     }
 
     /**
-     * testReturnedMetricSetForClass
+     * testZeroInheritance
      *
      * @return array
      */
-    public function testReturnedMetricSetForClass()
+    public function testZeroInheritance()
     {
         $metrics = $this->calculateClassMetrics('DefaultClassLevelMetricSet');
 
@@ -150,9 +150,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateIMPLMetric(array $metrics)
+    public function testClassIMPLMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(4, $metrics['impl']);
     }
@@ -163,9 +163,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateCISMetricZeroInheritance(array $metrics)
+    public function testClassCISMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(2, $metrics['cis']);
     }
@@ -176,9 +176,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateCSZMetricZeroInheritance(array $metrics)
+    public function testClassCSZMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(6, $metrics['csz']);
     }
@@ -189,9 +189,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateNpmMetricZeroInheritance(array $metrics)
+    public function testClassNpmMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(1, $metrics['npm']);
     }
@@ -202,9 +202,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateVARSMetricZeroInheritance(array $metrics)
+    public function testClassVARSMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(3, $metrics['vars']);
     }
@@ -215,9 +215,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateVARSiMetricZeroInheritance(array $metrics)
+    public function testClassVARSiMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(3, $metrics['varsi']);
     }
@@ -228,9 +228,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateVARSnpMetricZeroInheritance(array $metrics)
+    public function testClassVARSnpMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(1, $metrics['varsnp']);
     }
@@ -241,9 +241,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateWMCMetricZeroInheritance(array $metrics)
+    public function testClassWMCMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(3, $metrics['wmc']);
     }
@@ -254,9 +254,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateWMCiMetricZeroInheritance(array $metrics)
+    public function testClassWMCiMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(3, $metrics['wmci']);
     }
@@ -267,261 +267,327 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * @param array $metrics
      *
      * @return void
-     * @depends testReturnedMetricSetForClass
+     * @depends testZeroInheritance
      */
-    public function testCalculateWMCnpMetricZeroInheritance(array $metrics)
+    public function testClassWMCnpMetricZeroInheritance(array $metrics)
     {
         $this->assertEquals(1, $metrics['wmcnp']);
     }
 
     /**
-     * Tests that the analyzer calculates the correct IMPL values.
+     * testOneLevelInheritance
      *
-     * @return void
+     * @return array
      */
-    public function testCalculateIMPLMetric1()
+    public function testOneLevelInheritance()
     {
-        $this->assertEquals(6, $this->calculateClassMetric('impl'));
+        $metrics = $this->calculateClassMetrics('ClassLevelOneLevelInherit');
+
+        $this->assertEquals(
+            array(
+                'impl',
+                'cis',
+                'csz',
+                'npm',
+                'vars',
+                'varsi',
+                'varsnp',
+                'wmc',
+                'wmci',
+                'wmcnp'
+            ),
+            array_keys($metrics)
+        );
+
+        return $metrics;
     }
 
     /**
      * Tests that the analyzer calculates the correct IMPL values.
      *
-     * @return void
-     */
-    public function testCalculateIMPLMetric2()
-    {
-        $this->assertEquals(2, $this->calculateClassMetric('impl'));
-    }
-
-    /**
-     * testCalculateIMPLMetricContainsUnknownImplementedInterface
+     * @param array $metrics
      *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateIMPLMetricContainsUnknownImplementedInterface()
+    public function testClassIMPLMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(1, $this->calculateClassMetric('impl'));
-    }
-
-    /**
-     * testCalculateIMPLMetricContainsUnknownIndirectImplementedInterface
-     *
-     * @return void
-     */
-    public function testCalculateIMPLMetricContainsUnknownIndirectImplementedInterface()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('impl'));
-    }
-
-    /**
-     * testCalculateIMPLMetricContainsInternalImplementedInterface
-     *
-     * @return void
-     */
-    public function testCalculateIMPLMetricContainsInternalImplementedInterface()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('impl'));
+        $this->assertEquals(3, $metrics['impl']);
     }
 
     /**
      * Tests that the calculated Class Interface Size(CSI) is correct.
      *
-     * @return void
-     */
-    public function testCalculateCISMetricOneLevelInheritance()
-    {
-        $this->assertEquals(2, $this->calculateClassMetric('cis'));
-    }
-
-    /**
-     * Tests that the calculated Class Interface Size(CSI) is correct.
+     * @param array $metrics
      *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateCISMetricTwoLevelInheritance()
+    public function testClassCISMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(3, $this->calculateClassMetric('cis'));
-    }
-
-    /**
-     * testCalculateCISMetricOnlyCountsMethodsAndNotSumsComplexity
-     *
-     * @return void
-     */
-    public function testCalculateCISMetricOnlyCountsMethodsAndNotSumsComplexity()
-    {
-        $this->assertEquals(2, $this->calculateClassMetric('cis'));
+        $this->assertEquals(3, $metrics['cis']);
     }
 
     /**
      * Tests that the calculated Class SiZe(CSZ) metric is correct.
      *
-     * @return void
-     */
-    public function testCalculateCSZMetricOneLevelInheritance()
-    {
-        $this->assertEquals(4, $this->calculateClassMetric('csz'));
-    }
-
-    /**
-     * testCalculateCSZMetricOnlyCountsMethodsAndNotSumsComplexity
+     * @param array $metrics
      *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateCSZMetricOnlyCountsMethodsAndNotSumsComplexity()
+    public function testClassCSZMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(2, $this->calculateClassMetric('csz'));
+        $this->assertEquals(6, $metrics['csz']);
     }
 
     /**
      * testCalculateNpmMetricForEmptyClass
      *
-     * @return void
-     */
-    public function testCalculateNpmMetricForEmptyClass()
-    {
-        $this->assertEquals(0, $this->calculateClassMetric('npm'));
-    }
-
-    /**
-     * testCalculateNpmMetricForClassWithPublicMethods
+     * @param array $metrics
      *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateNpmMetricForClassWithPublicMethods()
+    public function testClassNpmMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(3, $this->calculateClassMetric('npm'));
-    }
-
-    /**
-     * testCalculateNpmMetricForClassWithPublicStaticMethod
-     *
-     * @return void
-     */
-    public function testCalculateNpmMetricForClassWithPublicStaticMethod()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('npm'));
-    }
-
-    /**
-     * testCalculateNpmMetricForClassWithProtectedMethod
-     *
-     * @return void
-     */
-    public function testCalculateNpmMetricForClassWithProtectedMethod()
-    {
-        $this->assertEquals(0, $this->calculateClassMetric('npm'));
-    }
-
-    /**
-     * testCalculateNpmMetricForClassWithPrivateMethod
-     *
-     * @return void
-     */
-    public function testCalculateNpmMetricForClassWithPrivateMethod()
-    {
-        $this->assertEquals(0, $this->calculateClassMetric('npm'));
-    }
-
-    /**
-     * testCalculateNpmMetricForClassWithAllVisibilityMethods
-     *
-     * @return void
-     */
-    public function testCalculateNpmMetricForClassWithAllVisibilityMethods()
-    {
-        $this->assertEquals(1, $this->calculateClassMetric('npm'));
+        $this->assertEquals(1, $metrics['npm']);
     }
 
     /**
      * Tests that the analyzer calculates the correct VARS metric
      *
+     * @param array $metrics
+     *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateVARSMetricOneLevelInheritance()
+    public function testClassVARSMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(3, $this->calculateClassMetric('vars'));
+        $this->assertEquals(3, $metrics['vars']);
     }
 
     /**
      * Tests that the analyzer calculates the correct VARSi metric
      *
+     * @param array $metrics
+     *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateVARSiMetricWithInheritance()
+    public function testClassVARSiMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(5, $this->calculateClassMetric('varsi'));
+        $this->assertEquals(5, $metrics['varsi']);
     }
 
     /**
      * Tests that the analyzer calculates the correct VARSnp metric
      *
+     * @param array $metrics
+     *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateVARSnpMetricWithInheritance()
+    public function testClassVARSnpMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(1, $this->calculateClassMetric('varsnp'));
+        $this->assertEquals(2, $metrics['varsnp']);
     }
 
     /**
      * Tests that the analyzer calculates the correct WMC metric.
      *
+     * @param array $metrics
+     *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateWMCMetricOneLevelInheritance()
+    public function testClassWMCMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(3, $this->calculateClassMetric('wmc'));
+        $this->assertEquals(6, $metrics['wmc']);
     }
 
     /**
      * Tests that the analyzer calculates the correct WMC metric.
      *
-     * @return void
-     */
-    public function testCalculateWMCMetricTwoLevelInheritance()
-    {
-        $this->assertEquals(3, $this->calculateClassMetric('wmc'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct WMCi metric.
+     * @param array $metrics
      *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateWMCiMetricOneLevelInheritance()
+    public function testClassWMCiMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(4, $this->calculateClassMetric('wmci'));
-    }
-
-    /**
-     * Tests that the analyzer calculates the correct WMCi metric.
-     *
-     * @return void
-     */
-    public function testCalculateWMCiMetricTwoLevelInheritance()
-    {
-        $this->assertEquals(5, $this->calculateClassMetric('wmci'));
+        $this->assertEquals(10, $metrics['wmci']);
     }
 
     /**
      * Tests that the analyzer calculates the correct WMCnp metric.
      *
+     * @param array $metrics
+     *
      * @return void
+     * @depends testOneLevelInheritance
      */
-    public function testCalculateWMCnpMetricOneLevelInheritance()
+    public function testClassWMCnpMetricOneLevelInheritance(array $metrics)
     {
-        $this->assertEquals(2, $this->calculateClassMetric('wmcnp'));
+        $this->assertEquals(3, $metrics['wmcnp']);
+    }
+
+    /**
+     * testTwoLevelInheritance
+     *
+     * @return array
+     */
+    public function testTwoLevelInheritance()
+    {
+        $metrics = $this->calculateClassMetrics('ClassLevelTwoLevelInherit');
+
+        $this->assertEquals(
+            array(
+                'impl',
+                'cis',
+                'csz',
+                'npm',
+                'vars',
+                'varsi',
+                'varsnp',
+                'wmc',
+                'wmci',
+                'wmcnp'
+            ),
+            array_keys($metrics)
+        );
+
+        return $metrics;
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct IMPL values.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassIMPLMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(4, $metrics['impl']);
+    }
+
+    /**
+     * Tests that the calculated Class Interface Size(CSI) is correct.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassCISMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(3, $metrics['cis']);
+    }
+
+    /**
+     * testCalculateCSZMetricTwoLevelInheritance
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassCSZMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(6, $metrics['csz']);
+    }
+
+    /**
+     * testCalculateNpmMetricTwoLevelInheritance
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassNpmMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(1, $metrics['npm']);
+    }
+
+    /**
+     * testCalculateVARSMetricTwoLevelInheritance
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassVARSMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(3, $metrics['vars']);
+    }
+
+    /**
+     * testCalculateVARSiMetricTwoLevelInheritance
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassVARSiMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(6, $metrics['varsi']);
+    }
+
+    /**
+     * testCalculateVARSnpMetricTwoLevelInheritance
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassVARSnpMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(2, $metrics['varsnp']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct WMC metric.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassWMCMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(6, $metrics['wmc']);
+    }
+
+    /**
+     * Tests that the analyzer calculates the correct WMCi metric.
+     *
+     * @param array $metrics
+     *
+     * @return void
+     * @depends testTwoLevelInheritance
+     */
+    public function testClassWMCiMetricTwoLevelInheritance(array $metrics)
+    {
+        $this->assertEquals(11, $metrics['wmci']);
     }
 
     /**
      * Tests that the analyzer calculates the correct WMCnp metric.
      *
+     * @param array $metrics
+     *
      * @return void
+     * @depends testTwoLevelInheritance
      */
-    public function testCalculateWMCnpMetricTwoLevelInheritance()
+    public function testClassWMCnpMetricTwoLevelInheritance(array $metrics)
     {
-        $this->assertEquals(1, $this->calculateClassMetric('wmcnp'));
+        $this->assertEquals(3, $metrics['wmcnp']);
     }
 
     /**
