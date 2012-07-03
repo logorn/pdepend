@@ -213,7 +213,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
             return true;
         }
 
-        if ($this->extends && $type->isSubtypeOf($this->refs->getParentClass())) {
+        if ($this->extends && $type->isSubtypeOf($this->getParentClass())) {
             return true;
         }
 
