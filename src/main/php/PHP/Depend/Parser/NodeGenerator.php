@@ -197,7 +197,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
                     $this->context,
                     $this->extractNamespaceName($node),
                     $this->declaringType,
-                    (string) $node->type
+                    (string) $node->typeName
                 )
             );
         } else if ($node instanceof PHPParser_Node_Stmt_ClassMethod) {

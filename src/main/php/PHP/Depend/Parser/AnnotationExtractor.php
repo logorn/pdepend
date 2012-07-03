@@ -74,7 +74,7 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
     /**
      * @var PHPParser_Node_Name|PHPParser_Node_Name_FullyQualified
      */
-    protected $type;
+    protected $typeName;
 
     /**
      * Resets some internal state properties.
@@ -87,7 +87,7 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
     {
         $this->namespace = null;
         $this->aliases   = array();
-        $this->type      = null;
+        $this->typeName      = null;
     }
 
     /**
@@ -117,14 +117,14 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
 
             $this->aliases[$node->alias] = $node->name;
         } else if ($node instanceof PHPParser_Node_Stmt_Property) {
-            $this->type = $this->extractType($node, 'var');
-            $node->type = $this->type;
+            $this->typeName = $this->extractType($node, 'var');
+            $node->typeName = $this->typeName;
 
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
             if (null === ($type = $this->extractType($node, 'var'))) {
-                $type = $this->type;
+                $type = $this->typeName;
             }
-            $node->type = $type;
+            $node->typeName = $type;
         } else if ($node instanceof PHPParser_Node_Stmt_Function
             || $node instanceof PHPParser_Node_Stmt_ClassMethod
         ) {
@@ -145,7 +145,7 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
         if ($node instanceof PHPParser_Node_Stmt_Property
             || $node instanceof PHPParser_Node_Stmt_PropertyProperty
         ) {
-            $this->type = null;
+            $this->typeName = null;
         }
     }
 
