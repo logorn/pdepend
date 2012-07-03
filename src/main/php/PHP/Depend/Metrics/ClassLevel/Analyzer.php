@@ -63,8 +63,8 @@
  */
 class PHP_Depend_Metrics_ClassLevel_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
-        implements PHP_Depend_Metrics_AggregateAnalyzerI,
-                   PHP_Depend_Metrics_NodeAware
+    implements PHP_Depend_Metrics_AggregateAnalyzerI,
+               PHP_Depend_Metrics_NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -105,7 +105,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      *
      * @var array(string=>array)
      */
-    private $_nodeMetrics = null;
+    private $metrics = array();
 
     /**
      * The internal used cyclomatic complexity analyzer.
@@ -184,7 +184,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         $varsi = $this->calculateVARSi($class);
         $wmci  = $this->calculateWMCiForClass($class);
 
-        $this->_nodeMetrics[$class->getUUID()] = array(
+        $this->metrics[$class->getUUID()] = array(
             self::M_IMPLEMENTED_INTERFACES       => $impl,
             self::M_CLASS_INTERFACE_SIZE         => 0,
             self::M_CLASS_SIZE                   => 0,
@@ -205,6 +205,35 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         }
 
         $this->fireEndClass($class);
+    }
+
+    public function visitClassBefore(PHP_Depend_AST_Class $class)
+    {
+        $impl  = $this->calculateImpl($class);
+        $varsi = $this->calculateVARSi($class);
+        $wmci  = $this->calculateWMCiForClass($class);
+
+        $metrics = array(
+            self::M_IMPLEMENTED_INTERFACES       => $impl,
+            self::M_CLASS_INTERFACE_SIZE         => 0,
+            self::M_CLASS_SIZE                   => 0,
+            self::M_NUMBER_OF_PUBLIC_METHODS     => 0,
+            self::M_PROPERTIES                   => 0,
+            self::M_PROPERTIES_INHERIT           => $varsi,
+            self::M_PROPERTIES_NON_PRIVATE       => 0,
+            self::M_WEIGHTED_METHODS             => 0,
+            self::M_WEIGHTED_METHODS_INHERIT     => $wmci,
+            self::M_WEIGHTED_METHODS_NON_PRIVATE => 0
+        );
+
+        return $metrics;
+    }
+
+    public function visitClassAfter(PHP_Depend_AST_Class $class, $data)
+    {
+        $this->metrics[$class->getId()] = $data;
+
+        return null;
     }
 
     /**
@@ -231,7 +260,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
         $wmci = $this->calculateWMCiForTrait($trait);
 
-        $this->_nodeMetrics[$trait->getUUID()] = array(
+        $this->metrics[$trait->getUUID()] = array(
             self::M_IMPLEMENTED_INTERFACES       => 0,
             self::M_CLASS_INTERFACE_SIZE         => 0,
             self::M_CLASS_SIZE                   => 0,
@@ -258,6 +287,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Visits a method node.
      *
      * @param PHP_Depend_Code_Class $method The method class node.
+     *
      * @return void
      */
     public function visitMethod(PHP_Depend_AST_Method $method)
@@ -270,17 +300,17 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         $ccn = $this->_cyclomaticAnalyzer->getCCN2($method);
 
         // Increment Weighted Methods Per Class(WMC) value
-        $this->_nodeMetrics[$uuid][self::M_WEIGHTED_METHODS] += $ccn;
+        $this->metrics[$uuid][self::M_WEIGHTED_METHODS] += $ccn;
         // Increment Class Size(CSZ) value
-        ++$this->_nodeMetrics[$uuid][self::M_CLASS_SIZE];
+        ++$this->metrics[$uuid][self::M_CLASS_SIZE];
 
         // Increment Non Private values
         if ($method->isPublic()) {
-            ++$this->_nodeMetrics[$uuid][self::M_NUMBER_OF_PUBLIC_METHODS];
+            ++$this->metrics[$uuid][self::M_NUMBER_OF_PUBLIC_METHODS];
             // Increment Non Private WMC value
-            $this->_nodeMetrics[$uuid][self::M_WEIGHTED_METHODS_NON_PRIVATE] += $ccn;
+            $this->metrics[$uuid][self::M_WEIGHTED_METHODS_NON_PRIVATE] += $ccn;
             // Increment Class Interface Size(CIS) value
-            ++$this->_nodeMetrics[$uuid][self::M_CLASS_INTERFACE_SIZE];
+            ++$this->metrics[$uuid][self::M_CLASS_INTERFACE_SIZE];
         }
 
         $this->fireEndMethod($method);
@@ -290,54 +320,85 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Visits a property node.
      *
      * @param PHP_Depend_Code_Property $property The property class node.
+     *
      * @return void
      */
     public function visitProperty(PHP_Depend_AST_Property $property)
     {
         $this->fireStartProperty($property);
 
-        // Get parent class uuid
         $uuid = $property->getDeclaringClass()->getUUID();
 
-        // Increment VARS value
-        ++$this->_nodeMetrics[$uuid][self::M_PROPERTIES];
-        // Increment Class Size(CSZ) value
-        ++$this->_nodeMetrics[$uuid][self::M_CLASS_SIZE];
+        ++$this->metrics[$uuid][self::M_PROPERTIES];
+        ++$this->metrics[$uuid][self::M_CLASS_SIZE];
 
-        // Increment Non Private values
         if ($property->isPublic()) {
-            // Increment Non Private VARS value
-            ++$this->_nodeMetrics[$uuid][self::M_PROPERTIES_NON_PRIVATE];
-            // Increment Class Interface Size(CIS) value
-            ++$this->_nodeMetrics[$uuid][self::M_CLASS_INTERFACE_SIZE];
+
+            ++$this->metrics[$uuid][self::M_PROPERTIES_NON_PRIVATE];
+            ++$this->metrics[$uuid][self::M_CLASS_INTERFACE_SIZE];
         }
 
         $this->fireEndProperty($property);
+    }
+
+    private function calculateImpl(PHP_Depend_AST_Class $class)
+    {
+        $implemented = array();
+        foreach ($class->getInterfaces() as $interface) {
+
+            $implemented[$interface->getId()] = true;
+            foreach ($interface->getInterfaces() as $interface) {
+
+                $implemented[$interface->getId()] = true;
+            }
+        }
+
+        if ($parentClass = $class->getParentClass()) {
+
+            foreach ($parentClass->getInterfaces() as $interface) {
+
+                $implemented[$interface->getId()] = true;
+            }
+        }
+
+        return count($implemented);
     }
 
     /**
      * Calculates the Variables Inheritance of a class metric, this method only
      * counts protected and public properties of parent classes.
      *
-     * @param PHP_Depend_Code_Class $class The context class instance.
+     * @param PHP_Depend_AST_Class $class The context class instance.
+     *
      * @return integer
      */
-    private function calculateVARSi(PHP_Depend_Code_Class $class)
+    private function calculateVARSi(PHP_Depend_AST_Class $class)
     {
-        // List of properties, this method only counts not overwritten properties
         $properties = array();
-        // Collect all properties of the context class
         foreach ($class->getProperties() as $prop) {
+
             $properties[$prop->getName()] = true;
         }
 
-        foreach ($class->getParentClasses() as $parent) {
-            foreach ($parent->getProperties() as $prop) {
-                if (!$prop->isPrivate() && !isset($properties[$prop->getName()])) {
-                    $properties[$prop->getName()] = true;
+        $parentClass = $class->getParentClass();
+        while ($parentClass) {
+
+            foreach ($parentClass->getProperties() as $property) {
+
+                if ($property->isPrivate()) {
+                    continue;
                 }
+
+                if (isset($properties[$property->name])) {
+                    continue;
+                }
+
+                $properties[$property->name] = true;
             }
+
+            $parentClass = $parentClass->getParentClass();
         }
+
         return count($properties);
     }
 
@@ -345,25 +406,31 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the Weight Method Per Class metric, this method only counts
      * protected and public methods of parent classes.
      *
-     * @param PHP_Depend_Code_Class $class The context class instance.
+     * @param PHP_Depend_AST_Class $class The context class instance.
+     *
      * @return integer
      */
-    private function calculateWMCiForClass(PHP_Depend_Code_Class $class)
+    private function calculateWMCiForClass(PHP_Depend_AST_Class $class)
     {
         $ccn = $this->calculateWMCi($class);
 
-        foreach ($class->getParentClasses() as $parent) {
-            foreach ($parent->getMethods() as $method) {
+        $parentClass = $class->getParentClass();
+        while ($parentClass) {
+
+            foreach ($parentClass->getMethods() as $method) {
+
                 if ($method->isPrivate()) {
                     continue;
                 }
+
                 if (isset($ccn[($name = $method->getName())])) {
                     continue;
                 }
                 $ccn[$name] = $this->_cyclomaticAnalyzer->getCCN2($method);
             }
-        }
 
+            $parentClass = $parentClass->getParentClass();
+        }
         return array_sum($ccn);
     }
 
@@ -371,8 +438,8 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the Weight Method Per Class metric for a trait.
      *
      * @param PHP_Depend_AST_Trait $trait The context trait instance.
+     *
      * @return integer
-     * @since 1.0.6
      */
     private function calculateWMCiForTrait(PHP_Depend_AST_Trait $trait)
     {
@@ -382,18 +449,18 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     /**
      * Calculates the Weight Method Per Class metric.
      *
-     * @param PHP_Depend_Code_AbstractType $type The context type instance.
+     * @param PHP_Depend_AST_Type $type The context type instance.
+     *
      * @return integer[]
-     * @since 1.0.6
      */
-    private function calculateWMCi(PHP_Depend_Code_AbstractType $type)
+    private function calculateWMCi(PHP_Depend_AST_Type $type)
     {
         $ccn = array();
 
         foreach ($type->getMethods() as $method) {
+
             $ccn[$method->getName()] = $this->_cyclomaticAnalyzer->getCCN2($method);
         }
-
         return $ccn;
     }
 }
