@@ -87,11 +87,13 @@ class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depen
      * Constructs a new property AST node.
      *
      * @param \PHPParser_Node_Stmt_PropertyProperty $property
-     * @param \PHP_Depend_AST_PropertyRefs          $refs
+     * @param \PHP_Depend_AST_PropertyRefs $refs
+     * @param integer $modifier
      */
     public function __construct(
         PHPParser_Node_Stmt_PropertyProperty $property,
-        PHP_Depend_AST_PropertyRefs $refs
+        PHP_Depend_AST_PropertyRefs $refs,
+        $modifier
     )
     {
         parent::__construct(
@@ -102,6 +104,7 @@ class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depen
 
         $this->refs           = $refs;
         $this->type           = $property->type;
+        $this->modifier       = $modifier;
         $this->namespacedName = $property->namespacedName;
 
         $this->refs->initialize($this);
@@ -156,6 +159,26 @@ class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depen
     public function getType()
     {
         return $this->refs->getType();
+    }
+
+    /**
+     * Returns <b>true</b> when this properties collection is declared public.
+     *
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return !!($this->modifier & \PHP_Depend_AST_Class::MODIFIER_PUBLIC);
+    }
+
+    /**
+     * Returns <b>true</b> when this properties collection is declared private.
+     *
+     * @return boolean
+     */
+    public function isPrivate()
+    {
+        return !!($this->modifier & \PHP_Depend_AST_Class::MODIFIER_PRIVATE);
     }
 
     /**
