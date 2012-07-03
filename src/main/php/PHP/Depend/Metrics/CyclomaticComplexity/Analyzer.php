@@ -103,6 +103,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     {
         $metrics = $this->getNodeMetrics($node);
         if (isset($metrics[self::M_CYCLOMATIC_COMPLEXITY_1])) {
+
             return $metrics[self::M_CYCLOMATIC_COMPLEXITY_1];
         }
         return 0;
@@ -119,6 +120,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     {
         $metrics = $this->getNodeMetrics($node);
         if (isset($metrics[self::M_CYCLOMATIC_COMPLEXITY_2])) {
+
             return $metrics[self::M_CYCLOMATIC_COMPLEXITY_2];
         }
         return 0;
@@ -143,7 +145,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      */
     public function getNodeMetrics($node)
     {
-        $nodeId = (string)is_object($node) ? $node->getId() : $node;
+        $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
             return $this->metrics[$nodeId];
@@ -209,9 +211,9 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      * Visits a method before it's children will be traversed.
      *
      * @param PHP_Depend_AST_Method $method
-     * @param array                 $data
+     * @param array $data
      *
-     * @return void
+     * @return array
      */
     public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
     {
@@ -227,7 +229,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      * Visits a method after it's children were traversed.
      *
      * @param PHP_Depend_AST_Method $method
-     * @param array                 $data
+     * @param array $data
      *
      * @return void
      */
@@ -241,7 +243,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
         */
         $this->_updateProjectMetrics($method->getId());
 
-        return (array)array_pop($this->data);
+        return (array) array_pop($this->data);
     }
 
     /**
