@@ -87,6 +87,13 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
     private $declaringPackage;
 
     /**
+     * Modifiers of a property.
+     *
+     * @var integer
+     */
+    private $modifier;
+
+    /**
      * @var PHP_Depend_Context
      */
     private $context;
@@ -122,6 +129,9 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
         } else if ($node instanceof PHPParser_Node_Stmt_Namespace) {
 
             $this->declaringNamespace = (string) $node->name;
+        } else if ($node instanceof PHPParser_Node_Stmt_Property) {
+
+            $this->modifier = $node->type;
         }
     }
 
@@ -188,6 +198,8 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             $this->declaringPackage = null;
         } else if ($node instanceof PHPParser_Node_Stmt_Property) {
 
+            $this->modifier = 0;
+
             $newNode = new Properties($node);
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
 
@@ -198,7 +210,8 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
                     $this->extractNamespaceName($node),
                     $this->declaringType,
                     (string) $node->typeName
-                )
+                ),
+                $this->modifier
             );
         } else if ($node instanceof PHPParser_Node_Stmt_ClassMethod) {
 
