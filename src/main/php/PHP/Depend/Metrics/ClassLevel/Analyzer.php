@@ -164,11 +164,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      */
     public function getNodeMetrics($node)
     {
-        if (null === $this->metrics) {
-
-            $this->buildCodeRankMetrics();
-        }
-
         $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
