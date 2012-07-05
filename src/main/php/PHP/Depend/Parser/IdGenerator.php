@@ -80,16 +80,22 @@ class PHP_Depend_Parser_IdGenerator extends PHPParser_NodeVisitorAbstract
     public function enterNode(PHPParser_Node $node)
     {
         if ($node instanceof PHPParser_Node_Stmt_Class) {
+
             array_push($this->parts, "\\{$node->name}");
         } else if ($node instanceof PHPParser_Node_Stmt_Interface) {
+
             array_push($this->parts, "\\{$node->name}");
         } else if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+
             array_push($this->parts, "\\{$node->name}");
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
+
             array_push($this->parts, "::\${$node->name}");
         } else if ($node instanceof PHPParser_Node_Stmt_ClassMethod) {
+
             array_push($this->parts, "::{$node->name}()");
         } else if ($node instanceof PHPParser_Node_Stmt_Function) {
+
             array_push($this->parts, "\\{$node->name}()");
         }
     }
@@ -105,21 +111,27 @@ class PHP_Depend_Parser_IdGenerator extends PHPParser_NodeVisitorAbstract
     public function leaveNode(PHPParser_Node $node)
     {
         if ($node instanceof PHPParser_Node_Stmt_Class) {
+
             $id = join('', $this->parts) . '#c';
             array_pop($this->parts);
         } else if ($node instanceof PHPParser_Node_Stmt_Interface) {
+
             $id = join('', $this->parts) . '#i';
             array_pop($this->parts);
         } else if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+
             $id = join('', $this->parts) . '#n';
             array_pop($this->parts);
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
+
             $id = join('', $this->parts) . '#p';
             array_pop($this->parts);
         } else if ($node instanceof PHPParser_Node_Stmt_ClassMethod) {
+
             $id = join('', $this->parts) . '#m';
             array_pop($this->parts);
         } else if ($node instanceof PHPParser_Node_Stmt_Function) {
+
             $id = join('', $this->parts) . '#f';
             array_pop($this->parts);
         }
