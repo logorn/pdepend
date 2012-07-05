@@ -65,6 +65,8 @@ abstract class Processor
     extends PHPParser_NodeTraverser
     implements PHPParser_NodeVisitor
 {
+    private $regexp = '(^(visit[\w\d]+(Before|After)|(before|after)Traverse)$)';
+
     /**
      * Array with all registered visitors
      *
@@ -85,7 +87,10 @@ abstract class Processor
      *
      * @var array
      */
-    private $callbacks = array();
+    private $callbacks = array(
+        'beforeTraverse' => array(),
+        'afterTraverse' => array()
+    );
 
     /**
      * Constructs a new ast processor.
@@ -107,12 +112,16 @@ abstract class Processor
         $class = get_class($visitor);
 
         foreach (get_class_methods($visitor) as $method) {
-            if (0 === preg_match('(^visit[\w\d]+(Before|After)$)', $method)) {
+
+            if (0 === preg_match($this->regexp, $method)) {
                 continue;
             }
+
             if (false === isset($this->callbacks[$method])) {
+
                 $this->callbacks[$method] = array();
             }
+
             $this->callbacks[$method][] = $class;
         }
 
@@ -156,7 +165,13 @@ abstract class Processor
     public function beforeTraverse(array $nodes)
     {
         foreach (array_keys($this->data) as $class) {
+
             $this->data[$class] = null;
+        }
+
+        foreach ($this->callbacks[__FUNCTION__] as $class) {
+
+            $this->nodeVisitors[$class]->beforeTraverse($nodes);
         }
     }
 
@@ -209,7 +224,13 @@ abstract class Processor
     public function afterTraverse(array $nodes)
     {
         foreach (array_keys($this->data) as $class) {
+
             $this->data[$class] = null;
+        }
+
+        foreach ($this->callbacks[__FUNCTION__] as $class) {
+
+            $this->nodeVisitors[$class]->afterTraverse($nodes);
         }
     }
 
