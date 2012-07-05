@@ -64,7 +64,7 @@ class PHP_Depend_Context
      *
      * @var PHP_Depend_AST_Node[]
      */
-    private static $nodes = array();
+    private $nodes = array();
 
     /**
      * Registers the given node in the global context.
@@ -75,7 +75,7 @@ class PHP_Depend_Context
      */
     public function registerNode(PHP_Depend_AST_Node $node)
     {
-        self::$nodes[$node->getId()] = $node;
+        $this->nodes[$node->getId()] = $node;
     }
 
     /**
@@ -96,7 +96,10 @@ class PHP_Depend_Context
             new PHPParser_Node_Stmt_Namespace(
                 new PHPParser_Node_Name($id ? $id : '+global'),
                 array(),
-                array('id' => ($id ? $id : '+global') . '#n')
+                array(
+                    'user_defined' => false,
+                    'id' => ($id ? $id : '+global') . '#n'
+                )
             ),
             new PHP_Depend_AST_NamespaceRefs($this)
         );
@@ -218,8 +221,8 @@ class PHP_Depend_Context
      */
     private function getNode($id)
     {
-        if (isset(self::$nodes[$id])) {
-            return self::$nodes[$id];
+        if (isset($this->nodes[$id])) {
+            return $this->nodes[$id];
         }
         return null;
     }
