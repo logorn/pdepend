@@ -75,7 +75,7 @@ class PHP_Depend_Log_Jdepend_DependencyAnalyzer
      *
      * @return array
      */
-    public function getStats(PHP_Depend_AST_Node $node)
+    public function getStats($node)
     {
         if (isset($this->stats[$node->getUUID()])) {
             return $this->stats[$node->getUUID()];

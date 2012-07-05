@@ -45,6 +45,8 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 require_once dirname(__FILE__) . '/../../AbstractTest.php';
 
 /**
@@ -58,28 +60,22 @@ require_once dirname(__FILE__) . '/../../AbstractTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  *
- * @covers    PHP_Depend_Metrics_Dependency_Analyzer
- * @group     pdepend
- * @group     pdepend::metrics
- * @group     pdepend::metrics::dependency
- * @group     unittest
+ * @covers PHP_Depend_Metrics_Dependency_Analyzer
+ * @group  pdepend
+ * @group  pdepend::metrics
+ * @group  pdepend::metrics::dependency
+ * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
 {
     /**
-     * The used node builder.
-     *
-     * @var PHP_Depend_Builder_Default
-     */
-    protected $builder = null;
-
-    /**
      * Input test data.
      *
-     * @var array(string=>array)
+     * @var array
      */
     private $_input = array(
-        '+global'  => array(
+        '+global#n'  => array(
             'tc'  => 0,
             'cc'  => 0,
             'ac'  => 0,
@@ -89,17 +85,17 @@ class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
             'i'   => 0,
             'd'   => 1
         ),
-        'pkg1'     => array(
+        'pkg1#n'     => array(
             'tc'  => 1,
             'cc'  => 1,
             'ac'  => 0,
             'ca'  => 0,
-            'ce'  => 2,
+            'ce'  => 3,
             'a'   => 0,
             'i'   => 1,
             'd'   => 0
         ),
-        'pkg2'     => array(
+        'pkg2#n'     => array(
             'tc'  => 1,
             'cc'  => 0,
             'ac'  => 1,
@@ -109,15 +105,15 @@ class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
             'i'   => 0,
             'd'   => 0
         ),
-        'pkg3'     => array(
+        'pkg3#n'     => array(
             'tc'  => 1,
             'cc'  => 0,
             'ac'  => 1,
             'ca'  => 1,
-            'ce'  => 1,
+            'ce'  => 2,
             'a'   => 1,
-            'i'   => 0.5,
-            'd'   => 0.5,
+            'i'   => 0.66666666666667,
+            'd'   => 0.66666666666667,
         ),
     );
 
@@ -128,16 +124,18 @@ class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
      */
     public function testGenerateMetrics()
     {
-        $visitor = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
 
-        $packages = self::parseCodeResourceForTest();
-        $visitor->analyze($packages);
+        $processor = new DefaultProcessor();
+        $processor->register($analyzer);
+        $processor->process(self::parseCodeResourceForTest());
 
         $actual = array();
-        foreach ($packages as $package) {
-            $actual[$package->getName()] = $visitor->getStats($package);
+        foreach (array_keys($this->_input) as $id) {
+
+            $actual[$id] = $analyzer->getStats($id);
         }
 
-        self::assertEquals($this->_input, $actual);
+        $this->assertEquals($this->_input, $actual, '', 0.00005);
     }
 }
