@@ -76,6 +76,13 @@ interface PHP_Depend_AST_Type extends PHP_Depend_AST_Node
     public function getNamespace();
 
     /**
+     * Returns <b>true</b> when this node was parsed from a source file.
+     *
+     * @return boolean
+     */
+    public function isUserDefined();
+
+    /**
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
      * @param PHP_Depend_AST_Type $type

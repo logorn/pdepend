@@ -82,7 +82,7 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
                 'extends'  => $interface->extends,
                 'stmts'    => $interface->stmts
             ),
-            $interface->attributes
+            array_merge(array('user_defined' => true), $interface->attributes)
         );
 
         $this->refs           = $refs;
@@ -145,6 +145,16 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
             }
         }
         return $methods;
+    }
+
+    /**
+     * Returns <b>true</b> when this node was parsed from a source file.
+     *
+     * @return boolean
+     */
+    public function isUserDefined()
+    {
+        return $this->attributes['user_defined'];
     }
 
     /**

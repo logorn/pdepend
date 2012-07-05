@@ -80,7 +80,7 @@ class PHP_Depend_AST_Namespace
         parent::__construct(
             $namespace->name,
             $namespace->stmts,
-            $namespace->attributes
+            array_merge(array('user_defined' => true), $namespace->attributes)
         );
 
         $this->refs = $refs;
@@ -106,6 +106,16 @@ class PHP_Depend_AST_Namespace
     public function getName()
     {
         return (string) $this->name;
+    }
+
+    /**
+     * Returns <b>true</b> when this node was parsed from a source file.
+     *
+     * @return boolean
+     */
+    public function isUserDefined()
+    {
+        return $this->attributes['user_defined'];
     }
 
     /**
