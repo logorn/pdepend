@@ -97,10 +97,7 @@ class PHP_Depend_AST_InterfaceRefs
      */
     public function getNamespace()
     {
-        if ($namespace = $this->context->getNamespace($this->namespace)) {
-            return $namespace;
-        }
-        // TODO Return dummy namespace
+        return $this->context->getNamespace($this->namespace);
     }
 
     /**
@@ -113,12 +110,8 @@ class PHP_Depend_AST_InterfaceRefs
     {
         $parentInterfaces = array();
         foreach ($this->parentInterfaces as $id) {
-            if ($interface = $this->context->getInterface($id)) {
-                $parentInterfaces[] = $interface;
-            } else {
-                // TODO Create dummy interface
-                continue;
-            }
+
+            $parentInterfaces[] = $this->context->getInterface($id);
         }
         return $parentInterfaces;
     }
