@@ -74,7 +74,7 @@ class PHP_Depend_Util_Coverage_FactoryTest extends PHP_Depend_AbstractTest
     public function testCreateReturnsCloverReportInstanceForCloverInputFile()
     {
         $factory = new PHP_Depend_Util_Coverage_Factory();
-        $report  = $factory->create(dirname(__FILE__) . '/_files/clover.xml');
+        $report  = $factory->create(__DIR__ . '/_files/clover.xml');
 
         $this->assertInstanceOf(PHP_Depend_Util_Coverage_CloverReport::CLAZZ, $report);
     }
@@ -112,6 +112,6 @@ class PHP_Depend_Util_Coverage_FactoryTest extends PHP_Depend_AbstractTest
     public function testCreateMethodThrowsExceptionForUnsupportedReportFormat()
     {
         $factory = new PHP_Depend_Util_Coverage_Factory();
-        $factory->create(dirname(__FILE__) . '/_files/fail.xml');
+        $factory->create(__DIR__ . '/_files/fail.xml');
     }
 }

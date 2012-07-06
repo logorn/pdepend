@@ -238,7 +238,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
         $logFile  = self::createRunResourceURI();
         $resource = self::createCodeResourceUriForTest();
 
-        set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__));
+        set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
 
         $argv = array(
             '--suffix=inc',
@@ -264,7 +264,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
         $logFile  = self::createRunResourceURI();
         $resource = self::createCodeResourceUriForTest();
 
-        set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__));
+        set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
 
         $argv = array('--suffix=inc', '--dummy-logger=' . $logFile, $resource);
 
@@ -544,7 +544,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
         $this->markTestSkipped('TODO 2.0 fix this test');
 
         $argv = array(
-            '--coverage-report=' . dirname(__FILE__) . '/_files/clover.xml',
+            '--coverage-report=' . __DIR__ . '/_files/clover.xml',
             '--dummy-logger=' . self::createRunResourceURI(),
             __FILE__,
         );

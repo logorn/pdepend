@@ -81,7 +81,7 @@ class PHP_Depend_Bugs_InputIteratorShouldOnlyFilterOnLocalPathBug164Test
         $iterator = new PHP_Depend_Input_Iterator(
             new ArrayIterator(array(new SplFileInfo(__FILE__))),
             $filter,
-            dirname(__FILE__)
+            __DIR__
         );
         $iterator->accept();
     }

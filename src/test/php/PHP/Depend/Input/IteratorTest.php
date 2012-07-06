@@ -106,7 +106,7 @@ class PHP_Depend_Input_IteratorTest extends PHP_Depend_AbstractTest
         $iterator = new PHP_Depend_Input_Iterator(
             new ArrayIterator(array(new SplFileInfo(__FILE__))),
             $filter,
-            dirname(__FILE__)
+            __DIR__
         );
         $iterator->accept();
     }

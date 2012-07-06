@@ -86,7 +86,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
 
         $this->workingDir = getcwd();
 
-        chdir(dirname(__FILE__));
+        chdir(__DIR__);
     }
 
     /**

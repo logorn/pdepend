@@ -176,7 +176,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
 
         $fileName = 'xml-log-without-metrics.xml';
         $this->assertXmlStringEqualsXmlString(
-            $this->getNormalizedPathXml(dirname(__FILE__) . "/_expected/{$fileName}"),
+            $this->getNormalizedPathXml(__DIR__ . "/_expected/{$fileName}"),
             $this->getNormalizedPathXml($this->resultFile)
         );
     }
@@ -206,7 +206,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
 
         $fileName = 'project-aware-result-set-without-code.xml';
         $this->assertXmlStringEqualsXmlString(
-            $this->getNormalizedPathXml(dirname(__FILE__) . "/_expected/{$fileName}"),
+            $this->getNormalizedPathXml(__DIR__ . "/_expected/{$fileName}"),
             $this->getNormalizedPathXml($this->resultFile)
         );
     }
@@ -235,7 +235,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
 
         $fileName = 'node-and-project-aware-result-set.xml';
         $this->assertXmlStringEqualsXmlString(
-            $this->getNormalizedPathXml(dirname(__FILE__) . "/_expected/{$fileName}"),
+            $this->getNormalizedPathXml(__DIR__ . "/_expected/{$fileName}"),
             $this->getNormalizedPathXml($this->resultFile)
         );
     }
@@ -288,7 +288,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
 
         $fileName = 'node-aware-result-set.xml';
         $this->assertXmlStringEqualsXmlString(
-            $this->getNormalizedPathXml(dirname(__FILE__) . "/_expected/{$fileName}"),
+            $this->getNormalizedPathXml(__DIR__ . "/_expected/{$fileName}"),
             $this->getNormalizedPathXml($this->resultFile)
         );
     }

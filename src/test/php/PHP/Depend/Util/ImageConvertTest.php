@@ -123,7 +123,7 @@ class PHP_Depend_Util_ImageConvertTest extends PHP_Depend_AbstractTest
      */
     public function testSvgFixtureContainsExpectedNumberOfFontFamilyDefinitions()
     {
-        $svg = file_get_contents(dirname(__FILE__) . '/_input/pyramid.svg');
+        $svg = file_get_contents(__DIR__ . '/_input/pyramid.svg');
         self::assertEquals(25, substr_count($svg, 'font-family:Arial'));
     }
 
@@ -158,7 +158,7 @@ class PHP_Depend_Util_ImageConvertTest extends PHP_Depend_AbstractTest
      */
     public function testSvgFixtureContainsExpectedNumberOfFontSizeDefinitions()
     {
-        $svg = file_get_contents(dirname(__FILE__) . '/_input/pyramid.svg');
+        $svg = file_get_contents(__DIR__ . '/_input/pyramid.svg');
         self::assertEquals(25, substr_count($svg, 'font-size:11px'));
     }
 
@@ -194,7 +194,7 @@ class PHP_Depend_Util_ImageConvertTest extends PHP_Depend_AbstractTest
     protected static function createInputSvg()
     {
         $input = self::createRunResourceURI(uniqid('input_')) . '.svg';
-        copy(dirname(__FILE__) . '/_input/pyramid.svg', $input);
+        copy(__DIR__ . '/_input/pyramid.svg', $input);
 
         return $input;
     }

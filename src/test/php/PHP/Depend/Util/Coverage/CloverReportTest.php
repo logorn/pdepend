@@ -164,7 +164,7 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     private function _createCloverReport()
     {
-        $sxml = simplexml_load_file(dirname(__FILE__) . '/_files/clover.xml');
+        $sxml = simplexml_load_file(__DIR__ . '/_files/clover.xml');
         return new PHP_Depend_Util_Coverage_CloverReport($sxml);
     }
 
@@ -175,7 +175,7 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     private function _createNamespacedCloverReport()
     {
-        $sxml = simplexml_load_file(dirname(__FILE__) . '/_files/clover-namespaced.xml');
+        $sxml = simplexml_load_file(__DIR__ . '/_files/clover-namespaced.xml');
         return new PHP_Depend_Util_Coverage_CloverReport($sxml);
     }
 
