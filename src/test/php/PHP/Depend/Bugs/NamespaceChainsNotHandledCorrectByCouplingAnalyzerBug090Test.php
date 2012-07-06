@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for bug 090 where the coupling analyzer calculates wrong results
  * for functions calls and object allocations that use PHP 5.3's namespace

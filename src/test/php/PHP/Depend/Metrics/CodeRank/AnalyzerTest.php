@@ -47,8 +47,6 @@
 
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-
 /**
  * Test case for the code metric analyzer class.
  *

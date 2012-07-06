@@ -46,14 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../../AbstractTest.php';
-require_once dirname(__FILE__) . '/../DummyAnalyzer.php';
-require_once dirname(__FILE__) . '/CouplingAnalyzer.php';
-require_once dirname(__FILE__) . '/CyclomaticComplexityAnalyzer.php';
-require_once dirname(__FILE__) . '/InheritanceAnalyzer.php';
-require_once dirname(__FILE__) . '/NodeCountAnalyzer.php';
-require_once dirname(__FILE__) . '/NodeLocAnalyzer.php';
-
 /**
  * Test case for the overview pyramid logger.
  *

@@ -46,9 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../../AbstractTest.php';
-require_once dirname(__FILE__) . '/../DummyAnalyzer.php';
-
 /**
  * Test case for the jdepend xml logger.
  *

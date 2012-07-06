@@ -46,7 +46,7 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
+require_once __DIR__ . '/AbstractTest.php';
 
 /**
  * Test case for bug 91, magic constant __CLASS__ as array default value results

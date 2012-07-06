@@ -46,8 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../AbstractDriverTest.php';
-
 /**
  * Test case for the {@link PHP_Depend_Util_Cache_Driver_File} class.
  *

@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for bug #98. The default package contains software artifacts like
  * functions or classes that are broken. This can result in a fatal error during

@@ -46,7 +46,7 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
+require_once __DIR__ . '/AbstractTest.php';
 
 /**
  * Test case related to bug 70.

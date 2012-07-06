@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for bug 089 where the coupling analyzer calculates wrong results
  * when there are comments in method execution expressions.

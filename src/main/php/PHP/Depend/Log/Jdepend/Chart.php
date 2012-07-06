@@ -158,7 +158,7 @@ class PHP_Depend_Log_Jdepend_Chart
         $bias = 0.1;
 
         $svg = new DOMDocument('1.0', 'UTF-8');
-        $svg->load(dirname(__FILE__) . '/chart.svg');
+        $svg->load(__DIR__ . '/chart.svg');
 
         $bad   = $svg->getElementById('jdepend.bad');
         $good  = $svg->getElementById('jdepend.good');

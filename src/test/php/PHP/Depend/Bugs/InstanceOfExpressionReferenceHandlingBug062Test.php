@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for bug 62 where reference in an instanceof operator weren't handled
  * correct.

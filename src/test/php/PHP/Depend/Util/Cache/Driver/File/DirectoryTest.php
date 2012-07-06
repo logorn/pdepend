@@ -47,8 +47,6 @@
  * @since      0.10.0
  */
 
-require_once dirname(__FILE__) . '/../../../../AbstractTest.php';
-
 /**
  * Test case for the {@link PHP_Depend_Util_Cache_Driver_File_Directory} class.
  *

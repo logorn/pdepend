@@ -46,8 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../../AbstractTest.php';
-
 /**
  * Abstract test case that validates the behavior of concrete driver
  * implementations.

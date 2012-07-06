@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Tests that the parser handles a closure that returns a reference correct.
  * This test is related to bug #94.

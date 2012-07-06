@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for bug 102. The current parser implementation does not handle
  * the <b>namespace</b> keyword in parameter type hints.

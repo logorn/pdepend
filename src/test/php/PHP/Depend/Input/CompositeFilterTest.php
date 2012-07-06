@@ -46,9 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-require_once dirname(__FILE__) . '/DummyFilter.php';
-
 /**
  * Test case for the composite filter.
  *

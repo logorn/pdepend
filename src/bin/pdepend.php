@@ -48,14 +48,12 @@
 
 // PEAR/svn workaround
 if (strpos('@php_bin@', '@php_bin') === 0) {
-    set_include_path(
-        '.' . PATH_SEPARATOR .
-            dirname(__FILE__) . '/../main/php'
-    );
+
+    set_include_path('.' . PATH_SEPARATOR . __DIR__ . '/../main/php');
 }
 
 require_once 'PHP/Depend/Autoload.php';
-require_once dirname(__FILE__) . '/../../lib/PHP-Parser/lib/bootstrap.php';
+require_once __DIR__ . '/../../lib/PHP-Parser/lib/bootstrap.php';
 
 // Allow as much memory as possible by default
 if (extension_loaded('suhosin') && is_numeric(ini_get('suhosin.memory_limit'))) {

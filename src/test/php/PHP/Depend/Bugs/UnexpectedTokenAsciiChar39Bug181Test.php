@@ -47,8 +47,6 @@
  * @since      0.10.0
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for bug 181, where an unexpected token in a chinese translation
  * file forces PHP_Depend to quit.

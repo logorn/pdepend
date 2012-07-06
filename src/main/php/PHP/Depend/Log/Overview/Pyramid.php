@@ -198,7 +198,7 @@ class PHP_Depend_Log_Overview_Pyramid implements PHP_Depend_Log_FileAware
         $proportions = $this->_computeProportions($metrics);
 
         $svg = new DOMDocument('1.0', 'UTF-8');
-        $svg->load(dirname(__FILE__) . '/pyramid.svg');
+        $svg->load(__DIR__ . '/pyramid.svg');
 
         $items = array_merge($metrics, $proportions);
         foreach ($items as $name => $value) {

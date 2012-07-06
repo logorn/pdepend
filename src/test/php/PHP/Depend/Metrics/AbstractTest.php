@@ -46,8 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-
 /**
  * Abstract base class for tests of the metrics package.
  *

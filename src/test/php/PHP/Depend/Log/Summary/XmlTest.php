@@ -48,11 +48,6 @@
 
 use \PHP\Depend\Log\LogProcessor;
 
-require_once dirname(__FILE__) . '/../../AbstractTest.php';
-require_once dirname(__FILE__) . '/AnalyzerNodeAwareDummy.php';
-require_once dirname(__FILE__) . '/AnalyzerProjectAwareDummy.php';
-require_once dirname(__FILE__) . '/AnalyzerNodeAndProjectAwareDummy.php';
-
 /**
  * Test case for the xml summary log.
  *

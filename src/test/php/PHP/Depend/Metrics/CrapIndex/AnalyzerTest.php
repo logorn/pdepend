@@ -46,8 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-
 /**
  * Test cases for the {@link PHP_Depend_Metrics_CrapIndex_Analyzer} class.
  *

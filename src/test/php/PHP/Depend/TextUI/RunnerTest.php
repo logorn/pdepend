@@ -46,9 +46,6 @@
 
 namespace PHP\Depend\TextUI;
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-require_once dirname(__FILE__) . '/../Log/Dummy/Logger.php';
-
 /**
  * Test case for the text ui runner.
  *

@@ -46,8 +46,6 @@
  * @link       http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-
 /**
  * Test case for the node lines of code analyzer.
  *

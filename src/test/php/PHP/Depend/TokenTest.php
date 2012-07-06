@@ -45,8 +45,6 @@
  * @link      http://pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/AbstractTest.php';
-
 /**
  * Test case for the {@link PHP_Depend_Token} class.
  *

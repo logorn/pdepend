@@ -47,8 +47,6 @@
 
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
-require_once dirname(__FILE__) . '/../../AbstractTest.php';
-
 /**
  * Tests the for the package metrics visitor.
  *

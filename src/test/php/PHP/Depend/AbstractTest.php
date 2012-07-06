@@ -75,7 +75,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $run = dirname(__FILE__) . '/_run';
+        $run = __DIR__ . '/_run';
         if (file_exists($run) === false) {
             mkdir($run, 0755);
         }
@@ -394,7 +394,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     private function _clearRunResources($dir = null)
     {
         if ($dir === null) {
-            $dir = dirname(__FILE__) . '/_run';
+            $dir = __DIR__ . '/_run';
         }
 
         foreach (new DirectoryIterator($dir) as $file) {
@@ -546,7 +546,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      */
     protected static function createRunResourceURI($fileName = null)
     {
-        $uri = dirname(__FILE__) . '/_run/' . ($fileName ? $fileName : uniqid());
+        $uri = __DIR__ . '/_run/' . ($fileName ? $fileName : uniqid());
         if (file_exists($uri) === true) {
             throw new ErrorException("File '{$fileName}' already exists.");
         }
@@ -562,7 +562,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      */
     protected static function createCodeResourceURI($fileName)
     {
-        $uri = dirname(__FILE__) . '/../../../resources/files/' . $fileName;
+        $uri = __DIR__ . '/../../../resources/files/' . $fileName;
         $uri = realpath($uri);
 
         if (file_exists($uri) === false) {
@@ -625,15 +625,15 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     public static function init()
     {
         // Is it not installed?
-        if (is_file(dirname(__FILE__) . '/../../../../main/php/PHP/Depend.php')) {
+        if (is_file(__DIR__ . '/../../../../main/php/PHP/Depend.php')) {
 
-            $path = realpath(dirname(__FILE__) . '/../../../../main/php/');
+            $path = realpath(__DIR__ . '/../../../../main/php/');
             $path .= PATH_SEPARATOR . get_include_path();
             set_include_path($path);
         }
 
         // Set test path
-        $path = realpath(dirname(__FILE__) . '/../..');
+        $path = realpath(__DIR__ . '/../..');
         $path .= PATH_SEPARATOR . get_include_path();
         set_include_path($path);
 

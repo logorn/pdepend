@@ -46,8 +46,6 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
-
 /**
  * Tests the integration of the {@link PHP_Depend} class and the input filter
  * class {@link PHP_Depend_Input_ExcludePathFilter}.

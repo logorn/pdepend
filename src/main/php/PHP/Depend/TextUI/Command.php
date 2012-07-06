@@ -483,7 +483,7 @@ class PHP_Depend_TextUI_Command
 
         // Get all include paths
         $paths   = explode(PATH_SEPARATOR, get_include_path());
-        $paths[] = dirname(__FILE__) . '/../../../';
+        $paths[] = __DIR__ . '/../../../';
 
         foreach ($paths as $path) {
 
@@ -568,7 +568,7 @@ class PHP_Depend_TextUI_Command
 
         // Get all include paths
         $paths   = explode(PATH_SEPARATOR, get_include_path());
-        $paths[] = dirname(__FILE__) . '/../../../';
+        $paths[] = __DIR__ . '/../../../';
 
         foreach ($paths as $path) {
 
