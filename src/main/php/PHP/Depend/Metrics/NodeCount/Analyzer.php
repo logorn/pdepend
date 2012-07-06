@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 
 /**
  * This analyzer collects different count metrics for code artifacts like
@@ -238,13 +239,13 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
     /**
      * Visits the given method before it's children were traversed.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      * @param mixed $data
      *
      * @return mixed
      * @todo Do not count methods declared in an interface
      */
-    public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
+    public function visitASTMethodBefore(ASTMethod $method, $data)
     {
         $this->fireStartMethod($method);
 

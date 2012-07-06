@@ -52,6 +52,8 @@ use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTFunctionRefs;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTInterfaceRefs;
+use \PHP\Depend\AST\ASTMethod;
+use \PHP\Depend\AST\ASTMethodRefs;
 use \PHP\Depend\AST\Properties;
 use \PHP\Depend\AST\Property;
 
@@ -229,12 +231,12 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
                 );
             }
 
-            $newNode = new PHP_Depend_AST_Method(
+            $newNode = new ASTMethod(
                 $node,
                 array(
                     'thrownExceptions'  => $thrownExceptions
                 ),
-                new PHP_Depend_AST_MethodRefs(
+                new ASTMethodRefs(
                     $this->context,
                     $this->extractNamespaceName($node),
                     $this->declaringType,

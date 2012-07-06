@@ -64,7 +64,7 @@ interface PHP_Depend_AST_Type extends PHP_Depend_AST_Node
     /**
      * Returns all methods declared by this type.
      *
-     * @return PHP_Depend_AST_Method[]
+     * @return \PHP\Depend\AST\ASTMethod[]
      */
     public function getMethods();
 

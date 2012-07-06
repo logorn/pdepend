@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -307,7 +308,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
     }
 
-    public function visitMethodBefore(PHP_Depend_AST_Method $method)
+    public function visitASTMethodBefore(ASTMethod $method)
     {
         if ($this->isMethodDisabled()) {
             return array();
@@ -334,7 +335,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         return array();
     }
 
-    public function visitMethodAfter(PHP_Depend_AST_Method $method, array $nodes)
+    public function visitASTMethodAfter(ASTMethod $method, array $nodes)
     {
         if ($this->isMethodDisabled()) {
             return;

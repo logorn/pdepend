@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTMethod;
 
 /**
  * This analyzer calculates the C.R.A.P. index for methods an functions when a
@@ -193,13 +194,14 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Visits the given method.
      *
-     * @param PHP_Depend_Code_Method $method The context method.
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function visitMethod(PHP_Depend_AST_Method $method)
+    public function visitASTMethodBefore(ASTMethod $method)
     {
-        if ($method->isAbstract() === false) {
+        if (false === $method->isAbstract()) {
+
             $this->_visitCallable($method);
         }
     }

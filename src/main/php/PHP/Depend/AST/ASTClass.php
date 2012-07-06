@@ -164,14 +164,14 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
     /**
      * Returns all methods declared by this class.
      *
-     * @return \PHP_Depend_AST_Method[]
+     * @return \PHP\Depend\AST\ASTMethod[]
      */
     public function getMethods()
     {
         $methods = array();
         foreach ($this->stmts as $stmt) {
 
-            if ($stmt instanceof \PHP_Depend_AST_Method) {
+            if ($stmt instanceof ASTMethod) {
 
                 $methods[] = $stmt;
             }

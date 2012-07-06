@@ -196,7 +196,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return null|PHP_Depend_AST_Method
+     * @return null|\PHP\Depend\AST\ASTMethod
      */
     public function getMethod($id)
     {

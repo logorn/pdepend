@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 
 /**
  * This analyzer collects different lines of code metrics.
@@ -358,11 +359,11 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     /**
      * Visits a method node.
      *
-     * @param PHP_Depend_Code_Method $method The method class node.
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function visitMethod(PHP_Depend_AST_Method $method)
+    public function visitASTMethodBefore(ASTMethod $method)
     {
         $this->fireStartMethod($method);
 

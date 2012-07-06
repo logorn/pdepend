@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -193,11 +194,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a method node.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function visitMethod(PHP_Depend_AST_Method $method)
+    public function visitMethod(ASTMethod $method)
     {
         $this->fireStartMethod($method);
 
@@ -397,10 +398,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends a start method event.
      *
-     * @param PHP_Depend_AST_Method $method The context method instance.
+     * @param \PHP\Depend\AST\ASTMethod $method
      * @return void
      */
-    protected function fireStartMethod(PHP_Depend_AST_Method $method)
+    protected function fireStartMethod(ASTMethod $method)
     {
         foreach ($this->_listeners as $listener) {
             $listener->startVisitMethod($method);
@@ -410,11 +411,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends an end method event.
      *
-     * @param PHP_Depend_AST_Method $method The context method instance.
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    protected function fireEndMethod(PHP_Depend_AST_Method $method)
+    protected function fireEndMethod(ASTMethod $method)
     {
         foreach ($this->_listeners as $listener) {
             $listener->endVisitMethod($method);

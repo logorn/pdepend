@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -370,11 +371,11 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits the given method and calculates it's dependency data.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function visitMethodBefore(PHP_Depend_AST_Method $method)
+    public function visitASTMethodBefore(ASTMethod $method)
     {
         $this->fireStartMethod($method);
 

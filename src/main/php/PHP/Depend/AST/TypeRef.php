@@ -112,7 +112,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
     /**
      * Returns all methods declared by this type.
      *
-     * @return PHP_Depend_AST_Method[]
+     * @return \PHP\Depend\AST\ASTMethod[]
      */
     public function getMethods()
     {

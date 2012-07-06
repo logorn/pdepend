@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTMethod;
 
 /**
  * This class calculates the Cyclomatic Complexity Number(CCN) for the project,
@@ -212,12 +213,12 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     /**
      * Visits a method before it's children will be traversed.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      * @param array $data
      *
      * @return array
      */
-    public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
+    public function visitASTMethodBefore(ASTMethod $method, $data)
     {
         $this->data[] = $data;
 
@@ -230,12 +231,12 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     /**
      * Visits a method after it's children were traversed.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      * @param array $data
      *
      * @return void
      */
-    public function visitMethodAfter(PHP_Depend_AST_Method $method, $data)
+    public function visitASTMethodAfter(ASTMethod $method, $data)
     {
         $this->metrics[$method->getId()] = $data;
         /* TODO 2.0 Fix result caching

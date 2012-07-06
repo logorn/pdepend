@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 
 /**
  * This analyzer calculates dependency metrics for packages.
@@ -333,12 +334,12 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Visits a method and updates the efferent coupling metric in the given
      * <b>$data</b> array.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      * @param array $data
      *
      * @return array
      */
-    public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
+    public function visitASTMethodBefore(ASTMethod $method, $data)
     {
         if ($returnType = $method->getReturnType()) {
 

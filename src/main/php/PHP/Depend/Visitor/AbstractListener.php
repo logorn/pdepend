@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -192,11 +193,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor starts a new method instance.
      *
-     * @param PHP_Depend_AST_Method $method The context method instance.
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function startVisitMethod(PHP_Depend_AST_Method $method)
+    public function startVisitMethod(ASTMethod $method)
     {
         $this->startVisitNode($method);
     }
@@ -204,11 +205,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor ends with a method instance.
      *
-     * @param PHP_Depend_AST_Method $method The context method instance.
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function endVisitMethod(PHP_Depend_AST_Method $method)
+    public function endVisitMethod(ASTMethod $method)
     {
         $this->endVisitNode($method);
     }

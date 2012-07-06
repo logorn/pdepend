@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\Properties;
 use \PHP\Depend\AST\Property;
 
@@ -291,12 +292,12 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Visits the given property and increments several wmc* and class size
      * related metrics.
      *
-     * @param \PHP_Depend_AST_Method $method
-     * @param $data
+     * @param \PHP\Depend\AST\ASTMethod $method
+     * @param array $data
      *
-     * @return mixed
+     * @return array
      */
-    public function visitMethodBefore(PHP_Depend_AST_Method $method, $data)
+    public function visitASTMethodBefore(ASTMethod $method, $data)
     {
         $ccn = $this->_ccnAnalyzer->getCCN2($method->getId());
 

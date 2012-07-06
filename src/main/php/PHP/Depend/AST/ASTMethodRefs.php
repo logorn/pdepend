@@ -36,33 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_Context;
 
 /**
  * Container class that holds nodes referenced by a method.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_AST_MethodRefs
+class ASTMethodRefs
 {
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP_Depend_Context
      */
     private $context;
 
@@ -84,12 +84,17 @@ class PHP_Depend_AST_MethodRefs
     /**
      * Constructs a new reference context for an interface.
      *
-     * @param PHP_Depend_Context $context
-     * @param string             $namespace
-     * @param string             $declaringType
-     * @param string             $returnType
+     * @param \PHP_Depend_Context $context
+     * @param string $namespace
+     * @param string $declaringType
+     * @param string $returnType
      */
-    public function __construct(PHP_Depend_Context $context, $namespace, $declaringType, $returnType)
+    public function __construct(
+        PHP_Depend_Context $context,
+        $namespace,
+        $declaringType,
+        $returnType
+    )
     {
         $this->context       = $context;
         $this->namespace     = $namespace;
@@ -100,34 +105,28 @@ class PHP_Depend_AST_MethodRefs
     /**
      * Returns the namespace for the context method.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
-        if ($namespace = $this->context->getNamespace($this->namespace)) {
-            return $namespace;
-        }
-        // TODO Return dummy namespace
+        return $this->context->getNamespace($this->namespace);
     }
 
     /**
      * Returns the declaring type for the context method.
      *
-     * @return PHP_Depend_AST_Type
+     * @return \PHP_Depend_AST_Type
      */
     public function getDeclaringType()
     {
-        if ($declaringType = $this->context->getType($this->declaringType)) {
-            return $declaringType;
-        }
-        // TODO Return dummy class
+        return $this->context->getType($this->declaringType);
     }
 
     /**
      * Returns the type returned by the context method or <b>NULL</b> when the
      * context method does not return a type.
      *
-     * @return PHP_Depend_AST_Type|null
+     * @return \PHP_Depend_AST_Type|null
      */
     public function getReturnType()
     {
@@ -137,11 +136,11 @@ class PHP_Depend_AST_MethodRefs
     /**
      * Initializes this reference instance for the given method.
      *
-     * @param PHP_Depend_AST_Method $method
+     * @param \PHP\Depend\AST\ASTMethod $method
      *
      * @return void
      */
-    public function initialize(PHP_Depend_AST_Method $method)
+    public function initialize(ASTMethod $method)
     {
         $this->context->registerNode($method);
     }
