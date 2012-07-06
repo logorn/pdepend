@@ -186,14 +186,13 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     {
         if ($this->metrics === null) {
             $this->loadCache();
-            $this->fireStartAnalyzer();
 
             $this->metrics = array();
             foreach ($packages as $package) {
+
                 $package->accept($this);
             }
 
-            $this->fireEndAnalyzer();
             $this->unloadCache();
         }
     }
@@ -207,8 +206,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      */
     public function visitClass(ASTClass $class)
     {
-        $this->fireStartClass($class);
-
         $class->getSourceFile()->accept($this);
 
         $this->_classExecutableLines = 0;
@@ -219,7 +216,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
         }
 
         if ($this->restoreFromCache($class)) {
-            return $this->fireEndClass($class);
+            return;
         }
 
         list($cloc) = $this->_linesOfCode($class->getTokens(), true);
@@ -234,8 +231,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             self::M_LOGICAL_LINES_OF_CODE      => $this->_classLogicalLines,
             self::M_NON_COMMENT_LINES_OF_CODE  => $ncloc,
         );
-
-        $this->fireEndClass($class);
     }
 
     /**
@@ -258,11 +253,9 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             return;
         }
 
-        $this->fireStartFile($file);
-
         if ($this->restoreFromCache($file)) {
             $this->_updateProjectMetrics($uuid);
-            return $this->fireEndFile($file);
+            return;
         }
 
         list($cloc, $eloc, $lloc) = $this->_linesOfCode($file->getTokens());
@@ -279,8 +272,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
         );
 
         $this->_updateProjectMetrics($uuid);
-
-        $this->fireEndFile($file);
     }
 
     /**
@@ -292,12 +283,10 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      */
     public function visitASTFunctionBefore(ASTFunction $function)
     {
-        $this->fireStartFunction($function);
-
         $function->getSourceFile()->accept($this);
 
         if ($this->restoreFromCache($function)) {
-            return $this->fireEndFunction($function);
+            return;
         }
 
         list($cloc, $eloc, $lloc) = $this->_linesOfCode(
@@ -315,8 +304,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             self::M_LOGICAL_LINES_OF_CODE      => $lloc,
             self::M_NON_COMMENT_LINES_OF_CODE  => $ncloc
         );
-
-        $this->fireEndFunction($function);
     }
 
     /**
@@ -328,8 +315,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      */
     public function visitASTInterface(ASTInterface $interface)
     {
-        $this->fireStartInterface($interface);
-
         $interface->getSourceFile()->accept($this);
 
         foreach ($interface->getMethods() as $method) {
@@ -337,7 +322,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
         }
 
         if ($this->restoreFromCache($interface)) {
-            return $this->fireEndInterface($interface);
+            return;
         }
 
         list($cloc) = $this->_linesOfCode($interface->getTokens(), true);
@@ -352,8 +337,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             self::M_LOGICAL_LINES_OF_CODE      => 0,
             self::M_NON_COMMENT_LINES_OF_CODE  => $ncloc
         );
-
-        $this->fireEndInterface($interface);
     }
 
     /**
@@ -365,10 +348,8 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      */
     public function visitASTMethodBefore(ASTMethod $method)
     {
-        $this->fireStartMethod($method);
-
         if ($this->restoreFromCache($method)) {
-            return $this->fireEndMethod($method);
+            return;
         }
 
         if ($method->isAbstract()) {
@@ -394,8 +375,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
 
         $this->_classExecutableLines += $eloc;
         $this->_classLogicalLines += $lloc;
-
-        $this->fireEndMethod($method);
     }
 
     /**

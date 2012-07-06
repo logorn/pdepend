@@ -50,7 +50,7 @@ use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * Calculates the code ranke metric for classes and packages.
@@ -293,11 +293,11 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
     }
 
     /**
-     * @param \PHP\Depend\AST\Property $property
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return mixed
      */
-    public function visitPropertyBefore(Property $property)
+    public function visitASTPropertyBefore(ASTProperty $property)
     {
         if ($this->isPropertyDisabled()) {
             return;

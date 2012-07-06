@@ -57,8 +57,8 @@ use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTMethodRefs;
 use \PHP\Depend\AST\ASTNamespace;
 use \PHP\Depend\AST\ASTNamespaceRefs;
-use \PHP\Depend\AST\Properties;
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperties;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * Visitor class that generates custom nodes used by PHP_Depend.
@@ -211,10 +211,10 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $this->modifier = 0;
 
-            $newNode = new Properties($node);
+            $newNode = new ASTProperties($node);
         } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
 
-            $newNode = new Property(
+            $newNode = new ASTProperty(
                 $node,
                 new PHP_Depend_AST_PropertyRefs(
                     $this->context,

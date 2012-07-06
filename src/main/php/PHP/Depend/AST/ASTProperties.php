@@ -71,7 +71,7 @@ use \PHPParser_Node_Stmt_Property;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class Properties extends PHPParser_Node_Stmt_Property implements ASTNode
+class ASTProperties extends PHPParser_Node_Stmt_Property implements ASTNode
 {
     /**
      * Constructs a new properties collection.
@@ -125,7 +125,7 @@ class Properties extends PHPParser_Node_Stmt_Property implements ASTNode
     public function getId()
     {
         return join('-', array_map(
-            function(Property $property) {
+            function(ASTProperty $property) {
                 return $property->getId();
             },
             $this->props
@@ -140,7 +140,7 @@ class Properties extends PHPParser_Node_Stmt_Property implements ASTNode
     public function getName()
     {
         return join('-', array_map(
-            function(Property $property) {
+            function(ASTProperty $property) {
                 return $property->getName();
             },
             $this->props

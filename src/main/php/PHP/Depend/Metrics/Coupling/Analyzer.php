@@ -50,7 +50,7 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * This analyzer collects coupling values for the hole project. It calculates
@@ -284,8 +284,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     {
         $this->nodeStack[] = $this->currentNode = $function;
 
-        $this->fireStartFunction($function);
-
         $this->calculateCoupling($function->getReturnType());
 
         foreach ($function->thrownExceptions as $type) {
@@ -294,8 +292,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
         foreach ($function->params as $param) {
             $this->calculateCoupling($param->typeRef);
         }
-
-        $this->fireEndFunction($function);
     }
 
     /**
@@ -377,34 +373,29 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      */
     public function visitASTMethodBefore(ASTMethod $method)
     {
-        $this->fireStartMethod($method);
-
         $this->calculateCoupling($method->getReturnType());
 
         foreach ($method->thrownExceptions as $type) {
+
             $this->calculateCoupling($type);
         }
+
         foreach ($method->params as $param) {
+
             $this->calculateCoupling($param->typeRef);
         }
-
-        $this->fireEndMethod($method);
     }
 
     /**
      * Visits a property node.
      *
-     * @param \PHP\Depend\AST\Property $property
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return void
      */
-    public function visitPropertyBefore(Property $property)
+    public function visitASTPropertyBefore(ASTProperty $property)
     {
-        $this->fireStartProperty($property);
-
         $this->calculateCoupling($property->getType());
-
-        $this->fireEndProperty($property);
     }
 
     /**

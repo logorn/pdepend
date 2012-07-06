@@ -48,8 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTMethod;
-use \PHP\Depend\AST\Properties;
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * Generates some class level based metrics. This analyzer is based on the
@@ -261,8 +260,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      */
     public function visitTrait(PHP_Depend_AST_Trait $trait)
     {
-        $this->fireStartTrait($trait);
-
         $wmci = $this->calculateWMCiForTrait($trait);
 
         $this->metrics[$trait->getUUID()] = array(
@@ -284,8 +281,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         foreach ($trait->getMethods() as $method) {
             $method->accept($this);
         }
-
-        $this->fireEndTrait($trait);
     }
 
     /**
@@ -320,12 +315,12 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Visits the given property and increments several vars* and class size
      * related metrics.
      *
-     * @param \PHP\Depend\AST\Property $property
+     * @param \PHP\Depend\AST\ASTProperty $property
      * @param $data
      *
      * @return mixed
      */
-    public function visitPropertyBefore(Property $property, $data)
+    public function visitASTPropertyBefore(ASTProperty $property, $data)
     {
         ++$data[self::M_PROPERTIES];
         ++$data[self::M_CLASS_SIZE];

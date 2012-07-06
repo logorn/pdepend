@@ -91,14 +91,13 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
     {
         if ($this->metrics === null) {
             $this->loadCache();
-            $this->fireStartAnalyzer();
 
             $this->metrics = array();
             foreach ($packages as $package) {
+
                 $package->accept($this);
             }
 
-            $this->fireEndAnalyzer();
             $this->unloadCache();
         }
     }
@@ -150,13 +149,10 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      */
     public function visitASTFunctionBefore(ASTFunction $function)
     {
-        $this->fireStartFunction($function);
-
         if (false === $this->restoreFromCache($function)) {
+
             $this->calculateComplexity($function);
         }
-
-        $this->fireEndFunction($function);
     }
 
     /**
@@ -168,13 +164,10 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      */
     public function visitASTMethodBefore(ASTMethod $method)
     {
-        $this->fireStartMethod($method);
-
         if (false === $this->restoreFromCache($method)) {
+
             $this->calculateComplexity($method);
         }
-
-        $this->fireEndMethod($method);
     }
 
     /**

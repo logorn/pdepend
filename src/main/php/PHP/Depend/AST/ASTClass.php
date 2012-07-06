@@ -146,14 +146,14 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
     /**
      * Returns all properties declared by this class.
      *
-     * @return \PHP\Depend\AST\Property[]
+     * @return \PHP\Depend\AST\ASTProperty[]
      */
     public function getProperties()
     {
         $properties = array();
         foreach ($this->stmts as $stmt) {
 
-            if ($stmt instanceof Properties) {
+            if ($stmt instanceof ASTProperties) {
 
                 $properties = array_merge($properties, $stmt->props);
             }

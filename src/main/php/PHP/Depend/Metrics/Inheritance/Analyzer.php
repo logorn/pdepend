@@ -224,8 +224,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
             return;
         }
 
-        $this->fireStartClass($class);
-
         ++$this->numberOfClasses;
 
         $this->initNodeMetricsForClass($class);
@@ -233,8 +231,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
         $this->calculateNumberOfDerivedClasses($class);
         $this->calculateNumberOfAddedAndOverwrittenMethods($class);
         $this->calculateDepthOfInheritanceTree($class);
-
-        $this->fireEndClass($class);
     }
 
     /**

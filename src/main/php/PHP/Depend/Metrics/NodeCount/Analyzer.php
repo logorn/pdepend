@@ -197,8 +197,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      */
     public function visitASTClassBefore(ASTClass $class, $data = null)
     {
-        $this->fireStartClass($class);
-
         ++$this->numberOfClasses;
 
         if ($class->isAbstract()) {
@@ -208,8 +206,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
         $this->metrics[$class->getId()] = array(self::M_NUMBER_OF_METHODS => 0);
 
         $this->updateNamespace($class->getNamespace(), self::M_NUMBER_OF_CLASSES);
-
-        $this->fireEndClass($class);
 
         return $data;
     }
@@ -224,15 +220,11 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      */
     public function visitASTInterfaceBefore(ASTInterface $interface, $data)
     {
-        $this->fireStartInterface($interface);
-
         ++$this->numberOfInterfaces;
 
         $this->metrics[$interface->getId()] = array(self::M_NUMBER_OF_METHODS => 0);
 
         $this->updateNamespace($interface->getNamespace(), self::M_NUMBER_OF_INTERFACES);
-
-        $this->fireEndInterface($interface);
 
         return $data;
     }
@@ -248,14 +240,10 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      */
     public function visitASTMethodBefore(ASTMethod $method, $data)
     {
-        $this->fireStartMethod($method);
-
         ++$this->numberOfMethods;
 
         $this->updateType($method->getDeclaringType(), self::M_NUMBER_OF_METHODS);
         $this->updateNamespace($method->getNamespace(), self::M_NUMBER_OF_METHODS);
-
-        $this->fireEndMethod($method);
 
         return $data;
     }
@@ -270,13 +258,9 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      */
     public function visitASTFunctionBefore(ASTFunction $function, $data)
     {
-        $this->fireStartFunction($function);
-
         ++$this->numberOfFunctions;
 
         $this->updateNamespace($function->getNamespace(), self::M_NUMBER_OF_FUNCTIONS);
-
-        $this->fireEndFunction($function);
 
         return $data;
     }

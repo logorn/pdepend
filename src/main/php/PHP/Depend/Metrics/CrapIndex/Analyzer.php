@@ -182,13 +182,9 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
 
         $this->_ccnAnalyzer->analyze($packages);
 
-        $this->fireStartAnalyzer();
-
         foreach ($packages as $package) {
             $package->accept($this);
         }
-
-        $this->fireEndAnalyzer();
     }
 
     /**

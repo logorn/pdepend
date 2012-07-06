@@ -46,7 +46,7 @@
  * @link       http://pdepend.org/
  */
 
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * Container class that holds nodes referenced by a property.
@@ -133,11 +133,11 @@ class PHP_Depend_AST_PropertyRefs
     /**
      * Initializes this reference instance for the given property.
      *
-     * @param \PHP\Depend\AST\Property $property
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return void
      */
-    public function initialize(Property $property)
+    public function initialize(ASTProperty $property)
     {
         $this->context->registerNode($property);
     }
