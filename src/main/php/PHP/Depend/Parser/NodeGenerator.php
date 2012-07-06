@@ -48,6 +48,8 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTClassRefs;
+use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTFunctionRefs;
 use \PHP\Depend\AST\Properties;
 use \PHP\Depend\AST\Property;
 
@@ -249,12 +251,12 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             }
 
             $newNode = $this->wrapOptionalNamespace(
-                new PHP_Depend_AST_Function(
+                new ASTFunction(
                     $node,
                     array(
                         'thrownExceptions' => $thrownExceptions
                     ),
-                    new PHP_Depend_AST_FunctionRefs(
+                    new ASTFunctionRefs(
                         $this->context,
                         $this->extractNamespaceName($node),
                         (string) $node->returnType

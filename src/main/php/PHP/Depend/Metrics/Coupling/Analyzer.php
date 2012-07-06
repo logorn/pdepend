@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -273,11 +274,11 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits the given function and calculates it's dependency data.
      *
-     * @param PHP_Depend_AST_Function $function
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    public function visitFunctionBefore(PHP_Depend_AST_Function $function)
+    public function visitASTFunctionBefore(ASTFunction $function)
     {
         $this->nodeStack[] = $this->currentNode = $function;
 
@@ -300,7 +301,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      *
      * @return void
      */
-    public function visitFunctionAfter()
+    public function visitASTFunctionAfter()
     {
         array_pop($this->nodeStack);
 

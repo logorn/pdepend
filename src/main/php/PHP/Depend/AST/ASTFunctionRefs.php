@@ -36,15 +36,17 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_Context;
 
 /**
  * Reference context for an AST function node.
@@ -52,17 +54,15 @@
  * This class will be used to retrieve other AST nodes that are referenced by
  * a function.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_AST_FunctionRefs
+class ASTFunctionRefs
 {
     /**
      * @var PHP_Depend_Context
@@ -82,9 +82,9 @@ class PHP_Depend_AST_FunctionRefs
     /**
      * Instantiates a new function reference object.
      *
-     * @param PHP_Depend_Context $context
-     * @param string             $namespace
-     * @param string             $returnType
+     * @param \PHP_Depend_Context $context
+     * @param string $namespace
+     * @param string $returnType
      */
     public function __construct(PHP_Depend_Context $context, $namespace, $returnType)
     {
@@ -97,7 +97,7 @@ class PHP_Depend_AST_FunctionRefs
     /**
      * Returns the namespace for the context function.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -108,7 +108,7 @@ class PHP_Depend_AST_FunctionRefs
      * Returns the type returned by the context function or <b>NULL</b> when the
      * context function does not return a type.
      *
-     * @return PHP_Depend_AST_Type|null
+     * @return \PHP_Depend_AST_Type|null
      */
     public function getReturnType()
     {
@@ -118,11 +118,11 @@ class PHP_Depend_AST_FunctionRefs
     /**
      * Initializes this reference instance for the given function.
      *
-     * @param PHP_Depend_AST_Function $function
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    public function initialize(PHP_Depend_AST_Function $function)
+    public function initialize(ASTFunction $function)
     {
         $this->context->registerNode($function);
     }

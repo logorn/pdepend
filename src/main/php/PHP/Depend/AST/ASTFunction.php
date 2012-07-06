@@ -36,32 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_AST_Node;
+use \PHPParser_Node_Stmt_Function;
 
 /**
  * Custom AST node that represents a PHP function.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  *
- * @property PHP_Depend_AST_Type[] $thrownExceptions
+ * @property \PHP_Depend_AST_Type[] $thrownExceptions
  */
-class PHP_Depend_AST_Function extends PHPParser_Node_Stmt_Function implements PHP_Depend_AST_Node
+class ASTFunction extends PHPParser_Node_Stmt_Function implements PHP_Depend_AST_Node
 {
     /**
      * Will be true when this object was restored from cache.
@@ -73,18 +74,18 @@ class PHP_Depend_AST_Function extends PHPParser_Node_Stmt_Function implements PH
     /**
      * Reference context used to retrieve referenced nodes.
      *
-     * @var PHP_Depend_AST_FunctionRefs
+     * @var \PHP\Depend\AST\ASTFunctionRefs
      */
     private $refs;
 
     /**
      * Constructs a new function AST node.
      *
-     * @param PHPParser_Node_Stmt_Function $function
-     * @param PHPParser_Node[]             $subNodes
-     * @param PHP_Depend_AST_FunctionRefs  $refs
+     * @param \PHPParser_Node_Stmt_Function $function
+     * @param \PHPParser_Node[] $subNodes
+     * @param \PHP\Depend\AST\ASTFunctionRefs $refs
      */
-    public function __construct(PHPParser_Node_Stmt_Function $function, array $subNodes, PHP_Depend_AST_FunctionRefs $refs)
+    public function __construct(PHPParser_Node_Stmt_Function $function, array $subNodes, ASTFunctionRefs $refs)
     {
         parent::__construct(
             $function->name,
@@ -128,7 +129,7 @@ class PHP_Depend_AST_Function extends PHPParser_Node_Stmt_Function implements PH
     /**
      * Returns the namespace where this method is declared.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -139,7 +140,7 @@ class PHP_Depend_AST_Function extends PHPParser_Node_Stmt_Function implements PH
      * Returns a type that will be returned by this function or <b>NULL</b>
      * when this function does not return a type.
      *
-     * @return PHP_Depend_AST_Type|null
+     * @return \PHP_Depend_AST_Type|null
      */
     public function getReturnType()
     {

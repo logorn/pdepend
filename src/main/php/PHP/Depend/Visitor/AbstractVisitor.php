@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -152,10 +153,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a function node.
      *
-     * @param PHP_Depend_AST_Function $function The current function node.
+     * @param \PHP\Depend\AST\ASTFunction $function
+     *
      * @return void
      */
-    public function visitFunction(PHP_Depend_AST_Function $function)
+    public function visitFunction(ASTFunction $function)
     {
         $this->fireStartFunction($function);
 
@@ -340,10 +342,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends a start function event.
      *
-     * @param PHP_Depend_AST_Function $function The context function instance.
+     * @param \PHP\Depend\AST\ASTFunction $function
+     *
      * @return void
      */
-    protected function fireStartFunction(PHP_Depend_AST_Function $function)
+    protected function fireStartFunction(ASTFunction $function)
     {
         foreach ($this->_listeners as $listener) {
             $listener->startVisitFunction($function);
@@ -353,10 +356,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends an end function event.
      *
-     * @param PHP_Depend_AST_Function $function The context function instance.
+     * @param \PHP\Depend\AST\ASTFunction $function
      * @return void
      */
-    protected function fireEndFunction(PHP_Depend_AST_Function $function)
+    protected function fireEndFunction(ASTFunction $function)
     {
         foreach ($this->_listeners as $listener) {
             $listener->endVisitFunction($function);

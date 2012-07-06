@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 
 /**
  * This logger generates a summary xml document with aggregated project, class,
@@ -289,7 +290,7 @@ class PHP_Depend_Log_Summary_Xml
         return array_pop($this->elements);
     }
 
-    public function visitFunctionBefore(PHP_Depend_AST_Function $function, DOMElement $namespace)
+    public function visitASTFunctionBefore(ASTFunction $function, DOMElement $namespace)
     {
         $element = $this->document->createElement('function');
         $element->setAttribute('name', $function->name);
@@ -308,7 +309,7 @@ class PHP_Depend_Log_Summary_Xml
         return $namespace;
     }
 
-    public function visitFunctionAfter()
+    public function visitASTFunctionAfter()
     {
         return array_pop($this->elements);
     }

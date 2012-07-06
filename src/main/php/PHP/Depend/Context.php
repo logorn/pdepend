@@ -207,7 +207,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return null|PHP_Depend_AST_Function
+     * @return null|\PHP\Depend\AST\ASTFunction
      */
     public function getFunction($id)
     {

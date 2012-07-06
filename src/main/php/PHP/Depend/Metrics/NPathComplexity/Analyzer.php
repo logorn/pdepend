@@ -46,6 +46,8 @@
  * @link       http://www.pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTFunction;
+
 /**
  * This analyzer calculates the NPath complexity of functions and methods. The
  * NPath complexity metric measures the acyclic execution paths through a method
@@ -139,11 +141,11 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
     /**
      * Visits a function node.
      *
-     * @param PHP_Depend_Code_Function $function The current function node.
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    public function visitFunction(PHP_Depend_AST_Function $function)
+    public function visitASTFunctionBefore(ASTFunction $function)
     {
         $this->fireStartFunction($function);
 

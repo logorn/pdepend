@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 
 /**
  * This analyzer collects different lines of code metrics.
@@ -283,12 +284,11 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     /**
      * Visits a function node.
      *
-     * @param PHP_Depend_Code_Function $function The current function node.
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
-     * @see PHP_Depend_Visitor_AbstractVisitor::visitFunction()
      */
-    public function visitFunction(PHP_Depend_AST_Function $function)
+    public function visitASTFunctionBefore(ASTFunction $function)
     {
         $this->fireStartFunction($function);
 

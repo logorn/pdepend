@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -122,20 +123,20 @@ interface PHP_Depend_Visitor_ListenerI
     /**
      * Is called when the visitor starts a new function instance.
      *
-     * @param PHP_Depend_AST_Function $function The context function instance.
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    function startVisitFunction(PHP_Depend_AST_Function $function);
+    function startVisitFunction(ASTFunction $function);
 
     /**
      * Is called when the visitor ends with a function instance.
      *
-     * @param PHP_Depend_AST_Function $function The context function instance.
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    function endVisitFunction(PHP_Depend_AST_Function $function);
+    function endVisitFunction(ASTFunction $function);
 
     /**
      * Is called when the visitor starts a new interface instance.

@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 
 /**
  * This analyzer collects different count metrics for code artifacts like
@@ -259,12 +260,12 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
     /**
      * Visits the given function before it's children were traversed.
      *
-     * @param PHP_Depend_AST_Function $function
-     * @param mixed                   $data
+     * @param \PHP\Depend\AST\ASTFunction $function
+     * @param mixed $data
      *
      * @return mixed
      */
-    public function visitFunctionBefore(PHP_Depend_AST_Function $function, $data = null)
+    public function visitASTFunctionBefore(ASTFunction $function, $data = null)
     {
         $this->fireStartFunction($function);
 

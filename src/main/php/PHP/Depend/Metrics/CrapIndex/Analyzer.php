@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTFunction;
+
 /**
  * This analyzer calculates the C.R.A.P. index for methods an functions when a
  * clover coverage report was supplied. This report can be supplied by using the
@@ -205,11 +207,11 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Visits the given function.
      *
-     * @param PHP_Depend_Code_Function $function The context function.
+     * @param \PHP\Depend\AST\ASTFunction $function The context function.
      *
      * @return void
      */
-    public function visitFunction(PHP_Depend_AST_Function $function)
+    public function visitASTFunctionBefore(ASTFunction $function)
     {
         $this->_visitCallable($function);
     }

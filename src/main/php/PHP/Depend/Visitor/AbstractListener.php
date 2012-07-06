@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -142,11 +143,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor starts a new function instance.
      *
-     * @param PHP_Depend_AST_Function $function The context function instance.
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    public function startVisitFunction(PHP_Depend_AST_Function $function)
+    public function startVisitFunction(ASTFunction $function)
     {
         $this->startVisitNode($function);
     }
@@ -154,11 +155,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor ends with a function instance.
      *
-     * @param PHP_Depend_AST_Function $function The context function instance.
+     * @param \PHP\Depend\AST\ASTFunction $function
      *
      * @return void
      */
-    public function endVisitFunction(PHP_Depend_AST_Function $function)
+    public function endVisitFunction(ASTFunction $function)
     {
         $this->endVisitNode($function);
     }
