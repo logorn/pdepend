@@ -59,6 +59,8 @@ use \PHP\Depend\AST\Property;
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
+ *
+ * @todo 2.0 Implement visitInstanceOf(), visitNew(), visitCatch() ...
  */
 class PHP_Depend_Metrics_CodeRank_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
@@ -148,17 +150,25 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      */
     public function getNodeMetrics($node)
     {
-        if (null === $this->metrics) {
-
-            $this->buildCodeRankMetrics();
-        }
-
         $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
             return $this->metrics[$nodeId];
         }
         return array();
+    }
+
+    /**
+     * This method will be called when all ast node were traversed.
+     *
+     * This method finally calculates the CodeRank and the ReverseCodeRank
+     * metric based on the collected node dependencies.
+     *
+     * @return void
+     */
+    public function afterTraverse()
+    {
+        $this->buildCodeRankMetrics();
     }
 
     /**
