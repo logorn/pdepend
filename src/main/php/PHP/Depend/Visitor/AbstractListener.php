@@ -240,30 +240,6 @@ abstract class PHP_Depend_Visitor_AbstractListener
     }
 
     /**
-     * Is called when the visitor starts a new parameter instance.
-     *
-     * @param PHP_Depend_AST_Parameter $parameter The context parameter instance.
-     *
-     * @return void
-     */
-    public function startVisitParameter(PHP_Depend_AST_Parameter $parameter)
-    {
-        $this->startVisitNode($parameter);
-    }
-
-    /**
-     * Is called when the visitor ends with a parameter instance.
-     *
-     * @param PHP_Depend_AST_Package $parameter The context parameter instance.
-     *
-     * @return void
-     */
-    public function endVisitParameter(PHP_Depend_AST_Parameter $parameter)
-    {
-        $this->endVisitNode($parameter);
-    }
-
-    /**
      * Is called when the visitor starts a new property instance.
      *
      * @param \PHP\Depend\AST\ASTProperty $property
