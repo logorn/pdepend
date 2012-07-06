@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
@@ -308,12 +309,12 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      * Increments the metric identified by <b>$metricId</b> on the given
      * <b>$type</b> object.
      *
-     * @param PHP_Depend_AST_Type $type
-     * @param string              $metricId
+     * @param \PHP\Depend\AST\ASTType $type
+     * @param string $metricId
      *
      * @return void
      */
-    private function updateType(PHP_Depend_AST_Type $type, $metricId)
+    private function updateType(ASTType $type, $metricId)
     {
         ++$this->metrics[$type->getId()][$metricId];
     }

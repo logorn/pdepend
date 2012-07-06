@@ -108,7 +108,7 @@ class ASTFunctionRefs
      * Returns the type returned by the context function or <b>NULL</b> when the
      * context function does not return a type.
      *
-     * @return \PHP_Depend_AST_Type|null
+     * @return \PHP\Depend\AST\ASTType|null
      */
     public function getReturnType()
     {

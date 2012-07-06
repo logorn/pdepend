@@ -115,7 +115,7 @@ class ASTMethodRefs
     /**
      * Returns the declaring type for the context method.
      *
-     * @return \PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      */
     public function getDeclaringType()
     {
@@ -126,7 +126,7 @@ class ASTMethodRefs
      * Returns the type returned by the context method or <b>NULL</b> when the
      * context method does not return a type.
      *
-     * @return \PHP_Depend_AST_Type|null
+     * @return \PHP\Depend\AST\ASTType|null
      */
     public function getReturnType()
     {

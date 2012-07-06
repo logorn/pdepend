@@ -36,30 +36,28 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
 
 /**
  * Custom AST node interface that represents any PHP type.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-interface PHP_Depend_AST_Type extends \PHP\Depend\AST\ASTNode
+interface ASTType extends ASTNode
 {
     /**
      * Returns all methods declared by this type.
@@ -85,9 +83,9 @@ interface PHP_Depend_AST_Type extends \PHP\Depend\AST\ASTNode
     /**
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
-     * @param PHP_Depend_AST_Type $type
+     * @param \PHP\Depend\AST\ASTType $type
      *
      * @return boolean
      */
-    public function isSubtypeOf(PHP_Depend_AST_Type $type);
+    public function isSubtypeOf(ASTType $type);
 }

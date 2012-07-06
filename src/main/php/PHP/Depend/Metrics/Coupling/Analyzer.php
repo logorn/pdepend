@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
@@ -514,18 +515,18 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Calculates the coupling between the given types.
      *
-     * @param PHP_Depend_AST_Type $afferentType
+     * @param \PHP\Depend\AST\ASTType $afferentType
      *
      * @return void
      * @since 0.10.2
      */
-    private function calculateCoupling(PHP_Depend_AST_Type $afferentType = null)
+    private function calculateCoupling(ASTType $afferentType = null)
     {
         if (null === $afferentType) {
             return;
         }
 
-        if ($this->currentNode instanceof PHP_Depend_AST_Type && (
+        if ($this->currentNode instanceof ASTType && (
             $afferentType->isSubtypeOf($this->currentNode) ||
                 $this->currentNode->isSubtypeOf($afferentType))
         ) {
@@ -541,7 +542,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
             ++$this->fanout;
         }
 
-        if (!($this->currentNode instanceof PHP_Depend_AST_Type)) {
+        if (!($this->currentNode instanceof ASTType)) {
             return;
         }
 
@@ -552,12 +553,12 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * This method will initialize a temporary coupling container for the given
      * given class or interface instance.
      *
-     * @param PHP_Depend_AST_Type $type
+     * @param \PHP\Depend\AST\ASTType $type
      *
      * @return void
      * @since 0.10.2
      */
-    private function initCouplingMap(PHP_Depend_AST_Type $type)
+    private function initCouplingMap(ASTType $type)
     {
         if (isset($this->couplingMap[$type->getId()])) {
             return;

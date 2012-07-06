@@ -137,7 +137,7 @@ class ASTProperty extends PHPParser_Node_Stmt_PropertyProperty implements ASTNod
     /**
      * Returns the declaring type for this property.
      *
-     * @return \PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      */
     public function getDeclaringType()
     {
@@ -148,7 +148,7 @@ class ASTProperty extends PHPParser_Node_Stmt_PropertyProperty implements ASTNod
      * Returns the type of this property or <b>NULL</b> when this property does
      * not reference another none scalar type.
      *
-     * @return \PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      */
     public function getType()
     {

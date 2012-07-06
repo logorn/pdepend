@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
@@ -475,11 +476,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     /**
      * Calculates the Weight Method Per Class metric.
      *
-     * @param PHP_Depend_AST_Type $type The context type instance.
+     * @param \PHP\Depend\AST\ASTType $type
      *
      * @return integer[]
      */
-    private function calculateWMCi(PHP_Depend_AST_Type $type)
+    private function calculateWMCi(ASTType $type)
     {
         $ccn = array();
 

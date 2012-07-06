@@ -47,7 +47,6 @@
 namespace PHP\Depend\AST;
 
 use \PHPParser_Node_Stmt_Class;
-use \PHP_Depend_AST_Type;
 
 /**
  * Custom AST node that represents a PHP class.
@@ -60,7 +59,7 @@ use \PHP_Depend_AST_Type;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
+class ASTClass extends PHPParser_Node_Stmt_Class implements ASTType
 {
     /**
      * @var \PHP\Depend\AST\ASTClassRefs
@@ -202,11 +201,11 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
     /**
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
-     * @param PHP_Depend_AST_Type $type
+     * @param \PHP\Depend\AST\ASTType $type
      *
      * @return boolean
      */
-    public function isSubtypeOf(PHP_Depend_AST_Type $type)
+    public function isSubtypeOf(ASTType $type)
     {
         if ($type->getId() === $this->getId()) {
             return true;

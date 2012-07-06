@@ -36,32 +36,34 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_Context;
+use \PHPParser_NodeAbstract;
+use \PHPParser_Node_Name;
 
 /**
  * Proxy ast node that represents a concrete type with in the AST.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  *
- * @property PHPParser_Node_Name $namespacedName
+ * @property \PHPParser_Node_Name $namespacedName
  */
-class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depend_AST_Type
+class ASTTypeRef extends PHPParser_NodeAbstract implements ASTType
 {
     /**
      * @var string
@@ -69,20 +71,20 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
     private $name;
 
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP_Depend_Context
      */
     private $context;
 
     /**
      * Constructs a new type reference.
      *
-     * @param PHP_Depend_Context $context
-     * @param string             $name
+     * @param \PHP_Depend_Context $context
+     * @param string $name
      */
     public function __construct(PHP_Depend_Context $context, $name)
     {
         parent::__construct(
-            array('namespacedName'  => new PHPParser_Node_Name($name))
+            array('namespacedName' => new PHPParser_Node_Name($name))
         );
 
         $this->name    = $name;
@@ -142,11 +144,11 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
     /**
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
-     * @param PHP_Depend_AST_Type $type
+     * @param \PHP\Depend\AST\ASTType $type
      *
      * @return boolean
      */
-    public function isSubtypeOf(PHP_Depend_AST_Type $type)
+    public function isSubtypeOf(ASTType $type)
     {
         return $this->getType()->isSubtypeOf($type);
     }
@@ -154,7 +156,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
     /**
      * Returns the original type referenced by this object.
      *
-     * @return \PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      */
     public function getType()
     {

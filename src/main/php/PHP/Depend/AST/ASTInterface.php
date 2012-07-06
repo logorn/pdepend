@@ -46,7 +46,6 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_AST_Type;
 use \PHPParser_Node_Stmt_Interface;
 
 /**
@@ -60,7 +59,7 @@ use \PHPParser_Node_Stmt_Interface;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class ASTInterface extends PHPParser_Node_Stmt_Interface implements PHP_Depend_AST_Type
+class ASTInterface extends PHPParser_Node_Stmt_Interface implements ASTType
 {
     /**
      * References to other ast nodes.
@@ -163,11 +162,11 @@ class ASTInterface extends PHPParser_Node_Stmt_Interface implements PHP_Depend_A
     /**
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
-     * @param \PHP_Depend_AST_Type $type
+     * @param \PHP\Depend\AST\ASTType $type
      *
      * @return boolean
      */
-    public function isSubtypeOf(PHP_Depend_AST_Type $type)
+    public function isSubtypeOf(ASTType $type)
     {
         if ($type->namespacedName === $this->namespacedName) {
             return true;

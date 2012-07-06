@@ -47,6 +47,8 @@
  */
 
 use \PHP\Depend\AST\ASTNode;
+use \PHP\Depend\AST\ASTType;
+use \PHP\Depend\AST\ASTTypeRef;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTClassRefs;
 use \PHP\Depend\AST\ASTFunction;
@@ -229,7 +231,8 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
-                $thrownExceptions[] = new PHP_Depend_AST_TypeRef(
+
+                $thrownExceptions[] = new ASTTypeRef(
                     $this->context,
                     (string) $exception
                 );
@@ -252,7 +255,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
 
-                $thrownExceptions[] = new PHP_Depend_AST_TypeRef(
+                $thrownExceptions[] = new ASTTypeRef(
                     $this->context,
                     (string) $exception
                 );
@@ -275,7 +278,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             $this->declaringPackage = null;
         } else if ($node instanceof PHPParser_Node_Stmt_Catch) {
 
-            $node->typeRef = new PHP_Depend_AST_TypeRef(
+            $node->typeRef = new ASTTypeRef(
                 $this->context,
                 (string) $node->type
             );
@@ -287,7 +290,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             if ($node->class instanceof PHPParser_Node_Name) {
 
-                $node->typeRef = new PHP_Depend_AST_TypeRef(
+                $node->typeRef = new ASTTypeRef(
                     $this->context,
                     $this->resolveSpecialName($node->class)
                 );
@@ -299,7 +302,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             if ($node->type instanceof PHPParser_Node_Name) {
 
-                $node->typeRef = new PHP_Depend_AST_TypeRef(
+                $node->typeRef = new ASTTypeRef(
                     $this->context,
                     $this->resolveSpecialName($node->type)
                 );

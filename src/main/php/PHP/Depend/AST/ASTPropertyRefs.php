@@ -115,7 +115,7 @@ class ASTPropertyRefs
     /**
      * Returns the declaring type for the context method.
      *
-     * @return \PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      */
     public function getDeclaringType()
     {
@@ -123,7 +123,7 @@ class ASTPropertyRefs
     }
 
     /**
-     * @return null|\PHP_Depend_AST_Type
+     * @return null|\PHP\Depend\AST\ASTType
      */
     public function getType()
     {

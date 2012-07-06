@@ -47,6 +47,8 @@
  */
 
 use \PHP\Depend\AST\ASTNode;
+use \PHP\Depend\AST\ASTType;
+use \PHP\Depend\AST\ASTTypeRef;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
@@ -359,12 +361,12 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Visits a type reference and updates the efferent coupling metric in the
      * given <b>$data</b> array.
      *
-     * @param PHP_Depend_AST_TypeRef $typeRef
+     * @param \PHP\Depend\AST\ASTTypeRef $typeRef
      * @param array $data
      *
      * @return array
      */
-    public function visitTypeRefBefore(PHP_Depend_AST_TypeRef $typeRef, $data)
+    public function visitASTTypeRefBefore(ASTTypeRef $typeRef, $data)
     {
         return $this->updateEfferent($typeRef, $data);
     }
@@ -372,12 +374,12 @@ class PHP_Depend_Metrics_Dependency_Analyzer
     /**
      * Updates the efferent coupling metric in <b>$data</b>.
      *
-     * @param PHP_Depend_AST_Type $type
+     * @param \PHP\Depend\AST\ASTType $type
      * @param array $data
      *
      * @return array
      */
-    private function updateEfferent(PHP_Depend_AST_Type $type, $data)
+    private function updateEfferent(ASTType $type, $data)
     {
         $namespace = $type->getNamespace();
         if ($namespace->isUserDefined()) {

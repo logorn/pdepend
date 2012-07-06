@@ -59,7 +59,7 @@ use \PHPParser_Node_Stmt_ClassMethod;
  * @link      http://pdepend.org/
  * @since     2.0.0
  *
- * @property \PHP_Depend_AST_Type[] $thrownExceptions
+ * @property \PHP\Depend\AST\ASTType[] $thrownExceptions
  */
 class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
 {
@@ -135,7 +135,7 @@ class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
     /**
      * Returns the declaring type for this method.
      *
-     * @return \PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      */
     public function getDeclaringType()
     {
@@ -146,7 +146,7 @@ class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
      * Returns a type that will be returned by this method or <b>NULL</b> when
      * this method does not return a type.
      *
-     * @return \PHP_Depend_AST_Type|null
+     * @return \PHP\Depend\AST\ASTType|null
      */
     public function getReturnType()
     {
@@ -156,7 +156,7 @@ class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
     /**
      * Returns an array with all exceptions thrown by this method.
      *
-     * @return \PHP_Depend_AST_Type[]
+     * @return \PHP\Depend\AST\ASTType[]
      */
     public function getThrownExceptions()
     {

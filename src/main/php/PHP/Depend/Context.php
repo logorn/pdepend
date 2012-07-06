@@ -180,7 +180,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return PHP_Depend_AST_Type
+     * @return \PHP\Depend\AST\ASTType
      * @todo Implement traits
      */
     public function getType($id)

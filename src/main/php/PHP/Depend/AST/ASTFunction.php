@@ -59,7 +59,7 @@ use \PHPParser_Node_Stmt_Function;
  * @link      http://pdepend.org/
  * @since     2.0.0
  *
- * @property \PHP_Depend_AST_Type[] $thrownExceptions
+ * @property \PHP\Depend\AST\ASTType[] $thrownExceptions
  */
 class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTNode
 {
@@ -139,7 +139,7 @@ class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTNode
      * Returns a type that will be returned by this function or <b>NULL</b>
      * when this function does not return a type.
      *
-     * @return \PHP_Depend_AST_Type|null
+     * @return \PHP\Depend\AST\ASTType|null
      */
     public function getReturnType()
     {

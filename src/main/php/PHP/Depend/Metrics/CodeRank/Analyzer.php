@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTNode;
+use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
@@ -348,7 +349,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
     }
 
-    private function updateType(PHP_Depend_AST_Type $in, PHP_Depend_AST_Type $out)
+    private function updateType(ASTType $in, ASTType $out)
     {
         $this->update($in, $out);
         $this->update($in->getNamespace(), $out->getNamespace());
