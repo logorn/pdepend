@@ -84,7 +84,11 @@ class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTNode
      * @param \PHPParser_Node[] $subNodes
      * @param \PHP\Depend\AST\ASTFunctionRefs $refs
      */
-    public function __construct(PHPParser_Node_Stmt_Function $function, array $subNodes, ASTFunctionRefs $refs)
+    public function __construct(
+        PHPParser_Node_Stmt_Function $function,
+        array $subNodes,
+        ASTFunctionRefs $refs
+    )
     {
         parent::__construct(
             $function->name,

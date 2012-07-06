@@ -86,7 +86,11 @@ class ASTFunctionRefs
      * @param string $namespace
      * @param string $returnType
      */
-    public function __construct(PHP_Depend_Context $context, $namespace, $returnType)
+    public function __construct(
+        PHP_Depend_Context $context,
+        $namespace,
+        $returnType
+    )
     {
         $this->context = $this->context = $context;
 

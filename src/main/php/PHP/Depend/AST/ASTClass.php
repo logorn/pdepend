@@ -72,7 +72,10 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements ASTType
      * @param \PHPParser_Node_Stmt_Class $class
      * @param \PHP\Depend\AST\ASTClassRefs $refs
      */
-    public function __construct(PHPParser_Node_Stmt_Class $class, ASTClassRefs $refs)
+    public function __construct(
+        PHPParser_Node_Stmt_Class $class,
+        ASTClassRefs $refs
+    )
     {
         parent::__construct(
             $class->name,

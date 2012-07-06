@@ -61,7 +61,9 @@ use \PHPParser_Node_Stmt_PropertyProperty;
  *
  * @property \PHPParser_Node_Name $type
  */
-class ASTProperty extends PHPParser_Node_Stmt_PropertyProperty implements ASTNode
+class ASTProperty
+    extends PHPParser_Node_Stmt_PropertyProperty
+    implements ASTNode
 {
     /**
      * Will be true when this object was restored from cache.
