@@ -59,7 +59,6 @@
  * @link       http://pdepend.org/
  */
 abstract class PHP_Depend_Metrics_AbstractAnalyzer
-    extends PHP_Depend_Visitor_AbstractVisitor
     implements PHP_Depend_Metrics_Analyzer
 {
     /**

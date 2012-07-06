@@ -59,7 +59,6 @@
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Log_Jdepend_Chart
-    extends PHP_Depend_Visitor_AbstractVisitor
     implements PHP_Depend_Log_CodeAware,
     PHP_Depend_Log_FileAware
 {

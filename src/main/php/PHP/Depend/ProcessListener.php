@@ -58,9 +58,7 @@
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-interface PHP_Depend_ProcessListener
-    extends PHP_Depend_Visitor_ListenerI,
-    PHP_Depend_Metrics_ListenerI
+interface PHP_Depend_ProcessListener extends PHP_Depend_Metrics_ListenerI
 {
     /**
      * Is called when PDepend starts the file parsing process.

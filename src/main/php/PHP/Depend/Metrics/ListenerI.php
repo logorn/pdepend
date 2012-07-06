@@ -60,7 +60,6 @@
  * @link       http://pdepend.org/
  */
 interface PHP_Depend_Metrics_ListenerI
-    extends PHP_Depend_Visitor_ListenerI
 {
     /**
      * This method is called when the analyzer starts code processing.

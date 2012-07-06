@@ -62,7 +62,6 @@
  * @link       http://pdepend.org/
  */
 class PHP_Depend_DbusUI_ResultPrinter
-    extends PHP_Depend_Visitor_AbstractListener
     implements PHP_Depend_ProcessListener
 {
     /**

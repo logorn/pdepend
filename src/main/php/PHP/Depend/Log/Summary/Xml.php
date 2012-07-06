@@ -68,7 +68,6 @@ use \PHP\Depend\AST\ASTCompilationUnit;
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Log_Summary_Xml
-    extends PHP_Depend_Visitor_AbstractVisitor
     implements PHP_Depend_Log_CodeAware,
     PHP_Depend_Log_FileAware
 {

@@ -239,7 +239,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * @param PHP_Depend_AST_File $file The current file node.
      *
      * @return void
-     * @see PHP_Depend_Visitor_AbstractVisitor::visitFile()
      */
     public function visitFile(PHP_Depend_AST_File $file)
     {
