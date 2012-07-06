@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
@@ -150,7 +151,7 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * )
      * </code>
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return array
      * @todo 2.0 Refactor this into getNodeMetrics
@@ -169,11 +170,11 @@ class PHP_Depend_Metrics_Dependency_Analyzer
     /**
      * Returns an array of all afferent nodes.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node
      *
-     * @return PHP_Depend_AST_Node[]
+     * @return \PHP\Depend\AST\ASTNode[]
      */
-    public function getAfferents(PHP_Depend_AST_Node $node)
+    public function getAfferents(ASTNode $node)
     {
         $afferent = array();
         if (isset($this->_afferentNodes[$node->getId()])) {
@@ -186,11 +187,11 @@ class PHP_Depend_Metrics_Dependency_Analyzer
     /**
      * Returns an array of all efferent nodes.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node
      *
-     * @return PHP_Depend_AST_Node[]
+     * @return \PHP\Depend\AST\ASTNode[]
      */
-    public function getEfferents(PHP_Depend_AST_Node $node)
+    public function getEfferents(ASTNode $node)
     {
         $efferent = array();
         if (isset($this->_efferentNodes[$node->getId()])) {
@@ -205,11 +206,11 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Returns an array of nodes that build a cycle for the requested node or it
      * returns <b>null</b> if no cycle exists .
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node
      *
-     * @return PHP_Depend_AST_Node[]
+     * @return \PHP\Depend\AST\ASTNode[]
      */
-    public function getCycle(PHP_Depend_AST_Node $node)
+    public function getCycle(ASTNode $node)
     {
         if (array_key_exists($node->getId(), $this->_collectedCycles)) {
 

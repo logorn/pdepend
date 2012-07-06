@@ -71,7 +71,7 @@ class PHP_Depend_Log_Jdepend_DependencyAnalyzer
     /**
      * Returns the statistics for the requested node.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node
      *
      * @return array
      */

@@ -111,14 +111,14 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Stack of context nodes.
      *
-     * @var PHP_Depend_AST_Node[]
+     * @var \PHP\Depend\AST\ASTNode[]
      */
     private $nodeStack = array();
 
     /**
      * Currently active context nodes.
      *
-     * @var PHP_Depend_AST_Node
+     * @var \PHP\Depend\AST\ASTNode
      */
     private $currentNode;
 
@@ -207,7 +207,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * )
      * </code>
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return array
      */

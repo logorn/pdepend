@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
@@ -154,7 +155,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      * )
      * </code>
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return array
      */
@@ -353,7 +354,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         $this->update($in->getNamespace(), $out->getNamespace());
     }
 
-    private function update(PHP_Depend_AST_Node $in, PHP_Depend_AST_Node $out)
+    private function update(ASTNode $in, ASTNode $out)
     {
         if ($in->getId() === $out->getId()) {
             return;
@@ -366,7 +367,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         $this->_nodes[$out->getId()]['out'][] = $in->getId();
     }
 
-    private function init(PHP_Depend_AST_Node $node)
+    private function init(ASTNode $node)
     {
         if (isset($this->_nodes[$node->getId()])) {
             return;

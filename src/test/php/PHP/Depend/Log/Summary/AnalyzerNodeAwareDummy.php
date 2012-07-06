@@ -127,7 +127,7 @@ class PHP_Depend_Log_Summary_AnalyzerNodeAwareDummy
     /**
      * Returns an array with metrics for the requested node.
      *
-     * @param PHP_Depend_AST_Node|string $node
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return array
      */

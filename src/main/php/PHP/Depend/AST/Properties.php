@@ -46,7 +46,6 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_AST_Node;
 use \PHPParser_Node_Stmt_Property;
 
 /**
@@ -72,9 +71,7 @@ use \PHPParser_Node_Stmt_Property;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class Properties
-    extends PHPParser_Node_Stmt_Property
-    implements PHP_Depend_AST_Node
+class Properties extends PHPParser_Node_Stmt_Property implements ASTNode
 {
     /**
      * Constructs a new properties collection.

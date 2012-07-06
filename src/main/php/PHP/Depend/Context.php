@@ -45,6 +45,7 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTClassRefs;
 use \PHP\Depend\AST\ASTInterface;
@@ -69,18 +70,18 @@ class PHP_Depend_Context
     /**
      * All registered nodes.
      *
-     * @var PHP_Depend_AST_Node[]
+     * @var \PHP\Depend\AST\ASTNode[]
      */
     private $nodes = array();
 
     /**
      * Registers the given node in the global context.
      *
-     * @param PHP_Depend_AST_Node $node
+     * @param \PHP\Depend\AST\ASTNode $node
      *
      * @return void
      */
-    public function registerNode(PHP_Depend_AST_Node $node)
+    public function registerNode(ASTNode $node)
     {
         $this->nodes[$node->getId()] = $node;
     }
@@ -224,7 +225,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return null|PHP_Depend_AST_Node
+     * @return null|\PHP\Depend\AST\ASTNode
      */
     private function getNode($id)
     {

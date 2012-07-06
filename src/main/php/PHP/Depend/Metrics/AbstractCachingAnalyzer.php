@@ -47,6 +47,8 @@
  * @since      1.0.0
  */
 
+use \PHP\Depend\AST\ASTNode;
+
 /**
  * This abstract class provides an analyzer that provides the basic infrastructure
  * for caching.
@@ -103,11 +105,11 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
      * restored the metrics it will return <b>TRUE</b>, otherwise the return
      * value will be <b>FALSE</b>.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node
      *
      * @return boolean
      */
-    protected function restoreFromCache(PHP_Depend_AST_Node $node)
+    protected function restoreFromCache(ASTNode $node)
     {
         $id = $node->getId();
         if ($node->isCached() && isset($this->_metricsCached[$id])) {

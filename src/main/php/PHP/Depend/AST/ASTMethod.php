@@ -46,7 +46,6 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_AST_Node;
 use \PHPParser_Node_Stmt_ClassMethod;
 
 /**
@@ -62,7 +61,7 @@ use \PHPParser_Node_Stmt_ClassMethod;
  *
  * @property \PHP_Depend_AST_Type[] $thrownExceptions
  */
-class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements PHP_Depend_AST_Node
+class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
 {
     /**
      * Reference context used to retrieve referenced nodes.

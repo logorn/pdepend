@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
@@ -289,11 +290,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Generic notification method that is called for every node start.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node The context node instance.
      *
      * @return void
      */
-    protected function startVisitNode(PHP_Depend_AST_Node $node)
+    protected function startVisitNode(ASTNode $node)
     {
 
     }
@@ -301,11 +302,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Generic notification method that is called when the node processing ends.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node The context node instance.
      *
      * @return void
      */
-    protected function endVisitNode(PHP_Depend_AST_Node $node)
+    protected function endVisitNode(ASTNode $node)
     {
 
     }

@@ -59,7 +59,7 @@
  * @link       http://pdepend.org/
  * @since      2.0.0
  */
-interface PHP_Depend_AST_Type extends PHP_Depend_AST_Node
+interface PHP_Depend_AST_Type extends \PHP\Depend\AST\ASTNode
 {
     /**
      * Returns all methods declared by this type.

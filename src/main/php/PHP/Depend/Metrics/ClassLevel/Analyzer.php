@@ -160,7 +160,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * )
      * </code>
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return array
      */

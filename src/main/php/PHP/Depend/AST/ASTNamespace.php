@@ -47,7 +47,6 @@
 namespace PHP\Depend\AST;
 
 use \PHPParser_Node_Stmt_Namespace;
-use \PHP_Depend_AST_Node;
 
 /**
  * Custom AST node that represents a PHP namespace/package.
@@ -60,11 +59,8 @@ use \PHP_Depend_AST_Node;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class ASTNamespace
-    extends PHPParser_Node_Stmt_Namespace
-    implements PHP_Depend_AST_Node
+class ASTNamespace extends PHPParser_Node_Stmt_Namespace implements ASTNode
 {
-
     /**
      * @var \PHP\Depend\AST\ASTNamespaceRefs
      */

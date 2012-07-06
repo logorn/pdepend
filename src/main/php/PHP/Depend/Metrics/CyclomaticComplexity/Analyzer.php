@@ -98,7 +98,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     /**
      * Returns the cyclomatic complexity for the given <b>$node</b>.
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return integer
      */
@@ -115,7 +115,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     /**
      * Returns the extended cyclomatic complexity for the given <b>$node</b>.
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return integer
      */
@@ -142,7 +142,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      * )
      * </code>
      *
-     * @param PHP_Depend_AST_Node|string $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode|string $node
      *
      * @return array
      */

@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTClassRefs;
 use \PHP\Depend\AST\ASTFunction;
@@ -365,11 +366,11 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      * This method will wrap the given node with a pseudo namespace object,
      * when the node itself is not within a valid php namespace.
      *
-     * @param PHP_Depend_AST_Node $node
+     * @param \PHP\Depend\AST\ASTNode $node
      *
-     * @return \PHP\Depend\AST\ASTNamespace|PHP_Depend_AST_Node
+     * @return \PHP\Depend\AST\ASTNamespace|\PHP\Depend\AST\ASTNode
      */
-    private function wrapOptionalNamespace(PHP_Depend_AST_Node $node)
+    private function wrapOptionalNamespace(ASTNode $node)
     {
         if (is_string($this->declaringNamespace)) {
 

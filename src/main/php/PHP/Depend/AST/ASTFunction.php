@@ -46,7 +46,6 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_AST_Node;
 use \PHPParser_Node_Stmt_Function;
 
 /**
@@ -62,7 +61,7 @@ use \PHPParser_Node_Stmt_Function;
  *
  * @property \PHP_Depend_AST_Type[] $thrownExceptions
  */
-class ASTFunction extends PHPParser_Node_Stmt_Function implements PHP_Depend_AST_Node
+class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTNode
 {
     /**
      * Will be true when this object was restored from cache.

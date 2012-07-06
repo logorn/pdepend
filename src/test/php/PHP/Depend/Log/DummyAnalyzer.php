@@ -101,13 +101,14 @@ class PHP_Depend_Log_DummyAnalyzer
     /**
      * Returns the node metrics.
      *
-     * @param PHP_Depend_AST_Node|string $node context npde.
+     * @param \PHP\Depend\AST\ASTNode|string $node context npde.
      *
      * @return array
      */
     public function getNodeMetrics($node)
     {
         if (isset($this->nodeMetrics[$node->getName()])) {
+
             return $this->nodeMetrics[$node->getName()];
         }
         return array();

@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
+
 /**
  * Custom AST node that represents a compilation unit.
  *
@@ -62,7 +64,7 @@
  * @property string                $file
  * @property PHPParser_Node_Stmt[] $stmts
  */
-class PHP_Depend_AST_CompilationUnit extends PHPParser_NodeAbstract implements PHP_Depend_AST_Node
+class PHP_Depend_AST_CompilationUnit extends PHPParser_NodeAbstract implements ASTNode
 {
     /**
      * Constructs a new compilation unit.

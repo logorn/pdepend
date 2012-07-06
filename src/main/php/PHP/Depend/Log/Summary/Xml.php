@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
@@ -317,14 +318,14 @@ class PHP_Depend_Log_Summary_Xml
         return array_pop($this->elements);
     }
 
-    private function writeMetrics(PHP_Depend_AST_Node $node, DOMElement $element)
+    private function writeMetrics(ASTNode $node, DOMElement $element)
     {
         foreach ($this->getNodeMetrics($node) as $name => $value) {
             $element->setAttribute($name, $value);
         }
     }
 
-    private function getNodeMetrics(PHP_Depend_AST_Node $node)
+    private function getNodeMetrics(ASTNode $node)
     {
         $metrics = array();
         foreach ($this->_nodeAwareAnalyzers as $analyzer) {

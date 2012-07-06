@@ -48,7 +48,6 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_AST_Node;
 use \PHP_Depend_AST_PropertyRefs;
 use \PHPParser_Node_Stmt_PropertyProperty;
 
@@ -67,7 +66,7 @@ use \PHPParser_Node_Stmt_PropertyProperty;
  *
  * @property \PHPParser_Node_Name $type
  */
-class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depend_AST_Node
+class Property extends PHPParser_Node_Stmt_PropertyProperty implements ASTNode
 {
     /**
      * Will be true when this object was restored from cache.

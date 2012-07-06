@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTNode;
+
 /**
  * Prints current the PDepend status information.
  *
@@ -194,11 +196,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Generic notification method that is called for every node start.
      *
-     * @param PHP_Depend_AST_Node $node The context node instance.
+     * @param \PHP\Depend\AST\ASTNode $node The context node instance.
      *
      * @return void
      */
-    public function startVisitNode(PHP_Depend_AST_Node $node)
+    public function startVisitNode(ASTNode $node)
     {
         $this->step(self::STEP_SIZE);
     }
