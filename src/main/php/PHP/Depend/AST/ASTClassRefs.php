@@ -105,7 +105,7 @@ class ASTClassRefs
     /**
      * Returns the parent namespace of the context class.
      *
-     * @return \PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace()
     {

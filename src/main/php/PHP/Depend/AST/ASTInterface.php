@@ -115,7 +115,7 @@ class ASTInterface extends PHPParser_Node_Stmt_Interface implements PHP_Depend_A
     /**
      * Returns the namespace for this node.
      *
-     * @return \PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace()
     {

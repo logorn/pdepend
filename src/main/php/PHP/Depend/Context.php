@@ -49,6 +49,8 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTClassRefs;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTInterfaceRefs;
+use \PHP\Depend\AST\ASTNamespace;
+use \PHP\Depend\AST\ASTNamespaceRefs;
 
 /**
  * Context is used at runtime to establish inter node dependencies.
@@ -89,7 +91,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace($id)
     {
@@ -97,7 +99,7 @@ class PHP_Depend_Context
             return $namespace;
         }
 
-        return new PHP_Depend_AST_Namespace(
+        return new ASTNamespace(
             new PHPParser_Node_Stmt_Namespace(
                 new PHPParser_Node_Name($id ? $id : '+global'),
                 array(),
@@ -106,7 +108,7 @@ class PHP_Depend_Context
                     'id' => ($id ? $id : '+global') . '#n'
                 )
             ),
-            new PHP_Depend_AST_NamespaceRefs($this)
+            new ASTNamespaceRefs($this)
         );
     }
 

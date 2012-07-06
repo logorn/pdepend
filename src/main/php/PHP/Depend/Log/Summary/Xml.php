@@ -50,6 +50,7 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
+use \PHP\Depend\AST\ASTNamespace;
 
 /**
  * This logger generates a summary xml document with aggregated project, class,
@@ -207,7 +208,7 @@ class PHP_Depend_Log_Summary_Xml
         array_pop($this->elements);
     }
 
-    public function visitNamespaceBefore(PHP_Depend_AST_Namespace $namespace, DOMElement $file)
+    public function visitASTNamespaceBefore(ASTNamespace $namespace, DOMElement $file)
     {
         $xpath  = new DOMXPath($this->document);
         $result = $xpath->query("//package[@name='{$namespace->name}']");
@@ -228,10 +229,10 @@ class PHP_Depend_Log_Summary_Xml
         return $element;
     }
 
-    public function visitNamespaceAfter(PHP_Depend_AST_Namespace $ns, DOMElement $namespace)
+    public function visitASTNamespaceAfter(ASTNamespace $ns, DOMElement $xml)
     {
-        if (0 === $namespace->childNodes->length) {
-            $this->document->documentElement->removeChild($namespace);
+        if (0 === $xml->childNodes->length) {
+            $this->document->documentElement->removeChild($xml);
         }
 
         return array_pop($this->elements);

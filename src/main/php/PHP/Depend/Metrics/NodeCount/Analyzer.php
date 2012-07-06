@@ -50,6 +50,7 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
+use \PHP\Depend\AST\ASTNamespace;
 
 /**
  * This analyzer collects different count metrics for code artifacts like
@@ -283,12 +284,12 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
     /**
      * Visits the given namespace before it's children were traversed.
      *
-     * @param PHP_Depend_AST_Namespace $ns
-     * @param mixed                    $data
+     * @param \PHP\Depend\AST\ASTNamespace $ns
+     * @param mixed $data
      *
      * @return mixed
      */
-    public function visitNamespaceBefore(PHP_Depend_AST_Namespace $ns, $data = null)
+    public function visitASTNamespaceBefore(ASTNamespace $ns, $data)
     {
         if (false === isset($this->metrics[$ns->getId()])) {
             $this->metrics[$ns->getId()] = array(
@@ -307,14 +308,14 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      * Increments the metric identified by <b>$metricId</b> on the given
      * <b>$namespace</b> object.
      *
-     * @param PHP_Depend_AST_Namespace $namespace
-     * @param string                   $metricId
+     * @param \PHP\Depend\AST\ASTNamespace $namespace
+     * @param string $metricId
      *
      * @return void
      */
-    private function updateNamespace(PHP_Depend_AST_Namespace $namespace, $metricId)
+    private function updateNamespace(ASTNamespace $namespace, $metricId)
     {
-        $this->visitNamespaceBefore($namespace);
+        $this->visitASTNamespaceBefore($namespace, null);
 
         ++$this->metrics[$namespace->getId()][$metricId];
     }

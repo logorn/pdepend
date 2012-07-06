@@ -97,7 +97,7 @@ class ASTFunctionRefs
     /**
      * Returns the namespace for the context function.
      *
-     * @return \PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace()
     {

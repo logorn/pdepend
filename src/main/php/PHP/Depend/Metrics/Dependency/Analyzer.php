@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
+use \PHP\Depend\AST\ASTNamespace;
 
 /**
  * This analyzer calculates dependency metrics for packages.
@@ -246,11 +247,11 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Visits a namespace before it's child statements get visited. This method
      * returns a metric data container for the given namespace.
      *
-     * @param PHP_Depend_AST_Namespace $namespace
+     * @param \PHP\Depend\AST\ASTNamespace $namespace
      *
      * @return array
      */
-    public function visitNamespaceBefore(PHP_Depend_AST_Namespace $namespace)
+    public function visitASTNamespaceBefore(ASTNamespace $namespace)
     {
         if (false === isset($this->metrics[$namespace->getId()])) {
 
@@ -264,12 +265,12 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Visits a namespace after it's child statements were visited. This method
      * aggregates the metrics for one namespace.
      *
-     * @param PHP_Depend_AST_Namespace $namespace
+     * @param \PHP\Depend\AST\ASTNamespace $namespace
      * @param array $data
      *
      * @return void
      */
-    public function visitNamespaceAfter(PHP_Depend_AST_Namespace $namespace, $data)
+    public function visitASTNamespaceAfter(ASTNamespace $namespace, $data)
     {
         $this->metrics[$namespace->getId()] = $data;
 

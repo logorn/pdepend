@@ -49,7 +49,7 @@ namespace PHP\Depend\AST;
 use \PHP_Depend_Context;
 
 /**
- * Container class that holds nodes referenced by a method.
+ * Container holding nodes referenced by a single namespace.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -59,7 +59,7 @@ use \PHP_Depend_Context;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class ASTMethodRefs
+class ASTNamespaceRefs
 {
     /**
      * @var \PHP_Depend_Context
@@ -67,81 +67,22 @@ class ASTMethodRefs
     private $context;
 
     /**
-     * @var string
-     */
-    private $namespace;
-
-    /**
-     * @var string
-     */
-    private $declaringType;
-
-    /**
-     * @var string
-     */
-    private $returnType;
-
-    /**
-     * Constructs a new reference context for an interface.
+     * Constructs a new namespace reference instance.
      *
      * @param \PHP_Depend_Context $context
-     * @param string $namespace
-     * @param string $declaringType
-     * @param string $returnType
      */
-    public function __construct(
-        PHP_Depend_Context $context,
-        $namespace,
-        $declaringType,
-        $returnType
-    )
+    public function __construct(PHP_Depend_Context $context)
     {
-        $this->context       = $context;
-        $this->namespace     = $namespace;
-        $this->declaringType = $declaringType;
-        $this->returnType    = $returnType;
+        $this->context = $context;
     }
 
     /**
-     * Returns the namespace for the context method.
+     * Registers the given namespace in a shared context.
      *
-     * @return \PHP\Depend\AST\ASTNamespace
+     * @param \PHP\Depend\AST\ASTNamespace $namespace
      */
-    public function getNamespace()
+    public function initialize(ASTNamespace $namespace)
     {
-        return $this->context->getNamespace($this->namespace);
-    }
-
-    /**
-     * Returns the declaring type for the context method.
-     *
-     * @return \PHP_Depend_AST_Type
-     */
-    public function getDeclaringType()
-    {
-        return $this->context->getType($this->declaringType);
-    }
-
-    /**
-     * Returns the type returned by the context method or <b>NULL</b> when the
-     * context method does not return a type.
-     *
-     * @return \PHP_Depend_AST_Type|null
-     */
-    public function getReturnType()
-    {
-        return $this->context->getType($this->returnType);
-    }
-
-    /**
-     * Initializes this reference instance for the given method.
-     *
-     * @param \PHP\Depend\AST\ASTMethod $method
-     *
-     * @return void
-     */
-    public function initialize(ASTMethod $method)
-    {
-        $this->context->registerNode($method);
+        $this->context->registerNode($namespace);
     }
 }

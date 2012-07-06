@@ -115,7 +115,7 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
     /**
      * Returns the namespace where this method is declared.
      *
-     * @return \PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace()
     {

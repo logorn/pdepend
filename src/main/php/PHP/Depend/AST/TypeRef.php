@@ -122,7 +122,7 @@ class PHP_Depend_AST_TypeRef extends PHPParser_NodeAbstract implements PHP_Depen
     /**
      * Returns the namespace where this method is declared.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace()
     {

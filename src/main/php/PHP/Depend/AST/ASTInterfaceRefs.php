@@ -97,7 +97,7 @@ class ASTInterfaceRefs
     /**
      * Returns the namespace for the context interface.
      *
-     * @return \PHP_Depend_AST_Namespace
+     * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace()
     {

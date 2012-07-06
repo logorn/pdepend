@@ -54,6 +54,8 @@ use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTInterfaceRefs;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTMethodRefs;
+use \PHP\Depend\AST\ASTNamespace;
+use \PHP\Depend\AST\ASTNamespaceRefs;
 use \PHP\Depend\AST\Properties;
 use \PHP\Depend\AST\Property;
 
@@ -156,8 +158,8 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
         $newNode = null;
         if ($node instanceof PHPParser_Node_Stmt_Namespace) {
 
-            $newNode = new PHP_Depend_AST_Namespace(
-                $node, new PHP_Depend_AST_NamespaceRefs($this->context)
+            $newNode = new ASTNamespace(
+                $node, new ASTNamespaceRefs($this->context)
             );
 
             $this->declaringNamespace = null;
@@ -365,7 +367,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      *
      * @param PHP_Depend_AST_Node $node
      *
-     * @return PHP_Depend_AST_Namespace|PHP_Depend_AST_Node
+     * @return \PHP\Depend\AST\ASTNamespace|PHP_Depend_AST_Node
      */
     private function wrapOptionalNamespace(PHP_Depend_AST_Node $node)
     {
@@ -374,13 +376,13 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             return $node;
         }
 
-        return new PHP_Depend_AST_Namespace(
+        return new ASTNamespace(
             new PHPParser_Node_Stmt_Namespace(
                 new PHPParser_Node_Name($this->extractNamespaceName($node)),
                 array($node),
                 array('id'  => $this->extractNamespaceName($node) . '#n')
             ),
-            new PHP_Depend_AST_NamespaceRefs($this->context)
+            new ASTNamespaceRefs($this->context)
         );
     }
 }
