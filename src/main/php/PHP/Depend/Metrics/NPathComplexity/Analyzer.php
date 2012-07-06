@@ -67,8 +67,7 @@ use \PHP\Depend\AST\ASTMethod;
  */
 class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
     extends PHP_Depend_Metrics_AbstractCachingAnalyzer
-   implements PHP_Depend_Metrics_NodeAware,
-              PHP_Depend_Code_ASTVisitor*/
+   implements PHP_Depend_Metrics_NodeAware*/
 {
     /**
      * Type of this analyzer class.
