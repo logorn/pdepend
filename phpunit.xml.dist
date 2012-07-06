@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<phpunit>
+<phpunit bootstrap="src/test/php/PHP/Depend/bootstrap.php">
+
     <testsuites>
         <testsuite name="PHP Depends Test Suite">
             <directory suffix="Test.php">src/test/php</directory>

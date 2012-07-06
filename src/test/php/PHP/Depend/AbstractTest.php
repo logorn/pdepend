@@ -624,9 +624,6 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      */
     public static function init()
     {
-        // First register autoloader
-        spl_autoload_register(array(__CLASS__, 'autoload'));
-
         // Is it not installed?
         if (is_file(dirname(__FILE__) . '/../../../../main/php/PHP/Depend.php')) {
 
@@ -641,29 +638,6 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         set_include_path($path);
 
         self::_initVersionCompatibility();
-    }
-
-    /**
-     * Autoloader for the test cases.
-     *
-     * @param string $className Name of the missing class.
-     *
-     * @return void
-     */
-    public static function autoload($className)
-    {
-        $basedir = realpath(dirname(__FILE__) . '/../../../../../');
-
-        $file = strtr($className, '_\\', '//') . '.php';
-        if (is_file($basedir . '/src/main/php/' . $file)) {
-            $file = $basedir . '/src/main/php/' . $file;
-        } else if (is_file($basedir . '/lib/PHP-Parser/lib/' . $file)) {
-            $file = $basedir . '/lib/PHP-Parser/lib/' . $file;
-        }
-
-        if (file_exists($file)) {
-            include $file;
-        }
     }
 
     /**
