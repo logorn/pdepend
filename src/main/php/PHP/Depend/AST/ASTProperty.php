@@ -46,7 +46,6 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_AST_PropertyRefs;
 use \PHPParser_Node_Stmt_PropertyProperty;
 
 /**
@@ -74,7 +73,7 @@ class ASTProperty extends PHPParser_Node_Stmt_PropertyProperty implements ASTNod
     /**
      * Reference context used to retrieve referenced nodes.
      *
-     * @var \PHP_Depend_AST_PropertyRefs
+     * @var \PHP\Depend\AST\ASTPropertyRefs
      */
     private $refs;
 
@@ -82,12 +81,12 @@ class ASTProperty extends PHPParser_Node_Stmt_PropertyProperty implements ASTNod
      * Constructs a new property AST node.
      *
      * @param \PHPParser_Node_Stmt_PropertyProperty $property
-     * @param \PHP_Depend_AST_PropertyRefs $refs
+     * @param \PHP\Depend\AST\ASTPropertyRefs $refs
      * @param integer $modifier
      */
     public function __construct(
         PHPParser_Node_Stmt_PropertyProperty $property,
-        PHP_Depend_AST_PropertyRefs $refs,
+        ASTPropertyRefs $refs,
         $modifier
     )
     {

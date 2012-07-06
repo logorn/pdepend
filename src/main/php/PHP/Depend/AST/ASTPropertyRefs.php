@@ -36,35 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\AST\ASTProperty;
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_Context;
 
 /**
  * Container class that holds nodes referenced by a property.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_AST_PropertyRefs
+class ASTPropertyRefs
 {
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP_Depend_Context
      */
     private $context;
 
@@ -91,7 +89,12 @@ class PHP_Depend_AST_PropertyRefs
      * @param string $declaringType
      * @param string $type
      */
-    public function __construct(PHP_Depend_Context $context, $namespace, $declaringType, $type = null)
+    public function __construct(
+        PHP_Depend_Context $context,
+        $namespace,
+        $declaringType,
+        $type = null
+    )
     {
         $this->type          = $type ? $type : null;
         $this->context       = $context;
