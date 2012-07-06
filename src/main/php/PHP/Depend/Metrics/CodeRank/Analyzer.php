@@ -85,12 +85,19 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
     /**
      * Number of loops for the code range calculation.
      */
-    const ALGORITHM_LOOPS = 25;
+    const ALGORITHM_LOOPS = 100;
 
     /**
      * Option key for the code rank mode.
      */
     const STRATEGY_OPTION = 'coderank-mode';
+
+    /**
+     * Acceptable delta used to compare two code rank values.
+     *
+     * @var float
+     */
+    private $delta = 0.0000001;
 
     /**
      * All found nodes.
@@ -218,6 +225,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
 
         for ($i = 0; $i < self::ALGORITHM_LOOPS; $i++) {
 
+            $changed = false;
             foreach ($this->_nodes as $name => $info) {
 
                 $rank = 0;
@@ -228,9 +236,22 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
 
                     $rank += ($previousRank / $refCount);
                 }
-                $ranks[$name] = ((1 - $dampingFactory)) + $dampingFactory * $rank;
+
+                $newRank = ((1 - $dampingFactory)) + $dampingFactory * $rank;
+
+                if ($this->delta > abs($newRank - $ranks[$name])) {
+
+                    $changed = true;
+                }
+
+                $ranks[$name] = $newRank;
+            }
+
+            if ($changed === false) {
+                break;
             }
         }
+
         return $ranks;
     }
 
@@ -356,16 +377,40 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         );
     }
 
+    /**
+     * Tests if the inheritance strategy is enabled.
+     *
+     * This method will return <b>true</b> if the inheritance strategy was
+     * enabled on the command line or by configuration.
+     *
+     * @return boolean
+     */
     private function isInheritanceDisabled()
     {
         return !in_array('inheritance', $this->options[self::STRATEGY_OPTION]);
     }
 
+    /**
+     * Tests if the method strategy is enabled.
+     *
+     * This method will return <b>true</b> if the method strategy was enabled
+     * on the command line or by configuration.
+     *
+     * @return boolean
+     */
     private function isMethodDisabled()
     {
         return !in_array('method', $this->options[self::STRATEGY_OPTION]);
     }
 
+    /**
+     * Tests if the property strategy is enabled.
+     *
+     * This method will return <b>true</b> if the property strategy was enabled
+     * on the command line or by configuration.
+     *
+     * @return boolean
+     */
     private function isPropertyDisabled()
     {
         return !in_array('property', $this->options[self::STRATEGY_OPTION]);
