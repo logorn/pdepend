@@ -90,7 +90,7 @@ class ASTProperties extends PHPParser_Node_Stmt_Property implements ASTNode
     /**
      * Returns all properties available in this collection.
      *
-     * @return \PHP\Depend\AST\Property[]
+     * @return \PHP\Depend\AST\ASTProperty[]
      */
     public function getProperties()
     {

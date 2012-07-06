@@ -50,7 +50,7 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * Base interface for a visitor listener.
@@ -215,18 +215,18 @@ interface PHP_Depend_Visitor_ListenerI
     /**
      * Is called when the visitor starts a new property instance.
      *
-     * @param \PHP\Depend\AST\Property $property The context property instance.
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return void
      */
-    function startVisitProperty(Property $property);
+    function startVisitProperty(ASTProperty $property);
 
     /**
      * Is called when the visitor ends with a property instance.
      *
-     * @param \PHP\Depend\AST\Property $property The context property instance.
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return void
      */
-    function endVisitProperty(Property $property);
+    function endVisitProperty(ASTProperty $property);
 }

@@ -51,7 +51,7 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
-use \PHP\Depend\AST\Property;
+use \PHP\Depend\AST\ASTProperty;
 
 /**
  * This abstract class provides a default implementation of the node visitor
@@ -266,11 +266,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor starts a new property instance.
      *
-     * @param \PHP\Depend\AST\Property $property The context property instance.
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return void
      */
-    public function startVisitProperty(Property $property)
+    public function startVisitProperty(ASTProperty $property)
     {
         $this->startVisitNode($property);
     }
@@ -278,11 +278,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor ends with a property instance.
      *
-     * @param \PHP\Depend\AST\Property $property The context property instance.
+     * @param \PHP\Depend\AST\ASTProperty $property
      *
      * @return void
      */
-    public function endVisitProperty(Property $property)
+    public function endVisitProperty(ASTProperty $property)
     {
         $this->endVisitNode($property);
     }
