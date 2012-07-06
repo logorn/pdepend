@@ -371,9 +371,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
 
         $this->_nodes[$node->getId()] = array(
             'in'   => array(),
-            'out'  => array(),
-            'name' => $node->getName(),
-            'type' => get_class($node)
+            'out'  => array()
         );
     }
 
