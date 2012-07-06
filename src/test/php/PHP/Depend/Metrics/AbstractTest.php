@@ -69,7 +69,7 @@ abstract class PHP_Depend_Metrics_AbstractTest extends PHP_Depend_AbstractTest
      * @param string  $testCase          Qualified test case name.
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
      *
-     * @return PHP_Depend_AST_CompilationUnit[]
+     * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     public static function parseTestCaseSource($testCase, $ignoreAnnotations = false)
     {

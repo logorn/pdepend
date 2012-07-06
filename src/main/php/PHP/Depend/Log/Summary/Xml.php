@@ -52,6 +52,7 @@ use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTNamespace;
+use \PHP\Depend\AST\ASTCompilationUnit;
 
 /**
  * This logger generates a summary xml document with aggregated project, class,
@@ -190,7 +191,7 @@ class PHP_Depend_Log_Summary_Xml
         $this->document->save($this->_logFile);
     }
 
-    public function visitCompilationUnitBefore(PHP_Depend_AST_CompilationUnit $compilationUnit)
+    public function visitASTCompilationUnitBefore(ASTCompilationUnit $compilationUnit)
     {
         $element = $this->document->createElement('file');
         $element->setAttribute('name', $compilationUnit->file);
@@ -204,7 +205,7 @@ class PHP_Depend_Log_Summary_Xml
         return $element;
     }
 
-    public function visitCompilationUnitAfter(PHP_Depend_AST_CompilationUnit $compilationUnit)
+    public function visitASTCompilationUnitAfter(ASTCompilationUnit $compilationUnit)
     {
         array_pop($this->elements);
     }

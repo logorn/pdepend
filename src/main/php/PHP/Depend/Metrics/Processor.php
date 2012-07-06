@@ -63,7 +63,7 @@ interface Processor
     /**
      * Processes the given compilation units with all registered analyzers.
      *
-     * @param \PHP_Depend_AST_CompilationUnit[] $compilationUnit
+     * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnit
      *
      * @return void
      */

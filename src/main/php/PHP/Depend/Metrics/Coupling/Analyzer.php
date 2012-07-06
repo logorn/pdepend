@@ -52,6 +52,7 @@ use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
+use \PHP\Depend\AST\ASTCompilationUnit;
 
 /**
  * This analyzer collects coupling values for the hole project. It calculates
@@ -254,11 +255,11 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits the given compilation unit ast node.
      *
-     * @param PHP_Depend_AST_CompilationUnit $unit
+     * @param \PHP\Depend\AST\ASTCompilationUnit $unit
      *
      * @return void
      */
-    public function visitCompilationUnitBefore(PHP_Depend_AST_CompilationUnit $unit)
+    public function visitCompilationUnitBefore(ASTCompilationUnit $unit)
     {
         $this->nodeStack[] = $this->currentNode = $unit;
     }

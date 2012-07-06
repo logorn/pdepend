@@ -403,7 +403,7 @@ class PHP_Depend
      *
      * This method will return an array with all processed compilation units.
      *
-     * @return PHP_Depend_AST_CompilationUnit[]
+     * @return \PHP\Depend\AST\ASTCompilationUnit[]
      * @todo 2.0 Replace PHPParser_Error with custom exception
      * @todo 2.0 What should we do with ignoreAnnotations?
      */
@@ -449,7 +449,7 @@ class PHP_Depend
      * creates the required analyzers for the registered listeners and then
      * applies them to the source tree.
      *
-     * @param PHP_Depend_AST_CompilationUnit[] $compilationUnits
+     * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnits
      *
      * @return PHP_Depend_Metrics_Analyzer[]
      */
@@ -482,7 +482,7 @@ class PHP_Depend
     }
 
     /**
-     * @param PHP_Depend_AST_CompilationUnit[] $compilationUnits
+     * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnits
      * @param PHP_Depend_Metrics_Analyzer[] $analyzers
      *
      * @return void

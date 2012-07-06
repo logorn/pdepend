@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTCompilationUnit;
+
 /**
  * Parser used to translate a given source file into an abstract syntax tree.
  *
@@ -94,13 +96,13 @@ class PHP_Depend_Parser
      *
      * @param string $file
      *
-     * @return PHP_Depend_AST_CompilationUnit
+     * @return \PHP\Depend\AST\ASTCompilationUnit
      */
     public function parse($file)
     {
         $nodes = $this->traverser->traverse(
             array(
-                new PHP_Depend_AST_CompilationUnit(
+                new ASTCompilationUnit(
                     $file,
                     $this->parser->parse(file_get_contents($file))
                 )

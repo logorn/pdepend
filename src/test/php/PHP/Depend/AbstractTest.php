@@ -689,7 +689,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      *
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
      *
-     * @return PHP_Depend_AST_CompilationUnit[]
+     * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     protected static function parseCodeResourceForTest($ignoreAnnotations = false)
     {
@@ -706,7 +706,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      * @param string  $testCase          Qualified name of the test case.
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
      *
-     * @return PHP_Depend_AST_CompilationUnit[]
+     * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     public static function parseTestCaseSource($testCase, $ignoreAnnotations = false)
     {
