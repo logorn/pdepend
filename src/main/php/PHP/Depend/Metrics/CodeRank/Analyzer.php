@@ -179,15 +179,20 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
     private function buildCodeRankMetrics()
     {
         foreach (array_keys($this->_nodes) as $uuid) {
+
             $this->metrics[$uuid] = array(
                 self::M_CODE_RANK          => 0,
                 self::M_REVERSE_CODE_RANK  => 0
             );
         }
+
         foreach ($this->computeCodeRank('out', 'in') as $uuid => $rank) {
+
             $this->metrics[$uuid][self::M_CODE_RANK] = $rank;
         }
+
         foreach ($this->computeCodeRank('in', 'out') as $uuid => $rank) {
+
             $this->metrics[$uuid][self::M_REVERSE_CODE_RANK] = $rank;
         }
     }
@@ -207,13 +212,17 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         $ranks = array();
 
         foreach (array_keys($this->_nodes) as $name) {
+
             $ranks[$name] = 1;
         }
 
         for ($i = 0; $i < self::ALGORITHM_LOOPS; $i++) {
+
             foreach ($this->_nodes as $name => $info) {
+
                 $rank = 0;
                 foreach ($info[$id1] as $ref) {
+
                     $previousRank = $ranks[$ref];
                     $refCount     = count($this->_nodes[$ref][$id2]);
 
@@ -234,10 +243,12 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
 
         if ($parentClass = $class->getParentClass()) {
+
             $this->updateType($class, $parentClass);
         }
 
         foreach ($class->getInterfaces() as $interface) {
+
             $this->updateType($class, $interface);
         }
     }
@@ -251,6 +262,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
 
         foreach ($interface->getInterfaces() as $parentInterface) {
+
             $this->updateType($interface, $parentInterface);
         }
     }
@@ -267,6 +279,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
 
         if ($type = $property->getType()) {
+
             $this->updateType($property->getDeclaringType(), $type);
         }
     }
@@ -278,15 +291,19 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
 
         if ($type = $method->getReturnType()) {
+
             $this->updateType($method->getDeclaringType(), $type);
         }
 
         foreach ($method->getThrownExceptions() as $thrownException) {
+
             $this->updateType($method->getDeclaringType(), $thrownException);
         }
 
         foreach ($method->params as $param) {
+
             if ($param->typeRef) {
+
                 $this->updateType($method->getDeclaringType(), $param->typeRef);
             }
         }
@@ -301,6 +318,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
 
         foreach ($nodes as $node) {
+
             $this->updateType($method->getDeclaringType(), $node);
         }
     }
