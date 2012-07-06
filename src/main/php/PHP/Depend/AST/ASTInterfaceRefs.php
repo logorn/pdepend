@@ -36,33 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_Context;
 
 /**
  * Container class that holds nodes referenced by an interface.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_AST_InterfaceRefs
+class ASTInterfaceRefs
 {
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP_Depend_Context
      */
     private $context;
 
@@ -79,11 +79,15 @@ class PHP_Depend_AST_InterfaceRefs
     /**
      * Constructs a new reference context for an interface.
      *
-     * @param PHP_Depend_Context $context
-     * @param string             $namespace
-     * @param string[]           $parentInterfaces
+     * @param \PHP_Depend_Context $context
+     * @param string $namespace
+     * @param string[] $parentInterfaces
      */
-    public function __construct(PHP_Depend_Context $context, $namespace, array $parentInterfaces)
+    public function __construct(
+        PHP_Depend_Context $context,
+        $namespace,
+        array $parentInterfaces
+    )
     {
         $this->context          = $context;
         $this->namespace        = $namespace;
@@ -93,7 +97,7 @@ class PHP_Depend_AST_InterfaceRefs
     /**
      * Returns the namespace for the context interface.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -104,7 +108,7 @@ class PHP_Depend_AST_InterfaceRefs
      * Returns the parent interfaces for the context interface or an empty array
      * when the context interface does not extend other interfaces.
      *
-     * @return PHP_Depend_AST_Interface[]
+     * @return \PHP\Depend\AST\ASTInterface[]
      */
     public function getParentInterfaces()
     {
@@ -119,11 +123,11 @@ class PHP_Depend_AST_InterfaceRefs
     /**
      * Initializes this reference instance for the given interface.
      *
-     * @param PHP_Depend_AST_Interface $interface
+     * @param \PHP\Depend\AST\ASTInterface $interface
      *
      * @return void
      */
-    public function initialize(PHP_Depend_AST_Interface $interface)
+    public function initialize(ASTInterface $interface)
     {
         $this->context->registerNode($interface);
     }

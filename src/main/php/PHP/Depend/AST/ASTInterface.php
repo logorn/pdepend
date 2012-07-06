@@ -36,45 +36,46 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_AST_Type;
+use \PHPParser_Node_Stmt_Interface;
 
 /**
  * AST node that represents a PHP interface.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements PHP_Depend_AST_Type
+class ASTInterface extends PHPParser_Node_Stmt_Interface implements PHP_Depend_AST_Type
 {
     /**
      * References to other ast nodes.
      *
-     * @var PHP_Depend_AST_InterfaceRefs
+     * @var \PHP\Depend\AST\ASTInterfaceRefs
      */
     private $refs;
 
     /**
      * Constructs a new interface instance.
      *
-     * @param PHPParser_Node_Stmt_Interface $interface
-     * @param PHP_Depend_AST_InterfaceRefs  $refs
+     * @param \PHPParser_Node_Stmt_Interface $interface
+     * @param \PHP\Depend\AST\ASTInterfaceRefs $refs
      */
-    public function __construct(PHPParser_Node_Stmt_Interface $interface, PHP_Depend_AST_InterfaceRefs $refs)
+    public function __construct(PHPParser_Node_Stmt_Interface $interface, ASTInterfaceRefs $refs)
     {
         parent::__construct(
             $interface->name,
@@ -114,7 +115,7 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
     /**
      * Returns the namespace for this node.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -124,7 +125,7 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
     /**
      * Returns an array with all parent interfaces.
      *
-     * @return PHP_Depend_AST_Interface[]
+     * @return \PHP\Depend\AST\ASTInterface[]
      */
     public function getInterfaces()
     {
@@ -134,13 +135,15 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
     /**
      * Returns all methods declared by this interface.
      *
-     * @return PHP_Depend_AST_Method[]
+     * @return \PHP_Depend_AST_Method[]
      */
     public function getMethods()
     {
         $methods = array();
         foreach ($this->stmts as $stmt) {
+
             if ($stmt instanceof PHP_Depend_AST_Method) {
+
                 $methods[] = $stmt;
             }
         }
@@ -160,7 +163,7 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
     /**
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
-     * @param PHP_Depend_AST_Type $type
+     * @param \PHP_Depend_AST_Type $type
      *
      * @return boolean
      */
@@ -169,7 +172,9 @@ class PHP_Depend_AST_Interface extends PHPParser_Node_Stmt_Interface implements 
         if ($type->namespacedName === $this->namespacedName) {
             return true;
         }
+
         foreach ($this->refs->getParentInterfaces() as $interface) {
+
             if ($type->isSubtypeOf($interface)) {
                 return true;
             }

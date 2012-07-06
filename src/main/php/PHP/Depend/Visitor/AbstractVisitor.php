@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -173,10 +174,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a code interface object.
      *
-     * @param PHP_Depend_AST_Interface $interface The context code interface.
+     * @param \PHP\Depend\AST\ASTInterface $interface
      * @return void
      */
-    public function visitInterface(PHP_Depend_AST_Interface $interface)
+    public function visitInterface(ASTInterface $interface)
     {
         $this->fireStartInterface($interface);
 
@@ -369,11 +370,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends a start interface event.
      *
-     * @param PHP_Depend_AST_Interface $interface The context interface instance.
+     * @param \PHP\Depend\AST\ASTInterface $interface
      *
      * @return void
      */
-    protected function fireStartInterface(PHP_Depend_AST_Interface $interface)
+    protected function fireStartInterface(ASTInterface $interface)
     {
         foreach ($this->_listeners as $listener) {
             $listener->startVisitInterface($interface);
@@ -383,10 +384,10 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends an end interface event.
      *
-     * @param PHP_Depend_AST_Interface $interface The context interface instance.
+     * @param \PHP\Depend\AST\ASTInterface $interface
      * @return void
      */
-    protected function fireEndInterface(PHP_Depend_AST_Interface $interface)
+    protected function fireEndInterface(ASTInterface $interface)
     {
         foreach ($this->_listeners as $listener) {
             $listener->endVisitInterface($interface);

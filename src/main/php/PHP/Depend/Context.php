@@ -47,6 +47,8 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTClassRefs;
+use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\AST\ASTInterfaceRefs;
 
 /**
  * Context is used at runtime to establish inter node dependencies.
@@ -144,7 +146,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return null|PHP_Depend_AST_Interface
+     * @return null|\PHP\Depend\AST\ASTInterface
      */
     public function getInterface($id)
     {
@@ -156,13 +158,13 @@ class PHP_Depend_Context
         if ($id) {
 
             // TODO 2.0 extract name/namespace from id.
-            return new PHP_Depend_AST_Interface(
+            return new ASTInterface(
                 new PHPParser_Node_Stmt_Interface(
                     $id,
                     array('namespacedName' => $id),
                     array('user_defined' => false, 'id' => "{$id}#i")
                 ),
-                new PHP_Depend_AST_InterfaceRefs(
+                new ASTInterfaceRefs(
                     $this, '+global', array()
                 )
             );

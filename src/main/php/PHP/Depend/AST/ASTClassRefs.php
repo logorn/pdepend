@@ -129,7 +129,7 @@ class ASTClassRefs
     /**
      * Returns all interfaces that are implemented by the context class.
      *
-     * @return \PHP_Depend_AST_Interface[]
+     * @return \PHP\Depend\AST\ASTInterface[]
      */
     public function getImplementedInterfaces()
     {

@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -275,7 +276,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         }
     }
 
-    public function visitInterfaceBefore(PHP_Depend_AST_Interface $interface)
+    public function visitASTInterfaceBefore(ASTInterface $interface)
     {
         $this->init($interface);
 

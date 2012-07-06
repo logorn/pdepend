@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -343,11 +344,11 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits a interface ast node.
      *
-     * @param PHP_Depend_AST_Interface $interface
+     * @param \PHP\Depend\AST\ASTInterface $interface
      *
      * @return mixed
      */
-    public function visitInterfaceBefore(PHP_Depend_AST_Interface $interface)
+    public function visitASTInterfaceBefore(ASTInterface $interface)
     {
         $this->nodeStack[] = $this->currentNode = $interface;
 
@@ -359,7 +360,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      *
      * @return void
      */
-    public function visitInterfaceAfter()
+    public function visitASTInterfaceAfter()
     {
         array_pop($this->nodeStack);
 

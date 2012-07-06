@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTInterface;
 
 /**
  * This analyzer collects different lines of code metrics.
@@ -320,11 +321,11 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     /**
      * Visits a code interface object.
      *
-     * @param PHP_Depend_Code_Interface $interface The context code interface.
+     * @param \PHP\Depend\AST\ASTInterface $interface
      *
      * @return void
      */
-    public function visitInterface(PHP_Depend_AST_Interface $interface)
+    public function visitASTInterface(ASTInterface $interface)
     {
         $this->fireStartInterface($interface);
 

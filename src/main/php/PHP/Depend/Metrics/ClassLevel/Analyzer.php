@@ -225,7 +225,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      *
      * @return array
      */
-    public function visitInterfaceBefore()
+    public function visitASTInterfaceBefore()
     {
         return array(
             self::M_IMPLEMENTED_INTERFACES       => 0,
@@ -246,7 +246,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      *
      * @return null
      */
-    public function visitInterfaceAfter()
+    public function visitASTInterfaceAfter()
     {
         return null;
     }

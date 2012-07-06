@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTInterface;
 
 /**
  * This analyzer calculates dependency metrics for packages.
@@ -311,12 +312,12 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Visits an interface and updates the efferent coupling metric in the given
      * <b>$data</b> array.
      *
-     * @param PHP_Depend_AST_Interface $interface
+     * @param \PHP\Depend\AST\ASTInterface $interface
      * @param array $data
      *
      * @return array
      */
-    public function visitInterfaceBefore(PHP_Depend_AST_Interface $interface, $data)
+    public function visitASTInterfaceBefore(ASTInterface $interface, $data)
     {
         ++$data[self::M_NUMBER_OF_CLASSES];
         ++$data[self::M_NUMBER_OF_ABSTRACT_CLASSES];

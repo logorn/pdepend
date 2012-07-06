@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTInterface;
 
 /**
  * This logger generates a summary xml document with aggregated project, class,
@@ -259,14 +260,14 @@ class PHP_Depend_Log_Summary_Xml
         return array_pop($this->elements);
     }
 
-    public function visitInterfaceBefore(PHP_Depend_AST_Interface $interface, DOMElement $namespace)
+    public function visitASTInterfaceBefore(ASTInterface $interface, DOMElement $namespace)
     {
         $this->elements[] = $namespace;
 
         return $this->document->createElement('interface');
     }
 
-    public function visitInterfaceAfter()
+    public function visitASTInterfaceAfter()
     {
         return array_pop($this->elements);
     }

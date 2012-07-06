@@ -46,7 +46,9 @@
  * @link       http://www.pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
+use \PHP\Depend\AST\ASTInterface;
 
 /**
  * This analyzer calculates the NPath complexity of functions and methods. The
@@ -129,11 +131,11 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
     /**
      * Visits a code interface object.
      *
-     * @param PHP_Depend_Code_Interface $interface The context code interface.
+     * @param \PHP\Depend\AST\ASTInterface $interface
      *
      * @return void
      */
-    public function visitInterface(PHP_Depend_AST_Interface $interface)
+    public function visitASTInterfaceBefore(ASTInterface $interface)
     {
         // Empty visit method, we don't want interface metrics
     }

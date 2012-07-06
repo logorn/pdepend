@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTInterface;
 
 /**
  * Generates an xml document with the aggregated metrics. The format is borrowed
@@ -253,11 +254,11 @@ class PHP_Depend_Log_Jdepend_Xml
     /**
      * Visits a code interface object.
      *
-     * @param PHP_Depend_AST_Interface $interface The context code interface.
+     * @param \PHP\Depend\AST\ASTInterface $interface
      *
      * @return void
      */
-    public function visitInterface(PHP_Depend_AST_Interface $interface)
+    public function visitInterface(ASTInterface $interface)
     {
         if (!$interface->isUserDefined()) {
             return;

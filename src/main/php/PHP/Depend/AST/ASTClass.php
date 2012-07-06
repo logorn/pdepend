@@ -136,7 +136,7 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
     /**
      * Returns all interfaces implemented by this class.
      *
-     * @return \PHP_Depend_AST_Interface[]
+     * @return \PHP\Depend\AST\ASTInterface[]
      */
     public function getInterfaces()
     {
