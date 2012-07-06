@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -255,7 +256,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         return $ranks;
     }
 
-    public function visitClassBefore(PHP_Depend_AST_Class $class)
+    public function visitASTClassBefore(ASTClass $class)
     {
         $this->init($class);
 

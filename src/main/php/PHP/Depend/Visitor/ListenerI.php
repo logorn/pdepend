@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -65,20 +66,20 @@ interface PHP_Depend_Visitor_ListenerI
     /**
      * Is called when the visitor starts a new class instance.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    function startVisitClass(PHP_Depend_AST_Class $class);
+    public function startVisitClass(ASTClass $class);
 
     /**
      * Is called when the visitor ends with a class instance.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    function endVisitClass(PHP_Depend_AST_Class $class);
+    public function endVisitClass(ASTClass $class);
 
     /**
      * Is called when the visitor starts a new trait instance.

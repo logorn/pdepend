@@ -1,8 +1,13 @@
 <?php
-class PHP_Depend_AST_ClassRefs
+
+namespace PHP\Depend\AST;
+
+use \PHP_Depend_Context;
+
+class ASTClassRefs
 {
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP_Depend_Context
      */
     private $context;
 
@@ -24,10 +29,10 @@ class PHP_Depend_AST_ClassRefs
     /**
      * asdasd
      *
-     * @param PHP_Depend_Context $context
-     * @param string             $namespaceId
-     * @param string             $parentClassId
-     * @param string[]           $implementedInterfaceIds
+     * @param \PHP_Depend_Context $context
+     * @param string $namespaceId
+     * @param string $parentClassId
+     * @param string[] $implementedInterfaceIds
      */
     public function __construct(PHP_Depend_Context $context, $namespaceId, $parentClassId, array $implementedInterfaceIds)
     {
@@ -54,7 +59,7 @@ class PHP_Depend_AST_ClassRefs
     }
 
     /**
-     * @return PHP_Depend_AST_Interface[]
+     * @return \PHP_Depend_AST_Interface[]
      */
     public function getImplementedInterfaces()
     {
@@ -66,7 +71,14 @@ class PHP_Depend_AST_ClassRefs
         return $implemented;
     }
 
-    public function initialize(PHP_Depend_AST_Class $class)
+    /**
+     * Registers the given class in the shared code context.
+     *
+     * @param \PHP\Depend\AST\ASTClass $class
+     *
+     * @return void
+     */
+    public function initialize(ASTClass $class)
     {
         $this->context->registerNode($class);
     }

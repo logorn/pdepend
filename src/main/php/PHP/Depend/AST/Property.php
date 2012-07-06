@@ -168,7 +168,7 @@ class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depen
      */
     public function isPublic()
     {
-        return !!($this->modifier & \PHP_Depend_AST_Class::MODIFIER_PUBLIC);
+        return (boolean) ($this->modifier & ASTClass::MODIFIER_PUBLIC);
     }
 
     /**
@@ -178,7 +178,7 @@ class Property extends PHPParser_Node_Stmt_PropertyProperty implements PHP_Depen
      */
     public function isPrivate()
     {
-        return !!($this->modifier & \PHP_Depend_AST_Class::MODIFIER_PRIVATE);
+        return (boolean) ($this->modifier & ASTClass::MODIFIER_PRIVATE);
     }
 
     /**

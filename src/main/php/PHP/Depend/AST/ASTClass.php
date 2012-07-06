@@ -36,45 +36,44 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\AST\Properties;
+namespace PHP\Depend\AST;
+
+use \PHPParser_Node_Stmt_Class;
+use \PHP_Depend_AST_Type;
 
 /**
  * Custom AST node that represents a PHP class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
+class ASTClass extends PHPParser_Node_Stmt_Class implements PHP_Depend_AST_Type
 {
     /**
-     * @var PHP_Depend_AST_ClassRefs
+     * @var \PHP\Depend\AST\ASTClassRefs
      */
     private $refs;
 
     /**
      * Constructs a new class instance.
      *
-     * @param PHPParser_Node_Stmt_Class $class
-     * @param PHP_Depend_AST_ClassRefs  $refs
+     * @param \PHPParser_Node_Stmt_Class $class
+     * @param \PHP\Depend\AST\ASTClassRefs $refs
      */
-    public function __construct(PHPParser_Node_Stmt_Class $class, PHP_Depend_AST_ClassRefs $refs)
+    public function __construct(PHPParser_Node_Stmt_Class $class, ASTClassRefs $refs)
     {
         parent::__construct(
             $class->name,
@@ -116,7 +115,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
     /**
      * Returns the namespace where this method is declared.
      *
-     * @return PHP_Depend_AST_Namespace
+     * @return \PHP_Depend_AST_Namespace
      */
     public function getNamespace()
     {
@@ -127,7 +126,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
      * Returns the parent class of this class or <b>NULL</b> when this class
      * has no parent.
      *
-     * @return null|PHP_Depend_AST_Class
+     * @return null|\PHP\Depend\AST\ASTClass
      */
     public function getParentClass()
     {
@@ -137,7 +136,7 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
     /**
      * Returns all interfaces implemented by this class.
      *
-     * @return PHP_Depend_AST_Interface[]
+     * @return \PHP_Depend_AST_Interface[]
      */
     public function getInterfaces()
     {
@@ -165,14 +164,14 @@ class PHP_Depend_AST_Class extends PHPParser_Node_Stmt_Class implements PHP_Depe
     /**
      * Returns all methods declared by this class.
      *
-     * @return PHP_Depend_AST_Method[]
+     * @return \PHP_Depend_AST_Method[]
      */
     public function getMethods()
     {
         $methods = array();
         foreach ($this->stmts as $stmt) {
 
-            if ($stmt instanceof PHP_Depend_AST_Method) {
+            if ($stmt instanceof \PHP_Depend_AST_Method) {
 
                 $methods[] = $stmt;
             }

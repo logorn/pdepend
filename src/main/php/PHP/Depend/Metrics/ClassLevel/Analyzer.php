@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\Properties;
 use \PHP\Depend\AST\Property;
 
@@ -177,11 +178,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * structure that is used by the the other visit* methods to store metrics
      * for <b>$class</b>.
      *
-     * @param PHP_Depend_AST_Class $class
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return array
      */
-    public function visitClassBefore(PHP_Depend_AST_Class $class)
+    public function visitASTClassBefore(ASTClass $class)
     {
         $impl  = $this->calculateImpl($class);
         $varsi = $this->calculateVARSi($class);
@@ -205,12 +206,12 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Stores the calculated metrics in <b>$data</b> for the given class and
      * resets the metrics data structure.
      *
-     * @param PHP_Depend_AST_Class $class
+     * @param \PHP\Depend\AST\ASTClass $class
      * @param array $data
      *
      * @return null
      */
-    public function visitClassAfter(PHP_Depend_AST_Class $class, $data)
+    public function visitASTClassAfter(ASTClass $class, $data)
     {
         $this->metrics[$class->getId()] = $data;
 
@@ -341,11 +342,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the total number of interfaces in the whole inheritance
      * hierarchy of this given class.
      *
-     * @param \PHP_Depend_AST_Class $class
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return integer
      */
-    private function calculateImpl(PHP_Depend_AST_Class $class)
+    private function calculateImpl(ASTClass $class)
     {
         return count($this->collectImpl($class));
     }
@@ -354,11 +355,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Collects a unique set with all interfaces implemented by the given class,
      * one of it's parents or any implemented interface.
      *
-     * @param null|PHP_Depend_AST_Class $class
+     * @param null\PHP\Depend\AST\ASTClass $class
      *
      * @return array
      */
-    private function collectImpl(PHP_Depend_AST_Class $class = null)
+    private function collectImpl(ASTClass $class = null)
     {
         if (null === $class) {
             return array();
@@ -397,11 +398,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the Variables Inheritance of a class metric, this method only
      * counts protected and public properties of parent classes.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return integer
      */
-    private function calculateVARSi(PHP_Depend_AST_Class $class)
+    private function calculateVARSi(ASTClass $class)
     {
         $properties = array();
         foreach ($class->getProperties() as $prop) {
@@ -435,11 +436,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the Weight Method Per Class metric, this method only counts
      * protected and public methods of parent classes.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return integer
      */
-    private function calculateWMCiForClass(PHP_Depend_AST_Class $class)
+    private function calculateWMCiForClass(ASTClass $class)
     {
         $ccn = $this->calculateWMCi($class);
 

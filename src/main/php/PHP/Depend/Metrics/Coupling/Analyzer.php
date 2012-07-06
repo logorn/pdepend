@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -312,11 +313,11 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits the given class and initializes it's dependencies.
      *
-     * @param PHP_Depend_AST_Class $class
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    public function visitClassBefore(PHP_Depend_AST_Class $class)
+    public function visitASTClassBefore(ASTClass $class)
     {
         $this->nodeStack[] = $this->currentNode = $class;
 
@@ -328,7 +329,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      *
      * @return void
      */
-    public function visitClassAfter()
+    public function visitASTClassAfter()
     {
         array_pop($this->nodeStack);
 

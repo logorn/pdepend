@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * This analyzer calculates dependency metrics for packages.
  *
@@ -276,12 +278,12 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Visits a class and updates the efferent coupling metric in the given
      * <b>$data</b> array.
      *
-     * @param PHP_Depend_AST_Class $class
+     * @param \PHP\Depend\AST\ASTClass $class
      * @param array $data
      *
      * @return array
      */
-    public function visitClassBefore(PHP_Depend_AST_Class $class, $data)
+    public function visitASTClassBefore(ASTClass $class, $data)
     {
         ++$data[self::M_NUMBER_OF_CLASSES];
 

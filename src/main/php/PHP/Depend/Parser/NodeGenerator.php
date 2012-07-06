@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTClassRefs;
 use \PHP\Depend\AST\Properties;
 use \PHP\Depend\AST\Property;
 
@@ -162,9 +164,9 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             }
 
             $newNode = $this->wrapOptionalNamespace(
-                new PHP_Depend_AST_Class(
+                new ASTClass(
                     $node,
-                    new PHP_Depend_AST_ClassRefs(
+                    new ASTClassRefs(
                         $this->context,
                         $this->extractNamespaceName($node),
                         $this->parentClass,

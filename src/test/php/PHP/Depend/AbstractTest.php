@@ -239,7 +239,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      * Returns the first class found in a test file associated with the given
      * test case.
      *
-     * @return PHP_Depend_AST_Class
+     * @return \PHP\Depend\AST\ASTClass
      */
     protected function getFirstClassForTestCase()
     {

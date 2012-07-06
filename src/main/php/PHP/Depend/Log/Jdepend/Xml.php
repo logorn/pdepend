@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * Generates an xml document with the aggregated metrics. The format is borrowed
  * from <a href="http://clarkware.com/software/JDepend.html">JDepend</a>.
@@ -225,11 +227,11 @@ class PHP_Depend_Log_Jdepend_Xml
     /**
      * Visits a class node.
      *
-     * @param PHP_Depend_AST_Class $class The current class node.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    public function visitClass(PHP_Depend_AST_Class $class)
+    public function visitClass(ASTClass $class)
     {
         if (!$class->isUserDefined()) {
             return;
@@ -273,7 +275,7 @@ class PHP_Depend_Log_Jdepend_Xml
     /**
      * Visits a package node.
      *
-     * @param PHP_Depend_AST_Class $package The package class node.
+     * @param PHP_Depend_AST_Package $package
      *
      * @return void
      */

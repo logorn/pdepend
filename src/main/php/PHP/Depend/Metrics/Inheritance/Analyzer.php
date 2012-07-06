@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * This analyzer provides two project related inheritance metrics.
  *
@@ -212,11 +214,11 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
     /**
      * Visits a class node.
      *
-     * @param PHP_Depend_AST_Class $class The current class node.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    public function visitClassBefore(PHP_Depend_AST_Class $class)
+    public function visitASTClassBefore(ASTClass $class)
     {
         if (!$class->isUserDefined()) {
             return;
@@ -238,12 +240,12 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
     /**
      * Calculates the number of derived classes.
      *
-     * @param PHP_Depend_AST_Class $class The current class node.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      * @since 0.9.5
      */
-    private function calculateNumberOfDerivedClasses(PHP_Depend_AST_Class $class)
+    private function calculateNumberOfDerivedClasses(ASTClass $class)
     {
         $parentClass = $class->getParentClass();
         if (null === $parentClass || false === $parentClass->isUserDefined()) {
@@ -259,12 +261,12 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
     /**
      * Calculates the maximum HIT for the given class.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      * @since 0.9.10
      */
-    private function calculateDepthOfInheritanceTree(PHP_Depend_AST_Class $class)
+    private function calculateDepthOfInheritanceTree(ASTClass $class)
     {
         $dep  = 0;
         $dit  = 0;
@@ -297,12 +299,12 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * Calculates two metrics. The number of added methods and the number of
      * overwritten methods.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      * @since 0.9.10
      */
-    private function calculateNumberOfAddedAndOverwrittenMethods(PHP_Depend_AST_Class $class)
+    private function calculateNumberOfAddedAndOverwrittenMethods(ASTClass $class)
     {
         $parentClass = $class->getParentClass();
         if ($parentClass === null) {
@@ -340,12 +342,12 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
     /**
      * Initializes a empty metric container for the given class node.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      * @since 0.9.10
      */
-    private function initNodeMetricsForClass(PHP_Depend_AST_Class $class)
+    private function initNodeMetricsForClass(ASTClass $class)
     {
         $uuid = $class->getId();
         if (isset($this->metrics[$uuid])) {

@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * This analyzer collects different lines of code metrics.
  *
@@ -196,12 +198,11 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     /**
      * Visits a class node.
      *
-     * @param PHP_Depend_Code_Class $class The current class node.
+     * @param \PHP\Depend\AST\ASTClass $class The current class node.
      *
      * @return void
-     * @see PHP_Depend_Visitor_AbstractVisitor::visitClass()
      */
-    public function visitClass(PHP_Depend_AST_Class $class)
+    public function visitClass(ASTClass $class)
     {
         $this->fireStartClass($class);
 

@@ -47,7 +47,6 @@
 namespace PHP\Depend\AST;
 
 use \PHP_Depend_AST_Node;
-use \PHP_Depend_AST_Class;
 use \PHPParser_Node_Stmt_Property;
 
 /**
@@ -108,7 +107,7 @@ class Properties
      */
     public function isPublic()
     {
-        return (boolean) ($this->type & PHP_Depend_AST_Class::MODIFIER_PUBLIC);
+        return (boolean) ($this->type & ASTClass::MODIFIER_PUBLIC);
     }
 
     /**
@@ -118,7 +117,7 @@ class Properties
      */
     public function isPrivate()
     {
-        return (boolean) ($this->type & PHP_Depend_AST_Class::MODIFIER_PRIVATE);
+        return (boolean) ($this->type & ASTClass::MODIFIER_PRIVATE);
     }
 
     /**

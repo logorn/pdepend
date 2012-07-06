@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * Custom AST node that represents a PHP method.
  *
@@ -167,7 +169,7 @@ class PHP_Depend_AST_Method extends PHPParser_Node_Stmt_ClassMethod implements P
      */
     public function isPublic()
     {
-        return (bool) ($this->type & PHP_Depend_AST_Class::MODIFIER_PUBLIC);
+        return (bool) ($this->type & ASTClass::MODIFIER_PUBLIC);
     }
 
     /**
@@ -177,7 +179,7 @@ class PHP_Depend_AST_Method extends PHPParser_Node_Stmt_ClassMethod implements P
      */
     public function isPrivate()
     {
-        return (bool) ($this->type & PHP_Depend_AST_Class::MODIFIER_PRIVATE);
+        return (bool) ($this->type & ASTClass::MODIFIER_PRIVATE);
     }
 
     /**
@@ -187,7 +189,7 @@ class PHP_Depend_AST_Method extends PHPParser_Node_Stmt_ClassMethod implements P
      */
     public function isAbstract()
     {
-        return (bool) ($this->type & PHP_Depend_AST_Class::MODIFIER_ABSTRACT);
+        return (bool) ($this->type & ASTClass::MODIFIER_ABSTRACT);
     }
 
     /**

@@ -45,6 +45,9 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\AST\ASTClassRefs;
+
 /**
  * Context is used at runtime to establish inter node dependencies.
  *
@@ -111,7 +114,7 @@ class PHP_Depend_Context
      *
      * @param string $id
      *
-     * @return PHP_Depend_AST_Class
+     * @return \PHP\Depend\AST\ASTClass
      */
     public function getClass($id)
     {
@@ -122,13 +125,13 @@ class PHP_Depend_Context
         if ($id) {
 
             // TODO 2.0 extract name/namespace from id.
-            return new PHP_Depend_AST_Class(
+            return new ASTClass(
                 new PHPParser_Node_Stmt_Class(
                     $id,
                     array('namespacedName' => $id),
                     array('user_defined' => false, 'id' => "{$id}#c")
                 ),
-                new PHP_Depend_AST_ClassRefs(
+                new ASTClassRefs(
                     $this, '+global', null, array()
                 )
             );

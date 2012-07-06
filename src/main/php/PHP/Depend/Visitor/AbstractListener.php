@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -67,11 +68,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor starts a new class instance.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    public function startVisitClass(PHP_Depend_AST_Class $class)
+    public function startVisitClass(ASTClass $class)
     {
         $this->startVisitNode($class);
     }
@@ -79,11 +80,11 @@ abstract class PHP_Depend_Visitor_AbstractListener
     /**
      * Is called when the visitor ends with a class instance.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
      *
      * @return void
      */
-    public function endVisitClass(PHP_Depend_AST_Class $class)
+    public function endVisitClass(ASTClass $class)
     {
         $this->endVisitNode($class);
     }

@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\Property;
 
 /**
@@ -96,10 +97,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a class node.
      *
-     * @param PHP_Depend_AST_Class $class The current class node.
+     * @param \PHP\Depend\AST\ASTClass $class
+     *
      * @return void
      */
-    public function visitClass(PHP_Depend_AST_Class $class)
+    public function visitClass(ASTClass $class)
     {
         $this->fireStartClass($class);
 
@@ -188,7 +190,8 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a method node.
      *
-     * @param PHP_Depend_AST_Class $method The method class node.
+     * @param PHP_Depend_AST_Method $method
+     *
      * @return void
      */
     public function visitMethod(PHP_Depend_AST_Method $method)
@@ -205,7 +208,7 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Visits a package node.
      *
-     * @param PHP_Depend_AST_Class $package The package class node.
+     * @param PHP_Depend_AST_Package $package
      * @return void
      */
     public function visitPackage(PHP_Depend_AST_Package $package)
@@ -255,10 +258,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends a start class event.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
+     *
      * @return void
      */
-    protected function fireStartClass(PHP_Depend_AST_Class $class)
+    protected function fireStartClass(ASTClass $class)
     {
         foreach ($this->_listeners as $listener) {
             $listener->startVisitClass($class);
@@ -268,10 +272,11 @@ abstract class PHP_Depend_Visitor_AbstractVisitor
     /**
      * Sends an end class event.
      *
-     * @param PHP_Depend_AST_Class $class The context class instance.
+     * @param \PHP\Depend\AST\ASTClass $class
+     *
      * @return void
      */
-    protected function fireEndClass(PHP_Depend_AST_Class $class)
+    protected function fireEndClass(ASTClass $class)
     {
         foreach ($this->_listeners as $listener) {
             $listener->endVisitClass($class);

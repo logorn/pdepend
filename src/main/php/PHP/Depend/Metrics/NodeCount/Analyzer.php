@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * This analyzer collects different count metrics for code artifacts like
  * classes, methods, functions or packages.
@@ -184,12 +186,12 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
     /**
      * Visits the given class before it's children were traversed.
      *
-     * @param PHP_Depend_AST_Class $class
-     * @param mixed                $data
+     * @param \PHP\Depend\AST\ASTClass $class
+     * @param mixed $data
      *
      * @return mixed
      */
-    public function visitClassBefore(PHP_Depend_AST_Class $class, $data = null)
+    public function visitASTClassBefore(ASTClass $class, $data = null)
     {
         $this->fireStartClass($class);
 
@@ -212,7 +214,7 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      * Visits the given interface before it's children were traversed.
      *
      * @param PHP_Depend_AST_Interface $interface
-     * @param mixed                    $data
+     * @param mixed $data
      *
      * @return mixed
      */
@@ -235,7 +237,7 @@ class PHP_Depend_Metrics_NodeCount_Analyzer extends PHP_Depend_Metrics_AbstractA
      * Visits the given method before it's children were traversed.
      *
      * @param PHP_Depend_AST_Method $method
-     * @param mixed                 $data
+     * @param mixed $data
      *
      * @return mixed
      * @todo Do not count methods declared in an interface

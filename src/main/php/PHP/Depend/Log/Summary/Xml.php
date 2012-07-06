@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTClass;
+
 /**
  * This logger generates a summary xml document with aggregated project, class,
  * method and file metrics.
@@ -232,7 +234,7 @@ class PHP_Depend_Log_Summary_Xml
         return array_pop($this->elements);
     }
 
-    public function visitClassBefore(PHP_Depend_AST_Class $class, DOMElement $namespace)
+    public function visitASTClassBefore(ASTClass $class, DOMElement $namespace)
     {
         $element = $this->document->createElement('class');
         $element->setAttribute('name', $class->name);
@@ -251,7 +253,7 @@ class PHP_Depend_Log_Summary_Xml
         return $element;
     }
 
-    public function visitClassAfter()
+    public function visitASTClassAfter()
     {
         return array_pop($this->elements);
     }
