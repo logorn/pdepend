@@ -58,6 +58,8 @@ use \PHPParser_Node_Stmt_Class;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  * @since     2.0.0
+ *
+ * @method \PHP\Depend\AST\ASTMethod[] getMethods()
  */
 class ASTClass extends PHPParser_Node_Stmt_Class implements ASTType
 {
@@ -164,24 +166,6 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements ASTType
     }
 
     /**
-     * Returns all methods declared by this class.
-     *
-     * @return \PHP\Depend\AST\ASTMethod[]
-     */
-    public function getMethods()
-    {
-        $methods = array();
-        foreach ($this->stmts as $stmt) {
-
-            if ($stmt instanceof ASTMethod) {
-
-                $methods[] = $stmt;
-            }
-        }
-        return $methods;
-    }
-
-    /**
      * Returns <b>true</b> when this node was parsed from a source file.
      *
      * @return boolean
@@ -189,16 +173,6 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements ASTType
     public function isUserDefined()
     {
         return $this->attributes['user_defined'];
-    }
-
-    /**
-     * Returns <b>true</b> when this class was declared as abstract.
-     *
-     * @return boolean
-     */
-    public function isAbstract()
-    {
-        return ($this->type & self::MODIFIER_ABSTRACT);
     }
 
     /**

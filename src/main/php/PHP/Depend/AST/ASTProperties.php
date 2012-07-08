@@ -76,7 +76,7 @@ class ASTProperties extends PHPParser_Node_Stmt_Property implements ASTNode
     /**
      * Constructs a new properties collection.
      *
-     * @param PHPParser_Node_Stmt_Property $property
+     * @param \PHPParser_Node_Stmt_Property $property
      */
     public function __construct(PHPParser_Node_Stmt_Property $property)
     {
@@ -95,26 +95,6 @@ class ASTProperties extends PHPParser_Node_Stmt_Property implements ASTNode
     public function getProperties()
     {
         return $this->props;
-    }
-
-    /**
-     * Returns <b>true</b> when this properties collection is declared public.
-     *
-     * @return boolean
-     */
-    public function isPublic()
-    {
-        return (boolean) ($this->type & ASTClass::MODIFIER_PUBLIC);
-    }
-
-    /**
-     * Returns <b>true</b> when this properties collection is declared private.
-     *
-     * @return boolean
-     */
-    public function isPrivate()
-    {
-        return (boolean) ($this->type & ASTClass::MODIFIER_PRIVATE);
     }
 
     /**

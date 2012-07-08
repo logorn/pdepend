@@ -164,36 +164,6 @@ class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
     }
 
     /**
-     * Returns <b>true</b> when this method was declared as public.
-     *
-     * @return boolean
-     */
-    public function isPublic()
-    {
-        return (bool) ($this->type & ASTClass::MODIFIER_PUBLIC);
-    }
-
-    /**
-     * Returns <b>true</b> when this method was declared as private.
-     *
-     * @return boolean
-     */
-    public function isPrivate()
-    {
-        return (bool) ($this->type & ASTClass::MODIFIER_PRIVATE);
-    }
-
-    /**
-     * Returns <b>true</b> when this method was declared as abstract.
-     *
-     * @return boolean
-     */
-    public function isAbstract()
-    {
-        return (bool) ($this->type & ASTClass::MODIFIER_ABSTRACT);
-    }
-
-    /**
      * Magic wake up method that will register this object in the global node
      * reference context.
      *
