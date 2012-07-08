@@ -1,9 +1,29 @@
 {
-    "name": "pdepend/pdepend",
+    "name":        "pdepend/pdepend",
     "description": "Official version of pdepend to be handled with Composer",
+    "homepage":    "http://pdepend.org",
+    "keywords":    ["php", "static analysis", "metrics"],
+    "type":        "library",
+    "license":     "BSD",
+    "authors": [
+        {
+            "name": "Manuel Pichler",
+            "email": "mapi@pdepend.org",
+            "homepage": "http://manuel-pichler.de/"
+        }
+    ],
+
+    "bin": ["src/bin/pdepend"],
+
     "require": {
-        "php": ">=5.3"
+        "php":              ">=5.3",
+        "nikic/php-parser": "master-dev"
     },
-    "bin": ["src/bin/pdepend"]
+
+    "autoload": {
+        "psr-0": {
+            "PHP": "src/main/php/"
+        }
+    }
 }
 
