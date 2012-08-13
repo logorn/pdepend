@@ -324,7 +324,7 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
     {
         $packages = array();
         foreach (func_get_args() as $i => $userDefined) {
-            $packages[] = $this->_createPackage(
+            $packages[] = $this->createPackage(
                 $userDefined,
                 'package' . $i
             );
@@ -332,7 +332,7 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
         return $packages;
     }
 
-    private function _createPackage($userDefined, $packageName)
+    private function createPackage($userDefined, $packageName)
     {
         $packageA = $this->getMock(
             'PHP_Depend_Code_Package',
