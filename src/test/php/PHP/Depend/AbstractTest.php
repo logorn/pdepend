@@ -45,6 +45,9 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Input\ExcludePathFilter;
+use \PHP\Depend\Input\FileIterator;
+
 /**
  * Abstract test case implementation for the PHP_Depend package.
  *
@@ -85,6 +88,15 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         if (defined('STDERR') === false) {
             define('STDERR', fopen('php://stderr', true));
         }
+
+        set_include_path(
+            sprintf(
+                '%s%s%s',
+                realpath(__DIR__ . '/../../'),
+                PATH_SEPARATOR,
+                realpath(__DIR__ . '/../../../../../src/main/php/')
+            )
+        );
     }
 
     /**
@@ -616,11 +628,11 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         }
 
         if (is_dir($fileOrDirectory)) {
-            $it = new PHP_Depend_Input_Iterator(
+            $it = new FileIterator(
                 new RecursiveIteratorIterator(
                     new RecursiveDirectoryIterator($fileOrDirectory)
                 ),
-                new PHP_Depend_Input_ExcludePathFilter(array('.svn'))
+                new ExcludePathFilter(array('.svn'))
             );
         } else {
             $it = new ArrayIterator(array($fileOrDirectory));

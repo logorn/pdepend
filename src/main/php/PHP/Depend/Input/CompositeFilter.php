@@ -36,46 +36,44 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Input;
 
 /**
  * Simple composite pattern implementation that allows to bundle multiple
  * filter implementations.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Input_CompositeFilter implements PHP_Depend_Input_FilterI
+class CompositeFilter implements FileFilter
 {
     /**
-     * List of aggregated {@link PHP_Depend_Input_FilterI} objects.
+     * List of aggregated {@link \PHP\Depend\Input\FileFilter} objects.
      *
-     * @var array(PHP_Depend_Input_FilterI) $filters.
+     * @var array(\PHP\Depend\Input\FileFilter) $filters.
      */
     protected $filters = array();
 
     /**
      * Adds a file filter to this composite.
      *
-     * @param PHP_Depend_Input_FilterI $filter The new filter object.
+     * @param \PHP\Depend\Input\FileFilter $filter The new filter object.
      *
      * @return void
      */
-    public function append(PHP_Depend_Input_FilterI $filter)
+    public function append(FileFilter $filter)
     {
         $this->filters[] = $filter;
     }

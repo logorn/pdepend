@@ -36,34 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Input;
 
 /**
  * Test case for the file extension filter.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Input_ExtensionFilter
- * @group      pdepend
- * @group      pdepend::input
- * @group      unittest
+ * @covers \PHP\Depend\Input\ExtensionFilter
+ * @group  pdepend
+ * @group  pdepend::input
+ * @group  unittest
+ * @group  2.0
  */
-class PHP_Depend_Input_ExtensionFilterTest extends PHP_Depend_AbstractTest
+class ExtensionFilterTest extends \PHP_Depend_AbstractTest
 {
     /**
      * testExtensionFilterAcceptsOneFileExtension
@@ -101,10 +100,10 @@ class PHP_Depend_Input_ExtensionFilterTest extends PHP_Depend_AbstractTest
      */
     protected function createFilteredFileList(array $includes)
     {
-        $filter = new PHP_Depend_Input_ExtensionFilter($includes);
+        $filter = new ExtensionFilter($includes);
 
-        $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator(
                 self::createCodeResourceUriForTest()
             )
         );

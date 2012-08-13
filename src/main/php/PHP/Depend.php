@@ -45,6 +45,9 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Input\CompositeFilter;
+use \PHP\Depend\Input\FileFilter;
+use \PHP\Depend\Input\FileIterator;
 use \PHP\Depend\Log\Report;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\LogProcessor;
@@ -88,14 +91,14 @@ class PHP_Depend
     /**
      * List of source directories.
      *
-     * @var array(string) $_directories
+     * @var array(string)
      */
     private $_directories = array();
 
     /**
      * List of source code file names.
      *
-     * @var array(string) $_files
+     * @var array(string)
      */
     private $_files = array();
 
@@ -109,14 +112,14 @@ class PHP_Depend
     /**
      * A composite filter for input files.
      *
-     * @var PHP_Depend_Input_CompositeFilter $_fileFilter
+     * @var \PHP\Depend\Input\CompositeFilter
      */
     private $_fileFilter = null;
 
     /**
      * Should the parse ignore doc comment annotations?
      *
-     * @var boolean $_withoutAnnotations
+     * @var boolean
      */
     private $_withoutAnnotations = false;
 
@@ -130,7 +133,7 @@ class PHP_Depend
     /**
      * List of analyzer options.
      *
-     * @var array(string=>mixed) $_options
+     * @var array(string=>mixed)
      */
     private $_options = array();
 
@@ -159,7 +162,7 @@ class PHP_Depend
     {
         $this->configuration = $configuration;
 
-        $this->_fileFilter = new PHP_Depend_Input_CompositeFilter();
+        $this->_fileFilter = new CompositeFilter();
 
         $this->_cacheFactory = new PHP_Depend_Util_Cache_Factory($configuration);
     }
@@ -219,11 +222,11 @@ class PHP_Depend
     /**
      * Adds a new input/file filter.
      *
-     * @param PHP_Depend_Input_FilterI $filter New input/file filter instance.
+     * @param \PHP\Depend\Input\FileFilter $filter New file filter instance.
      *
      * @return void
      */
-    public function addFileFilter(PHP_Depend_Input_FilterI $filter)
+    public function addFileFilter(FileFilter $filter)
     {
         $this->_fileFilter->append($filter);
     }
@@ -268,7 +271,7 @@ class PHP_Depend
      * Analyzes the registered directories and returns the collection of
      * analyzed packages.
      *
-     * @return PHP_Depend_Code_NodeIterator
+     * @return void
      */
     public function analyze()
     {
@@ -556,7 +559,7 @@ class PHP_Depend
 
         foreach ($this->_directories as $directory) {
             $fileIterator->append(
-                new PHP_Depend_Input_Iterator(
+                new FileIterator(
                     new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator($directory . '/')
                     ),

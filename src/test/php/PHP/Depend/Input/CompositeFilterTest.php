@@ -36,34 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Input;
 
 /**
  * Test case for the composite filter.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Input_CompositeFilter
- * @group      pdepend
- * @group      pdepend::input
- * @group      unittest
+ * @covers \PHP\Depend\Input\CompositeFilter
+ * @group  pdepend
+ * @group  pdepend::input
+ * @group  unittest
+ * @group  2.0
  */
-class PHP_Depend_Input_CompositeFilterTest extends PHP_Depend_AbstractTest
+class CompositeFilterTest extends \PHP_Depend_AbstractTest
 {
     /**
      * testCompositeInvokesFirstAcceptInFilterChain
@@ -72,9 +71,9 @@ class PHP_Depend_Input_CompositeFilterTest extends PHP_Depend_AbstractTest
      */
     public function testCompositeInvokesFirstAcceptInFilterChain()
     {
-        $filter0 = new PHP_Depend_Input_DummyFilter(true);
+        $filter0 = new \PHP_Depend_Input_DummyFilter(true);
 
-        $composite = new PHP_Depend_Input_CompositeFilter();
+        $composite = new CompositeFilter();
         $composite->append($filter0);
 
         $composite->accept(__DIR__, __DIR__);
@@ -89,10 +88,10 @@ class PHP_Depend_Input_CompositeFilterTest extends PHP_Depend_AbstractTest
      */
     public function testCompositeInvokesNextAcceptIfPreviousAcceptReturnsTrue()
     {
-        $filter0 = new PHP_Depend_Input_DummyFilter(true);
-        $filter1 = new PHP_Depend_Input_DummyFilter(true);
+        $filter0 = new \PHP_Depend_Input_DummyFilter(true);
+        $filter1 = new \PHP_Depend_Input_DummyFilter(true);
 
-        $composite = new PHP_Depend_Input_CompositeFilter();
+        $composite = new CompositeFilter();
         $composite->append($filter0);
         $composite->append($filter1);
 
@@ -108,10 +107,10 @@ class PHP_Depend_Input_CompositeFilterTest extends PHP_Depend_AbstractTest
      */
     public function testCompositeNotInvokesNextAcceptIfPreviousAcceptReturnsTrue()
     {
-        $filter0 = new PHP_Depend_Input_DummyFilter(false);
-        $filter1 = new PHP_Depend_Input_DummyFilter(true);
+        $filter0 = new \PHP_Depend_Input_DummyFilter(false);
+        $filter1 = new \PHP_Depend_Input_DummyFilter(true);
 
-        $composite = new PHP_Depend_Input_CompositeFilter();
+        $composite = new CompositeFilter();
         $composite->append($filter0);
         $composite->append($filter1);
 

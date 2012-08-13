@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Input\FileFilter;
+
 /**
  * Dummy filter.
  *
@@ -58,7 +60,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Input_DummyFilter implements PHP_Depend_Input_FilterI
+class PHP_Depend_Input_DummyFilter implements FileFilter
 {
     /**
      * The return value for this filter.

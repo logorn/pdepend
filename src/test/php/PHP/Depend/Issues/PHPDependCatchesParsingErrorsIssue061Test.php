@@ -46,6 +46,8 @@
  * @link       http://www.pdepend.org/
  */
 
+use \PHP\Depend\Input\ExtensionFilter;
+
 /**
  * Test case for the catch error ticket #61.
  *
@@ -78,7 +80,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
     {
         $pdepend = $this->createPDependFixture();
         $pdepend->addDirectory(self::createCodeResourceUriForTest());
-        $pdepend->addFileFilter(new PHP_Depend_Input_ExtensionFilter(array('php')));
+        $pdepend->addFileFilter(new ExtensionFilter(array('php')));
         $pdepend->addReport(new PHP_Depend_Log_Dummy_Logger());
         $pdepend->analyze();
 

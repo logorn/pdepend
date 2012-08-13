@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Input\ExcludePathFilter;
+
 /**
  * Test case for bug #191.
  *
@@ -58,10 +60,11 @@
  * @version    Release: @package_version@
  * @link       http://tracker.pdepend.org/pdepend/issue_tracker/issue/191
  *
- * @covers     stdClass
- * @group      pdepend
- * @group      pdepend::bugs
- * @group      regressiontest
+ * @covers \stdClass
+ * @group  pdepend
+ * @group  pdepend::bugs
+ * @group  regressiontest
+ * @group  2.0
  */
 class PHP_Depend_Input_ExcludePathFilterShouldFilterByAbsolutePathBug191Test
     extends PHP_Depend_Bugs_AbstractTest
@@ -73,7 +76,7 @@ class PHP_Depend_Input_ExcludePathFilterShouldFilterByAbsolutePathBug191Test
      */
     public function testAbsoluteUnixPathAsFilterPattern()
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array('/foo/bar'));
+        $filter = new ExcludePathFilter(array('/foo/bar'));
         self::assertFalse($filter->accept('/baz', '/foo/bar/baz'));
     }
 
@@ -84,7 +87,7 @@ class PHP_Depend_Input_ExcludePathFilterShouldFilterByAbsolutePathBug191Test
      */
     public function testAbsoluteWindowsPathAsFilterPattern()
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array('c:\workspace\bar'));
+        $filter = new ExcludePathFilter(array('c:\workspace\bar'));
         self::assertFalse($filter->accept('\baz', 'c:\workspace\bar\baz'));
     }
 }

@@ -36,34 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Input;
+
+use \PHP\Depend\Input\ExtensionFilter;
 
 /**
  * Test case for the php file filter iterator.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Input_Iterator
- * @group      pdepend
- * @group      pdepend::input
- * @group      unittest
+ * @covers \PHP\Depend\Input\FileIterator
+ * @group  pdepend
+ * @group  pdepend::input
+ * @group  unittest
+ * @group  2.0
  */
-class PHP_Depend_Input_IteratorTest extends PHP_Depend_AbstractTest
+class FileIteratorTest extends \PHP_Depend_AbstractTest
 {
     /**
      * testIteratorWithOneFileExtension
@@ -98,13 +99,13 @@ class PHP_Depend_Input_IteratorTest extends PHP_Depend_AbstractTest
      */
     public function testIteratorPassesLocalPathToFilterWhenRootIsPresent()
     {
-        $filter = $this->getMock('PHP_Depend_Input_FilterI');
+        $filter = $this->getMock('\PHP\Depend\Input\FileFilter');
         $filter->expects($this->once())
             ->method('accept')
             ->with(self::equalTo(DIRECTORY_SEPARATOR . basename(__FILE__)));
 
-        $iterator = new PHP_Depend_Input_Iterator(
-            new ArrayIterator(array(new SplFileInfo(__FILE__))),
+        $iterator = new FileIterator(
+            new \ArrayIterator(array(new \SplFileInfo(__FILE__))),
             $filter,
             __DIR__
         );
@@ -118,14 +119,14 @@ class PHP_Depend_Input_IteratorTest extends PHP_Depend_AbstractTest
      */
     public function testIteratorPassesAbsolutePathToFilterWhenNoRootIsPresent()
     {
-        $files = new ArrayIterator(array(new SplFileInfo(__FILE__)));
+        $files = new \ArrayIterator(array(new \SplFileInfo(__FILE__)));
 
-        $filter = $this->getMock('PHP_Depend_Input_FilterI');
+        $filter = $this->getMock('\\PHP\Depend\Input\FileFilter');
         $filter->expects($this->once())
             ->method('accept')
             ->with(self::equalTo(__FILE__), self::equalTo(__FILE__));
 
-        $iterator = new PHP_Depend_Input_Iterator($files, $filter);
+        $iterator = new FileIterator($files, $filter);
         $iterator->accept();
     }
 
@@ -136,14 +137,14 @@ class PHP_Depend_Input_IteratorTest extends PHP_Depend_AbstractTest
      */
     public function testIteratorPassesAbsolutePathToFilterWhenRootNotMatches()
     {
-        $files = new ArrayIterator(array(new SplFileInfo(__FILE__)));
+        $files = new \ArrayIterator(array(new \SplFileInfo(__FILE__)));
 
-        $filter = $this->getMock('PHP_Depend_Input_FilterI');
+        $filter = $this->getMock('\\PHP\Depend\Input\FileFilter');
         $filter->expects($this->once())
             ->method('accept')
             ->with(self::equalTo(__FILE__), self::equalTo(__FILE__));
 
-        $iterator = new PHP_Depend_Input_Iterator($files, $filter, 'c:\foo');
+        $iterator = new FileIterator($files, $filter, 'c:\foo');
         $iterator->accept();
     }
 
@@ -156,9 +157,9 @@ class PHP_Depend_Input_IteratorTest extends PHP_Depend_AbstractTest
      */
     protected function createFilteredFileList(array $extensions)
     {
-        $files = new PHP_Depend_Input_Iterator(
-            new DirectoryIterator(self::createCodeResourceUriForTest()),
-            new PHP_Depend_Input_ExtensionFilter($extensions)
+        $files = new FileIterator(
+            new \DirectoryIterator(self::createCodeResourceUriForTest()),
+            new ExtensionFilter($extensions)
         );
 
         $actual = array();

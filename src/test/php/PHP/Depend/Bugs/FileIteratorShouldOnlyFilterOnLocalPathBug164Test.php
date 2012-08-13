@@ -36,9 +36,9 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
+ * @category   PHP
  * @package    PHP_Depend
- * @subpackage Input
+ * @subpackage Bugs
  * @author     Manuel Pichler <mapi@pdepend.org>
  * @copyright  2008-2012 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -46,87 +46,46 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Input\FileIterator;
+
 /**
- * Simple utility filter iterator for php source files.
+ * Test case for bug #164.
  *
- * @category   QualityAssurance
+ * @category   PHP
  * @package    PHP_Depend
- * @subpackage Input
+ * @subpackage Bugs
  * @author     Manuel Pichler <mapi@pdepend.org>
  * @copyright  2008-2012 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @link       http://tracker.pdepend.org/pdepend/issue_tracker/issue/164
+ *
+ * @covers \stdClass
+ * @group  pdepend
+ * @group  pdepend::bugs
+ * @group  regressiontest
+ * @group  2.0
  */
-class PHP_Depend_Input_Iterator extends FilterIterator
+class PHP_Depend_Bugs_FileIteratorShouldOnlyFilterOnLocalPathBug164Test
+    extends PHP_Depend_Bugs_AbstractTest
 {
     /**
-     * The associated filter object.
+     * testIteratorOnlyPassesLocalPathToFilter
      *
-     * @var PHP_Depend_Input_FilterI $filter
+     * @return void
      */
-    protected $filter = null;
-
-    /**
-     * Optional root path for the files.
-     *
-     * @var string
-     * @since 0.10.0
-     */
-    protected $rootPath = null;
-
-    /**
-     * Constructs a new file filter iterator.
-     *
-     * @param Iterator                 $iterator The inner iterator.
-     * @param PHP_Depend_Input_FilterI $filter   The filter object.
-     * @param string                   $rootPath Optional root path for the files.
-     */
-    public function __construct(
-        Iterator $iterator,
-        PHP_Depend_Input_FilterI $filter,
-        $rootPath = null
-    )
+    public function testIteratorOnlyPassesLocalPathToFilter()
     {
-        parent::__construct($iterator);
+        $filter = $this->getMock('\PHP\Depend\Input\FileFilter');
+        $filter->expects($this->once())
+            ->method('accept')
+            ->with(self::equalTo(DIRECTORY_SEPARATOR . basename(__FILE__)));
 
-        $this->filter   = $filter;
-        $this->rootPath = $rootPath;
-    }
-
-    /**
-     * Returns <b>true</b> if the file name ends with '.php'.
-     *
-     * @return boolean
-     */
-    public function accept()
-    {
-        return $this->filter->accept($this->getLocalPath(), $this->getFullPath());
-    }
-
-    /**
-     * Returns the full qualified realpath for the currently active file.
-     *
-     * @return string
-     * @since 0.10.0
-     */
-    protected function getFullPath()
-    {
-        return $this->getInnerIterator()->current()->getRealpath();
-    }
-
-    /**
-     * Returns the local path of the current file, if the root path property was
-     * set. If not, this method returns the absolute file path.
-     *
-     * @return string
-     * @since 0.10.0
-     */
-    protected function getLocalPath()
-    {
-        if ($this->rootPath && 0 === strpos($this->getFullPath(), $this->rootPath)) {
-            return substr($this->getFullPath(), strlen($this->rootPath));
-        }
-        return $this->getFullPath();
+        $iterator = new FileIterator(
+            new ArrayIterator(array(new SplFileInfo(__FILE__))),
+            $filter,
+            __DIR__
+        );
+        $iterator->accept();
     }
 }

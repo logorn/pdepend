@@ -36,34 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Input;
 
 /**
  * Test case for the exclude path filter.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Input
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Input_ExcludePathFilter
- * @group      pdepend
- * @group      pdepend::input
- * @group      unittest
+ * @covers PHP_Depend_Input_ExcludePathFilter
+ * @group  pdepend
+ * @group  pdepend::input
+ * @group  unittest
+ * @group  2.0
  */
-class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
+class ExcludePathFilterTest extends \PHP_Depend_AbstractTest
 {
     /**
      * testAbsoluteUnixPathAsFilterPatternMatches
@@ -72,7 +71,7 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
      */
     public function testAbsoluteUnixPathAsFilterPatternMatches()
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array('/foo/bar'));
+        $filter = new ExcludePathFilter(array('/foo/bar'));
         self::assertFalse($filter->accept('/baz', '/foo/bar/baz'));
     }
 
@@ -83,7 +82,7 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
      */
     public function testAbsoluteUnixPathAsFilterPatternNotMatches()
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array('/foo/bar'));
+        $filter = new ExcludePathFilter(array('/foo/bar'));
         self::assertTrue($filter->accept('/foo/baz/bar', '/foo/baz/bar'));
     }
 
@@ -98,7 +97,7 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
         $absolute = '/home/manuel/workspace/PHP_Depend-git/PHP/Depend.php';
         $relative = '/PHP/Depend.php';
 
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array($pattern));
+        $filter = new ExcludePathFilter(array($pattern));
         self::assertTrue($filter->accept($relative, $absolute));
     }
 
@@ -109,7 +108,7 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
      */
     public function testAbsoluteWindowsPathAsFilterPatternMatches()
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array('c:\workspace\bar'));
+        $filter = new ExcludePathFilter(array('c:\workspace\bar'));
         self::assertFalse($filter->accept('\baz', 'c:\workspace\bar\baz'));
     }
 
@@ -120,7 +119,7 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
      */
     public function testAbsoluteWindowsPathAsFilterPatternNotMatches()
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array('c:\workspace\\'));
+        $filter = new ExcludePathFilter(array('c:\workspace\\'));
         self::assertTrue($filter->accept('c:\workspac\bar', 'c:\workspac\bar'));
     }
 
@@ -135,7 +134,7 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
         $absolute = 'c:\workspace\PHP_Depend-git\PHP\Depend.php';
         $relative = '\PHP\Depend.php';
 
-        $filter = new PHP_Depend_Input_ExcludePathFilter(array($pattern));
+        $filter = new ExcludePathFilter(array($pattern));
         self::assertTrue($filter->accept($relative, $absolute));
     }
 
@@ -214,10 +213,10 @@ class PHP_Depend_Input_ExcludePathFilterTest extends PHP_Depend_AbstractTest
      */
     protected function createFilteredFileList(array $excludes)
     {
-        $filter = new PHP_Depend_Input_ExcludePathFilter($excludes);
+        $filter = new ExcludePathFilter($excludes);
 
-        $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator(
                 self::createCodeResourceUriForTest()
             )
         );

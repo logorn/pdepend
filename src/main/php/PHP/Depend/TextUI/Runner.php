@@ -46,6 +46,9 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Input\ExcludePathFilter;
+use \PHP\Depend\Input\ExtensionFilter;
+
 /**
  * The command line runner starts a PDepend process.
  *
@@ -272,13 +275,13 @@ class PHP_Depend_TextUI_Runner
         $pdepend->setOptions($this->_options);
 
         if (count($this->_extensions) > 0) {
-            $filter = new PHP_Depend_Input_ExtensionFilter($this->_extensions);
+            $filter = new ExtensionFilter($this->_extensions);
             $pdepend->addFileFilter($filter);
         }
 
         if (count($this->_excludeDirectories) > 0) {
             $exclude = $this->_excludeDirectories;
-            $filter  = new PHP_Depend_Input_ExcludePathFilter($exclude);
+            $filter  = new ExcludePathFilter($exclude);
             $pdepend->addFileFilter($filter);
         }
 

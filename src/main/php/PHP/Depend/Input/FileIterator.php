@@ -47,7 +47,7 @@
 namespace PHP\Depend\Input;
 
 /**
- * Filters a given file path against a blacklist with disallow path fragments.
+ * Simple utility filter iterator for php source files.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -56,76 +56,75 @@ namespace PHP\Depend\Input;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class ExcludePathFilter implements FileFilter
+class FileIterator extends \FilterIterator
 {
     /**
-     * Regular expression that should not match against the relative file paths.
+     * The associated filter object.
+     *
+     * @var \PHP\Depend\Input\FileFilter
+     */
+    protected $filter = null;
+
+    /**
+     * Optional root path for the files.
      *
      * @var string
      * @since 0.10.0
      */
-    protected $relative = '';
+    protected $rootPath = null;
 
     /**
-     * Regular expression that should not match against the absolute file paths.
+     * Constructs a new file filter iterator.
      *
-     * @var string
-     * @since 0.10.0
+     * @param \Iterator $iterator The inner iterator.
+     * @param \PHP\Depend\Input\FileFilter $filter The filter object.
+     * @param string $rootPath Optional root path for the files.
      */
-    protected $absolute = '';
-
-    /**
-     * Constructs a new exclude path filter instance and accepts an array of
-     * exclude pattern as argument.
-     *
-     * @param array $patterns List of exclude file path patterns.
-     */
-    public function __construct(array $patterns)
+    public function __construct(
+        \Iterator $iterator,
+        FileFilter $filter,
+        $rootPath = null
+    )
     {
-        $quoted = array_map('preg_quote', $patterns);
+        parent::__construct($iterator);
 
-        $this->relative = '(' . str_replace('\*', '.*', join('|', $quoted)) . ')i';
-        $this->absolute = '(^' . str_replace('\*', '.*', join('|^', $quoted)) . ')i';
+        $this->filter   = $filter;
+        $this->rootPath = $rootPath;
     }
 
     /**
-     * Returns <b>true</b> if this filter accepts the given path.
-     *
-     * @param string $relative The relative path to the specified root.
-     * @param string $absolute The absolute path to a source file.
+     * Returns <b>true</b> if the file name ends with '.php'.
      *
      * @return boolean
      */
-    public function accept($relative, $absolute)
+    public function accept()
     {
-        return ($this->notRelative($relative) && $this->notAbsolute($absolute));
+        return $this->filter->accept($this->getLocalPath(), $this->getFullPath());
     }
 
     /**
-     * This method checks if the given <b>$path</b> does not match against the
-     * exclude patterns as an absolute path.
+     * Returns the full qualified realpath for the currently active file.
      *
-     * @param string $path The absolute path to a source file.
-     *
-     * @return boolean
+     * @return string
      * @since 0.10.0
      */
-    protected function notAbsolute($path)
+    protected function getFullPath()
     {
-        return (preg_match($this->absolute, $path) === 0);
+        return $this->getInnerIterator()->current()->getRealpath();
     }
 
     /**
-     * This method checks if the given <b>$path</b> does not match against the
-     * exclude patterns as an relative path.
+     * Returns the local path of the current file, if the root path property was
+     * set. If not, this method returns the absolute file path.
      *
-     * @param string $path The relative path to a source file.
-     *
-     * @return boolean
+     * @return string
      * @since 0.10.0
      */
-    protected function notRelative($path)
+    protected function getLocalPath()
     {
-        return (preg_match($this->relative, $path) === 0);
+        if ($this->rootPath && 0 === strpos($this->getFullPath(), $this->rootPath)) {
+            return substr($this->getFullPath(), strlen($this->rootPath));
+        }
+        return $this->getFullPath();
     }
 }
