@@ -74,17 +74,13 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * method fails with an exception if no cc analyzer was set.
      *
      * @return void
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
-    public function testAnalyzerFailsWithoutCCAnalyzerFail()
+    public function testClassLevelFailsWithoutCCNAnalyzer()
     {
-        $this->markTestIncomplete('TODO 2.0');
-
-        $package  = new PHP_Depend_Code_Package('package1');
-        $packages = new PHP_Depend_Code_NodeIterator(array($package));
-
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
-        $analyzer->analyze($packages);
+        $processor = new DefaultProcessor();
+        $processor->register(new PHP_Depend_Metrics_ClassLevel_Analyzer());
+        $processor->process(self::parseCodeResourceForTest());
     }
 
     /**
@@ -92,7 +88,7 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * fails for an invalid child analyzer.
      *
      * @return void
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testAddAnalyzerFailsForAnInvalidAnalyzerTypeFail()
     {

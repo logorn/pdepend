@@ -142,8 +142,10 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     public function addAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
+
             $this->ccnAnalyzer = $analyzer;
         } else {
+
             throw new InvalidArgumentException('CC Analyzer required.');
         }
     }
@@ -170,6 +172,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
         $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
+
             return $this->metrics[$nodeId];
         }
         return array();
@@ -483,6 +486,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      */
     private function calculateWMCi(ASTType $type)
     {
+        if (null === $this->ccnAnalyzer) {
+
+            throw new \RuntimeException('Missing mandatory CCN analyzer.');
+        }
+
         $ccn = array();
 
         foreach ($type->getMethods() as $method) {
