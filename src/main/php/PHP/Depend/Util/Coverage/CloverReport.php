@@ -71,7 +71,7 @@ class PHP_Depend_Util_Coverage_CloverReport
      *
      * @var array(string=>array)
      */
-    private $_fileLineCoverage = array();
+    private $fileLineCoverage = array();
 
     /**
      * Constructs a new clover report instance.
@@ -113,7 +113,7 @@ class PHP_Depend_Util_Coverage_CloverReport
             foreach ($file->line as $line) {
                 $lines[(int)$line['num']] = (0 < (int)$line['count']);
             }
-            $this->_fileLineCoverage[(string)$file['name']] = $lines;
+            $this->fileLineCoverage[(string)$file['name']] = $lines;
         }
     }
 
@@ -157,8 +157,8 @@ class PHP_Depend_Util_Coverage_CloverReport
      */
     private function _getLines($fileName)
     {
-        if (isset($this->_fileLineCoverage[$fileName])) {
-            return $this->_fileLineCoverage[$fileName];
+        if (isset($this->fileLineCoverage[$fileName])) {
+            return $this->fileLineCoverage[$fileName];
         }
         return array();
     }

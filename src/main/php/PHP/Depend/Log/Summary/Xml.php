@@ -83,21 +83,21 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
      *
      * @var string
      */
-    private $_logFile = null;
+    private $logFile;
 
     /**
      * List of all analyzers that implement the node aware interface.
      *
      * @var PHP_Depend_Metrics_Analyzer[]
      */
-    private $_nodeAwareAnalyzers = array();
+    private $nodeAwareAnalyzers = array();
 
     /**
      * List of all analyzers that implement the project aware interface.
      *
      * @var \PHP\Depend\Metrics\ProjectAware[]
      */
-    private $_projectAwareAnalyzers = array();
+    private $projectAwareAnalyzers = array();
 
     /**
      * @var DOMDocument
@@ -132,7 +132,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
      */
     public function setLogFile($logFile)
     {
-        $this->_logFile = $logFile;
+        $this->logFile = $logFile;
     }
 
     /**
@@ -161,12 +161,12 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     {
         $accepted = false;
         if ($analyzer instanceof ProjectAware) {
-            $this->_projectAwareAnalyzers[] = $analyzer;
+            $this->projectAwareAnalyzers[] = $analyzer;
 
             $accepted = true;
         }
         if ($analyzer instanceof NodeAware) {
-            $this->_nodeAwareAnalyzers[] = $analyzer;
+            $this->nodeAwareAnalyzers[] = $analyzer;
 
             $accepted = true;
         }
@@ -181,7 +181,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
      */
     public function close()
     {
-        if ($this->_logFile === null) {
+        if ($this->logFile === null) {
             throw new PHP_Depend_Log_NoLogOutputException($this);
         }
 
@@ -189,7 +189,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
             $this->document->documentElement->setAttribute($name, $value);
         }
 
-        $this->document->save($this->_logFile);
+        $this->document->save($this->logFile);
     }
 
     public function visitASTCompilationUnitBefore(ASTCompilationUnit $compilationUnit)
@@ -330,7 +330,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     private function getNodeMetrics(ASTNode $node)
     {
         $metrics = array();
-        foreach ($this->_nodeAwareAnalyzers as $analyzer) {
+        foreach ($this->nodeAwareAnalyzers as $analyzer) {
             $metrics = array_merge($metrics, $analyzer->getNodeMetrics($node));
         }
         ksort($metrics);
@@ -346,7 +346,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     private function _getProjectMetrics()
     {
         $projectMetrics = array();
-        foreach ($this->_projectAwareAnalyzers as $analyzer) {
+        foreach ($this->projectAwareAnalyzers as $analyzer) {
             $projectMetrics = array_merge(
                 $projectMetrics,
                 $analyzer->getProjectMetrics()

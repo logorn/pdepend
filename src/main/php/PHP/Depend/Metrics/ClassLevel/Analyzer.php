@@ -118,7 +118,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      *
      * @var PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      */
-    private $_ccnAnalyzer = null;
+    private $ccnAnalyzer = null;
 
     /**
      * This method must return an <b>array</b> of class names for required
@@ -142,7 +142,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     public function addAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
-            $this->_ccnAnalyzer = $analyzer;
+            $this->ccnAnalyzer = $analyzer;
         } else {
             throw new InvalidArgumentException('CC Analyzer required.');
         }
@@ -296,7 +296,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      */
     public function visitASTMethodBefore(ASTMethod $method, $data)
     {
-        $ccn = $this->_ccnAnalyzer->getCCN2($method->getId());
+        $ccn = $this->ccnAnalyzer->getCCN2($method->getId());
 
         $data[self::M_WEIGHTED_METHODS] += $ccn;
 
@@ -454,7 +454,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
                 if (isset($ccn[($name = $method->getName())])) {
                     continue;
                 }
-                $ccn[$name] = $this->_ccnAnalyzer->getCCN2($method);
+                $ccn[$name] = $this->ccnAnalyzer->getCCN2($method);
             }
 
             $parentClass = $parentClass->getParentClass();
@@ -487,7 +487,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
 
         foreach ($type->getMethods() as $method) {
 
-            $ccn[$method->getName()] = $this->_ccnAnalyzer->getCCN2($method);
+            $ccn[$method->getName()] = $this->ccnAnalyzer->getCCN2($method);
         }
         return $ccn;
     }

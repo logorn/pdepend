@@ -65,7 +65,7 @@ class PHP_Depend_Util_ConfigurationInstance
      *
      * @var PHP_Depend_Util_Configuration
      */
-    private static $_configuration = null;
+    private static $configuration = null;
 
     /**
      * Returns a configured config instance or <b>null</b>.
@@ -74,7 +74,7 @@ class PHP_Depend_Util_ConfigurationInstance
      */
     public static function get()
     {
-        return self::$_configuration;
+        return self::$configuration;
     }
 
     /**
@@ -86,6 +86,6 @@ class PHP_Depend_Util_ConfigurationInstance
      */
     public static function set(PHP_Depend_Util_Configuration $configuration = null)
     {
-        self::$_configuration = $configuration;
+        self::$configuration = $configuration;
     }
 }

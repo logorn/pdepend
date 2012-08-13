@@ -73,9 +73,9 @@ class PHP_Depend_Metrics_AnalyzerLoader
      */
     private $steps = array();
 
-    private $_acceptedTypes;
+    private $acceptedTypes;
 
-    private $_options;
+    private $options;
 
     /**
      * The system wide used cache.
@@ -83,14 +83,14 @@ class PHP_Depend_Metrics_AnalyzerLoader
      * @var PHP_Depend_Util_Cache_Driver
      * @since 1.0.0
      */
-    private $_cache;
+    private $cache;
 
     /**
      * Used locator for installed analyzer classes.
      *
      * @var PHP_Depend_Metrics_AnalyzerClassLocator
      */
-    private $_classLocator;
+    private $classLocator;
 
     /**
      * Constructs a new analyzer loader.
@@ -107,11 +107,11 @@ class PHP_Depend_Metrics_AnalyzerLoader
         array $options = array()
     )
     {
-        $this->_cache        = $cache;
-        $this->_classLocator = $classLocator;
+        $this->cache        = $cache;
+        $this->classLocator = $classLocator;
 
-        $this->_options       = $options;
-        $this->_acceptedTypes = $acceptedTypes;
+        $this->options       = $options;
+        $this->acceptedTypes = $acceptedTypes;
     }
 
     /**
@@ -138,7 +138,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
      */
     private function initialize()
     {
-        $this->loadByType($this->_acceptedTypes);
+        $this->loadByType($this->acceptedTypes);
 
         foreach ($this->steps as $step => $analyzers) {
 
@@ -177,7 +177,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
     private function loadByType(array $types)
     {
         $analyzers = array();
-        foreach ($this->_classLocator->findAll() as $reflection) {
+        foreach ($this->classLocator->findAll() as $reflection) {
 
             if ($this->isInstanceOf($reflection, $types)) {
 
@@ -250,7 +250,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
     {
         if ($reflection->getConstructor()) {
 
-            $analyzer = $reflection->newInstance($this->_options);
+            $analyzer = $reflection->newInstance($this->options);
         } else {
 
             $analyzer = $reflection->newInstance();
@@ -270,7 +270,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
     private function configure(PHP_Depend_Metrics_Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_CacheAware) {
-            $analyzer->setCache($this->_cache);
+            $analyzer->setCache($this->cache);
         }
 
         if (!($analyzer instanceof PHP_Depend_Metrics_AggregateAnalyzerI)) {

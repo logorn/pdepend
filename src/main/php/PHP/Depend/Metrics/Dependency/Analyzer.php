@@ -130,15 +130,15 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * )
      * </code>
      *
-     * @var array(string=>array) $_nodeMetrics
+     * @var array(string=>array)
      */
     private $metrics = null;
 
     private $nodeSet = array();
 
-    private $_efferentNodes = array();
+    private $efferentNodes = array();
 
-    private $_afferentNodes = array();
+    private $afferentNodes = array();
 
     /**
      * This method will return an <b>array</b> with all generated metric values
@@ -179,9 +179,9 @@ class PHP_Depend_Metrics_Dependency_Analyzer
     public function getAfferents(ASTNode $node)
     {
         $afferent = array();
-        if (isset($this->_afferentNodes[$node->getId()])) {
+        if (isset($this->afferentNodes[$node->getId()])) {
 
-            $afferent = $this->_afferentNodes[$node->getId()];
+            $afferent = $this->afferentNodes[$node->getId()];
         }
         return $afferent;
     }
@@ -196,9 +196,9 @@ class PHP_Depend_Metrics_Dependency_Analyzer
     public function getEfferents(ASTNode $node)
     {
         $efferent = array();
-        if (isset($this->_efferentNodes[$node->getId()])) {
+        if (isset($this->efferentNodes[$node->getId()])) {
 
-            $efferent = $this->_efferentNodes[$node->getId()];
+            $efferent = $this->efferentNodes[$node->getId()];
         }
 
         return $efferent;

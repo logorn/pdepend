@@ -105,7 +105,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      *
      * @var array(string=>integer)
      */
-    private $_projectMetrics = array(
+    private $projectMetrics = array(
         self::M_LINES_OF_CODE              => 0,
         self::M_COMMENT_LINES_OF_CODE      => 0,
         self::M_EXECUTABLE_LINES_OF_CODE   => 0,
@@ -120,7 +120,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * @var integer
      * @since 0.9.12
      */
-    private $_classExecutableLines = 0;
+    private $classExecutableLines = 0;
 
     /**
      * Logical lines of code in a class. The method calculation increases this
@@ -129,7 +129,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * @var integer
      * @since 0.9.13
      */
-    private $_classLogicalLines = 0;
+    private $classLogicalLines = 0;
 
     /**
      * This method will return an <b>array</b> with all generated metric values
@@ -173,7 +173,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      */
     public function getProjectMetrics()
     {
-        return $this->_projectMetrics;
+        return $this->projectMetrics;
     }
 
     /**
@@ -209,8 +209,8 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     {
         $class->getSourceFile()->accept($this);
 
-        $this->_classExecutableLines = 0;
-        $this->_classLogicalLines    = 0;
+        $this->classExecutableLines = 0;
+        $this->classLogicalLines    = 0;
 
         foreach ($class->getMethods() as $method) {
             $method->accept($this);
@@ -228,8 +228,8 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
         $this->metrics[$class->getUUID()] = array(
             self::M_LINES_OF_CODE              => $loc,
             self::M_COMMENT_LINES_OF_CODE      => $cloc,
-            self::M_EXECUTABLE_LINES_OF_CODE   => $this->_classExecutableLines,
-            self::M_LOGICAL_LINES_OF_CODE      => $this->_classLogicalLines,
+            self::M_EXECUTABLE_LINES_OF_CODE   => $this->classExecutableLines,
+            self::M_LOGICAL_LINES_OF_CODE      => $this->classLogicalLines,
             self::M_NON_COMMENT_LINES_OF_CODE  => $ncloc,
         );
     }
@@ -373,8 +373,8 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             self::M_NON_COMMENT_LINES_OF_CODE  => $ncloc
         );
 
-        $this->_classExecutableLines += $eloc;
-        $this->_classLogicalLines += $lloc;
+        $this->classExecutableLines += $eloc;
+        $this->classLogicalLines += $lloc;
     }
 
     /**
@@ -388,7 +388,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     private function _updateProjectMetrics($uuid)
     {
         foreach ($this->metrics[$uuid] as $metric => $value) {
-            $this->_projectMetrics[$metric] += $value;
+            $this->projectMetrics[$metric] += $value;
         }
     }
 

@@ -79,14 +79,14 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
      *
      * @var array
      */
-    private $_metricsCached = array();
+    private $metricsCached = array();
 
     /**
      * Injected cache driver.
      *
      * @var PHP_Depend_Util_Cache_Driver
      */
-    private $_cache;
+    private $cache;
 
     /**
      * Setter method for the system wide used cache.
@@ -97,7 +97,7 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
      */
     public function setCache(PHP_Depend_Util_Cache_Driver $cache)
     {
-        $this->_cache = $cache;
+        $this->cache = $cache;
     }
 
     /**
@@ -112,8 +112,8 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
     protected function restoreFromCache(ASTNode $node)
     {
         $id = $node->getId();
-        if ($node->isCached() && isset($this->_metricsCached[$id])) {
-            $this->metrics[$id] = $this->_metricsCached[$id];
+        if ($node->isCached() && isset($this->metricsCached[$id])) {
+            $this->metrics[$id] = $this->metricsCached[$id];
             return true;
         }
         return false;
@@ -126,7 +126,7 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
      */
     protected function loadCache()
     {
-        $this->_metricsCached = (array)$this->_cache
+        $this->metricsCached = (array)$this->cache
             ->type('metrics')
             ->restore(get_class($this));
     }
@@ -139,10 +139,10 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
      */
     protected function unloadCache()
     {
-        $this->_cache
+        $this->cache
             ->type('metrics')
             ->store(get_class($this), $this->metrics);
 
-        $this->_metricsCached = array();
+        $this->metricsCached = array();
     }
 }

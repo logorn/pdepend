@@ -136,9 +136,9 @@ final class PHP_Depend_Util_Type
      * This property contains a mapping between a unified lower case type name
      * and the corresponding PHP extension that declares this type.
      *
-     * @var array(string=>string) $_typeNameToExtension
+     * @var array(string=>string) $typeNameToExtension
      */
-    private static $_typeNameToExtension = null;
+    private static $typeNameToExtension = null;
 
     /**
      * Hash with all internal packages/extensions. Key and value are identical
@@ -147,14 +147,14 @@ final class PHP_Depend_Util_Type
      * @var array(string=>string)
      * @since 0.9.10
      */
-    private static $_internalPackages = null;
+    private static $internalPackages = null;
 
     /**
      * List of scalar php types.
      *
-     * @var array(string) $_scalarTypes
+     * @var array(string)
      */
-    private static $_scalarTypes = array(
+    private static $scalarTypes = array(
         self::IMAGE_ARRAY                   => true,
         self::IMAGE_BOOL                    => true,
         self::IMAGE_BOOLEAN                 => true,
@@ -208,9 +208,9 @@ final class PHP_Depend_Util_Type
     /**
      * List of primitive php types.
      *
-     * @var array(string=>string) $_primitiveTypes
+     * @var array(string=>string)
      */
-    private static $_primitiveTypes = array(
+    private static $primitiveTypes = array(
         self::IMAGE_BOOL               => self::PHP_TYPE_BOOLEAN,
         self::IMAGE_BOOLEAN            => self::PHP_TYPE_BOOLEAN,
         self::IMAGE_SOUNDEX_BOOL       => self::PHP_TYPE_BOOLEAN,
@@ -254,7 +254,7 @@ final class PHP_Depend_Util_Type
         $normalizedName = ltrim($typeName, '\\');
         $normalizedName = strtolower($normalizedName);
 
-        return isset(self::$_typeNameToExtension[$normalizedName]);
+        return isset(self::$typeNameToExtension[$normalizedName]);
     }
 
     /**
@@ -271,8 +271,8 @@ final class PHP_Depend_Util_Type
 
         $normalizedName = ltrim($typeName, '\\');
         $normalizedName = strtolower($normalizedName);
-        if (isset(self::$_typeNameToExtension[$normalizedName])) {
-            return self::$_typeNameToExtension[$normalizedName];
+        if (isset(self::$typeNameToExtension[$normalizedName])) {
+            return self::$typeNameToExtension[$normalizedName];
         }
         return null;
     }
@@ -284,13 +284,13 @@ final class PHP_Depend_Util_Type
      */
     public static function getInternalPackages()
     {
-        if (self::$_internalPackages === null) {
+        if (self::$internalPackages === null) {
             $extensions = array_values(self::_initTypeToExtension());
             $extensions = array_unique($extensions);
 
-            self::$_internalPackages = array_combine($extensions, $extensions);
+            self::$internalPackages = array_combine($extensions, $extensions);
         }
-        return self::$_internalPackages;
+        return self::$internalPackages;
     }
 
     /**
@@ -318,14 +318,14 @@ final class PHP_Depend_Util_Type
     public static function isScalarType($image)
     {
         $image = strtolower($image);
-        if (isset(self::$_scalarTypes[$image]) === true) {
+        if (isset(self::$scalarTypes[$image]) === true) {
             return true;
         }
         $image = metaphone($image);
-        if (isset(self::$_scalarTypes[$image]) === true) {
+        if (isset(self::$scalarTypes[$image]) === true) {
             return true;
         }
-        return isset(self::$_scalarTypes[soundex($image)]);
+        return isset(self::$scalarTypes[soundex($image)]);
     }
 
     /**
@@ -354,16 +354,16 @@ final class PHP_Depend_Util_Type
     public static function getPrimitiveType($image)
     {
         $image = strtolower($image);
-        if (isset(self::$_primitiveTypes[$image]) === true) {
-            return self::$_primitiveTypes[$image];
+        if (isset(self::$primitiveTypes[$image]) === true) {
+            return self::$primitiveTypes[$image];
         }
         $image = metaphone($image);
-        if (isset(self::$_primitiveTypes[$image]) === true) {
-            return self::$_primitiveTypes[$image];
+        if (isset(self::$primitiveTypes[$image]) === true) {
+            return self::$primitiveTypes[$image];
         }
         $image = soundex($image);
-        if (isset(self::$_primitiveTypes[$image]) === true) {
-            return self::$_primitiveTypes[$image];
+        if (isset(self::$primitiveTypes[$image]) === true) {
+            return self::$primitiveTypes[$image];
         }
         return null;
     }
@@ -392,11 +392,11 @@ final class PHP_Depend_Util_Type
     private static function _initTypeToExtension()
     {
         // Skip when already done.
-        if (self::$_typeNameToExtension !== null) {
-            return self::$_typeNameToExtension;
+        if (self::$typeNameToExtension !== null) {
+            return self::$typeNameToExtension;
         }
 
-        self::$_typeNameToExtension = array('iterator' => '+standard');
+        self::$typeNameToExtension = array('iterator' => '+standard');
 
         $extensionNames = get_loaded_extensions();
         $extensionNames = array_map('strtolower', $extensionNames);
@@ -408,10 +408,10 @@ final class PHP_Depend_Util_Type
             $classNames = array_map('strtolower', $classNames);
 
             foreach ($classNames as $className) {
-                self::$_typeNameToExtension[$className] = '+' . $extensionName;
+                self::$typeNameToExtension[$className] = '+' . $extensionName;
             }
         }
 
-        return self::$_typeNameToExtension;
+        return self::$typeNameToExtension;
     }
 }

@@ -71,9 +71,9 @@ abstract class PHP_Depend_Metrics_AbstractAnalyzer
     /**
      * List or registered listeners.
      *
-     * @var array(PHP_Depend_Metrics_ListenerI) $_listeners
+     * @var PHP_Depend_Metrics_ListenerI[]
      */
-    private $_listeners = array();
+    private $listeners = array();
 
     /**
      * Constructs a new analyzer instance.
@@ -93,8 +93,8 @@ abstract class PHP_Depend_Metrics_AbstractAnalyzer
      */
     public function addAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener)
     {
-        if (in_array($listener, $this->_listeners, true) === false) {
-            $this->_listeners[] = $listener;
+        if (in_array($listener, $this->listeners, true) === false) {
+            $this->listeners[] = $listener;
         }
     }
 
@@ -123,7 +123,7 @@ abstract class PHP_Depend_Metrics_AbstractAnalyzer
      */
     protected function fireStartAnalyzer()
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->startAnalyzer($this);
         }
     }
@@ -137,7 +137,7 @@ abstract class PHP_Depend_Metrics_AbstractAnalyzer
      */
     protected function fireEndAnalyzer()
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->endAnalyzer($this);
         }
     }

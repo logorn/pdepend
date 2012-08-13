@@ -93,14 +93,14 @@ class PHP_Depend
      *
      * @var array(string)
      */
-    private $_directories = array();
+    private $directories = array();
 
     /**
      * List of source code file names.
      *
      * @var array(string)
      */
-    private $_files = array();
+    private $files = array();
 
     /**
      * List of all registered loggers.
@@ -114,28 +114,28 @@ class PHP_Depend
      *
      * @var \PHP\Depend\Input\CompositeFilter
      */
-    private $_fileFilter = null;
+    private $fileFilter = null;
 
     /**
      * Should the parse ignore doc comment annotations?
      *
      * @var boolean
      */
-    private $_withoutAnnotations = false;
+    private $withoutAnnotations = false;
 
     /**
      * List or registered listeners.
      *
      * @var PHP_Depend_ProcessListener[]
      */
-    private $_listeners = array();
+    private $listeners = array();
 
     /**
      * List of analyzer options.
      *
      * @var array(string=>mixed)
      */
-    private $_options = array();
+    private $options = array();
 
     /**
      * List of all {@link PHP_Depend_Parser_Exception} that were caught during
@@ -143,7 +143,7 @@ class PHP_Depend
      *
      * @var PHP_Depend_Parser_Exception[]
      */
-    private $_parseExceptions = array();
+    private $parseExceptions = array();
 
     /**
      * The configured cache factory.
@@ -151,7 +151,7 @@ class PHP_Depend
      * @var PHP_Depend_Util_Cache_Factory
      * @since 1.0.0
      */
-    private $_cacheFactory;
+    private $cacheFactory;
 
     /**
      * Constructs a new php depend facade.
@@ -162,9 +162,9 @@ class PHP_Depend
     {
         $this->configuration = $configuration;
 
-        $this->_fileFilter = new CompositeFilter();
+        $this->fileFilter = new CompositeFilter();
 
-        $this->_cacheFactory = new PHP_Depend_Util_Cache_Factory($configuration);
+        $this->cacheFactory = new PHP_Depend_Util_Cache_Factory($configuration);
     }
 
     /**
@@ -184,7 +184,7 @@ class PHP_Depend
             );
         }
 
-        $this->_directories[] = $dir;
+        $this->directories[] = $dir;
     }
 
     /**
@@ -204,7 +204,7 @@ class PHP_Depend
             );
         }
 
-        $this->_files[] = $fileName;
+        $this->files[] = $fileName;
     }
 
     /**
@@ -228,7 +228,7 @@ class PHP_Depend
      */
     public function addFileFilter(FileFilter $filter)
     {
-        $this->_fileFilter->append($filter);
+        $this->fileFilter->append($filter);
     }
 
     /**
@@ -240,7 +240,7 @@ class PHP_Depend
      */
     public function setOptions(array $options = array())
     {
-        $this->_options = $options;
+        $this->options = $options;
     }
 
     /**
@@ -250,7 +250,7 @@ class PHP_Depend
      */
     public function setWithoutAnnotations()
     {
-        $this->_withoutAnnotations = true;
+        $this->withoutAnnotations = true;
     }
 
     /**
@@ -262,8 +262,8 @@ class PHP_Depend
      */
     public function addProcessListener(PHP_Depend_ProcessListener $listener)
     {
-        if (in_array($listener, $this->_listeners, true) === false) {
-            $this->_listeners[] = $listener;
+        if (in_array($listener, $this->listeners, true) === false) {
+            $this->listeners[] = $listener;
         }
     }
 
@@ -286,7 +286,7 @@ class PHP_Depend
      */
     public function getExceptions()
     {
-        return $this->_parseExceptions;
+        return $this->parseExceptions;
     }
 
     /**
@@ -298,7 +298,7 @@ class PHP_Depend
      */
     protected function fireStartParseProcess(PHP_Depend_Parser $builder)
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->startParseProcess($builder);
         }
     }
@@ -312,7 +312,7 @@ class PHP_Depend
      */
     protected function fireEndParseProcess(PHP_Depend_Parser $builder)
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->endParseProcess($builder);
         }
     }
@@ -326,7 +326,7 @@ class PHP_Depend
      */
     protected function fireStartFileParsing(PHP_Depend_Tokenizer $tokenizer)
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->startFileParsing($tokenizer);
         }
     }
@@ -340,7 +340,7 @@ class PHP_Depend
      */
     protected function fireEndFileParsing(PHP_Depend_Tokenizer $tokenizer)
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->endFileParsing($tokenizer);
         }
     }
@@ -352,7 +352,7 @@ class PHP_Depend
      */
     protected function fireStartAnalyzeProcess()
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->startAnalyzeProcess();
         }
     }
@@ -364,7 +364,7 @@ class PHP_Depend
      */
     protected function fireEndAnalyzeProcess()
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->endAnalyzeProcess();
         }
     }
@@ -376,7 +376,7 @@ class PHP_Depend
      */
     protected function fireStartLogProcess()
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->startLogProcess();
         }
     }
@@ -388,7 +388,7 @@ class PHP_Depend
      */
     protected function fireEndLogProcess()
     {
-        foreach ($this->_listeners as $listener) {
+        foreach ($this->listeners as $listener) {
             $listener->endLogProcess();
         }
     }
@@ -418,7 +418,7 @@ class PHP_Depend
         $parser    = new PHP_Depend_Parser($tokenizer);
 
         // Reset list of thrown exceptions
-        $this->_parseExceptions = array();
+        $this->parseExceptions = array();
 
         $compilationUnits = array();
 
@@ -436,7 +436,7 @@ class PHP_Depend
             try {
                 $compilationUnits[] = $parser->parse($file);
             } catch (PHPParser_Error $e) {
-                $this->_parseExceptions[] = $e;
+                $this->parseExceptions[] = $e;
             }
 
             $this->fireEndFileParsing($tokenizer);
@@ -460,7 +460,7 @@ class PHP_Depend
      */
     private function processAnalyzing(array $compilationUnits)
     {
-        $analyzerLoader = $this->createAnalyzerLoader($this->_options);
+        $analyzerLoader = $this->createAnalyzerLoader($this->options);
 
         $this->fireStartAnalyzeProcess();
 
@@ -533,7 +533,7 @@ class PHP_Depend
     {
         foreach ($analyzerLoader as $analyzer) {
 
-            foreach ($this->_listeners as $listener) {
+            foreach ($this->listeners as $listener) {
 
                 $analyzer->addAnalyzeListener($listener);
             }
@@ -550,20 +550,22 @@ class PHP_Depend
      */
     private function createFileIterator()
     {
-        if (count($this->_directories) === 0 && count($this->_files) === 0) {
+        if (count($this->directories) === 0 && count($this->files) === 0) {
+
             throw new RuntimeException('No source directory and file set.');
         }
 
         $fileIterator = new AppendIterator();
-        $fileIterator->append(new ArrayIterator($this->_files));
+        $fileIterator->append(new ArrayIterator($this->files));
 
-        foreach ($this->_directories as $directory) {
+        foreach ($this->directories as $directory) {
+
             $fileIterator->append(
                 new FileIterator(
                     new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator($directory . '/')
                     ),
-                    $this->_fileFilter,
+                    $this->fileFilter,
                     $directory
                 )
             );
@@ -574,16 +576,18 @@ class PHP_Depend
         // Strange: why is the iterator not unique and why does this loop fix it?
         $files = array();
         foreach ($fileIterator as $file) {
+
             if (is_string($file)) {
+
                 $files[$file] = $file;
             } else {
+
                 $pathname         = realpath($file->getPathname());
                 $files[$pathname] = $pathname;
             }
         }
 
         ksort($files);
-        // END
 
         return new ArrayIterator(array_values($files));
     }
@@ -602,19 +606,22 @@ class PHP_Depend
         $analyzerSet = array();
 
         foreach ($this->reports as $logger) {
+
             foreach ($logger->getAcceptedAnalyzers() as $type) {
+
                 // Check for type existence
                 if (in_array($type, $analyzerSet) === false) {
+
                     $analyzerSet[] = $type;
                 }
             }
         }
 
-        $cacheKey = md5(serialize($this->_files) . serialize($this->_directories));
+        $cacheKey = md5(serialize($this->files) . serialize($this->directories));
 
         $loader = new PHP_Depend_Metrics_AnalyzerLoader(
             new PHP_Depend_Metrics_AnalyzerClassFileSystemLocator(),
-            $this->_cacheFactory->create($cacheKey),
+            $this->cacheFactory->create($cacheKey),
             $analyzerSet,
             $options
         );

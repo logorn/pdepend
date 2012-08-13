@@ -85,16 +85,16 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     /**
      * The project Cyclomatic Complexity Number.
      *
-     * @var integer $_ccn
+     * @var integer
      */
-    private $_ccn = 0;
+    private $ccn = 0;
 
     /**
      * Extended Cyclomatic Complexity Number(CCN2) for the project.
      *
-     * @var integer $_ccn2
+     * @var integer
      */
-    private $_ccn2 = 0;
+    private $ccn2 = 0;
 
     /**
      * Returns the cyclomatic complexity for the given <b>$node</b>.
@@ -165,8 +165,8 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     public function getProjectMetrics()
     {
         return array(
-            self::M_CYCLOMATIC_COMPLEXITY_1  => $this->_ccn,
-            self::M_CYCLOMATIC_COMPLEXITY_2  => $this->_ccn2
+            self::M_CYCLOMATIC_COMPLEXITY_1  => $this->ccn,
+            self::M_CYCLOMATIC_COMPLEXITY_2  => $this->ccn2
         );
     }
 
@@ -260,8 +260,8 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      */
     private function _updateProjectMetrics($nodeId)
     {
-        $this->_ccn += $this->metrics[$nodeId][self::M_CYCLOMATIC_COMPLEXITY_1];
-        $this->_ccn2 += $this->metrics[$nodeId][self::M_CYCLOMATIC_COMPLEXITY_2];
+        $this->ccn += $this->metrics[$nodeId][self::M_CYCLOMATIC_COMPLEXITY_1];
+        $this->ccn2 += $this->metrics[$nodeId][self::M_CYCLOMATIC_COMPLEXITY_2];
     }
 
     /**

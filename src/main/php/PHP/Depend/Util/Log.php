@@ -70,14 +70,14 @@ final class PHP_Depend_Util_Log
      *
      * @var resource
      */
-    private static $_stream = STDERR;
+    private static $stream = STDERR;
 
     /**
      * Are debugging messages activated?
      *
      * @var boolean
      */
-    private static $_debug = false;
+    private static $debug = false;
 
     /**
      * Sets the log severity levels, this can be an OR combined list of valid
@@ -89,7 +89,7 @@ final class PHP_Depend_Util_Log
      */
     public static function setSeverity($severity)
     {
-        self::$_debug = ((self::DEBUG & $severity) === $severity);
+        self::$debug = ((self::DEBUG & $severity) === $severity);
     }
 
     /**
@@ -101,7 +101,7 @@ final class PHP_Depend_Util_Log
      */
     public static function debug($message)
     {
-        if (self::$_debug) {
+        if (self::$debug) {
             self::log($message);
         }
     }
@@ -115,6 +115,6 @@ final class PHP_Depend_Util_Log
      */
     public static function log($message)
     {
-        fwrite(self::$_stream, PHP_EOL . $message);
+        fwrite(self::$stream, PHP_EOL . $message);
     }
 }

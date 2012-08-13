@@ -102,7 +102,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      *
      * @var boolean
      */
-    private $_userDefined = null;
+    private $userDefined = null;
 
     /**
      * Constructs a new package for the given <b>$name</b>
@@ -145,10 +145,10 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      */
     public function isUserDefined()
     {
-        if ($this->_userDefined === null) {
-            $this->_userDefined = $this->_isUserDefined();
+        if ($this->userDefined === null) {
+            $this->userDefined = $this->_isUserDefined();
         }
-        return $this->_userDefined;
+        return $this->userDefined;
     }
 
     /**

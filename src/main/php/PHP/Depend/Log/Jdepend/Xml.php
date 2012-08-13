@@ -74,14 +74,14 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
     /**
      * The output log file.
      *
-     * @var string $_logFile
+     * @var string
      */
-    private $_logFile = null;
+    private $logFile = null;
 
     /**
      * The raw {@link PHP_Depend_AST_Package} instances.
      *
-     * @var PHP_Depend_AST_NodeIterator $code
+     * @var PHP_Depend_AST_NodeIterator
      */
     protected $code = null;
 
@@ -150,7 +150,7 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
      */
     public function setLogFile($logFile)
     {
-        $this->_logFile = $logFile;
+        $this->logFile = $logFile;
     }
 
     /**
@@ -203,7 +203,7 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
     public function close()
     {
         // Check for configured output
-        if ($this->_logFile === null) {
+        if ($this->logFile === null) {
             throw new PHP_Depend_Log_NoLogOutputException($this);
         }
 
@@ -221,7 +221,7 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
         }
 
         $dom->appendChild($jdepend);
-        $dom->save($this->_logFile);
+        $dom->save($this->logFile);
     }
 
     /**

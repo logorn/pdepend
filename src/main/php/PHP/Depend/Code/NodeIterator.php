@@ -63,23 +63,23 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
     /**
      * List of {@link PHP_Depend_Code_NodeI} objects in this iterator.
      *
-     * @var array(PHP_Depend_Code_NodeI) $_nodes
+     * @var PHP_Depend_Code_NodeI[]
      */
-    private $_nodes = array();
+    private $nodes = array();
 
     /**
      * Total number of available nodes.
      *
      * @var integer
      */
-    private $_count = 0;
+    private $count = 0;
 
     /**
      * Current internal offset.
      *
      * @var integer
      */
-    private $_offset = 0;
+    private $offset = 0;
 
     /**
      * Constructs a new node iterator from the given {@link PHP_Depend_Code_NodeI}
@@ -94,9 +94,9 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
             $uuid = $node->getUUID();
             if (!isset($nodeKeys[$uuid]) && $filter->accept($node)) {
                 $nodeKeys[$uuid] = $uuid;
-                $this->_nodes[]  = $node;
+                $this->nodes[]  = $node;
 
-                ++$this->_count;
+                ++$this->count;
             }
         }
     }
@@ -108,7 +108,7 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function count()
     {
-        return count($this->_nodes);
+        return count($this->nodes);
     }
 
     /**
@@ -118,10 +118,10 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function current()
     {
-        if ($this->_offset >= $this->_count) {
+        if ($this->offset >= $this->count) {
             return false;
         }
-        return $this->_nodes[$this->_offset];
+        return $this->nodes[$this->offset];
     }
 
     /**
@@ -131,7 +131,7 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function key()
     {
-        return $this->_nodes[$this->_offset]->getName();
+        return $this->nodes[$this->offset]->getName();
     }
 
     /**
@@ -141,7 +141,7 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function next()
     {
-        ++$this->_offset;
+        ++$this->offset;
     }
 
     /**
@@ -151,7 +151,7 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function rewind()
     {
-        $this->_offset = 0;
+        $this->offset = 0;
     }
 
     /**
@@ -161,7 +161,7 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function valid()
     {
-        return ($this->_offset < $this->_count);
+        return ($this->offset < $this->count);
     }
 
     /**
@@ -176,7 +176,7 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function offsetExists($offset)
     {
-        return isset($this->_nodes[$offset]);
+        return isset($this->nodes[$offset]);
     }
 
     /**
@@ -190,8 +190,8 @@ class PHP_Depend_Code_NodeIterator implements ArrayAccess, Iterator, Countable
      */
     public function offsetGet($offset)
     {
-        if (isset($this->_nodes[$offset])) {
-            return $this->_nodes[$offset];
+        if (isset($this->nodes[$offset])) {
+            return $this->nodes[$offset];
         }
         throw new OutOfBoundsException("The offset {$offset} does not exist.");
     }
