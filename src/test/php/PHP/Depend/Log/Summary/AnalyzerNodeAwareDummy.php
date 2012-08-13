@@ -103,17 +103,6 @@ class PHP_Depend_Log_Summary_AnalyzerNodeAwareDummy
     }
 
     /**
-     * Processes all {@link PHP_Depend_Code_Package} code nodes.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages All code packages.
-     *
-     * @return void
-     */
-    public function analyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-    }
-
-    /**
      * By default all analyzers are enabled. Overwrite this method to provide
      * state based disabling/enabling.
      *

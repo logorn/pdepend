@@ -58,7 +58,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
+class PHP_Depend_Code_Package
 {
     /**
      * The type of this class.

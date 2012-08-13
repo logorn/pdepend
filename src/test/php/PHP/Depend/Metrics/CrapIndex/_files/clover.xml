@@ -44,7 +44,7 @@
                          coveredstatements="17" elements="21"
                          coveredelements="21" />
             </file>
-            <file name="${pathName}/testAnalyzerIgnoresAbstractMethods.php">
+            <file name="${pathName}/testCrapIndexIgnoresAbstractMethods.php">
                 <class name="testAnalyzerIgnoresAbstractMethods"
                        fullPackage="Package_foo" category="PHP"
                        package="Package_foo">

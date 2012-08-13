@@ -169,38 +169,6 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     }
 
     /**
-     * Performs the crap index analysis.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages The context source tree.
-     *
-     * @return void
-     */
-    public function analyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-        if ($this->isEnabled() && $this->metrics === null) {
-            $this->doAnalyze($packages);
-        }
-    }
-
-    /**
-     * Performs the crap index analysis.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages The context source tree.
-     *
-     * @return void
-     */
-    private function doAnalyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-        $this->metrics = array();
-
-        $this->ccnAnalyzer->analyze($packages);
-
-        foreach ($packages as $package) {
-            $package->accept($this);
-        }
-    }
-
-    /**
      * Visits the given method.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
