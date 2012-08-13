@@ -154,7 +154,7 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      */
     public function getNodeMetrics($node)
     {
-        $nodeId = (string)is_object($node) ? $node->getId() : $node;
+        $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
             return $this->metrics[$nodeId];
