@@ -125,7 +125,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintVersion()
     {
         list(, $actual) = $this->executeCommand(array('--version'));
-        self::assertEquals($this->_versionOutput, $actual);
+        $this->assertEquals($this->_versionOutput, $actual);
     }
 
     /**
@@ -136,7 +136,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintVersionReturnsExitCodeSuccess()
     {
         list($exitCode,) = $this->executeCommand(array('--version'));
-        self::assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
     }
 
     /**
@@ -147,7 +147,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintUsage()
     {
         list(, $actual) = $this->executeCommand(array('--usage'));
-        self::assertEquals($this->_versionOutput . $this->_usageOutput, $actual);
+        $this->assertEquals($this->_versionOutput . $this->_usageOutput, $actual);
     }
 
     /**
@@ -158,7 +158,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintUsageReturnsExitCodeSuccess()
     {
         list($exitCode,) = $this->executeCommand(array('--usage'));
-        self::assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
     }
 
     /**
@@ -180,7 +180,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintHelpReturnsExitCodeSuccess()
     {
         list($exitCode,) = $this->executeCommand(array('--help'));
-        self::assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
     }
 
     /**
@@ -191,7 +191,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testCommandCliReturnsErrorExitCodeIfNoArgvArrayExists()
     {
         list($exitCode,) = $this->executeCommand();
-        self::assertEquals(\PHP_Depend_TextUI_Command::CLI_ERROR, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Command::CLI_ERROR, $exitCode);
     }
 
     /**
@@ -202,6 +202,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testCommandCliErrorMessageIfNoArgvArrayExists()
     {
         list(, $actual) = $this->executeCommand();
+
         $startsWith = 'Unknown error, no $argv array available.' . PHP_EOL . PHP_EOL;
         $this->assertHelpOutput($actual, $startsWith);
     }
@@ -225,7 +226,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testCommandReturnsErrorExitCodeIfNoOptionsWereSpecified()
     {
         list($exitCode,) = $this->executeCommand(array());
-        self::assertEquals(\PHP_Depend_TextUI_Command::CLI_ERROR, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Command::CLI_ERROR, $exitCode);
     }
 
     /**
@@ -250,7 +251,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
 
         list($exitCode,) = $this->executeCommand($argv);
 
-        self::assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
         $this->assertFileExists($logFile);
     }
 
@@ -269,7 +270,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
         $argv = array('--suffix=inc', '--dummy-logger=' . $logFile, $resource);
 
         list($exitCode,) = $this->executeCommand($argv);
-        self::assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
     }
 
     /**
@@ -280,7 +281,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testCommandExitsWithCliErrorForUnknownOption()
     {
         list($exitCode,) = $this->executeCommand(array('--unknown'));
-        self::assertEquals(\PHP_Depend_TextUI_Command::CLI_ERROR, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Command::CLI_ERROR, $exitCode);
     }
 
     /**
@@ -317,7 +318,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
             self::createCodeResourceUriForTest()
         );
 
-        self::assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -355,7 +356,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
             array(),
             self::createCodeResourceUriForTest()
         );
-        self::assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -438,7 +439,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
             )
         );
 
-        self::assertEquals('on', ini_get('html_errors'));
+        $this->assertEquals('on', ini_get('html_errors'));
 
         ini_set('html_errors', $backup);
     }
@@ -464,7 +465,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
             )
         );
 
-        self::assertEquals('off', ini_get('html_errors'));
+        $this->assertEquals('off', ini_get('html_errors'));
 
         ini_set('html_errors', $backup);
     }
@@ -502,7 +503,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
         $this->executeCommand($argv);
 
         $config = \PHP_Depend_Util_ConfigurationInstance::get();
-        self::assertEquals('memory', $config->cache->driver);
+        $this->assertEquals('memory', $config->cache->driver);
     }
 
     /**
@@ -531,7 +532,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
 
         list($exitCode,) = $this->executeCommand($argv);
 
-        self::assertEquals(\PHP_Depend_TextUI_Command::INPUT_ERROR, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Command::INPUT_ERROR, $exitCode);
     }
 
     /**
@@ -551,7 +552,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
 
         list($exitCode,) = $this->executeCommand($argv);
 
-        self::assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
+        $this->assertEquals(\PHP_Depend_TextUI_Runner::SUCCESS_EXIT, $exitCode);
     }
 
     /**

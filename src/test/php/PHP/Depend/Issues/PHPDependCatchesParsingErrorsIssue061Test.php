@@ -63,6 +63,7 @@
  * @group      pdepend::issues
  * @group      pdepend::textui
  * @group      unittest
+ * @g roup 2.0
  */
 class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
     extends PHP_Depend_Issues_AbstractTest
@@ -78,7 +79,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
         $pdepend = $this->createPDependFixture();
         $pdepend->addDirectory(self::createCodeResourceUriForTest());
         $pdepend->addFileFilter(new PHP_Depend_Input_ExtensionFilter(array('php')));
-        $pdepend->addLogger(new PHP_Depend_Log_Dummy_Logger());
+        $pdepend->addReport(new PHP_Depend_Log_Dummy_Logger());
         $pdepend->analyze();
 
         $exceptions = $pdepend->getExceptions();

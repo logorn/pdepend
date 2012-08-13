@@ -48,6 +48,8 @@
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
+use \PHP\Depend\Log\CodeAware;
+use \PHP\Depend\Log\FileAware;
 
 /**
  * Generates an xml document with the aggregated metrics. The format is borrowed
@@ -62,9 +64,7 @@ use \PHP\Depend\AST\ASTInterface;
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Log_Jdepend_Xml
-    implements PHP_Depend_Log_CodeAware,
-    PHP_Depend_Log_FileAware
+class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
 {
     /**
      * The type of this class.

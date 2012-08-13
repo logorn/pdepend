@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Log\FileAware;
+
 /**
  * This logger generates a system overview pyramid, as described in the book
  * <b>Object-Oriented Metrics in Practice</b>.
@@ -61,7 +63,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Log_Overview_Pyramid implements PHP_Depend_Log_FileAware
+class PHP_Depend_Log_Overview_Pyramid implements FileAware
 {
     /**
      * The type of this class.

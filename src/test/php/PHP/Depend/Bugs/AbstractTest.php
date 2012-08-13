@@ -82,7 +82,7 @@ abstract class PHP_Depend_Bugs_AbstractTest extends PHP_Depend_AbstractTest
 
         $pdepend = $this->createPDependFixture();
         $pdepend->addFile(self::createCodeResourceUriForTest());
-        $pdepend->addLogger($log);
+        $pdepend->addReport($log);
         $pdepend->analyze();
 
         return $file;

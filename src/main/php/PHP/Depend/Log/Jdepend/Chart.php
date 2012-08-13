@@ -46,6 +46,9 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Log\CodeAware;
+use \PHP\Depend\Log\FileAware;
+
 /**
  * Generates a chart with the aggregated metrics.
  *
@@ -58,9 +61,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Log_Jdepend_Chart
-    implements PHP_Depend_Log_CodeAware,
-    PHP_Depend_Log_FileAware
+class PHP_Depend_Log_Jdepend_Chart implements CodeAware, FileAware
 {
     /**
      * The type of this class.

@@ -46,6 +46,10 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Log\CodeAware;
+use \PHP\Depend\Log\FileAware;
+use \PHP\Depend\Log\Report;
+
 /**
  * Dummy logger for testing
  *
@@ -58,10 +62,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Log_Dummy_Logger
-    implements PHP_Depend_Log_Logger,
-    PHP_Depend_Log_CodeAware,
-    PHP_Depend_Log_FileAware
+class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
 {
     /**
      * The output file name.
@@ -126,11 +127,11 @@ class PHP_Depend_Log_Dummy_Logger
      * Adds an analyzer to log. If this logger accepts the given analyzer it
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The analyzer to log.
+     * @param \PHP_Depend_Metrics_Analyzer $analyzer The analyzer to log.
      *
      * @return boolean
      */
-    public function log(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function log(\PHP_Depend_Metrics_Analyzer $analyzer)
     {
         $this->_input['analyzers'][] = $analyzer;
         return true;

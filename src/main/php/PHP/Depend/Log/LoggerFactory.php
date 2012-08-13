@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Log\FileAware;
+
 /**
  * This factory creates singleton instances of available loggers.
  *
@@ -75,20 +77,20 @@ class PHP_Depend_Log_LoggerFactory
     /**
      * Set of created logger instances.
      *
-     * @var PHP_Depend_Log_Logger[]
+     * @var \PHP\Depend\Log\Report[]
      */
     protected $instances = array();
 
     /**
-     * Creates a new logger or returns an existing instance for the given
+     * Creates a new report or returns an existing instance for the given
      * <b>$identifier</b>.
      *
      * @param string $identifier
      * @param string $fileName
      *
-     * @return PHP_Depend_Log_Logger
+     * @return \PHP\Depend\Log\Report
      */
-    public function createLogger($identifier, $fileName)
+    public function createReport($identifier, $fileName)
     {
         if (!isset($this->instances[$identifier])) {
             // Extract all parts from the logger identifier
@@ -123,7 +125,8 @@ class PHP_Depend_Log_LoggerFactory
 
             // TODO: Refactor this into an external log configurator or a similar
             //       concept.
-            if ($logger instanceof PHP_Depend_Log_FileAware) {
+            if ($logger instanceof FileAware) {
+
                 $logger->setLogFile($fileName);
             }
 

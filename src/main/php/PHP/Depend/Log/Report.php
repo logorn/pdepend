@@ -36,45 +36,43 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Log;
+
 /**
- * Base interface for all PHP_Depend loggers.
+ * Base interface for all PHP_Depend reports.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-interface PHP_Depend_Log_Logger
+interface Report
 {
     /**
      * Adds an analyzer to log. If this logger accepts the given analyzer it
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The analyzer to log.
+     * @param \PHP_Depend_Metrics_Analyzer $analyzer The analyzer to log.
      *
      * @return boolean
      */
-    public function log(PHP_Depend_Metrics_Analyzer $analyzer);
+    public function log(\PHP_Depend_Metrics_Analyzer $analyzer);
 
     /**
      * Closes the logger process and writes the output file.
      *
      * @return void
-     * @throws PHP_Depend_Log_NoLogOutputException If the no log target exists.
+     * @throws \PHP_Depend_Log_NoLogOutputException If the no log target exists.
      */
     public function close();
 

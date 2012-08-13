@@ -45,6 +45,8 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Log\Report;
+use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\LogProcessor;
 use \PHP\Depend\Metrics\Processor\CompositeProcessor;
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
@@ -100,9 +102,9 @@ class PHP_Depend
     /**
      * List of all registered loggers.
      *
-     * @var PHP_Depend_Log_Logger[]
+     * @var \PHP\Depend\Log\Report[]
      */
-    private $_loggers = array();
+    private $reports = array();
 
     /**
      * A composite filter for input files.
@@ -203,15 +205,15 @@ class PHP_Depend
     }
 
     /**
-     * Adds a logger to the output list.
+     * Adds a report to the output list.
      *
-     * @param PHP_Depend_Log_Logger $logger
+     * @param \PHP\Depend\Log\Report $report
      *
      * @return void
      */
-    public function addLogger(PHP_Depend_Log_Logger $logger)
+    public function addReport(Report $report)
     {
-        $this->_loggers[] = $logger;
+        $this->reports[] = $report;
     }
 
     /**
@@ -492,19 +494,22 @@ class PHP_Depend
         $this->fireStartLogProcess();
 
         $processor = new LogProcessor();
-        foreach ($this->_loggers as $logger) {
-            if ($logger instanceof PHP_Depend_Log_CodeAware) {
+        foreach ($this->reports as $logger) {
+
+            if ($logger instanceof CodeAware) {
+
                 $processor->register($logger);
             }
 
             foreach ($analyzers as $analyzer) {
+
                 $logger->log($analyzer);
             }
         }
 
         $processor->process($compilationUnits);
 
-        foreach ($this->_loggers as $logger) {
+        foreach ($this->reports as $logger) {
             $logger->close();
         }
 
@@ -593,7 +598,7 @@ class PHP_Depend
     {
         $analyzerSet = array();
 
-        foreach ($this->_loggers as $logger) {
+        foreach ($this->reports as $logger) {
             foreach ($logger->getAcceptedAnalyzers() as $type) {
                 // Check for type existence
                 if (in_array($type, $analyzerSet) === false) {

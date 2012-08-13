@@ -58,11 +58,12 @@
  * @version    Release: @package_version@
  * @link       https://www.pivotaltracker.com/story/show/13405179
  *
- * @ticket     13405179
- * @covers     stdClass
- * @group      pdepend
- * @group      pdepend::bugs
- * @group      regressiontest
+ * @ticket 13405179
+ * @covers stdClass
+ * @group  pdepend
+ * @group  pdepend::bugs
+ * @group  regressiontest
+ * @g roup  2.0
  */
 class PHP_Depend_Bugs_PHPDependBug13405179Test extends PHP_Depend_Bugs_AbstractTest
 {
@@ -85,10 +86,10 @@ class PHP_Depend_Bugs_PHPDependBug13405179Test extends PHP_Depend_Bugs_AbstractT
         $factory = new PHP_Depend_Util_Configuration_Factory();
         $pdepend = new PHP_Depend($factory->createDefault());
         $pdepend->addFile(self::createCodeResourceUriForTest());
-        $pdepend->addLogger($logger);
+        $pdepend->addReport($logger);
         $pdepend->analyze();
 
-        self::assertFileExists($file);
+        $this->assertFileExists($file);
     }
 
     /**

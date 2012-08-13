@@ -61,7 +61,7 @@
 class PHP_Depend_Log_LoggerFactoryTest extends PHP_Depend_AbstractTest
 {
     /**
-     * Tests that {@link PHP_Depend_Log_LoggerFactory::createLogger()} returns
+     * Tests that {@link PHP_Depend_Log_LoggerFactory::createReport()} returns
      * the expected instance for a valid identifier.
      *
      * @return void
@@ -69,29 +69,29 @@ class PHP_Depend_Log_LoggerFactoryTest extends PHP_Depend_AbstractTest
     public function testCreateLoggerWithValidIdentifier()
     {
         $factory = new PHP_Depend_Log_LoggerFactory();
-        $logger  = $factory->createLogger('summary-xml', 'pdepend.xml');
+        $logger  = $factory->createReport('summary-xml', 'pdepend.xml');
 
         $this->assertInstanceOf(PHP_Depend_Log_Summary_Xml::CLAZZ, $logger);
     }
 
     /**
      * Tests the singleton behaviour of the logger factory method
-     * {@link PHP_Depend_Log_LoggerFactory::createLogger()}.
+     * {@link PHP_Depend_Log_LoggerFactory::createReport()}.
      *
      * @return void
      */
     public function testCreateLoggerSingletonBehaviour()
     {
         $factory = new PHP_Depend_Log_LoggerFactory();
-        $logger1 = $factory->createLogger('summary-xml', 'pdepend1.xml');
-        $logger2 = $factory->createLogger('summary-xml', 'pdepend2.xml');
+        $logger1 = $factory->createReport('summary-xml', 'pdepend1.xml');
+        $logger2 = $factory->createReport('summary-xml', 'pdepend2.xml');
 
         $this->assertInstanceOf(PHP_Depend_Log_Summary_Xml::CLAZZ, $logger1);
         $this->assertSame($logger1, $logger2);
     }
 
     /**
-     * Tests that {@link PHP_Depend_Log_LoggerFactory::createLogger()} fails with
+     * Tests that {@link PHP_Depend_Log_LoggerFactory::createReport()} fails with
      * an exception for an invalid logger identifier.
      *
      * @return void
@@ -104,6 +104,6 @@ class PHP_Depend_Log_LoggerFactoryTest extends PHP_Depend_AbstractTest
         );
 
         $factory = new PHP_Depend_Log_LoggerFactory();
-        $factory->createLogger('foo-bar-xml', 'pdepend.xml');
+        $factory->createReport('foo-bar-xml', 'pdepend.xml');
     }
 }

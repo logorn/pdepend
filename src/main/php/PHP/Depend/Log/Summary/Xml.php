@@ -53,6 +53,8 @@ use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTNamespace;
 use \PHP\Depend\AST\ASTCompilationUnit;
+use \PHP\Depend\Log\CodeAware;
+use \PHP\Depend\Log\FileAware;
 
 /**
  * This logger generates a summary xml document with aggregated project, class,
@@ -67,9 +69,7 @@ use \PHP\Depend\AST\ASTCompilationUnit;
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Log_Summary_Xml
-    implements PHP_Depend_Log_CodeAware,
-    PHP_Depend_Log_FileAware
+class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
 {
     /**
      * The type of this class.

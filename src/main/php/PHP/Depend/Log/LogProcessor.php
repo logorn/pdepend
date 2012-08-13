@@ -47,7 +47,6 @@
 namespace PHP\Depend\Log;
 
 use \PHP\Depend\Util;
-use \PHP_Depend_Log_Logger;
 
 /**
  * Simple processor for different output log implementations.
@@ -62,14 +61,14 @@ use \PHP_Depend_Log_Logger;
 class LogProcessor extends Util\Processor
 {
     /**
-     * Registers the given log for the next ast traversal.
+     * Registers the given report for the next ast traversal.
      *
-     * @param \PHP_Depend_Log_Logger $logger
+     * @param \PHP\Depend\Log\Report $report
      *
      * @return void
      */
-    public function register(PHP_Depend_Log_Logger $logger)
+    public function register(Report $report)
     {
-        $this->registerVisitor($logger);
+        $this->registerVisitor($report);
     }
 }

@@ -309,9 +309,9 @@ class PHP_Depend_TextUI_Runner
         try {
             foreach ($this->_loggerMap as $loggerID => $logFileName) {
                 // Create a new logger
-                $logger = $loggerFactory->createLogger($loggerID, $logFileName);
+                $logger = $loggerFactory->createReport($loggerID, $logFileName);
 
-                $pdepend->addLogger($logger);
+                $pdepend->addReport($logger);
             }
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), self::EXCEPTION_EXIT);

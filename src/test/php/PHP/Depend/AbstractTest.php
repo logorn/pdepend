@@ -82,8 +82,6 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
 
         $this->_clearRunResources($run);
 
-        include_once 'PHP/Depend.php';
-
         if (defined('STDERR') === false) {
             define('STDERR', fopen('php://stderr', true));
         }
@@ -439,102 +437,6 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         );
 
         return new PHP_Depend($this->createConfigurationFixture());
-    }
-
-    /**
-     * Creates a ready to use class fixture.
-     *
-     * @param string $name Optional class name.
-     *
-     * @return PHP_Depend_Code_Class
-     * @since 1.0.2
-     */
-    protected function createClassFixture($name = null)
-    {
-        $name = $name ? $name : get_class($this);
-
-        $class = new PHP_Depend_Code_Class($name);
-        $class->setSourceFile(new PHP_Depend_Code_File($GLOBALS['argv'][0]));
-        $class->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
-        $class->setContext($this->getMock('PHP_Depend_Builder_Context'));
-
-        return $class;
-    }
-
-    /**
-     * Creates a ready to use interface fixture.
-     *
-     * @param string $name Optional interface name.
-     *
-     * @return PHP_Depend_Code_Interface
-     * @since 1.0.2
-     */
-    protected function createInterfaceFixture($name = null)
-    {
-        $name = $name ? $name : get_class($this);
-
-        $interface = new PHP_Depend_Code_Interface($name);
-        $interface->setSourceFile(new PHP_Depend_Code_File($GLOBALS['argv'][0]));
-        $interface->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
-
-        return $interface;
-    }
-
-    /**
-     * Creates a ready to use trait fixture.
-     *
-     * @param string $name Optional trait name.
-     *
-     * @return PHP_Depend_AST_Trait
-     * @since 1.0.2
-     */
-    protected function createTraitFixture($name = null)
-    {
-        $name = $name ? $name : get_class($this);
-
-        $trait = new PHP_Depend_AST_Trait($name);
-        $trait->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
-
-        return $trait;
-    }
-
-    /**
-     * Creates a ready to use function fixture.
-     *
-     * @param string $name Optional function name.
-     *
-     * @return PHP_Depend_Code_Function
-     * @since 1.0.2
-     */
-    protected function createFunctionFixture($name = null)
-    {
-        $name = $name ? $name : get_class($this);
-
-        $function = new PHP_Depend_Code_Function($name);
-        $function->setSourceFile(new PHP_Depend_Code_File($GLOBALS['argv'][0]));
-        $function->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
-        $function->addChild(new PHP_Depend_Code_ASTFormalParameters());
-
-        return $function;
-    }
-
-    /**
-     * Creates a ready to use method fixture.
-     *
-     * @param string $name Optional method name.
-     *
-     * @return PHP_Depend_Code_Method
-     * @since 1.0.2
-     */
-    protected function createMethodFixture($name = null)
-    {
-        $name = $name ? $name : get_class($this);
-
-        $method = new PHP_Depend_Code_Method($name);
-        $method->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
-        $method->addChild(new PHP_Depend_Code_ASTFormalParameters());
-
-        return $method;
     }
 
     /**
