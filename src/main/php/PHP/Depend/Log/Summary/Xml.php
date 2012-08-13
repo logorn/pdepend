@@ -55,6 +55,8 @@ use \PHP\Depend\AST\ASTNamespace;
 use \PHP\Depend\AST\ASTCompilationUnit;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\FileAware;
+use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\ProjectAware;
 
 /**
  * This logger generates a summary xml document with aggregated project, class,
@@ -93,7 +95,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     /**
      * List of all analyzers that implement the project aware interface.
      *
-     * @var PHP_Depend_Metrics_ProjectAware[]
+     * @var \PHP\Depend\Metrics\ProjectAware[]
      */
     private $_projectAwareAnalyzers = array();
 
@@ -143,7 +145,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     {
         return array(
             'PHP\Depend\Metrics\NodeAware',
-            'PHP_Depend_Metrics_ProjectAware'
+            'PHP\Depend\Metrics\ProjectAware'
         );
     }
 
@@ -158,12 +160,12 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     public function log(PHP_Depend_Metrics_Analyzer $analyzer)
     {
         $accepted = false;
-        if ($analyzer instanceof PHP_Depend_Metrics_ProjectAware) {
+        if ($analyzer instanceof ProjectAware) {
             $this->_projectAwareAnalyzers[] = $analyzer;
 
             $accepted = true;
         }
-        if ($analyzer instanceof \PHP\Depend\Metrics\NodeAware) {
+        if ($analyzer instanceof NodeAware) {
             $this->_nodeAwareAnalyzers[] = $analyzer;
 
             $accepted = true;

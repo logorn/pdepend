@@ -54,6 +54,7 @@ use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
 use \PHP\Depend\AST\ASTCompilationUnit;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\ProjectAware;
 
 /**
  * This analyzer collects coupling values for the hole project. It calculates
@@ -87,8 +88,7 @@ use \PHP\Depend\Metrics\NodeAware;
  */
 class PHP_Depend_Metrics_Coupling_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
-    implements NodeAware,
-               PHP_Depend_Metrics_ProjectAware
+    implements NodeAware, ProjectAware
 {
     /**
      * Type of this analyzer class.

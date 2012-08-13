@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\ProjectAware;
+
 /**
  * Dummy implementation of an analyzer.
  *
@@ -58,9 +60,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Log_Summary_AnalyzerProjectAwareDummy
-    implements PHP_Depend_Metrics_Analyzer,
-    PHP_Depend_Metrics_ProjectAware
+class PHP_Depend_Log_Summary_AnalyzerProjectAwareDummy implements ProjectAware
 {
     /**
      * Dummy project metrics.

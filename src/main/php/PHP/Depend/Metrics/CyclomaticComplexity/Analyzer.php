@@ -49,6 +49,7 @@
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\ProjectAware;
 
 /**
  * This class calculates the Cyclomatic Complexity Number(CCN) for the project,
@@ -68,8 +69,7 @@ use \PHP\Depend\Metrics\NodeAware;
  */
 class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
     extends PHP_Depend_Metrics_AbstractCachingAnalyzer
-    implements NodeAware,
-               PHP_Depend_Metrics_ProjectAware
+    implements NodeAware, ProjectAware
 {
     /**
      * Type of this analyzer class.

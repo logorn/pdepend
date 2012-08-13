@@ -51,6 +51,7 @@ use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\ProjectAware;
 
 /**
  * This analyzer collects different lines of code metrics.
@@ -83,8 +84,7 @@ use \PHP\Depend\Metrics\NodeAware;
 class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     extends PHP_Depend_Metrics_AbstractCachingAnalyzer
    implements PHP_Depend_Metrics_Analyzer,
-              NodeAware,
-              PHP_Depend_Metrics_ProjectAware*/
+              NodeAware, ProjectAware*/
 {
     /**
      * Type of this analyzer class.
