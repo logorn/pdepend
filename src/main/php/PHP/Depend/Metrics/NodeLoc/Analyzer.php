@@ -220,7 +220,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             return;
         }
 
-        list($cloc) = $this->_linesOfCode($class->getTokens(), true);
+        list($cloc) = $this->linesOfCode($class->getTokens(), true);
 
         $loc   = $class->getEndLine() - $class->getStartLine() + 1;
         $ncloc = $loc - $cloc;
@@ -254,11 +254,11 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
         }
 
         if ($this->restoreFromCache($file)) {
-            $this->_updateProjectMetrics($uuid);
+            $this->updateProjectMetrics($uuid);
             return;
         }
 
-        list($cloc, $eloc, $lloc) = $this->_linesOfCode($file->getTokens());
+        list($cloc, $eloc, $lloc) = $this->linesOfCode($file->getTokens());
 
         $loc   = $file->getEndLine();
         $ncloc = $loc - $cloc;
@@ -271,7 +271,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             self::M_NON_COMMENT_LINES_OF_CODE  => $ncloc
         );
 
-        $this->_updateProjectMetrics($uuid);
+        $this->updateProjectMetrics($uuid);
     }
 
     /**
@@ -289,7 +289,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             return;
         }
 
-        list($cloc, $eloc, $lloc) = $this->_linesOfCode(
+        list($cloc, $eloc, $lloc) = $this->linesOfCode(
             $function->getTokens(),
             true
         );
@@ -325,7 +325,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             return;
         }
 
-        list($cloc) = $this->_linesOfCode($interface->getTokens(), true);
+        list($cloc) = $this->linesOfCode($interface->getTokens(), true);
 
         $loc   = $interface->getEndLine() - $interface->getStartLine() + 1;
         $ncloc = $loc - $cloc;
@@ -357,7 +357,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
             $eloc = 0;
             $lloc = 0;
         } else {
-            list($cloc, $eloc, $lloc) = $this->_linesOfCode(
+            list($cloc, $eloc, $lloc) = $this->linesOfCode(
                 $method->getTokens(),
                 true
             );
@@ -385,7 +385,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      *
      * @return void
      */
-    private function _updateProjectMetrics($uuid)
+    private function updateProjectMetrics($uuid)
     {
         foreach ($this->metrics[$uuid] as $metric => $value) {
             $this->projectMetrics[$metric] += $value;
@@ -410,7 +410,7 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      *
      * @return array
      */
-    private function _linesOfCode(array $tokens, $search = false)
+    private function linesOfCode(array $tokens, $search = false)
     {
         $clines = array();
         $elines = array();

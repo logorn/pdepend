@@ -387,44 +387,44 @@ class PHP_Depend_TextUI_Command
         $length = $this->printLogOptions();
         $length = $this->printAnalyzerOptions($length);
 
-        $this->_printOption(
+        $this->printOption(
             '--configuration=<file>',
             'Optional PHP_Depend configuration file.',
             $length
         );
         echo PHP_EOL;
 
-        $this->_printOption(
+        $this->printOption(
             '--suffix=<ext[,...]>',
             'List of valid PHP file extensions.',
             $length
         );
-        $this->_printOption(
+        $this->printOption(
             '--ignore=<dir[,...]>',
             'List of exclude directories.',
             $length
         );
-        $this->_printOption(
+        $this->printOption(
             '--exclude=<pkg[,...]>',
             'List of exclude packages.',
             $length
         );
         echo PHP_EOL;
 
-        $this->_printOption(
+        $this->printOption(
             '--without-annotations',
             'Do not parse doc comment annotations.',
             $length
         );
         echo PHP_EOL;
 
-        $this->_printOption('--debug', 'Prints debugging information.', $length);
-        $this->_printOption('--help', 'Print this help text.', $length);
-        $this->_printOption('--version', 'Print the current version.', $length);
+        $this->printOption('--debug', 'Prints debugging information.', $length);
+        $this->printOption('--help', 'Print this help text.', $length);
+        $this->printOption('--version', 'Print the current version.', $length);
 
-        $this->_printDbusOption($length);
+        $this->printDbusOption($length);
 
-        $this->_printOption('-d key[=value]', 'Sets a php.ini value.', $length);
+        $this->printOption('-d key[=value]', 'Sets a php.ini value.', $length);
         echo PHP_EOL;
     }
 
@@ -461,7 +461,7 @@ class PHP_Depend_TextUI_Command
             }
             $last = $current;
 
-            $this->_printOption($option, $message, $maxLength);
+            $this->printOption($option, $message, $maxLength);
         }
         echo PHP_EOL;
 
@@ -547,7 +547,7 @@ class PHP_Depend_TextUI_Command
                 }
             }
 
-            $this->_printOption($option, $info['message'], $length);
+            $this->printOption($option, $info['message'], $length);
         }
         echo PHP_EOL;
 
@@ -623,7 +623,7 @@ class PHP_Depend_TextUI_Command
      *
      * @return void
      */
-    private function _printOption($option, $message, $length)
+    private function printOption($option, $message, $length)
     {
         // Ignore the phpunit xml option
         if (0 === strpos($option, '--phpunit-xml=')) {
@@ -653,7 +653,7 @@ class PHP_Depend_TextUI_Command
      *
      * @return void
      */
-    private function _printDbusOption($length)
+    private function printDbusOption($length)
     {
         if (extension_loaded("dbus") === false) {
             return;
@@ -662,7 +662,7 @@ class PHP_Depend_TextUI_Command
         $option  = '--notify-me';
         $message = 'Show a notification after analysis.';
 
-        $this->_printOption($option, $message, $length);
+        $this->printOption($option, $message, $length);
     }
 
     /**

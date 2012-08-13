@@ -71,7 +71,7 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      *
      * @var string
      */
-    private $_outputFile = null;
+    private $outputFile;
 
     /**
      * setUp()
@@ -82,9 +82,9 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
     {
         parent::setUp();
 
-        $this->_outputFile = self::createRunResourceURI('jdepend-test-out.svg');
-        if (file_exists($this->_outputFile)) {
-            unlink($this->_outputFile);
+        $this->outputFile = self::createRunResourceURI('jdepend-test-out.svg');
+        if (file_exists($this->outputFile)) {
+            unlink($this->outputFile);
         }
     }
 
@@ -95,8 +95,8 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     protected function tearDown()
     {
-        if (file_exists($this->_outputFile)) {
-            unlink($this->_outputFile);
+        if (file_exists($this->outputFile)) {
+            unlink($this->outputFile);
         }
         parent::tearDown();
     }
@@ -164,12 +164,12 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
         $analyzer->analyze($nodes);
 
         $logger = new PHP_Depend_Log_Jdepend_Chart();
-        $logger->setLogFile($this->_outputFile);
+        $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
         $logger->close();
 
-        self::assertFileExists($this->_outputFile);
+        self::assertFileExists($this->outputFile);
     }
 
     /**
@@ -185,13 +185,13 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
         $analyzer->analyze($nodes);
 
         $logger = new PHP_Depend_Log_Jdepend_Chart();
-        $logger->setLogFile($this->_outputFile);
+        $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
         $logger->close();
 
         $svg = new DOMDocument();
-        $svg->load($this->_outputFile);
+        $svg->load($this->outputFile);
 
         $xpath = new DOMXPath($svg);
         $xpath->registerNamespace('s', 'http://www.w3.org/2000/svg');
@@ -213,13 +213,13 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
         $analyzer->analyze($nodes);
 
         $logger = new PHP_Depend_Log_Jdepend_Chart();
-        $logger->setLogFile($this->_outputFile);
+        $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
         $logger->close();
 
         $svg = new DOMDocument();
-        $svg->load($this->_outputFile);
+        $svg->load($this->outputFile);
 
         $xpath = new DOMXPath($svg);
         $xpath->registerNamespace('s', 'http://www.w3.org/2000/svg');
@@ -257,14 +257,14 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
         $nodes = new PHP_Depend_Code_NodeIterator($nodes);
 
         $logger = new PHP_Depend_Log_Jdepend_Chart();
-        $logger->setLogFile($this->_outputFile);
+        $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
 
         $logger->close();
 
         $svg = new DOMDocument();
-        $svg->load($this->_outputFile);
+        $svg->load($this->outputFile);
 
         $xpath = new DOMXPath($svg);
         $xpath->registerNamespace('s', 'http://www.w3.org/2000/svg');

@@ -206,7 +206,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
             $this->calculateComplexity($function);
         }
         */
-        $this->_updateProjectMetrics($function->getId());
+        $this->updateProjectMetrics($function->getId());
 
         return (array)array_pop($this->data);
     }
@@ -245,7 +245,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
             $this->calculateComplexity($method);
         }
         */
-        $this->_updateProjectMetrics($method->getId());
+        $this->updateProjectMetrics($method->getId());
 
         return (array) array_pop($this->data);
     }
@@ -258,7 +258,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      *
      * @return void
      */
-    private function _updateProjectMetrics($nodeId)
+    private function updateProjectMetrics($nodeId)
     {
         $this->ccn += $this->metrics[$nodeId][self::M_CYCLOMATIC_COMPLEXITY_1];
         $this->ccn2 += $this->metrics[$nodeId][self::M_CYCLOMATIC_COMPLEXITY_2];

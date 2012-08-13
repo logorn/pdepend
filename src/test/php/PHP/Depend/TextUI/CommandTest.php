@@ -72,16 +72,16 @@ class CommandTest extends \PHP_Depend_AbstractTest
     /**
      * Expected output of the --version option.
      *
-     * @var string $_versionOutput
+     * @var string
      */
-    private $_versionOutput = "PHP_Depend @package_version@\n\n";
+    private $versionOutput = "PHP_Depend @package_version@\n\n";
 
     /**
      * Expected output of the --usage option.
      *
-     * @var string $_usageOutput
+     * @var string
      */
-    private $_usageOutput = "Usage: pdepend [options] [logger] <dir[,dir[,...]]>\n\n";
+    private $usageOutput = "Usage: pdepend [options] [logger] <dir[,dir[,...]]>\n\n";
 
     /**
      * Sets a temporary include path.
@@ -125,7 +125,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintVersion()
     {
         list(, $actual) = $this->executeCommand(array('--version'));
-        $this->assertEquals($this->_versionOutput, $actual);
+        $this->assertEquals($this->versionOutput, $actual);
     }
 
     /**
@@ -147,7 +147,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
     public function testPrintUsage()
     {
         list(, $actual) = $this->executeCommand(array('--usage'));
-        $this->assertEquals($this->_versionOutput . $this->_usageOutput, $actual);
+        $this->assertEquals($this->versionOutput . $this->usageOutput, $actual);
     }
 
     /**
@@ -585,7 +585,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
      */
     protected function assertHelpOutput($actual, $prologText = '')
     {
-        $startsWith = $prologText . $this->_versionOutput . $this->_usageOutput;
+        $startsWith = $prologText . $this->versionOutput . $this->usageOutput;
         $startsWith = '/^' . preg_quote($startsWith) . '/';
         $this->assertRegExp($startsWith, $actual);
 

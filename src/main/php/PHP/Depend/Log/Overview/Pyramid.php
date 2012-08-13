@@ -196,8 +196,8 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
             throw new PHP_Depend_Log_NoLogOutputException($this);
         }
 
-        $metrics     = $this->_collectMetrics();
-        $proportions = $this->_computeProportions($metrics);
+        $metrics     = $this->collectMetrics();
+        $proportions = $this->computeProportions($metrics);
 
         $svg = new DOMDocument('1.0', 'UTF-8');
         $svg->load(__DIR__ . '/pyramid.svg');
@@ -206,7 +206,7 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
         foreach ($items as $name => $value) {
             $svg->getElementById("pdepend.{$name}")->nodeValue = $value;
 
-            if (($threshold = $this->_computeThreshold($name, $value)) === null) {
+            if (($threshold = $this->computeThreshold($name, $value)) === null) {
                 continue;
             }
             if (($color = $svg->getElementById("threshold.{$threshold}")) === null) {
@@ -242,7 +242,7 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
      *
      * @return string
      */
-    private function _computeThreshold($name, $value)
+    private function computeThreshold($name, $value)
     {
         if (!isset($this->thresholds[$name])) {
             return null;
@@ -271,7 +271,7 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
      *
      * @return array(string => float)
      */
-    private function _computeProportions(array $metrics)
+    private function computeProportions(array $metrics)
     {
         $orders = array(
             array('cyclo', 'loc', 'nom', 'noc', 'nop'),
@@ -302,7 +302,7 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
      * @return array(string => mixed)
      * @throws RuntimeException If one of the required analyzers isn't set.
      */
-    private function _collectMetrics()
+    private function collectMetrics()
     {
         if ($this->coupling === null) {
             throw new RuntimeException('Missing Coupling analyzer.');

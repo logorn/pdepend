@@ -185,7 +185,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
             throw new PHP_Depend_Log_NoLogOutputException($this);
         }
 
-        foreach ($this->_getProjectMetrics() as $name => $value) {
+        foreach ($this->getProjectMetrics() as $name => $value) {
             $this->document->documentElement->setAttribute($name, $value);
         }
 
@@ -343,7 +343,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
      * @return array(string=>mixed)
      * @since 0.9.10
      */
-    private function _getProjectMetrics()
+    private function getProjectMetrics()
     {
         $projectMetrics = array();
         foreach ($this->projectAwareAnalyzers as $analyzer) {

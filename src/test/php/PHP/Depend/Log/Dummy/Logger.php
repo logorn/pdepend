@@ -67,16 +67,16 @@ class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
     /**
      * The output file name.
      *
-     * @var string $_logFile
+     * @var string
      */
-    private $_logFile = null;
+    private $logFile = null;
 
     /**
      * The logger input data.
      *
-     * @var array(string=>mixed) $_input
+     * @var array(string=>mixed)
      */
-    private $_input = array(
+    private $input = array(
         'code'       => null,
         'analyzers'  => array()
     );
@@ -97,7 +97,7 @@ class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
      */
     public function setLogFile($logFile)
     {
-        $this->_logFile = $logFile;
+        $this->logFile = $logFile;
     }
 
     /**
@@ -120,7 +120,7 @@ class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
      */
     public function setCode(PHP_Depend_Code_NodeIterator $code)
     {
-        $this->_input['code'] = $code;
+        $this->input['code'] = $code;
     }
 
     /**
@@ -133,7 +133,7 @@ class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
      */
     public function log(\PHP_Depend_Metrics_Analyzer $analyzer)
     {
-        $this->_input['analyzers'][] = $analyzer;
+        $this->input['analyzers'][] = $analyzer;
         return true;
     }
 
@@ -144,8 +144,8 @@ class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
      */
     public function close()
     {
-        if ($this->_logFile) {
-            file_put_contents($this->_logFile, serialize($this->_input));
+        if ($this->logFile) {
+            file_put_contents($this->logFile, serialize($this->input));
         }
     }
 }

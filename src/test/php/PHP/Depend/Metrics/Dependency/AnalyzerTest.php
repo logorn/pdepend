@@ -72,7 +72,7 @@ class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
      *
      * @var array
      */
-    private $_input = array(
+    private $input = array(
         '+global#n'  => array(
             'tc'  => 0,
             'cc'  => 0,
@@ -129,11 +129,11 @@ class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
         $processor->process(self::parseCodeResourceForTest());
 
         $actual = array();
-        foreach (array_keys($this->_input) as $id) {
+        foreach (array_keys($this->input) as $id) {
 
             $actual[$id] = $analyzer->getStats($id);
         }
 
-        $this->assertEquals($this->_input, $actual, '', 0.00005);
+        $this->assertEquals($this->input, $actual, '', 0.00005);
     }
 }

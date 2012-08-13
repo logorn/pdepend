@@ -146,7 +146,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
     public function isUserDefined()
     {
         if ($this->userDefined === null) {
-            $this->userDefined = $this->_isUserDefined();
+            $this->userDefined = $this->testUserDefined();
         }
         return $this->userDefined;
     }
@@ -159,7 +159,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      * @return boolean
      * @since 0.9.10
      */
-    private function _isUserDefined()
+    private function testUserDefined()
     {
         foreach ($this->types as $type) {
             if ($type->isUserDefined()) {
@@ -178,7 +178,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      */
     public function getTraits()
     {
-        return $this->_getTypesOfType(PHP_Depend__Code__Trait::CLAZZ);
+        return $this->getTypesOfType(PHP_Depend__Code__Trait::CLAZZ);
     }
 
     /**
@@ -189,7 +189,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      */
     public function getClasses()
     {
-        return $this->_getTypesOfType(PHP_Depend_Code_Class::CLAZZ);
+        return $this->getTypesOfType(PHP_Depend_Code_Class::CLAZZ);
     }
 
     /**
@@ -200,7 +200,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      */
     public function getInterfaces()
     {
-        return $this->_getTypesOfType(PHP_Depend_Code_Interface::CLAZZ);
+        return $this->getTypesOfType(PHP_Depend_Code_Interface::CLAZZ);
     }
 
     /**
@@ -212,7 +212,7 @@ class PHP_Depend_Code_Package implements PHP_Depend_Code_NodeI
      * @return PHP_Depend_Code_NodeIterator
      * @since 1.0.0
      */
-    private function _getTypesOfType($className)
+    private function getTypesOfType($className)
     {
         $types = array();
         foreach ($this->types as $type) {

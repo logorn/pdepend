@@ -75,7 +75,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_AnalyzerTest
      * @var PHP_Depend_Util_Cache_Driver
      * @since 1.0.0
      */
-    private $_cache;
+    private $cache;
 
     /**
      * Initializes a in memory cache.
@@ -86,7 +86,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_AnalyzerTest
     {
         parent::setUp();
 
-        $this->_cache = new PHP_Depend_Util_Cache_Driver_Memory();
+        $this->cache = new PHP_Depend_Util_Cache_Driver_Memory();
     }
 
     /**
@@ -356,7 +356,7 @@ class PHP_Depend_Metrics_CyclomaticComplexity_AnalyzerTest
     private function _createAnalyzer()
     {
         $analyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
-        $analyzer->setCache($this->_cache);
+        $analyzer->setCache($this->cache);
 
         return $analyzer;
     }
