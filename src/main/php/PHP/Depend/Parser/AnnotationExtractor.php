@@ -36,33 +36,31 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Parser
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Parser;
 
 /**
  * Visitor class that extracts doc comment annotations.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Parser
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameResolver
+class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
 {
     /**
-     * @var null|PHPParser_Node_Name Current namespace
+     * @var null|\PHPParser_Node_Name Current namespace
      */
     protected $namespace;
 
@@ -72,14 +70,14 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
     protected $aliases;
 
     /**
-     * @var PHPParser_Node_Name|PHPParser_Node_Name_FullyQualified
+     * @var \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
      */
     protected $typeName;
 
     /**
      * Resets some internal state properties.
      *
-     * @param PHPParser_Node[] $nodes
+     * @param \PHPParser_Node[] $nodes
      *
      * @return void
      */
@@ -94,19 +92,19 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
      * Sets some additional information about dependent types onto class, method,
      * function etc. nodes.
      *
-     * @param PHPParser_Node $node
+     * @param \PHPParser_Node $node
      *
      * @return void
      * @throws PHPParser_Error
      */
-    public function enterNode(PHPParser_Node $node)
+    public function enterNode(\PHPParser_Node $node)
     {
-        if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+        if ($node instanceof \PHPParser_Node_Stmt_Namespace) {
             $this->namespace = $node->name;
             $this->aliases   = array();
-        } else if ($node instanceof PHPParser_Node_Stmt_UseUse) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_UseUse) {
             if (isset($this->aliases[$node->alias])) {
-                throw new PHPParser_Error(
+                throw new \PHPParser_Error(
                     sprintf(
                         'Cannot use "%s" as "%s" because the name is already in use',
                         $node->name, $node->alias
@@ -116,17 +114,17 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
             }
 
             $this->aliases[$node->alias] = $node->name;
-        } else if ($node instanceof PHPParser_Node_Stmt_Property) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Property) {
             $this->typeName = $this->extractType($node, 'var');
             $node->typeName = $this->typeName;
 
-        } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_PropertyProperty) {
             if (null === ($type = $this->extractType($node, 'var'))) {
                 $type = $this->typeName;
             }
             $node->typeName = $type;
-        } else if ($node instanceof PHPParser_Node_Stmt_Function
-            || $node instanceof PHPParser_Node_Stmt_ClassMethod
+        } else if ($node instanceof \PHPParser_Node_Stmt_Function
+            || $node instanceof \PHPParser_Node_Stmt_ClassMethod
         ) {
             $node->returnType = $this->extractType($node, 'return');
             $node->exceptions = $this->extractTypes($node, 'throws');
@@ -136,14 +134,14 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
     /**
      * This post visit method resets some internal state properties.
      *
-     * @param PHPParser_Node $node
+     * @param \PHPParser_Node $node
      *
      * @return void
      */
-    public function leaveNode(PHPParser_Node $node)
+    public function leaveNode(\PHPParser_Node $node)
     {
-        if ($node instanceof PHPParser_Node_Stmt_Property
-            || $node instanceof PHPParser_Node_Stmt_PropertyProperty
+        if ($node instanceof \PHPParser_Node_Stmt_Property
+            || $node instanceof \PHPParser_Node_Stmt_PropertyProperty
         ) {
             $this->typeName = null;
         }
@@ -153,12 +151,12 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
      * Extracts additional types from the doc comment block of the given
      * <b>$node</b>.
      *
-     * @param PHPParser_Node $node
+     * @param \PHPParser_Node $node
      * @param string         $tag
      *
-     * @return null|PHPParser_Node_Name|PHPParser_Node_Name_FullyQualified
+     * @return null|\PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
      */
-    private function extractType(PHPParser_Node $node, $tag)
+    private function extractType(\PHPParser_Node $node, $tag)
     {
         if (count($names = $this->extractTypes($node, $tag)) > 0) {
             return reset($names);
@@ -170,13 +168,13 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
      * Extracts additional types from the doc comment block of the given
      * <b>$node</b>.
      *
-     * @param PHPParser_Node $node
+     * @param \PHPParser_Node $node
      * @param string         $tag
      *
-     * @return PHPParser_Node_Name[]
+     * @return \PHPParser_Node_Name[]
      * @todo 2.0 Handle special doc comments like TypeA|TypeB|..., Type[], array(Type)
      */
-    private function extractTypes(PHPParser_Node $node, $tag)
+    private function extractTypes(\PHPParser_Node $node, $tag)
     {
         if (!$node->getDocComment()) {
             return array();
@@ -190,8 +188,8 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
         foreach ($matches[1] as $match) {
             $match = rtrim($match, '[]');
 
-            if (false === PHP_Depend_Util_Type::isScalarType($match)) {
-                $names[] = $this->resolveClassName(new PHPParser_Node_Name($match));
+            if (false === \PHP_Depend_Util_Type::isScalarType($match)) {
+                $names[] = $this->resolveClassName(new \PHPParser_Node_Name($match));
             }
         }
 
@@ -204,11 +202,11 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
      * The code of this method was taken from the NameResolver visitor shipped
      * with the PHPParser project.
      *
-     * @param PHPParser_Node_Name $name
+     * @param \PHPParser_Node_Name $name
      *
-     * @return PHPParser_Node_Name|PHPParser_Node_Name_FullyQualified
+     * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
      */
-    protected function resolveClassName(PHPParser_Node_Name $name)
+    protected function resolveClassName(\PHPParser_Node_Name $name)
     {
         // don't resolve special class names
         if (in_array((string)$name, array('self', 'parent', 'static'))) {
@@ -229,6 +227,6 @@ class PHP_Depend_Parser_AnnotationExtractor extends PHPParser_NodeVisitor_NameRe
             $name->prepend($this->namespace);
         }
 
-        return new PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
+        return new \PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 }

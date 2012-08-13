@@ -47,6 +47,9 @@
  */
 
 use \PHP\Depend\AST\ASTCompilationUnit;
+use \PHP\Depend\Parser\AnnotationExtractor;
+use \PHP\Depend\Parser\IdGenerator;
+use \PHP\Depend\Parser\NodeGenerator;
 
 /**
  * Parser used to translate a given source file into an abstract syntax tree.
@@ -69,26 +72,26 @@ class PHP_Depend_Parser
     private $parser;
 
     /**
-     * @var PHP_Depend_Parser_IdGenerator
+     * @var \PHP\Depend\Parser\IdGenerator
      */
     private $idGenerator;
 
     /**
      * Constructs a new parser instance.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer
+     * @param \PHP_Depend_Tokenizer $tokenizer
      */
-    public function __construct(PHP_Depend_Tokenizer $tokenizer)
+    public function __construct(\PHP_Depend_Tokenizer $tokenizer)
     {
-        $this->parser = new PHPParser_Parser($tokenizer);
+        $this->parser = new \PHPParser_Parser($tokenizer);
 
-        $this->idGenerator = new PHP_Depend_Parser_IdGenerator();
+        $this->idGenerator = new IdGenerator();
 
         $this->traverser = new PHPParser_NodeTraverser();
         $this->traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver());
         $this->traverser->addVisitor($this->idGenerator);
-        $this->traverser->addVisitor(new PHP_Depend_Parser_NodeGenerator());
-        $this->traverser->addVisitor(new PHP_Depend_Parser_AnnotationExtractor());
+        $this->traverser->addVisitor(new NodeGenerator());
+        $this->traverser->addVisitor(new AnnotationExtractor());
     }
 
     /**

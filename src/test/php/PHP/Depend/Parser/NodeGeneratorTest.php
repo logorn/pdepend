@@ -58,7 +58,7 @@ require_once __DIR__ . '/../AbstractTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  *
- * @covers \PHP_Depend_Parser_NodeGenerator
+ * @covers \PHP\Depend\Parser\NodeGenerator
  * @group  pdepend
  * @group  pdepend::parser
  * @group  unittest
@@ -67,7 +67,7 @@ require_once __DIR__ . '/../AbstractTest.php';
 class NodeGeneratorTest extends \PHP_Depend_AbstractTest
 {
     /**
-     * @var \PHP_Depend_Parser_NodeGenerator
+     * @var \PHP\Depend\Parser\NodeGenerator
      */
     private $generator;
 
@@ -80,7 +80,7 @@ class NodeGeneratorTest extends \PHP_Depend_AbstractTest
     {
         parent::setUp();
 
-        $this->generator = new \PHP_Depend_Parser_NodeGenerator();
+        $this->generator = new NodeGenerator();
     }
 
     /**

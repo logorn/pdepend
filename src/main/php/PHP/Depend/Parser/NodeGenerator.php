@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Parser
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Parser;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTType;
@@ -66,17 +66,15 @@ use \PHP\Depend\AST\ASTPropertyRefs;
 /**
  * Visitor class that generates custom nodes used by PHP_Depend.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Parser
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
+class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 {
     /**
      * @var string
@@ -108,7 +106,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
     private $modifier;
 
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP_Depend_Context
      */
     private $context;
 
@@ -117,7 +115,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      */
     public function __construct()
     {
-        $this->context = new PHP_Depend_Context();
+        $this->context = new \PHP_Depend_Context();
     }
 
     /**
@@ -127,23 +125,23 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      *  * null:      $node stays as-is
      *  * otherwise: $node is set to the return value
      *
-     * @param PHPParser_Node $node
+     * @param \PHPParser_Node $node
      *
      * @return \PHPParser_Node|null
      */
-    public function enterNode(PHPParser_Node $node)
+    public function enterNode(\PHPParser_Node $node)
     {
-        if ($node instanceof PHPParser_Node_Stmt_Class ||
-            $node instanceof PHPParser_Node_Stmt_Interface) {
+        if ($node instanceof \PHPParser_Node_Stmt_Class ||
+            $node instanceof \PHPParser_Node_Stmt_Interface) {
 
             $this->declaringType    = (string) $node->namespacedName;
             $this->declaringPackage = $this->extractNamespaceName($node);
 
             $this->parentClass = (string) (is_array($node->extends) ? null :$node->extends);
-        } else if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Namespace) {
 
             $this->declaringNamespace = (string) $node->name;
-        } else if ($node instanceof PHPParser_Node_Stmt_Property) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Property) {
 
             $this->modifier = $node->type;
         }
@@ -153,21 +151,21 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      * Sets a unique identifier on the given node. The ID will be stored in a
      * node attribute named <b>"id"</b>.
      *
-     * @param PHPParser_Node $node Node
+     * @param \PHPParser_Node $node Node
      *
-     * @return null|PHPParser_Node
+     * @return null|\PHPParser_Node
      */
-    public function leaveNode(PHPParser_Node $node)
+    public function leaveNode(\PHPParser_Node $node)
     {
         $newNode = null;
-        if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+        if ($node instanceof \PHPParser_Node_Stmt_Namespace) {
 
             $newNode = new ASTNamespace(
                 $node, new ASTNamespaceRefs($this->context)
             );
 
             $this->declaringNamespace = null;
-        } else if ($node instanceof PHPParser_Node_Stmt_Class) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Class) {
 
             $implemented = array();
             foreach ($node->implements as $implements) {
@@ -189,7 +187,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $this->declaringType    = null;
             $this->declaringPackage = null;
-        } else if ($node instanceof PHPParser_Node_Stmt_Interface) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Interface) {
 
             $extends = array();
             foreach ($node->extends as $extend) {
@@ -210,12 +208,12 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
             $this->declaringType    = null;
             $this->declaringPackage = null;
-        } else if ($node instanceof PHPParser_Node_Stmt_Property) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Property) {
 
             $this->modifier = 0;
 
             $newNode = new ASTProperties($node);
-        } else if ($node instanceof PHPParser_Node_Stmt_PropertyProperty) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_PropertyProperty) {
 
             $newNode = new ASTProperty(
                 $node,
@@ -227,7 +225,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
                 ),
                 $this->modifier
             );
-        } else if ($node instanceof PHPParser_Node_Stmt_ClassMethod) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_ClassMethod) {
 
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
@@ -250,7 +248,7 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
                     (string) $node->returnType
                 )
             );
-        } else if ($node instanceof PHPParser_Node_Stmt_Function) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Function) {
 
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
@@ -276,19 +274,19 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
             );
 
             $this->declaringPackage = null;
-        } else if ($node instanceof PHPParser_Node_Stmt_Catch) {
+        } else if ($node instanceof \PHPParser_Node_Stmt_Catch) {
 
             $node->typeRef = new ASTTypeRef(
                 $this->context,
                 (string) $node->type
             );
-        } else if ($node instanceof PHPParser_Node_Expr_StaticCall
-            || $node instanceof PHPParser_Node_Expr_StaticPropertyFetch
-            || $node instanceof PHPParser_Node_Expr_ClassConstFetch
-            || $node instanceof PHPParser_Node_Expr_New
-            || $node instanceof PHPParser_Node_Expr_Instanceof) {
+        } else if ($node instanceof \PHPParser_Node_Expr_StaticCall
+            || $node instanceof \PHPParser_Node_Expr_StaticPropertyFetch
+            || $node instanceof \PHPParser_Node_Expr_ClassConstFetch
+            || $node instanceof \PHPParser_Node_Expr_New
+            || $node instanceof \PHPParser_Node_Expr_Instanceof) {
 
-            if ($node->class instanceof PHPParser_Node_Name) {
+            if ($node->class instanceof \PHPParser_Node_Name) {
 
                 $node->typeRef = new ASTTypeRef(
                     $this->context,
@@ -298,9 +296,9 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
 
                 $node->typeRef = null;
             }
-        } else if ($node instanceof PHPParser_Node_Param) {
+        } else if ($node instanceof \PHPParser_Node_Param) {
 
-            if ($node->type instanceof PHPParser_Node_Name) {
+            if ($node->type instanceof \PHPParser_Node_Name) {
 
                 $node->typeRef = new ASTTypeRef(
                     $this->context,
@@ -346,11 +344,11 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
      * Then it tries to reuse a previously extracted package tag. And finally
      * this method returns the pseudo global namespace.
      *
-     * @param PHPParser_Node $node
+     * @param \PHPParser_Node $node
      *
      * @return string
      */
-    private function extractNamespaceName(PHPParser_Node $node)
+    private function extractNamespaceName(\PHPParser_Node $node)
     {
         if (is_string($this->declaringNamespace)) {
 
@@ -382,8 +380,8 @@ class PHP_Depend_Parser_NodeGenerator extends PHPParser_NodeVisitorAbstract
         }
 
         return new ASTNamespace(
-            new PHPParser_Node_Stmt_Namespace(
-                new PHPParser_Node_Name($this->extractNamespaceName($node)),
+            new \PHPParser_Node_Stmt_Namespace(
+                new \PHPParser_Node_Name($this->extractNamespaceName($node)),
                 array($node),
                 array('id'  => $this->extractNamespaceName($node) . '#n')
             ),
