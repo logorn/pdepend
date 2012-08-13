@@ -48,6 +48,7 @@
 
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTMethod;
+use \PHP\Depend\Metrics\NodeAware;
 
 /**
  * This analyzer calculates the C.R.A.P. index for methods an functions when a
@@ -67,7 +68,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
     /* TODO 2.0
    implements PHP_Depend_Metrics_AggregateAnalyzerI,
-              PHP_Depend_Metrics_NodeAware*/
+              NodeAware*/
 {
     /**
      * Type of this analyzer class.

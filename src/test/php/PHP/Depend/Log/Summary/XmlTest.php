@@ -106,7 +106,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
 
         $this->assertEquals(
             array(
-                'PHP_Depend_Metrics_NodeAware',
+                'PHP\Depend\Metrics\NodeAware',
                 'PHP_Depend_Metrics_ProjectAware'
             ),
             $logger->getAcceptedAnalyzers()
@@ -151,7 +151,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
     public function testLogMethodReturnsTrueForAnalyzerOfTypeNodeAware()
     {
         $logger = new PHP_Depend_Log_Summary_Xml();
-        $actual = $logger->log($this->getMock('PHP_Depend_Metrics_NodeAware'));
+        $actual = $logger->log($this->getMock('\PHP\Depend\Metrics\NodeAware'));
 
         $this->assertTrue($actual);
     }

@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\NodeAware;
+
 /**
  * Dummy implementation of an analyzer.
  *
@@ -59,8 +61,7 @@
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Log_Summary_AnalyzerNodeAndProjectAwareDummy
-    implements PHP_Depend_Metrics_Analyzer,
-    PHP_Depend_Metrics_NodeAware,
+    implements NodeAware,
     PHP_Depend_Metrics_ProjectAware
 {
     /**

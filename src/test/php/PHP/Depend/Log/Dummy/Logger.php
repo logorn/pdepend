@@ -108,7 +108,7 @@ class PHP_Depend_Log_Dummy_Logger implements Report, CodeAware, FileAware
      */
     public function getAcceptedAnalyzers()
     {
-        return array('PHP_Depend_Metrics_NodeAware');
+        return array('PHP\Depend\Metrics\NodeAware');
     }
 
     /**

@@ -142,7 +142,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     public function getAcceptedAnalyzers()
     {
         return array(
-            'PHP_Depend_Metrics_NodeAware',
+            'PHP\Depend\Metrics\NodeAware',
             'PHP_Depend_Metrics_ProjectAware'
         );
     }
@@ -163,7 +163,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
 
             $accepted = true;
         }
-        if ($analyzer instanceof PHP_Depend_Metrics_NodeAware) {
+        if ($analyzer instanceof \PHP\Depend\Metrics\NodeAware) {
             $this->_nodeAwareAnalyzers[] = $analyzer;
 
             $accepted = true;

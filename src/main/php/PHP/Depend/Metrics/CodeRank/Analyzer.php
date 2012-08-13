@@ -52,9 +52,10 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
+use \PHP\Depend\Metrics\NodeAware;
 
 /**
- * Calculates the code ranke metric for classes and packages.
+ * Calculates the code rank metric for classes and packages.
  *
  * @category   QualityAssurance
  * @package    PHP_Depend
@@ -69,7 +70,7 @@ use \PHP\Depend\AST\ASTProperty;
  */
 class PHP_Depend_Metrics_CodeRank_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
-    implements PHP_Depend_Metrics_NodeAware
+    implements NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -80,7 +81,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      * Metrics provided by the analyzer implementation.
      */
     const M_CODE_RANK       = 'cr',
-        M_REVERSE_CODE_RANK = 'rcr';
+          M_REVERSE_CODE_RANK = 'rcr';
 
     /**
      * The used damping factor.

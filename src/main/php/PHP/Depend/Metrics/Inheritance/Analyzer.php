@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTClass;
+use \PHP\Depend\Metrics\NodeAware;
 
 /**
  * This analyzer provides two project related inheritance metrics.
@@ -69,7 +70,7 @@ use \PHP\Depend\AST\ASTClass;
  */
 class PHP_Depend_Metrics_Inheritance_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
-    implements PHP_Depend_Metrics_NodeAware,
+    implements NodeAware,
                PHP_Depend_Metrics_ProjectAware
 {
     /**
