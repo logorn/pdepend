@@ -67,7 +67,7 @@ use \PHP\Depend\Parser\NodeGenerator;
 class PHP_Depend_Parser
 {
     /**
-     * @var PHPParser_Parser
+     * @var \PHPParser_Parser
      */
     private $parser;
 
