@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Analyzer;
+
 /**
  * An implementation of this listener can be used to recieve informations about
  * the current metric analyzer.
@@ -64,18 +66,18 @@ interface PHP_Depend_Metrics_ListenerI
     /**
      * This method is called when the analyzer starts code processing.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The context analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    function startAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer);
+    public function startAnalyzer(Analyzer $analyzer);
 
     /**
      * This method is called when the analyzer has finished code processing.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The context analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    function endAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer);
+    public function endAnalyzer(Analyzer $analyzer);
 }

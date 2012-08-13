@@ -54,6 +54,7 @@ use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTNamespace;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\ProjectAware;
+use \PHP\Depend\Metrics\AbstractAnalyzer;
 
 /**
  * This analyzer collects different count metrics for code artifacts like
@@ -69,7 +70,7 @@ use \PHP\Depend\Metrics\ProjectAware;
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Metrics_NodeCount_Analyzer
-    extends PHP_Depend_Metrics_AbstractAnalyzer
+    extends AbstractAnalyzer
     implements NodeAware, ProjectAware
 {
     /**

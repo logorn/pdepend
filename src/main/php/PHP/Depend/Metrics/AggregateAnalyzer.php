@@ -36,30 +36,28 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics;
 
 /**
  * This analyzer interface provides a specialized form that allows an analyzer
  * to aggregate metrics calculated by other analyzers.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-interface PHP_Depend_Metrics_AggregateAnalyzerI extends PHP_Depend_Metrics_Analyzer
+interface AggregateAnalyzer extends Analyzer
 {
     /**
      * This method must return an <b>array</b> of class names for required
@@ -67,14 +65,14 @@ interface PHP_Depend_Metrics_AggregateAnalyzerI extends PHP_Depend_Metrics_Analy
      *
      * @return array(string)
      */
-    function getRequiredAnalyzers();
+    public function getRequiredAnalyzers();
 
     /**
      * Adds a required sub analyzer.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The sub analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    function addAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer);
+    public function addAnalyzer(Analyzer $analyzer);
 }

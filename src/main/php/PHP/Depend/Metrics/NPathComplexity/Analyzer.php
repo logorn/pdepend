@@ -51,6 +51,7 @@ use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\AbstractCachingAnalyzer;
 
 /**
  * This analyzer calculates the NPath complexity of functions and methods. The
@@ -67,7 +68,7 @@ use \PHP\Depend\Metrics\NodeAware;
  * @link       http://www.pdepend.org/
  */
 class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
-    extends PHP_Depend_Metrics_AbstractCachingAnalyzer
+    extends AbstractCachingAnalyzer
    implements NodeAware*/
 {
     /**

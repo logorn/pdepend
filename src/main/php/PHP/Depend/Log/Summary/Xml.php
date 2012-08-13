@@ -55,6 +55,7 @@ use \PHP\Depend\AST\ASTNamespace;
 use \PHP\Depend\AST\ASTCompilationUnit;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\FileAware;
+use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\ProjectAware;
 
@@ -88,7 +89,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     /**
      * List of all analyzers that implement the node aware interface.
      *
-     * @var PHP_Depend_Metrics_Analyzer[]
+     * @var \PHP\Depend\Metrics\NodeAware[]
      */
     private $nodeAwareAnalyzers = array();
 
@@ -153,11 +154,11 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
      * Adds an analyzer to log. If this logger accepts the given analyzer it
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return boolean
      */
-    public function log(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function log(Analyzer $analyzer)
     {
         $accepted = false;
         if ($analyzer instanceof ProjectAware) {

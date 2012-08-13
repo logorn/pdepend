@@ -72,7 +72,7 @@ interface Processor
     /**
      * Returns all analyzers available in this processor.
      *
-     * @return \PHP_Depend_Metrics_Analyzer[]
+     * @return \PHP\Depend\Metrics\Analyzer[]
      */
     public function getAnalyzers();
 }

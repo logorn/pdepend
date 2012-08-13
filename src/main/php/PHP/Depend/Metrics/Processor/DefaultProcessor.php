@@ -47,7 +47,7 @@
 
 namespace PHP\Depend\Metrics\Processor;
 
-use \PHP_Depend_Metrics_Analyzer;
+use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\Processor;
 use \PHP\Depend\Util;
 
@@ -70,11 +70,11 @@ class DefaultProcessor extends Util\Processor implements Processor
     /**
      * Registers the given analyzer for the next AST processing.
      *
-     * @param \PHP_Depend_Metrics_Analyzer $analyzer
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    public function register(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function register(Analyzer $analyzer)
     {
         $this->registerVisitor($analyzer);
     }
@@ -82,7 +82,7 @@ class DefaultProcessor extends Util\Processor implements Processor
     /**
      * Returns all analyzers available in this processor.
      *
-     * @return \PHP_Depend_Metrics_Analyzer[]
+     * @return \PHP\Depend\Metrics\Analyzer[]
      */
     public function getAnalyzers()
     {

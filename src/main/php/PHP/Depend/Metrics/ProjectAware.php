@@ -59,7 +59,7 @@ namespace PHP\Depend\Metrics;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-interface ProjectAware extends \PHP_Depend_Metrics_Analyzer
+interface ProjectAware extends Analyzer
 {
     /**
      * Provides the project summary as an <b>array</b>.

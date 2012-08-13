@@ -50,7 +50,10 @@ use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
+use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\AbstractAnalyzer;
+use \PHP\Depend\Metrics\AggregateAnalyzer;
 
 /**
  * Generates some class level based metrics. This analyzer is based on the
@@ -68,8 +71,8 @@ use \PHP\Depend\Metrics\NodeAware;
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Metrics_ClassLevel_Analyzer
-    extends PHP_Depend_Metrics_AbstractAnalyzer
-    implements PHP_Depend_Metrics_AggregateAnalyzerI,
+    extends AbstractAnalyzer
+    implements AggregateAnalyzer,
                NodeAware
 {
     /**
@@ -136,10 +139,11 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     /**
      * Adds a required sub analyzer.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The sub analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
+     *
      * @return void
      */
-    public function addAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function addAnalyzer(Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
 

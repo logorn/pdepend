@@ -53,6 +53,8 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTNamespace;
+use \PHP\Depend\Metrics\Analyzer;
+use \PHP\Depend\Metrics\AbstractAnalyzer;
 
 /**
  * This analyzer calculates dependency metrics for packages.
@@ -75,8 +77,8 @@ use \PHP\Depend\AST\ASTNamespace;
  * @todo 2.0 Implement NodeAware interface
  */
 class PHP_Depend_Metrics_Dependency_Analyzer
-    extends PHP_Depend_Metrics_AbstractAnalyzer
-   implements PHP_Depend_Metrics_Analyzer
+    extends AbstractAnalyzer
+   implements Analyzer
 {
     /**
      * Type of this analyzer class.

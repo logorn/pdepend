@@ -53,6 +53,7 @@ use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\AbstractAnalyzer;
 
 /**
  * Calculates the code rank metric for classes and packages.
@@ -69,7 +70,7 @@ use \PHP\Depend\Metrics\NodeAware;
  * @todo 2.0 Implement visitInstanceOf(), visitNew(), visitCatch() ...
  */
 class PHP_Depend_Metrics_CodeRank_Analyzer
-    extends PHP_Depend_Metrics_AbstractAnalyzer
+    extends AbstractAnalyzer
     implements NodeAware
 {
     /**

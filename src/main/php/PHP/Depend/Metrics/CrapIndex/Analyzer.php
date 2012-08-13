@@ -49,7 +49,10 @@
 use \PHP\Depend\AST\ASTCallable;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTMethod;
+use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
+use \PHP\Depend\Metrics\AbstractAnalyzer;
+use \PHP\Depend\Metrics\AggregateAnalyzer;
 
 /**
  * This analyzer calculates the C.R.A.P. index for methods an functions when a
@@ -66,8 +69,8 @@ use \PHP\Depend\Metrics\NodeAware;
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Metrics_CrapIndex_Analyzer
-    extends PHP_Depend_Metrics_AbstractAnalyzer
-   implements PHP_Depend_Metrics_AggregateAnalyzerI,
+    extends AbstractAnalyzer
+   implements AggregateAnalyzer,
               NodeAware
 {
     /**
@@ -158,12 +161,11 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Adds an analyzer that this analyzer depends on.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer An analyzer this analyzer
-     *                                              depends on.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    public function addAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function addAnalyzer(Analyzer $analyzer)
     {
         $this->ccnAnalyzer = $analyzer;
     }

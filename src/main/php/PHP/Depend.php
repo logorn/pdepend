@@ -51,6 +51,7 @@ use \PHP\Depend\Input\FileIterator;
 use \PHP\Depend\Log\Report;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\LogProcessor;
+use \PHP\Depend\Metrics\AnalyzerLoader;
 use \PHP\Depend\Metrics\Processor\CompositeProcessor;
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
@@ -458,7 +459,7 @@ class PHP_Depend
      *
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnits
      *
-     * @return PHP_Depend_Metrics_Analyzer[]
+     * @return \PHP\Depend\Metrics\Analyzer[]
      */
     private function processAnalyzing(array $compilationUnits)
     {
@@ -490,7 +491,7 @@ class PHP_Depend
 
     /**
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnits
-     * @param PHP_Depend_Metrics_Analyzer[] $analyzers
+     * @param \PHP\Depend\Metrics\Analyzer[] $analyzers
      *
      * @return void
      */
@@ -525,13 +526,11 @@ class PHP_Depend
      * This method will initialize all code analysers and register the
      * interested listeners.
      *
-     * @param PHP_Depend_Metrics_AnalyzerLoader $analyzerLoader
+     * @param \PHP\Depend\Metrics\AnalyzerLoader $analyzerLoader
      *
-     * @return PHP_Depend_Metrics_AnalyzerLoader
+     * @return \PHP\Depend\Metrics\AnalyzerLoader
      */
-    private function initAnalyseListeners(
-        PHP_Depend_Metrics_AnalyzerLoader $analyzerLoader
-    )
+    private function initAnalyseListeners(AnalyzerLoader $analyzerLoader)
     {
         foreach ($analyzerLoader as $analyzer) {
 
@@ -595,13 +594,13 @@ class PHP_Depend
     }
 
     /**
-     * Creates a {@link PHP_Depend_Metrics_AnalyzerLoader} instance that will be
-     * used to create all analyzers required for the actually registered logger
-     * instances.
+     * Creates a {@link \PHP\Depend\Metrics\AnalyzerLoader} instance that will
+     * be used to create all analyzers required for the actually registered
+     * logger instances.
      *
      * @param array $options The command line options received for this run.
      *
-     * @return PHP_Depend_Metrics_AnalyzerLoader
+     * @return \PHP\Depend\Metrics\AnalyzerLoader
      */
     private function createAnalyzerLoader(array $options)
     {
@@ -621,7 +620,7 @@ class PHP_Depend
 
         $cacheKey = md5(serialize($this->files) . serialize($this->directories));
 
-        $loader = new PHP_Depend_Metrics_AnalyzerLoader(
+        $loader = new AnalyzerLoader(
             new PHP_Depend_Metrics_AnalyzerClassFileSystemLocator(),
             $this->cacheFactory->create($cacheKey),
             $analyzerSet,

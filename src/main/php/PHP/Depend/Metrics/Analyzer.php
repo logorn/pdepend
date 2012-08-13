@@ -36,46 +36,43 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics;
 
 /**
  * Base interface for all analyzer implementations.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-interface PHP_Depend_Metrics_Analyzer
+interface Analyzer
 {
     /**
      * Constructs a new analyzer instance.
      *
      * @param array $options
-     *        Global option array, every analyzer can extract the required options.
      */
     public function __construct(array $options = array());
 
     /**
      * Adds a listener to this analyzer.
      *
-     * @param PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP_Depend_Metrics_ListenerI $listener The listener instance.
      *
      * @return void
      */
-    public function addAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener);
+    public function addAnalyzeListener(\PHP_Depend_Metrics_ListenerI $listener);
 
     /**
      * An analyzer that is active must return <b>true</b> to recognized by

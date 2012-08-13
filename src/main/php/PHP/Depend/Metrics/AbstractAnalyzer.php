@@ -36,30 +36,27 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics;
 
 /**
  * This abstract class provides a base implementation of an analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-abstract class PHP_Depend_Metrics_AbstractAnalyzer
-    implements PHP_Depend_Metrics_Analyzer
+abstract class AbstractAnalyzer implements Analyzer
 {
     /**
      * Global options array.
@@ -71,7 +68,7 @@ abstract class PHP_Depend_Metrics_AbstractAnalyzer
     /**
      * List or registered listeners.
      *
-     * @var PHP_Depend_Metrics_ListenerI[]
+     * @var \PHP_Depend_Metrics_ListenerI[]
      */
     private $listeners = array();
 
@@ -88,10 +85,10 @@ abstract class PHP_Depend_Metrics_AbstractAnalyzer
     /**
      * Adds a listener to this analyzer.
      *
-     * @param PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP_Depend_Metrics_ListenerI $listener The listener instance.
      * @return void
      */
-    public function addAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener)
+    public function addAnalyzeListener(\PHP_Depend_Metrics_ListenerI $listener)
     {
         if (in_array($listener, $this->listeners, true) === false) {
             $this->listeners[] = $listener;

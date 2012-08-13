@@ -56,7 +56,7 @@ namespace PHP\Depend\Metrics;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  *
- * @covers \PHP_Depend_Metrics_AnalyzerLoader
+ * @covers \PHP\Depend\Metrics\AnalyzerLoader
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  unittest
@@ -115,7 +115,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
             'PHP_Depend_Metrics_Inheritance_Analyzer',
         );
 
-        $loader = new \PHP_Depend_Metrics_AnalyzerLoader(
+        $loader = new AnalyzerLoader(
             new \PHP_Depend_Metrics_AnalyzerClassFileSystemLocator(),
             $this->getMock('PHP_Depend_Util_Cache_Driver'),
             $expected
@@ -141,7 +141,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
      */
     public function testLoaderOnlyReturnsEnabledAnalyzerInstances()
     {
-        $analyzer = $this->getMock('PHP_Depend_Metrics_Analyzer');
+        $analyzer = $this->getMock('PHP\Depend\Metrics\Analyzer');
         $analyzer->expects($this->once())
             ->method('isEnabled')
             ->will($this->returnValue(true));
@@ -156,10 +156,10 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
             ->method('findAll')
             ->will($this->returnValue(array($reflection)));
 
-        $loader = new \PHP_Depend_Metrics_AnalyzerLoader(
+        $loader = new AnalyzerLoader(
             $locator,
             $this->getMock('PHP_Depend_Util_Cache_Driver'),
-            array('PHP_Depend_Metrics_Analyzer')
+            array('PHP\Depend\Metrics\Analyzer')
         );
 
         self::assertEquals(1, count($loader->getAnalyzers()));
@@ -173,7 +173,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
      */
     public function testLoaderNotReturnsDisabledAnalyzerInstances()
     {
-        $analyzer = $this->getMock('PHP_Depend_Metrics_Analyzer');
+        $analyzer = $this->getMock('PHP\Depend\Metrics\Analyzer');
         $analyzer->expects($this->once())
             ->method('isEnabled')
             ->will($this->returnValue(false));
@@ -188,10 +188,10 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
             ->method('findAll')
             ->will($this->returnValue(array($reflection)));
 
-        $loader = new \PHP_Depend_Metrics_AnalyzerLoader(
+        $loader = new AnalyzerLoader(
             $locator,
             $this->getMock('PHP_Depend_Util_Cache_Driver'),
-            array('PHP_Depend_Metrics_Analyzer')
+            array('PHP\Depend\Metrics\Analyzer')
         );
 
         self::assertEquals(0, count($loader->getAnalyzers()));

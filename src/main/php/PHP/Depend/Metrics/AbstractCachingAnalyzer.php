@@ -36,16 +36,16 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      1.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     1.0.0
  */
+
+namespace PHP\Depend\Metrics;
 
 use \PHP\Depend\AST\ASTNode;
 
@@ -53,19 +53,17 @@ use \PHP\Depend\AST\ASTNode;
  * This abstract class provides an analyzer that provides the basic infrastructure
  * for caching.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      1.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     1.0.0
  */
-abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
-    extends PHP_Depend_Metrics_AbstractAnalyzer
-    implements PHP_Depend_Metrics_CacheAware
+abstract class AbstractCachingAnalyzer
+    extends AbstractAnalyzer
+    implements CacheAware
 {
     /**
      * Collected node metrics
@@ -91,11 +89,11 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
     /**
      * Setter method for the system wide used cache.
      *
-     * @param PHP_Depend_Util_Cache_Driver $cache Used cache object.
+     * @param \PHP_Depend_Util_Cache_Driver $cache Used cache object.
      *
      * @return void
      */
-    public function setCache(PHP_Depend_Util_Cache_Driver $cache)
+    public function setCache(\PHP_Depend_Util_Cache_Driver $cache)
     {
         $this->cache = $cache;
     }
@@ -126,7 +124,7 @@ abstract class PHP_Depend_Metrics_AbstractCachingAnalyzer
      */
     protected function loadCache()
     {
-        $this->metricsCached = (array)$this->cache
+        $this->metricsCached = (array) $this->cache
             ->type('metrics')
             ->restore(get_class($this));
     }

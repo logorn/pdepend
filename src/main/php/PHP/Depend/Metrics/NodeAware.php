@@ -56,7 +56,7 @@ namespace PHP\Depend\Metrics;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-interface NodeAware extends \PHP_Depend_Metrics_Analyzer
+interface NodeAware extends Analyzer
 {
     /**
      * This method will return an <b>array</b> with all generated metric values

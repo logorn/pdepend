@@ -50,6 +50,7 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\FileAware;
+use \PHP\Depend\Metrics\Analyzer;
 
 /**
  * Generates an xml document with the aggregated metrics. The format is borrowed
@@ -180,11 +181,11 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
      * Adds an analyzer to log. If this logger accepts the given analyzer it
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The analyzer to log.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return boolean
      */
-    public function log(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function log(Analyzer $analyzer)
     {
         if ($analyzer instanceof PHP_Depend_Metrics_Dependency_Analyzer) {
             $this->analyzer = $analyzer;

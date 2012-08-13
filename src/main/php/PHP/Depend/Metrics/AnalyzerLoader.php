@@ -36,30 +36,28 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics;
 
 /**
  * This class provides a simple way to load all required analyzers by class,
  * implemented interface or parent class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_AnalyzerLoader
+class AnalyzerLoader
 {
     /**
      * @var boolean
@@ -69,7 +67,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
     /**
      * Stack of loaded analyzers.
      *
-     * @var PHP_Depend_Metrics_Analyzer[][]
+     * @var \PHP\Depend\Metrics\Analyzer[][]
      */
     private $steps = array();
 
@@ -80,7 +78,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
     /**
      * The system wide used cache.
      *
-     * @var PHP_Depend_Util_Cache_Driver
+     * @var \PHP_Depend_Util_Cache_Driver
      * @since 1.0.0
      */
     private $cache;
@@ -88,21 +86,21 @@ class PHP_Depend_Metrics_AnalyzerLoader
     /**
      * Used locator for installed analyzer classes.
      *
-     * @var PHP_Depend_Metrics_AnalyzerClassLocator
+     * @var \PHP_Depend_Metrics_AnalyzerClassLocator
      */
     private $classLocator;
 
     /**
      * Constructs a new analyzer loader.
      *
-     * @param PHP_Depend_Metrics_AnalyzerClassLocator $classLocator
-     * @param PHP_Depend_Util_Cache_Driver $cache
+     * @param \PHP_Depend_Metrics_AnalyzerClassLocator $classLocator
+     * @param \PHP_Depend_Util_Cache_Driver $cache
      * @param string[] $acceptedTypes
      * @param array $options
      */
     public function __construct(
-        PHP_Depend_Metrics_AnalyzerClassLocator $classLocator,
-        PHP_Depend_Util_Cache_Driver $cache,
+        \PHP_Depend_Metrics_AnalyzerClassLocator $classLocator,
+        \PHP_Depend_Util_Cache_Driver $cache,
         array $acceptedTypes,
         array $options = array()
     )
@@ -115,10 +113,10 @@ class PHP_Depend_Metrics_AnalyzerLoader
     }
 
     /**
-     * Returns an array of {@link PHP_Depend_Metrics_Analyzer} objects
+     * Returns an array of {@link \PHP\Depend\Metrics\Analyzer} objects
      * that match against the configured analyzer types.
      *
-     * @return PHP_Depend_Metrics_Analyzer[][]
+     * @return \PHP\Depend\Metrics\Analyzer[][]
      */
     public function getAnalyzers()
     {
@@ -150,9 +148,9 @@ class PHP_Depend_Metrics_AnalyzerLoader
     /**
      * Filters all analyzers that are not enabled.
      *
-     * @param PHP_Depend_Metrics_Analyzer[] $analyzers
+     * @param \PHP\Depend\Metrics\Analyzer[] $analyzers
      *
-     * @return PHP_Depend_Metrics_Analyzer[]
+     * @return \PHP\Depend\Metrics\Analyzer[]
      */
     private function filter(array $analyzers)
     {
@@ -172,7 +170,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
      *
      * @param array $types Accepted/expected analyzer types.
      *
-     * @return PHP_Depend_Metrics_Analyzer[]
+     * @return \PHP\Depend\Metrics\Analyzer[]
      */
     private function loadByType(array $types)
     {
@@ -191,13 +189,13 @@ class PHP_Depend_Metrics_AnalyzerLoader
      * This method checks if the given analyzer class implements one of the
      * expected analyzer types.
      *
-     * @param ReflectionClass $reflection
+     * @param \ReflectionClass $reflection
      * @param array $types
      *
      * @return boolean
      * @since 0.9.10
      */
-    private function isInstanceOf(ReflectionClass $reflection, array $types)
+    private function isInstanceOf(\ReflectionClass $reflection, array $types)
     {
         foreach ($types as $type) {
 
@@ -220,12 +218,12 @@ class PHP_Depend_Metrics_AnalyzerLoader
      * This method creates a new analyzer instance or returns a previously
      * created instance of the given reflection instance.
      *
-     * @param ReflectionClass $reflection Reflection class for an analyzer.
+     * @param \ReflectionClass $reflection Reflection class for an analyzer.
      *
-     * @return PHP_Depend_Metrics_Analyzer
+     * @return \PHP\Depend\Metrics\Analyzer
      * @since 0.9.10
      */
-    private function createOrReturnAnalyzer(ReflectionClass $reflection)
+    private function createOrReturnAnalyzer(\ReflectionClass $reflection)
     {
         $name = $reflection->getName();
         foreach ($this->steps as $step) {
@@ -241,12 +239,12 @@ class PHP_Depend_Metrics_AnalyzerLoader
     /**
      * Creates an analyzer instance of the given reflection class instance.
      *
-     * @param ReflectionClass $reflection Reflection class for an analyzer.
+     * @param \ReflectionClass $reflection Reflection class for an analyzer.
      *
-     * @return PHP_Depend_Metrics_Analyzer
+     * @return \PHP\Depend\Metrics\Analyzer
      * @since 0.9.10
      */
-    private function createAndConfigure(ReflectionClass $reflection)
+    private function createAndConfigure(\ReflectionClass $reflection)
     {
         if ($reflection->getConstructor()) {
 
@@ -262,18 +260,18 @@ class PHP_Depend_Metrics_AnalyzerLoader
     /**
      * Initializes the given analyzer instance.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer Context analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
-     * @return PHP_Depend_Metrics_Analyzer
+     * @return \PHP\Depend\Metrics\Analyzer
      * @since 0.9.10
      */
-    private function configure(PHP_Depend_Metrics_Analyzer $analyzer)
+    private function configure(Analyzer $analyzer)
     {
-        if ($analyzer instanceof PHP_Depend_Metrics_CacheAware) {
+        if ($analyzer instanceof CacheAware) {
             $analyzer->setCache($this->cache);
         }
 
-        if (!($analyzer instanceof PHP_Depend_Metrics_AggregateAnalyzerI)) {
+        if (!($analyzer instanceof AggregateAnalyzer)) {
 
             $this->steps[0][get_class($analyzer)] = $analyzer;
 
@@ -282,6 +280,7 @@ class PHP_Depend_Metrics_AnalyzerLoader
 
         $required = $this->loadByType($analyzer->getRequiredAnalyzers());
         foreach ($required as $requiredAnalyzer) {
+
             $analyzer->addAnalyzer($requiredAnalyzer);
         }
 

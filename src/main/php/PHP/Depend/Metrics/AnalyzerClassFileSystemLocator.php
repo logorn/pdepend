@@ -143,7 +143,7 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
                         $dir, $file->getPathname()
                     );
 
-                    if (!class_exists($className)) {
+                    if (!class_exists($className, false)) {
 
                         include_once $file->getPathname();
                     }
@@ -184,7 +184,7 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
      */
     private function isAnalyzerClass($class)
     {
-        return class_exists($class) && $this->implementsInterface($class);
+        return class_exists($class, false) && $this->implementsInterface($class);
     }
 
     /**
@@ -196,7 +196,8 @@ class PHP_Depend_Metrics_AnalyzerClassFileSystemLocator
      */
     private function implementsInterface($class)
     {
-        $expectedType = 'PHP_Depend_Metrics_Analyzer';
+        $expectedType = 'PHP\Depend\Metrics\Analyzer';
+
         return in_array($expectedType, class_implements($class));
     }
 }

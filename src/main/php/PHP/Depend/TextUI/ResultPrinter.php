@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\AST\ASTNode;
+use \PHP\Depend\Metrics\Analyzer;
 
 /**
  * Prints current the PDepend status information.
@@ -168,11 +169,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Is called when PDepend starts a new analyzer.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The context analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    public function startAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function startAnalyzer(Analyzer $analyzer)
     {
         $this->count = 0;
 
@@ -183,11 +184,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Is called when PDepend has finished one analyzing process.
      *
-     * @param PHP_Depend_Metrics_Analyzer $analyzer The context analyzer instance.
+     * @param \PHP\Depend\Metrics\Analyzer $analyzer
      *
      * @return void
      */
-    public function endAnalyzer(PHP_Depend_Metrics_Analyzer $analyzer)
+    public function endAnalyzer(Analyzer $analyzer)
     {
         $this->finish(self::STEP_SIZE);
     }

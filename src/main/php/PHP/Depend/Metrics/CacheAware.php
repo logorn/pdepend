@@ -36,40 +36,38 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      1.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     1.0.0
  */
+
+namespace PHP\Depend\Metrics;
 
 /**
  * Simple marker interface that is used to mark an analyzer as cache aware. This
  * means that the loading infrastructure code will inject an instance of
- * {@link PHP_Depend_Util_Cache_Driver} into this analyzer.
+ * {@link \PHP_Depend_Util_Cache_Driver} into this analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      1.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     1.0.0
  */
-interface PHP_Depend_Metrics_CacheAware extends PHP_Depend_Metrics_Analyzer
+interface CacheAware extends Analyzer
 {
     /**
      * Setter method for the system wide used cache.
      *
-     * @param PHP_Depend_Util_Cache_Driver $cache Used cache object.
+     * @param \PHP_Depend_Util_Cache_Driver $cache Used cache object.
      *
      * @return void
      */
-    public function setCache(PHP_Depend_Util_Cache_Driver $cache);
+    public function setCache(\PHP_Depend_Util_Cache_Driver $cache);
 }

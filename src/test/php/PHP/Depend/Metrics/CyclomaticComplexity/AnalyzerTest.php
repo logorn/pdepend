@@ -60,7 +60,7 @@ use \PHP\Depend\Metrics\Processor\DefaultProcessor;
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_AbstractCachingAnalyzer
+ * @covers \PHP\Depend\Metrics\AbstractCachingAnalyzer
  * @covers PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
