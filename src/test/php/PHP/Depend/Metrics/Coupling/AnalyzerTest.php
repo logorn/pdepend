@@ -777,7 +777,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->assertEquals(
             array('calls', 'fanout'),
-            array_keys($this->_calculateProjectMetrics())
+            array_keys($this->calculateProjectMetrics())
         );
     }
 
@@ -791,7 +791,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->assertEquals(
             array('calls' => 10, 'fanout' => 7),
-            $this->_calculateProjectMetrics()
+            $this->calculateProjectMetrics()
         );
     }
 
@@ -805,7 +805,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->assertEquals(
             array('calls' => 8, 'fanout' => 9),
-            $this->_calculateProjectMetrics()
+            $this->calculateProjectMetrics()
         );
     }
 
@@ -819,7 +819,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->assertEquals(
             array('calls' => 0, 'fanout' => 3),
-            $this->_calculateProjectMetrics()
+            $this->calculateProjectMetrics()
         );
     }
 
@@ -833,7 +833,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->assertEquals(
             array('calls' => 8, 'fanout' => 12),
-            $this->_calculateProjectMetrics()
+            $this->calculateProjectMetrics()
         );
     }
 
@@ -847,7 +847,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->assertEquals(
             array('calls' => 26, 'fanout' => 31),
-            $this->_calculateProjectMetrics()
+            $this->calculateProjectMetrics()
         );
     }
 
@@ -859,7 +859,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      */
     public function testGetNodeMetricsForTrait()
     {
-        $metrics = $this->_calculateTraitMetrics();
+        $metrics = $this->calculateTraitMetrics();
         $this->assertInternalType('array', $metrics);
 
         return $metrics;
@@ -989,7 +989,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * @return mixed
      * @since 1.0.6
      */
-    private function _calculateTraitMetrics()
+    private function calculateTraitMetrics()
     {
         $this->markTestSkipped('TODO 2.0');
         $packages = $this->parseCodeResourceForTest();
@@ -1014,7 +1014,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     public function testAnalyzerCalculatesExpectedCallCount($testCase, $calls, $fanout)
     {
         $expected = array('calls'  => $calls, 'fanout' => $fanout);
-        $actual   = $this->_calculateProjectMetrics($testCase);
+        $actual   = $this->calculateProjectMetrics($testCase);
 
         $this->assertEquals($expected, $actual);
     }
@@ -1028,7 +1028,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * @return array(string=>mixed)
      * @since 0.10.2
      */
-    private function _calculateProjectMetrics($testCase = null)
+    private function calculateProjectMetrics($testCase = null)
     {
         $testCase = ($testCase ? $testCase : self::getCallingTestMethod());
 

@@ -83,7 +83,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
             mkdir($run, 0755);
         }
 
-        $this->_clearRunResources($run);
+        $this->clearRunResources($run);
 
         if (defined('STDERR') === false) {
             define('STDERR', fopen('php://stderr', true));
@@ -106,7 +106,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->_clearRunResources();
+        $this->clearRunResources();
         $this->resetWorkingDirectory();
 
         parent::tearDown();
@@ -401,7 +401,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    private function _clearRunResources($dir = null)
+    private function clearRunResources($dir = null)
     {
         if ($dir === null) {
             $dir = __DIR__ . '/_run';
@@ -413,7 +413,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
             }
             $pathName = realpath($file->getPathname());
             if ($file->isDir()) {
-                $this->_clearRunResources($pathName);
+                $this->clearRunResources($pathName);
                 rmdir($pathName);
             } else {
                 unlink($pathName);
@@ -551,7 +551,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         $path .= PATH_SEPARATOR . get_include_path();
         set_include_path($path);
 
-        self::_initVersionCompatibility();
+        self::initVersionCompatibility();
     }
 
     /**
@@ -561,7 +561,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    private static function _initVersionCompatibility()
+    private static function initVersionCompatibility()
     {
         $reflection = new ReflectionClass('Iterator');
         $extension  = strtolower($reflection->getExtensionName());

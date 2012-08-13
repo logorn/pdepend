@@ -58,10 +58,11 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers     PHP_Depend_Util_FileUtil
- * @group      pdepend
- * @group      pdepend::util
- * @group      unittest
+ * @covers PHP_Depend_Util_FileUtil
+ * @group  pdepend
+ * @group  pdepend::util
+ * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
 {
@@ -72,7 +73,7 @@ class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
      */
     public function testGetSysTempDirReturnsExpectedDirectory()
     {
-        self::assertEquals(
+        $this->assertEquals(
             sys_get_temp_dir(),
             PHP_Depend_Util_FileUtil::getSysTempDir()
         );
@@ -85,7 +86,7 @@ class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
      */
     public function testGetUserHomeDirReturnsExpectedDirectory()
     {
-        self::assertEquals(
+        $this->assertEquals(
             getenv('HOME'),
             PHP_Depend_Util_FileUtil::getUserHomeDir()
         );
@@ -98,7 +99,7 @@ class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
      */
     public function testGetUserHomeDirOrSysTempDirReturnsExpectedUserHomeDirectory()
     {
-        self::assertEquals(
+        $this->assertEquals(
             getenv('HOME'),
             PHP_Depend_Util_FileUtil::getUserHomeDirOrSysTempDir()
         );

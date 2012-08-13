@@ -96,7 +96,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
         $functions = $packages->current()
             ->getFunctions();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $expected = array(
@@ -154,7 +154,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->current()
             ->getSourceFile();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $actual   = $analyzer->getNodeMetrics($file);
@@ -181,7 +181,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);
@@ -200,7 +200,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);
@@ -219,7 +219,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);
@@ -239,7 +239,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->current()
             ->getSourceFile();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $actual   = $analyzer->getNodeMetrics($file);
@@ -265,7 +265,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $actual   = $analyzer->getNodeMetrics($class);
@@ -292,7 +292,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->current()
             ->getSourceFile();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $actual   = $analyzer->getNodeMetrics($file);
@@ -318,7 +318,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getInterfaces()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $actual   = $analyzer->getNodeMetrics($interface);
@@ -341,7 +341,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
     {
         $packages = self::parseTestCaseSource(__METHOD__);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $actual   = $analyzer->getProjectMetrics();
@@ -370,7 +370,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getMethods()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($method);
@@ -391,7 +391,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getMethods()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($method);
@@ -410,7 +410,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);
@@ -429,7 +429,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);
@@ -443,7 +443,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedProjectLLocForFileWithInterfaces()
     {
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze(self::parseTestCaseSource(__METHOD__));
 
         $metrics = $analyzer->getProjectMetrics();
@@ -464,12 +464,12 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->current()
             ->getSourceFile();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics0 = $analyzer->getNodeMetrics($file);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics1 = $analyzer->getNodeMetrics($file);
@@ -490,12 +490,12 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getClasses()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics0 = $analyzer->getNodeMetrics($class);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics1 = $analyzer->getNodeMetrics($class);
@@ -516,12 +516,12 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getInterfaces()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics0 = $analyzer->getNodeMetrics($interface);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics1 = $analyzer->getNodeMetrics($interface);
@@ -544,12 +544,12 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getMethods()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics0 = $analyzer->getNodeMetrics($method);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics1 = $analyzer->getNodeMetrics($method);
@@ -570,12 +570,12 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
             ->getFunctions()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics0 = $analyzer->getNodeMetrics($function);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics1 = $analyzer->getNodeMetrics($function);
@@ -593,12 +593,12 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
     {
         $packages = self::parseCodeResourceForTest();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics0 = $analyzer->getProjectMetrics();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics1 = $analyzer->getProjectMetrics();
@@ -613,7 +613,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForReturnStatement()
     {
-        self::assertEquals(1, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(1, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -623,7 +623,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForIfAndElseIfStatement()
     {
-        self::assertEquals(5, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(5, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -633,7 +633,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForForStatement()
     {
-        self::assertEquals(3, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(3, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -643,7 +643,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForSwitchStatement()
     {
-        self::assertEquals(7, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(7, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -653,7 +653,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForTryCatchStatement()
     {
-        self::assertEquals(8, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(8, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -663,7 +663,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForForeachStatement()
     {
-        self::assertEquals(2, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(2, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -673,7 +673,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForWhileStatement()
     {
-        self::assertEquals(2, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(2, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -683,7 +683,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      */
     public function testCalculatesExpectedLLocForDoWhileStatement()
     {
-        self::assertEquals(3, $this->_calculateFunctionMetric('lloc'));
+        self::assertEquals(3, $this->calculateFunctionMetric('lloc'));
     }
 
     /**
@@ -696,7 +696,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
         $file = new PHP_Depend_Code_File(null);
         $file->setUUID(42);
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->visitFile($file);
 
         $metrics = $analyzer->getNodeMetrics($file);
@@ -712,14 +712,14 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      * @return mixed
      * @since 0.10.2
      */
-    private function _calculateFunctionMetric($name)
+    private function calculateFunctionMetric($name)
     {
         $packages = self::parseTestCaseSource(self::getCallingTestMethod());
         $function = $packages->current()
             ->getFunctions()
             ->current();
 
-        $analyzer = $this->_createAnalyzer();
+        $analyzer = $this->createAnalyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($function);
@@ -732,7 +732,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
      * @return PHP_Depend_Metrics_NodeLoc_Analyzer
      * @since 1.0.0
      */
-    private function _createAnalyzer()
+    private function createAnalyzer()
     {
         $analyzer = new PHP_Depend_Metrics_NodeLoc_Analyzer();
         $analyzer->setCache($this->cache);

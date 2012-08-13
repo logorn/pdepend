@@ -58,7 +58,12 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers     PHP_Depend_Util_Cache_Driver_File
+ * @covers PHP_Depend_Util_Cache_Driver_File
+ * @group  pdepend
+ * @group  pdepend::util
+ * @group  pdepend::util::cache
+ * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Util_Cache_Driver_FileTest
     extends PHP_Depend_Util_Cache_AbstractDriverTest

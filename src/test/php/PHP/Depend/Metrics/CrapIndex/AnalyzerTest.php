@@ -99,7 +99,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyzerIsEnabledReturnsTrueWhenCoverageReportFileWasSupplied()
     {
-        $options  = array('coverage-report' => $this->_createCloverReportFile());
+        $options  = array('coverage-report' => $this->createCloverReportFile());
         $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer($options);
 
         self::assertTrue($analyzer->isEnabled());
@@ -112,7 +112,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyzerIgnoresAbstractMethods()
     {
-        $metrics = $this->_calculateCrapIndex(__METHOD__, 42);
+        $metrics = $this->calculateCrapIndex(__METHOD__, 42);
         self::assertSame(array(), $metrics);
     }
 
@@ -123,7 +123,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyzerIgnoresInterfaceMethods()
     {
-        $metrics = $this->_calculateCrapIndex(__METHOD__, 42);
+        $metrics = $this->calculateCrapIndex(__METHOD__, 42);
         self::assertSame(array(), $metrics);
     }
 
@@ -134,7 +134,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyzerReturnsExpectedResultForMethodWithoutCoverage()
     {
-        $this->_testCrapIndexCalculation(__METHOD__, 12, 156);
+        $this->testCrapIndexCalculation(__METHOD__, 12, 156);
     }
 
     /**
@@ -144,7 +144,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage()
     {
-        $this->_testCrapIndexCalculation(__METHOD__, 12, 12);
+        $this->testCrapIndexCalculation(__METHOD__, 12, 12);
     }
 
     /**
@@ -154,7 +154,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyzerReturnsExpectedResultForMethodWith50PercentCoverage()
     {
-        $this->_testCrapIndexCalculation(__METHOD__, 12, 30);
+        $this->testCrapIndexCalculation(__METHOD__, 12, 30);
     }
 
     /**
@@ -164,7 +164,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyterReturnsExpectedResultForMethodWithoutCoverageData()
     {
-        $this->_testCrapIndexCalculation(__METHOD__, 12, 156);
+        $this->testCrapIndexCalculation(__METHOD__, 12, 156);
     }
 
     /**
@@ -174,7 +174,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testAnalyterReturnsExpectedResultForFunctionWithoutCoverageData()
     {
-        $this->_testCrapIndexCalculation(__METHOD__, 12, 156);
+        $this->testCrapIndexCalculation(__METHOD__, 12, 156);
     }
 
     /**
@@ -186,9 +186,9 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      *
      * @return void
      */
-    private function _testCrapIndexCalculation($testCase, $ccn, $crapIndex)
+    private function testCrapIndexCalculation($testCase, $ccn, $crapIndex)
     {
-        $metrics = $this->_calculateCrapIndex($testCase, $ccn);
+        $metrics = $this->calculateCrapIndex($testCase, $ccn);
         self::assertEquals($crapIndex, $metrics['crap'], '', 0.005);
     }
 
@@ -200,13 +200,13 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      *
      * @return array
      */
-    private function _calculateCrapIndex($testCase, $ccn)
+    private function calculateCrapIndex($testCase, $ccn)
     {
         $packages = self::parseCodeResourceForTest();
 
-        $options  = array('coverage-report' => $this->_createCloverReportFile());
+        $options  = array('coverage-report' => $this->createCloverReportFile());
         $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer($options);
-        $analyzer->addAnalyzer($this->_createCyclomaticComplexityAnalyzerMock($ccn));
+        $analyzer->addAnalyzer($this->createCyclomaticComplexityAnalyzerMock($ccn));
         $analyzer->analyze($packages);
 
         $packages->rewind();
@@ -232,7 +232,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      *
      * @return string
      */
-    private function _createCloverReportFile()
+    private function createCloverReportFile()
     {
         $pathName = self::createRunResourceURI('clover.xml');
 
@@ -250,7 +250,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      *
      * @return PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      */
-    private function _createCyclomaticComplexityAnalyzerMock($ccn = 42)
+    private function createCyclomaticComplexityAnalyzerMock($ccn = 42)
     {
         $mock = $this->getMock(PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ);
         $mock->expects($this->any())

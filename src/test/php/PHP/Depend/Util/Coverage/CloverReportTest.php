@@ -58,11 +58,11 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers     PHP_Depend_Util_Coverage_CloverReport
- * @group      pdepend
- * @group      pdepend::util
- * @group      pdepend::util::coverage
- * @group      unittest
+ * @covers PHP_Depend_Util_Coverage_CloverReport
+ * @group  pdepend
+ * @group  pdepend::util
+ * @group  pdepend::util::coverage
+ * @group  unittest
  */
 class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
 {
@@ -73,8 +73,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testReportReturnsExpected0PercentCoverage()
     {
-        $report   = $this->_createCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(0, $coverage);
     }
@@ -86,8 +86,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testReportReturnsExpected50PercentCoverage()
     {
-        $report   = $this->_createCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(50, $coverage);
     }
@@ -99,8 +99,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testReportReturnsExpected100PercentCoverage()
     {
-        $report   = $this->_createCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(100, $coverage);
     }
@@ -112,8 +112,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testNamespacedReportReturnsExpected0PercentCoverage()
     {
-        $report   = $this->_createNamespacedCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createNamespacedCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(0, $coverage);
     }
@@ -125,8 +125,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testNamespacedReportReturnsExpected50PercentCoverage()
     {
-        $report   = $this->_createNamespacedCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createNamespacedCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(50, $coverage);
     }
@@ -138,8 +138,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testNamespacedReportReturnsExpected100PercentCoverage()
     {
-        $report   = $this->_createNamespacedCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createNamespacedCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(100, $coverage);
     }
@@ -151,8 +151,8 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      */
     public function testGetCoverageReturnsZeroCoverageWhenNoMatchingEntryExists()
     {
-        $report   = $this->_createCloverReport();
-        $coverage = $report->getCoverage($this->_createMethodMock(__FUNCTION__));
+        $report   = $this->createCloverReport();
+        $coverage = $report->getCoverage($this->createMethodMock(__FUNCTION__));
 
         self::assertEquals(0, $coverage);
     }
@@ -162,7 +162,7 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      *
      * @return PHP_Depend_Util_Coverage_CloverReport
      */
-    private function _createCloverReport()
+    private function createCloverReport()
     {
         $sxml = simplexml_load_file(__DIR__ . '/_files/clover.xml');
         return new PHP_Depend_Util_Coverage_CloverReport($sxml);
@@ -173,7 +173,7 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      *
      * @return PHP_Depend_Util_Coverage_CloverReport
      */
-    private function _createNamespacedCloverReport()
+    private function createNamespacedCloverReport()
     {
         $sxml = simplexml_load_file(__DIR__ . '/_files/clover-namespaced.xml');
         return new PHP_Depend_Util_Coverage_CloverReport($sxml);
@@ -186,7 +186,7 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      *
      * @return PHP_Depend_Code_Method
      */
-    private function _createMethodMock($name)
+    private function createMethodMock($name)
     {
         $file = $this->getMock('PHP_Depend_Code_File', array(), array(null));
         $file->expects($this->any())

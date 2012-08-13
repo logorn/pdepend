@@ -309,7 +309,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
             )
         );
 
-        $actual = $this->_runCommandAndReturnStatistics(
+        $actual = $this->runCommandAndReturnStatistics(
             array(
                 '--suffix=inc',
                 '--without-annotations',
@@ -352,7 +352,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
             )
         );
 
-        $actual = $this->_runCommandAndReturnStatistics(
+        $actual = $this->runCommandAndReturnStatistics(
             array(),
             self::createCodeResourceUriForTest()
         );
@@ -367,7 +367,7 @@ class CommandTest extends \PHP_Depend_AbstractTest
      *
      * @return array
      */
-    private function _runCommandAndReturnStatistics(array $argv, $pathName)
+    private function runCommandAndReturnStatistics(array $argv, $pathName)
     {
         $logFile = self::createRunResourceURI();
 

@@ -60,12 +60,12 @@ use \PHP\Depend\Log\LogProcessor;
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers     PHP_Depend_Log_Summary_Xml
- * @group      pdepend
- * @group      pdepend::log
- * @group      pdepend::log::summary
- * @group      unittest
- * @group      2.0
+ * @covers PHP_Depend_Log_Summary_Xml
+ * @group  pdepend
+ * @group  pdepend::log
+ * @group  pdepend::log::summary
+ * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
 {
