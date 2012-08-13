@@ -46,6 +46,7 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTCallable;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
@@ -66,9 +67,8 @@ use \PHP\Depend\Metrics\NodeAware;
  */
 class PHP_Depend_Metrics_CrapIndex_Analyzer
     extends PHP_Depend_Metrics_AbstractAnalyzer
-    /* TODO 2.0
    implements PHP_Depend_Metrics_AggregateAnalyzerI,
-              NodeAware*/
+              NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -117,17 +117,29 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     }
 
     /**
-     * Returns the calculated metrics for the given node or an empty <b>array</b>
-     * when no metrics exist for the given node.
+     * This method will return an <b>array</b> with all generated metric values
+     * for the given node or node identifier. If there are no metrics for the
+     * requested node, this method will return an empty <b>array</b>.
      *
-     * @param PHP_Depend_Code_NodeI $node The context source node instance.
+     * <code>
+     * array(
+     *     'noc'  =>  23,
+     *     'nom'  =>  17,
+     *     'nof'  =>  42
+     * )
+     * </code>
      *
-     * @return array(string=>float)
+     * @param \PHP\Depend\AST\ASTNode|string $node
+     *
+     * @return array
      */
     public function getNodeMetrics($node)
     {
-        if (isset($this->metrics[$node->getUUID()])) {
-            return $this->metrics[$node->getUUID()];
+        $nodeId = (string) is_object($node) ? $node->getId() : $node;
+
+        if (isset($this->metrics[$nodeId])) {
+
+            return $this->metrics[$nodeId];
         }
         return array();
     }
@@ -218,13 +230,13 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Visits the given callable instance.
      *
-     * @param PHP_Depend_Code_AbstractCallable $callable The context callable.
+     * @param \PHP\Depend\AST\ASTCallable $callable
      *
      * @return void
      */
-    private function visitCallable(PHP_Depend_Code_AbstractCallable $callable)
+    private function visitCallable(ASTCallable $callable)
     {
-        $this->metrics[$callable->getUUID()] = array(
+        $this->metrics[$callable->getId()] = array(
             self::M_CRAP_INDEX => $this->calculateCrapIndex($callable)
         );
     }
@@ -232,11 +244,11 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Calculates the crap index for the given callable.
      *
-     * @param PHP_Depend_Code_AbstractCallable $callable The context callable.
+     * @param \PHP\Depend\AST\ASTCallable $callable
      *
      * @return float
      */
-    private function calculateCrapIndex(PHP_Depend_Code_AbstractCallable $callable)
+    private function calculateCrapIndex(ASTCallable $callable)
     {
         $report = $this->createOrReturnCoverageReport();
 
@@ -244,8 +256,10 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
         $coverage   = $report->getCoverage($callable);
 
         if ($coverage == 0) {
+
             return pow($complexity, 2) + $complexity;
         } else if ($coverage > 99.5) {
+
             return $complexity;
         }
         return pow($complexity, 2) * pow(1 - $coverage / 100, 3) + $complexity;
@@ -260,6 +274,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     private function createOrReturnCoverageReport()
     {
         if ($this->report === null) {
+
             $this->report = $this->createCoverageReport();
         }
         return $this->report;
@@ -273,6 +288,6 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     private function createCoverageReport()
     {
         $factory = new PHP_Depend_Util_Coverage_Factory();
-        return $factory->create($this->options['coverage-report']);
+        return $factory->create($this->options[self::REPORT_OPTION]);
     }
 }

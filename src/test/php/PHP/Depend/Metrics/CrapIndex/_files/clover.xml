@@ -2,8 +2,8 @@
 <coverage generated="1265694896" phpunit="3.4.10">
     <project name="org::pdepend::reflection::AllTests" timestamp="1265694896">
         <package name="Package_foo">
-            <file name="${pathName}/testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage.php">
-                <class name="testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage"
+            <file name="${pathName}/testCrapIndexForMethodWith100PercentCoverage.php">
+                <class name="testCrapIndexForMethodWith100PercentCoverage"
                        fullPackage="Package_foo" category="PHP"
                        package="Package_foo">
                     <metrics methods="4" coveredmethods="4" statements="15"
@@ -18,8 +18,8 @@
                          coveredstatements="17" elements="21"
                          coveredelements="21" />
             </file>
-            <file name="${pathName}/testAnalyzerReturnsExpectedResultForMethodWithoutCoverage.php">
-                <class name="testAnalyzerReturnsExpectedResultForMethodWithoutCoverage"
+            <file name="${pathName}/testCrapIndexForMethodWithoutCoverage.php">
+                <class name="testCrapIndexForMethodWithoutCoverage"
                        fullPackage="Package_foo" category="PHP"
                        package="Package_foo">
                     <metrics methods="4" coveredmethods="4" statements="15"
@@ -27,8 +27,8 @@
                              coveredelements="19" />
                 </class>
             </file>
-            <file name="${pathName}/testAnalyzerReturnsExpectedResultForMethodWith50PercentCoverage.php">
-                <class name="testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage"
+            <file name="${pathName}/testCrapIndexForMethodWith50PercentCoverage.php">
+                <class name="testCrapIndexForMethodWith50PercentCoverage"
                        fullPackage="Package_foo" category="PHP"
                        package="Package_foo">
                     <metrics methods="4" coveredmethods="4" statements="15"

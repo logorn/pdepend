@@ -1,7 +1,7 @@
 <?php
-class testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage
+class testCrapIndexForMethodWithoutCoverageData
 {
-    function foo()
+    public function foo()
     {
         $x = (true ? ($y ? 42 : ($z || $foo ? ($a && $b) : 17)) : 23);
     }

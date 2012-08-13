@@ -1,5 +1,5 @@
 <?php
-class testAnalyzerReturnsExpectedResultForMethodWith50PercentCoverage
+class testCrapIndexForMethodWith50PercentCoverage
 {
     function foo()
     {

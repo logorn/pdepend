@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 /**
  * Test cases for the {@link PHP_Depend_Metrics_CrapIndex_Analyzer} class.
  *
@@ -58,73 +60,74 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  *
- * @covers     PHP_Depend_Metrics_CrapIndex_Analyzer
- * @group      pdepend
- * @group      pdepend::metrics
- * @group      pdepend::metrics::crapindex
- * @group      unittest
+ * @covers PHP_Depend_Metrics_CrapIndex_Analyzer
+ * @group  pdepend
+ * @group  pdepend::metrics
+ * @group  pdepend::metrics::crapindex
+ * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
 {
     /**
-     * testAnalyzerReturnsExpectedDependencies
+     * testReturnsExpectedDependencies
      *
      * @return void
      */
-    public function testAnalyzerReturnsExpectedDependencies()
+    public function testReturnsExpectedDependencies()
     {
         $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer();
         $actual   = $analyzer->getRequiredAnalyzers();
         $expected = array(PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ);
 
-        self::assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
-     * testAnalyzerIsEnabledReturnsFalseWhenNoCoverageReportFileWasSupplied
+     * testCrapIndexIsDisabledWhenReportNotSupplied
      *
      * @return void
      */
-    public function testAnalyzerIsEnabledReturnsFalseWhenNoCoverageReportFileWasSupplied()
+    public function testCrapIndexIsDisabledWhenReportNotSupplied()
     {
         $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer();
 
-        self::assertFalse($analyzer->isEnabled());
+        $this->assertFalse($analyzer->isEnabled());
     }
 
     /**
-     * testAnalyzerIsEnabledReturnsTrueWhenCoverageReportFileWasSupplied
+     * testCrapIndexIsEnabledWhenReportSupplied
      *
      * @return void
      */
-    public function testAnalyzerIsEnabledReturnsTrueWhenCoverageReportFileWasSupplied()
+    public function testCrapIndexIsEnabledWhenReportSupplied()
     {
         $options  = array('coverage-report' => $this->createCloverReportFile());
         $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer($options);
 
-        self::assertTrue($analyzer->isEnabled());
+        $this->assertTrue($analyzer->isEnabled());
     }
 
     /**
-     * testAnalyzerIgnoresAbstractMethods
+     * testCrapIndexIgnoresAbstractMethods
      *
      * @return void
      */
-    public function testAnalyzerIgnoresAbstractMethods()
+    public function testCrapIndexIgnoresAbstractMethods()
     {
-        $metrics = $this->calculateCrapIndex(__METHOD__, 42);
-        self::assertSame(array(), $metrics);
+        $metrics = $this->calculateCrapIndex(__FUNCTION__ . 'foo()#m', 42);
+        $this->assertSame(array(), $metrics);
     }
 
     /**
-     * testAnalyzerIgnoresInterfaceMethods
+     * testCrapIndexIgnoresInterfaceMethods
      *
      * @return void
      */
-    public function testAnalyzerIgnoresInterfaceMethods()
+    public function testCrapIndexIgnoresInterfaceMethods()
     {
-        $metrics = $this->calculateCrapIndex(__METHOD__, 42);
-        self::assertSame(array(), $metrics);
+        $metrics = $this->calculateCrapIndex(__FUNCTION__ . 'foo()#m', 42);
+        $this->assertSame(array(), $metrics);
     }
 
     /**
@@ -132,99 +135,85 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      *
      * @return void
      */
-    public function testAnalyzerReturnsExpectedResultForMethodWithoutCoverage()
+    public function testCrapIndexForMethodWithoutCoverage()
     {
-        $this->testCrapIndexCalculation(__METHOD__, 12, 156);
+        $this->doTestCrapIndexCalculation(__FUNCTION__ . '::foo()#m', 12, 156);
     }
 
     /**
-     * testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage
+     * testCrapIndexForMethodWith100PercentCoverage
      *
      * @return void
      */
-    public function testAnalyzerReturnsExpectedResultForMethodWith100PercentCoverage()
+    public function testCrapIndexForMethodWith100PercentCoverage()
     {
-        $this->testCrapIndexCalculation(__METHOD__, 12, 12);
+        $this->doTestCrapIndexCalculation(__FUNCTION__ . '::foo()#m', 12, 12);
     }
 
     /**
-     * testAnalyzerReturnsExpectedResultForMethodWith50PercentCoverage
+     * testCrapIndexForMethodWith50PercentCoverage
      *
      * @return void
      */
-    public function testAnalyzerReturnsExpectedResultForMethodWith50PercentCoverage()
+    public function testCrapIndexForMethodWith50PercentCoverage()
     {
-        $this->testCrapIndexCalculation(__METHOD__, 12, 30);
+        $this->doTestCrapIndexCalculation(__FUNCTION__ . '::foo()#m', 12, 30);
     }
 
     /**
-     * testAnalyterReturnsExpectedResultForMethodWithoutCoverageData
+     * testCrapIndexForMethodWithoutCoverageData
      *
      * @return void
      */
-    public function testAnalyterReturnsExpectedResultForMethodWithoutCoverageData()
+    public function testCrapIndexForMethodWithoutCoverageData()
     {
-        $this->testCrapIndexCalculation(__METHOD__, 12, 156);
+        $this->doTestCrapIndexCalculation(__FUNCTION__ . '::foo()#m', 12, 156);
     }
 
     /**
-     * testAnalyterReturnsExpectedResultForFunctionWithoutCoverageData
+     * testCrapIndexForFunctionWithoutCoverageData
      *
      * @return void
      */
-    public function testAnalyterReturnsExpectedResultForFunctionWithoutCoverageData()
+    public function testCrapIndexForFunctionWithoutCoverageData()
     {
-        $this->testCrapIndexCalculation(__METHOD__, 12, 156);
+        $this->doTestCrapIndexCalculation(__FUNCTION__ . '()#f', 12, 156);
     }
 
     /**
      * Tests the crap index algorithm implementation.
      *
-     * @param string  $testCase  Name of the calling test case.
-     * @param integer $ccn       The entire cyclomatic complexity number.
-     * @param integer $crapIndex The expected crap index.
+     * @param string  $nodeId
+     * @param integer $ccn
+     * @param integer $crapIndex
      *
      * @return void
      */
-    private function testCrapIndexCalculation($testCase, $ccn, $crapIndex)
+    private function doTestCrapIndexCalculation($nodeId, $ccn, $crapIndex)
     {
-        $metrics = $this->calculateCrapIndex($testCase, $ccn);
-        self::assertEquals($crapIndex, $metrics['crap'], '', 0.005);
+        $metrics = $this->calculateCrapIndex($nodeId, $ccn);
+        $this->assertEquals($crapIndex, $metrics['crap'], '', 0.005);
     }
 
     /**
      * Calculates the crap index.
      *
-     * @param string  $testCase Name of the calling test case.
-     * @param integer $ccn      The entire cyclomatic complexity number.
+     * @param string  $nodeId
+     * @param integer $ccn
      *
      * @return array
      */
-    private function calculateCrapIndex($testCase, $ccn)
+    private function calculateCrapIndex($nodeId, $ccn)
     {
-        $packages = self::parseCodeResourceForTest();
-
         $options  = array('coverage-report' => $this->createCloverReportFile());
         $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer($options);
         $analyzer->addAnalyzer($this->createCyclomaticComplexityAnalyzerMock($ccn));
-        $analyzer->analyze($packages);
 
-        $packages->rewind();
+        $processor = new DefaultProcessor();
+        $processor->register($analyzer);
+        $processor->process(self::parseCodeResourceForTest());
 
-        if ($packages->current()->getTypes()->count() > 0) {
-            return $analyzer->getNodeMetrics(
-                $packages->current()
-                    ->getTypes()
-                    ->current()
-                    ->getMethods()
-                    ->current()
-            );
-        }
-        return $analyzer->getNodeMetrics(
-            $packages->current()
-                ->getFunctions()
-                ->current()
-        );
+        return $analyzer->getNodeMetrics($nodeId);
     }
 
     /**
