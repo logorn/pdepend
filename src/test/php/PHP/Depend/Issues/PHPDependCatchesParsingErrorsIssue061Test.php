@@ -65,7 +65,7 @@ use \PHP\Depend\Input\ExtensionFilter;
  * @group      pdepend::issues
  * @group      pdepend::textui
  * @group      unittest
- * @g roup 2.0
+ * @group 2.0
  */
 class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
     extends PHP_Depend_Issues_AbstractTest
@@ -86,7 +86,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
 
         $exceptions = $pdepend->getExceptions();
         self::assertStringStartsWith(
-            'Unexpected token: function, line: 7, col: 41, file:',
+            'Unexpected token T_FUNCTION on line 7 in file ',
             $exceptions[0]->getMessage()
         );
     }
@@ -162,9 +162,9 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
                 self::createCodeResourceUriForTest()
             )
         );
-        list($exitCode, $output) = $this->runTextUICommand();
+        list(, $output) = $this->runTextUICommand();
 
-        self::assertContains('Unexpected token: function, line: 7, col: 41, file:', $output);
+        self::assertContains('Unexpected token T_FUNCTION on line 7 in file ', $output);
     }
 
     /**

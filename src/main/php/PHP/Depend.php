@@ -436,7 +436,9 @@ class PHP_Depend
             try {
                 $compilationUnits[] = $parser->parse($file);
             } catch (PHPParser_Error $e) {
-                $this->parseExceptions[] = $e;
+                $this->parseExceptions[] = new \RuntimeException(
+                    $e->getMessage() . ' in file ' . $file
+                );
             }
 
             $this->fireEndFileParsing($tokenizer);
@@ -597,7 +599,7 @@ class PHP_Depend
      * used to create all analyzers required for the actually registered logger
      * instances.
      *
-     * @param array $options The command line options recieved for this run.
+     * @param array $options The command line options received for this run.
      *
      * @return PHP_Depend_Metrics_AnalyzerLoader
      */
