@@ -61,7 +61,7 @@ use \PHPParser_Node_Stmt_Function;
  *
  * @property \PHP\Depend\AST\ASTType[] $thrownExceptions
  */
-class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTNode
+class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTCallable
 {
     /**
      * Will be true when this object was restored from cache.
@@ -148,6 +148,36 @@ class ASTFunction extends PHPParser_Node_Stmt_Function implements ASTNode
     public function getReturnType()
     {
         return $this->refs->getReturnType();
+    }
+
+    /**
+     * Returns the source file that contains this ast fragment.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->getAttribute('file');
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->getAttribute('startLine', -1);
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->getAttribute('endLine', -1);
     }
 
     /**

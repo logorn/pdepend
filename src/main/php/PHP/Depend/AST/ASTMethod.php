@@ -61,7 +61,7 @@ use \PHPParser_Node_Stmt_ClassMethod;
  *
  * @property \PHP\Depend\AST\ASTType[] $thrownExceptions
  */
-class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
+class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTCallable
 {
     /**
      * Reference context used to retrieve referenced nodes.
@@ -161,6 +161,36 @@ class ASTMethod extends PHPParser_Node_Stmt_ClassMethod implements ASTNode
     public function getThrownExceptions()
     {
         return $this->thrownExceptions;
+    }
+
+    /**
+     * Returns the source file that contains this ast fragment.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->getAttribute('file');
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->getAttribute('startLine', -1);
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->getAttribute('endLine', -1);
     }
 
     /**
