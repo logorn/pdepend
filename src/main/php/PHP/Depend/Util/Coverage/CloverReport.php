@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTFragment;
+
 /**
  * Coverage report implementation for clover formatted xml files.
  *
@@ -94,6 +96,7 @@ class PHP_Depend_Util_Coverage_CloverReport
     {
         $this->readFileCoverage($sxml);
         foreach ($sxml->package as $package) {
+
             $this->readFileCoverage($package);
         }
     }
@@ -111,25 +114,25 @@ class PHP_Depend_Util_Coverage_CloverReport
         foreach ($sxml->file as $file) {
             $lines = array();
             foreach ($file->line as $line) {
-                $lines[(int)$line['num']] = (0 < (int)$line['count']);
+                $lines[(int) $line['num']] = (0 < (int) $line['count']);
             }
-            $this->fileLineCoverage[(string)$file['name']] = $lines;
+            $this->fileLineCoverage[(string) $file['name']] = $lines;
         }
     }
 
     /**
      * Returns the percentage code coverage for the given item instance.
      *
-     * @param PHP_Depend_Code_AbstractItem $item The context code item.
+     * @param \PHP\Depend\AST\ASTFragment $fragment
      *
      * @return float
      */
-    public function getCoverage(PHP_Depend_Code_AbstractItem $item)
+    public function getCoverage(ASTFragment $fragment)
     {
-        $lines = $this->getLines((string)$item->getSourceFile());
+        $lines = $this->getLines($fragment->getFile());
 
-        $startLine = $item->getStartLine();
-        $endLine   = $item->getEndLine();
+        $startLine = $fragment->getStartLine();
+        $endLine   = $fragment->getEndLine();
 
         $executable = 0;
         $executed   = 0;

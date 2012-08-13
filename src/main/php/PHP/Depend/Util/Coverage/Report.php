@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AST\ASTFragment;
+
 /**
  * Base interface representing a coverage report.
  *
@@ -63,9 +65,9 @@ interface PHP_Depend_Util_Coverage_Report
     /**
      * Returns the percentage code coverage for the given item instance.
      *
-     * @param PHP_Depend_Code_AbstractItem $item The context code item.
+     * @param \PHP\Depend\AST\ASTFragment $fragment
      *
      * @return float
      */
-    function getCoverage(PHP_Depend_Code_AbstractItem $item);
+    public function getCoverage(ASTFragment $fragment);
 }

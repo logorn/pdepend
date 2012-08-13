@@ -63,6 +63,7 @@
  * @group  pdepend::util
  * @group  pdepend::util::coverage
  * @group  unittest
+ * @group  2.0
  */
 class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
 {
@@ -184,19 +185,16 @@ class PHP_Depend_Util_Coverage_CloverReportTest extends PHP_Depend_AbstractTest
      *
      * @param string $name Name of the mock method.
      *
-     * @return PHP_Depend_Code_Method
+     * @return \PHP\Depend\AST\ASTMethod
      */
     private function createMethodMock($name)
     {
-        $file = $this->getMock('PHP_Depend_Code_File', array(), array(null));
-        $file->expects($this->any())
-            ->method('__toString')
-            ->will($this->returnValue('/' . $name . '.php'));
-
-        $method = $this->getMock('PHP_Depend_Code_Method', array(), array($name));
+        $method = $this->getMockBuilder('\PHP\Depend\AST\ASTMethod')
+            ->disableOriginalConstructor()
+            ->getMock();
         $method->expects($this->once())
-            ->method('getSourceFile')
-            ->will($this->returnValue($file));
+            ->method('getFile')
+            ->will($this->returnValue('/' . $name . '.php'));
         $method->expects($this->once())
             ->method('getStartLine')
             ->will($this->returnValue(1));
