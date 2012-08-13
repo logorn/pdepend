@@ -77,6 +77,13 @@ use \PHP\Depend\AST\ASTPropertyRefs;
 class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 {
     /**
+     * The current source file.
+     *
+     * @var string
+     */
+    private $file;
+
+    /**
      * @var string
      */
     private $declaringType;
@@ -144,6 +151,9 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
         } else if ($node instanceof \PHPParser_Node_Stmt_Property) {
 
             $this->modifier = $node->type;
+        } else if ($node instanceof \PHP\Depend\AST\ASTCompilationUnit) {
+
+            $this->file = $node->getName();
         }
     }
 
@@ -248,6 +258,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
                     (string) $node->returnType
                 )
             );
+
         } else if ($node instanceof \PHPParser_Node_Stmt_Function) {
 
             $thrownExceptions = array();
@@ -308,6 +319,11 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 
                 $node->typeRef = null;
             }
+        }
+
+        if ($newNode instanceof \PHP\Depend\AST\ASTFragment) {
+
+            $newNode->setAttribute('file', $this->file);
         }
 
         return $newNode;
