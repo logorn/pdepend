@@ -109,7 +109,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      *
      * @var array
      */
-    private $_nodes = array();
+    private $nodes = array();
 
     /**
      * Hash with all calculated node metrics.
@@ -190,7 +190,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      */
     private function buildCodeRankMetrics()
     {
-        foreach (array_keys($this->_nodes) as $uuid) {
+        foreach (array_keys($this->nodes) as $uuid) {
 
             $this->metrics[$uuid] = array(
                 self::M_CODE_RANK          => 0,
@@ -223,7 +223,7 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
 
         $ranks = array();
 
-        foreach (array_keys($this->_nodes) as $name) {
+        foreach (array_keys($this->nodes) as $name) {
 
             $ranks[$name] = 1;
         }
@@ -231,13 +231,13 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         for ($i = 0; $i < self::ALGORITHM_LOOPS; $i++) {
 
             $changed = false;
-            foreach ($this->_nodes as $name => $info) {
+            foreach ($this->nodes as $name => $info) {
 
                 $rank = 0;
                 foreach ($info[$id1] as $ref) {
 
                     $previousRank = $ranks[$ref];
-                    $refCount     = count($this->_nodes[$ref][$id2]);
+                    $refCount     = count($this->nodes[$ref][$id2]);
 
                     $rank += ($previousRank / $refCount);
                 }
@@ -364,17 +364,17 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
         $this->init($in);
         $this->init($out);
 
-        $this->_nodes[$in->getId()]['in'][]   = $out->getId();
-        $this->_nodes[$out->getId()]['out'][] = $in->getId();
+        $this->nodes[$in->getId()]['in'][]   = $out->getId();
+        $this->nodes[$out->getId()]['out'][] = $in->getId();
     }
 
     private function init(ASTNode $node)
     {
-        if (isset($this->_nodes[$node->getId()])) {
+        if (isset($this->nodes[$node->getId()])) {
             return;
         }
 
-        $this->_nodes[$node->getId()] = array(
+        $this->nodes[$node->getId()] = array(
             'in'   => array(),
             'out'  => array()
         );
