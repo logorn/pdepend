@@ -61,9 +61,7 @@ use \PHPParser_NodeVisitor;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-abstract class Processor
-    extends PHPParser_NodeTraverser
-    implements PHPParser_NodeVisitor
+abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_NodeVisitor
 {
     private $regexp = '(^(visit[\w\d]+(Before|After)|(before|after)Traverse)$)';
 
@@ -265,3 +263,4 @@ abstract class Processor
         }
     }
 }
+

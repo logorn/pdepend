@@ -114,7 +114,7 @@ class DependExcludePathFilterTest extends \PHP_Depend_AbstractTest
      *
      * @return void
      */
-    public function  testPDependNotFiltersByOverlappingPathMatch()
+    public function testPDependNotFiltersByOverlappingPathMatch()
     {
         $this->changeWorkingDirectory();
 

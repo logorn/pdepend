@@ -229,3 +229,4 @@ class PHP_Depend_Util_Cache_Driver_Memory implements PHP_Depend_Util_Cache_Drive
         $this->cache = self::$staticCache[$this->staticId];
     }
 }
+

@@ -140,3 +140,4 @@ class PHP_Depend_Util_Configuration
         return isset($this->settings->{$name});
     }
 }
+

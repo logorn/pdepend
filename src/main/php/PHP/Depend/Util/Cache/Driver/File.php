@@ -292,3 +292,4 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
         return "{$path}/{$key}";
     }
 }
+

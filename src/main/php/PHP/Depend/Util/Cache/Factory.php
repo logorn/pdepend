@@ -113,13 +113,11 @@ class PHP_Depend_Util_Cache_Factory
     protected function createCache($cacheKey)
     {
         switch ($this->configuration->cache->driver) {
-
             case 'file':
                 return $this->createFileCache(
                     $this->configuration->cache->location,
                     $cacheKey
                 );
-
             case 'memory':
                 return $this->createMemoryCache();
         }
@@ -151,3 +149,4 @@ class PHP_Depend_Util_Cache_Factory
         return new PHP_Depend_Util_Cache_Driver_Memory();
     }
 }
+

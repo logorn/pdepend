@@ -104,3 +104,4 @@ class PHP_Depend_Util_Coverage_Factory
         return $sxml;
     }
 }
+

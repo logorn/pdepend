@@ -415,3 +415,4 @@ final class PHP_Depend_Util_Type
         return self::$typeNameToExtension;
     }
 }
+

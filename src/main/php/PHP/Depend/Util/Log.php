@@ -118,3 +118,4 @@ final class PHP_Depend_Util_Log
         fwrite(self::$stream, PHP_EOL . $message);
     }
 }
+

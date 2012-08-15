@@ -100,3 +100,4 @@ final class PHP_Depend_Util_FileUtil
         return getenv('HOMEDRIVE') . getenv('HOMEPATH');
     }
 }
+

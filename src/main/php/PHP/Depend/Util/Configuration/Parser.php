@@ -160,3 +160,4 @@ class PHP_Depend_Util_Configuration_Parser
         }
     }
 }
+

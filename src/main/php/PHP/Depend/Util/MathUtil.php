@@ -96,4 +96,3 @@ final class PHP_Depend_Util_MathUtil
     }
 }
 
-?>

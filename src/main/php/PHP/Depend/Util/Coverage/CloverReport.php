@@ -60,8 +60,7 @@ use \PHP\Depend\AST\ASTFragment;
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-class PHP_Depend_Util_Coverage_CloverReport
-    implements PHP_Depend_Util_Coverage_Report
+class PHP_Depend_Util_Coverage_CloverReport implements PHP_Depend_Util_Coverage_Report
 {
     /**
      * The type of this class.
@@ -166,3 +165,4 @@ class PHP_Depend_Util_Coverage_CloverReport
         return array();
     }
 }
+

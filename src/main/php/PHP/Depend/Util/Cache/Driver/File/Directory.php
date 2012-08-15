@@ -229,7 +229,7 @@ class PHP_Depend_Util_Cache_Driver_File_Directory
         $path = $file->getRealPath();
         if ($file->isDot()) {
             return;
-        } else if ($file->isFile()) {
+        } elseif ($file->isFile()) {
             unlink($path);
         } else {
             $this->flushDirectory($path);
@@ -237,3 +237,4 @@ class PHP_Depend_Util_Cache_Driver_File_Directory
         }
     }
 }
+

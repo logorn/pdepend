@@ -82,19 +82,19 @@ class PHP_Depend_Util_ImageConvert
         }
 
         if ($inputType === 'svg') {
-            self::prepareSVG($input);
+            self::prepareSvg($input);
         }
 
         if ($inputType === $outputType) {
             file_put_contents($output, file_get_contents($input));
-        } else if (extension_loaded('imagick') === true) {
+        } elseif (extension_loaded('imagick') === true) {
             $imagick = new Imagick($input);
             $imagick->setImageFormat($outputType);
             $imagick->writeImage($output);
 
             // The following code is not testable when imagick is installed
             // @codeCoverageIgnoreStart
-        } else if (self::hasImagickConvert() === true) {
+        } elseif (self::hasImagickConvert() === true) {
             $input  = escapeshellarg($input);
             $output = escapeshellarg($output);
 
@@ -149,7 +149,7 @@ class PHP_Depend_Util_ImageConvert
      *
      * @return void
      */
-    protected static function prepareSVG($input)
+    protected static function prepareSvg($input)
     {
         // Check for a configuration instance
         if (($config = PHP_Depend_Util_ConfigurationInstance::get()) === null) {
@@ -191,3 +191,4 @@ class PHP_Depend_Util_ImageConvert
         file_put_contents($input, $svg);
     }
 }
+

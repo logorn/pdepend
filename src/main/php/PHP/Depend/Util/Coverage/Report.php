@@ -71,3 +71,4 @@ interface PHP_Depend_Util_Coverage_Report
      */
     public function getCoverage(ASTFragment $fragment);
 }
+

@@ -185,3 +185,4 @@ class PHP_Depend_Util_Configuration_Factory
         return $this->parser;
     }
 }
+

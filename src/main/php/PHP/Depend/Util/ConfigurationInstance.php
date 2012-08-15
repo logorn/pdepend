@@ -89,3 +89,4 @@ class PHP_Depend_Util_ConfigurationInstance
         self::$configuration = $configuration;
     }
 }
+
