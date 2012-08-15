@@ -36,52 +36,43 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Summary;
 
 use \PHP\Depend\Log\LogProcessor;
 
 /**
  * Test case for the xml summary log.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Log_Summary_Xml
+ * @covers \PHP\Depend\Log\Summary\Xml
  * @group  pdepend
  * @group  pdepend::log
  * @group  pdepend::log::summary
  * @group  unittest
  * @group  2.0
  */
-class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
+class XmlTest extends \PHP_Depend_AbstractTest
 {
-    /**
-     * Test code structure.
-     *
-     * @var PHP_Depend_Code_NodeIterator $packages
-     */
-    protected $packages = null;
-
     /**
      * The temporary file name for the logger result.
      *
-     * @var string $resultFile
+     * @var string
      */
-    protected $resultFile = null;
+    private $resultFile = null;
 
     /**
      * Creates the package structure from a test source file.
@@ -102,7 +93,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testReturnsExceptedAnalyzers()
     {
-        $logger = new PHP_Depend_Log_Summary_Xml();
+        $logger = new Xml();
 
         $this->assertEquals(
             array(
@@ -122,11 +113,11 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
     public function testThrowsExceptionForInvalidLogTarget()
     {
         $this->setExpectedException(
-            'PHP_Depend_Log_NoLogOutputException',
-            "The log target is not configured for 'PHP_Depend_Log_Summary_Xml'."
+            '\PHP\Depend\Log\NoLogOutputException',
+            "The log target is not configured for 'PHP\\Depend\\Log\\Summary\\Xml'."
         );
 
-        $logger = new PHP_Depend_Log_Summary_Xml();
+        $logger = new Xml();
         $logger->close();
     }
 
@@ -137,8 +128,8 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testLogMethodReturnsTrueForAnalyzerOfTypeProjectAware()
     {
-        $logger = new PHP_Depend_Log_Summary_Xml();
-        $actual = $logger->log($this->getMock('\PHP\Depend\Metrics\ProjectAware'));
+        $logger = new Xml();
+        $actual = $logger->log($this->getMock('\\PHP\\Depend\\Metrics\\ProjectAware'));
 
         $this->assertTrue($actual);
     }
@@ -150,14 +141,14 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testLogMethodReturnsTrueForAnalyzerOfTypeNodeAware()
     {
-        $logger = new PHP_Depend_Log_Summary_Xml();
-        $actual = $logger->log($this->getMock('\PHP\Depend\Metrics\NodeAware'));
+        $logger = new Xml();
+        $actual = $logger->log($this->getMock('\\PHP\\Depend\\Metrics\\NodeAware'));
 
         $this->assertTrue($actual);
     }
 
     /**
-     * Tests that {@link PHP_Depend_Log_Summary_Xml::write()} generates the
+     * Tests that {@link \PHP\Depend\Log\Summary\Xml::write()} generates the
      * expected document structure for the source, but without any applied
      * metrics.
      *
@@ -165,7 +156,7 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testXmlLogWithoutMetrics()
     {
-        $log = new PHP_Depend_Log_Summary_Xml();
+        $log = new Xml();
         $log->setLogFile($this->resultFile);
 
         $processor = new LogProcessor();
@@ -191,13 +182,13 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
     {
         $metricsOne = array('interfs' => 42,
                             'cls'     => 23);
-        $resultOne  = new PHP_Depend_Log_Summary_AnalyzerProjectAwareDummy($metricsOne);
+        $resultOne  = new AnalyzerProjectAwareDummy($metricsOne);
 
         $metricsTwo = array('ncloc' => 1742,
                             'loc'   => 4217);
-        $resultTwo  = new PHP_Depend_Log_Summary_AnalyzerProjectAwareDummy($metricsTwo);
+        $resultTwo  = new AnalyzerProjectAwareDummy($metricsTwo);
 
-        $log = new PHP_Depend_Log_Summary_Xml();
+        $log = new Xml();
         $log->setLogFile($this->resultFile);
         $log->log($resultOne);
         $log->log($resultTwo);
@@ -218,12 +209,12 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testAnalyzersThatImplementProjectAndNodeAwareAsExpected()
     {
-        $analyzer = new PHP_Depend_Log_Summary_AnalyzerNodeAndProjectAwareDummy(
+        $analyzer = new AnalyzerNodeAndProjectAwareDummy(
             array('foo' => 42, 'bar' => 23),
             array('baz' => 23, 'foobar' => 42)
         );
 
-        $log = new PHP_Depend_Log_Summary_Xml();
+        $log = new Xml();
         $log->log($analyzer);
         $log->setLogFile($this->resultFile);
 
@@ -272,10 +263,10 @@ class PHP_Depend_Log_Summary_XmlTest extends PHP_Depend_AbstractTest
             'FooBar::y()#m' => array('ncloc' => 22),
         );
 
-        $resultOne = new PHP_Depend_Log_Summary_AnalyzerNodeAwareDummy($metricsOne);
-        $resultTwo = new PHP_Depend_Log_Summary_AnalyzerNodeAwareDummy($metricsTwo);
+        $resultOne = new AnalyzerNodeAwareDummy($metricsOne);
+        $resultTwo = new AnalyzerNodeAwareDummy($metricsTwo);
 
-        $log = new PHP_Depend_Log_Summary_Xml();
+        $log = new Xml();
         $log->setLogFile($this->resultFile);
         $log->log($resultOne);
         $log->log($resultTwo);

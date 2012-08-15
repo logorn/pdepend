@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Summary;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
@@ -55,6 +55,7 @@ use \PHP\Depend\AST\ASTNamespace;
 use \PHP\Depend\AST\ASTCompilationUnit;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\FileAware;
+use \PHP\Depend\Log\NoLogOutputException;
 use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\ProjectAware;
@@ -63,16 +64,14 @@ use \PHP\Depend\Metrics\ProjectAware;
  * This logger generates a summary xml document with aggregated project, class,
  * method and file metrics.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
+class Xml implements CodeAware, FileAware
 {
     /**
      * The type of this class.
@@ -101,18 +100,18 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
     private $projectAwareAnalyzers = array();
 
     /**
-     * @var DOMDocument
+     * @var \DOMDocument
      */
     private $document;
 
     /**
-     * @var DOMElement[]
+     * @var \DOMElement[]
      */
     private $elements = array();
 
     public function __construct()
     {
-        $this->document = new DOMDocument('1.0', 'UTF-8');
+        $this->document = new \DOMDocument('1.0', 'UTF-8');
 
         $this->document->formatOutput = true;
 
@@ -178,12 +177,12 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
      * Closes the logger process and writes the output file.
      *
      * @return void
-     * @throws PHP_Depend_Log_NoLogOutputException If the no log target exists.
+     * @throws \PHP\Depend\Log\NoLogOutputException If the no log target exists.
      */
     public function close()
     {
         if ($this->logFile === null) {
-            throw new PHP_Depend_Log_NoLogOutputException($this);
+            throw new NoLogOutputException($this);
         }
 
         foreach ($this->getProjectMetrics() as $name => $value) {
@@ -212,9 +211,9 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         array_pop($this->elements);
     }
 
-    public function visitASTNamespaceBefore(ASTNamespace $namespace, DOMElement $file)
+    public function visitASTNamespaceBefore(ASTNamespace $namespace, \DOMElement $file)
     {
-        $xpath  = new DOMXPath($this->document);
+        $xpath  = new \DOMXPath($this->document);
         $result = $xpath->query("//package[@name='{$namespace->name}']");
 
         if (0 === $result->length) {
@@ -233,7 +232,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         return $element;
     }
 
-    public function visitASTNamespaceAfter(ASTNamespace $ns, DOMElement $xml)
+    public function visitASTNamespaceAfter(ASTNamespace $ns, \DOMElement $xml)
     {
         if (0 === $xml->childNodes->length) {
             $this->document->documentElement->removeChild($xml);
@@ -242,7 +241,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         return array_pop($this->elements);
     }
 
-    public function visitASTClassBefore(ASTClass $class, DOMElement $namespace)
+    public function visitASTClassBefore(ASTClass $class, \DOMElement $namespace)
     {
         $element = $this->document->createElement('class');
         $element->setAttribute('name', $class->name);
@@ -266,7 +265,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         return array_pop($this->elements);
     }
 
-    public function visitASTInterfaceBefore(ASTInterface $interface, DOMElement $namespace)
+    public function visitASTInterfaceBefore(ASTInterface $interface, \DOMElement $namespace)
     {
         $this->elements[] = $namespace;
 
@@ -278,7 +277,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         return array_pop($this->elements);
     }
 
-    public function visitASTMethodBefore(ASTMethod $method, DOMElement $type)
+    public function visitASTMethodBefore(ASTMethod $method, \DOMElement $type)
     {
         $element = $this->document->createElement('method');
         $element->setAttribute('name', $method->name);
@@ -297,7 +296,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         return array_pop($this->elements);
     }
 
-    public function visitASTFunctionBefore(ASTFunction $function, DOMElement $namespace)
+    public function visitASTFunctionBefore(ASTFunction $function, \DOMElement $namespace)
     {
         $element = $this->document->createElement('function');
         $element->setAttribute('name', $function->name);
@@ -321,7 +320,7 @@ class PHP_Depend_Log_Summary_Xml implements CodeAware, FileAware
         return array_pop($this->elements);
     }
 
-    private function writeMetrics(ASTNode $node, DOMElement $element)
+    private function writeMetrics(ASTNode $node, \DOMElement $element)
     {
         foreach ($this->getNodeMetrics($node) as $name => $value) {
             $element->setAttribute($name, $value);

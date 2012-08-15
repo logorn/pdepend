@@ -48,6 +48,7 @@
 
 use \PHP\Depend\Input\ExcludePathFilter;
 use \PHP\Depend\Input\ExtensionFilter;
+use \PHP\Depend\Log\LoggerFactory;
 
 /**
  * The command line runner starts a PDepend process.
@@ -306,7 +307,7 @@ class PHP_Depend_TextUI_Runner
             throw new RuntimeException('No output specified.', self::EXCEPTION_EXIT);
         }
 
-        $loggerFactory = new PHP_Depend_Log_LoggerFactory();
+        $loggerFactory = new LoggerFactory();
 
         // To append all registered loggers.
         try {

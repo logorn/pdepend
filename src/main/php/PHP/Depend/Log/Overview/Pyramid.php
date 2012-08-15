@@ -36,18 +36,19 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Overview;
 
 use \PHP\Depend\Log\FileAware;
 use \PHP\Depend\Metrics\Analyzer;
+use \PHP\Depend\Log\NoLogOutputException;
 
 /**
  * This logger generates a system overview pyramid, as described in the book
@@ -55,16 +56,14 @@ use \PHP\Depend\Metrics\Analyzer;
  *
  * http://www.springer.com/computer/programming/book/978-3-540-24429-5
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_Overview_Pyramid implements FileAware
+class Pyramid implements FileAware
 {
     /**
      * The type of this class.
@@ -81,35 +80,35 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
     /**
      * The used coupling analyzer.
      *
-     * @var PHP_Depend_Metrics_Coupling_Analyzer
+     * @var \PHP_Depend_Metrics_Coupling_Analyzer
      */
     private $coupling;
 
     /**
      * The used cyclomatic complexity analyzer.
      *
-     * @var PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+     * @var \PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
      */
     private $cyclomaticComplexity;
 
     /**
      * The used inheritance analyzer.
      *
-     * @var PHP_Depend_Metrics_Inheritance_Analyzer
+     * @var \PHP_Depend_Metrics_Inheritance_Analyzer
      */
     private $inheritance;
 
     /**
      * The used node count analyzer.
      *
-     * @var PHP_Depend_Metrics_NodeCount_Analyzer
+     * @var \PHP_Depend_Metrics_NodeCount_Analyzer
      */
     private $nodeCount;
 
     /**
      * The used node loc analyzer.
      *
-     * @var PHP_Depend_Metrics_NodeLoc_Analyzer
+     * @var \PHP_Depend_Metrics_NodeLoc_Analyzer
      */
     private $nodeLoc;
 
@@ -151,11 +150,11 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
     public function getAcceptedAnalyzers()
     {
         return array(
-            'PHP_Depend_Metrics_Coupling_Analyzer',
-            'PHP_Depend_Metrics_CyclomaticComplexity_Analyzer',
-            'PHP_Depend_Metrics_Inheritance_Analyzer',
-            'PHP_Depend_Metrics_NodeCount_Analyzer',
-            'PHP_Depend_Metrics_NodeLoc_Analyzer'
+            '\PHP_Depend_Metrics_Coupling_Analyzer',
+            '\PHP_Depend_Metrics_CyclomaticComplexity_Analyzer',
+            '\PHP_Depend_Metrics_Inheritance_Analyzer',
+            '\PHP_Depend_Metrics_NodeCount_Analyzer',
+            '\PHP_Depend_Metrics_NodeLoc_Analyzer'
         );
     }
 
@@ -169,15 +168,15 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
      */
     public function log(Analyzer $analyzer)
     {
-        if ($analyzer instanceof PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
+        if ($analyzer instanceof \PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
             $this->cyclomaticComplexity = $analyzer;
-        } else if ($analyzer instanceof PHP_Depend_Metrics_Coupling_Analyzer) {
+        } else if ($analyzer instanceof \PHP_Depend_Metrics_Coupling_Analyzer) {
             $this->coupling = $analyzer;
-        } else if ($analyzer instanceof PHP_Depend_Metrics_Inheritance_Analyzer) {
+        } else if ($analyzer instanceof \PHP_Depend_Metrics_Inheritance_Analyzer) {
             $this->inheritance = $analyzer;
-        } else if ($analyzer instanceof PHP_Depend_Metrics_NodeCount_Analyzer) {
+        } else if ($analyzer instanceof \PHP_Depend_Metrics_NodeCount_Analyzer) {
             $this->nodeCount = $analyzer;
-        } else if ($analyzer instanceof PHP_Depend_Metrics_NodeLoc_Analyzer) {
+        } else if ($analyzer instanceof \PHP_Depend_Metrics_NodeLoc_Analyzer) {
             $this->nodeLoc = $analyzer;
         } else {
             return false;
@@ -194,7 +193,7 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
     {
         // Check for configured log file
         if ($this->logFile === null) {
-            throw new PHP_Depend_Log_NoLogOutputException($this);
+            throw new NoLogOutputException($this);
         }
 
         $metrics     = $this->collectMetrics();
@@ -306,19 +305,19 @@ class PHP_Depend_Log_Overview_Pyramid implements FileAware
     private function collectMetrics()
     {
         if ($this->coupling === null) {
-            throw new RuntimeException('Missing Coupling analyzer.');
+            throw new \RuntimeException('Missing Coupling analyzer.');
         }
         if ($this->cyclomaticComplexity === null) {
-            throw new RuntimeException('Missing Cyclomatic Complexity analyzer.');
+            throw new \RuntimeException('Missing Cyclomatic Complexity analyzer.');
         }
         if ($this->inheritance === null) {
-            throw new RuntimeException('Missing Inheritance analyzer.');
+            throw new \RuntimeException('Missing Inheritance analyzer.');
         }
         if ($this->nodeCount === null) {
-            throw new RuntimeException('Missing Node Count analyzer.');
+            throw new \RuntimeException('Missing Node Count analyzer.');
         }
         if ($this->nodeLoc === null) {
-            throw new RuntimeException('Missing Node LOC analyzer.');
+            throw new \RuntimeException('Missing Node LOC analyzer.');
         }
 
         $coupling    = $this->coupling->getProjectMetrics();

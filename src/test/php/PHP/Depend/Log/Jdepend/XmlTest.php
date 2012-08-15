@@ -36,35 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Jdepend;
+
+use \PHP\Depend\Log\DummyAnalyzer;
 
 /**
  * Test case for the jdepend xml logger.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Log_Jdepend_Xml
- * @group      pdepend
- * @group      pdepend::log
- * @group      pdepend::log::jdepend
- * @group      unittest
+ * @covers \PHP\Depend\Log\Jdepend\Xml
+ * @group  pdepend
+ * @group  pdepend::log
+ * @group  pdepend::log::jdepend
+ * @group  unittest
  */
-class PHP_Depend_Log_Jdepend_XmlTest extends PHP_Depend_AbstractTest
+class XmlTest extends \PHP_Depend_AbstractTest
 {
     /**
      * Test code structure.
@@ -118,9 +118,9 @@ class PHP_Depend_Log_Jdepend_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testReturnsExceptedAnalyzers()
     {
-        $logger    = new PHP_Depend_Log_Jdepend_Xml();
+        $logger    = new Xml();
         $actual    = $logger->getAcceptedAnalyzers();
-        $expected = array('PHP_Depend_Metrics_Dependency_Analyzer');
+        $expected = array('\PHP\Depend\Metrics\Dependency\Analyzer');
 
         $this->assertEquals($expected, $actual);
     }
@@ -134,16 +134,16 @@ class PHP_Depend_Log_Jdepend_XmlTest extends PHP_Depend_AbstractTest
     public function testThrowsExceptionForInvalidLogTarget()
     {
         $this->setExpectedException(
-            'PHP_Depend_Log_NoLogOutputException',
-            "The log target is not configured for 'PHP_Depend_Log_Jdepend_Xml'."
+            '\PHP\Depend\Log\NoLogOutputException',
+            "The log target is not configured for '\\PHP\\Depend\\Log\\Jdepend\\Xml'."
         );
 
-        $logger = new PHP_Depend_Log_Jdepend_Xml();
+        $logger = new Xml();
         $logger->close();
     }
 
     /**
-     * Tests that {@link PHP_Depend_Log_Summary_Xml::write()} generates the
+     * Tests that {@link \PHP\Depend\Log\Jdepend\Xml::write()} generates the
      * expected document structure for the source, but without any applied
      * metrics.
      *
@@ -153,10 +153,10 @@ class PHP_Depend_Log_Jdepend_XmlTest extends PHP_Depend_AbstractTest
     {
         $this->packages = self::parseCodeResourceForTest();
 
-        $this->analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $this->analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
         $this->analyzer->analyze($this->packages);
 
-        $log = new PHP_Depend_Log_Jdepend_Xml();
+        $log = new Xml();
         $log->setLogFile($this->resultFile);
         $log->setCode($this->packages);
         $log->log($this->analyzer);
@@ -176,10 +176,10 @@ class PHP_Depend_Log_Jdepend_XmlTest extends PHP_Depend_AbstractTest
      */
     public function testXmlLogAcceptsOnlyTheCorrectAnalyzer()
     {
-        $logger = new PHP_Depend_Log_Jdepend_Xml();
+        $logger = new Xml();
 
-        $this->assertFalse($logger->log(new PHP_Depend_Log_DummyAnalyzer()));
-        $this->assertTrue($logger->log(new PHP_Depend_Metrics_Dependency_Analyzer()));
+        $this->assertFalse($logger->log(new DummyAnalyzer()));
+        $this->assertTrue($logger->log(new \PHP_Depend_Metrics_Dependency_Analyzer()));
     }
 
     /**

@@ -48,6 +48,8 @@
 
 require_once __DIR__ . '/../AbstractTest.php';
 
+use \PHP\Depend\Log\Summary\Xml;
+
 /**
  * Abstract test case for the "Bugs" package.
  *
@@ -77,7 +79,7 @@ abstract class PHP_Depend_Bugs_AbstractTest extends PHP_Depend_AbstractTest
 
         $file = self::createRunResourceURI('summary.xml');
 
-        $log = new PHP_Depend_Log_Summary_Xml();
+        $log = new Xml();
         $log->setLogFile($file);
 
         $pdepend = $this->createPDependFixture();

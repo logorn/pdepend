@@ -74,7 +74,7 @@ interface Report
      * Closes the logger process and writes the output file.
      *
      * @return void
-     * @throws \PHP_Depend_Log_NoLogOutputException If the no log target exists.
+     * @throws \PHP\Depend\Log\NoLogOutputException If the no log target exists.
      */
     public function close();
 

@@ -36,32 +36,30 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Log\Summary;
+
+use \PHP\Depend\Metrics\Listener;
 use \PHP\Depend\Metrics\NodeAware;
 
 /**
  * Dummy implementation of an analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_Summary_AnalyzerNodeAwareDummy
-    implements NodeAware
+class AnalyzerNodeAwareDummy implements NodeAware
 {
     /**
      * Dummy node metrics.
@@ -83,22 +81,22 @@ class PHP_Depend_Log_Summary_AnalyzerNodeAwareDummy
     /**
      * Adds a listener to this analyzer.
      *
-     * @param PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP\Depend\Metrics\Listener $listener
      *
      * @return void
      */
-    public function addAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener)
+    public function addAnalyzeListener(Listener $listener)
     {
     }
 
     /**
      * Removes the listener from this analyzer.
      *
-     * @param PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP\Depend\Metrics\Listener $listener
      *
      * @return void
      */
-    public function removeAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener)
+    public function removeAnalyzeListener(Listener $listener)
     {
     }
 

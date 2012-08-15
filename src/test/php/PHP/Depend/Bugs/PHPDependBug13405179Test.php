@@ -100,10 +100,10 @@ class PHP_Depend_Bugs_PHPDependBug13405179Test extends PHP_Depend_Bugs_AbstractT
     public function getLoggerClassNames()
     {
         return array(
-            array(PHP_Depend_Log_Jdepend_Chart::CLAZZ, 'svg'),
-            array(PHP_Depend_Log_Jdepend_Xml::CLAZZ, 'xml'),
-            array(PHP_Depend_Log_Overview_Pyramid::CLAZZ, 'svg'),
-            array(PHP_Depend_Log_Summary_Xml::CLAZZ, 'xml'),
+            array(\PHP\Depend\Log\Jdepend\Chart::CLAZZ, 'svg'),
+            array(\PHP\Depend\Log\Jdepend\Xml::CLAZZ, 'xml'),
+            array(\PHP\Depend\Log\Overview\Pyramid::CLAZZ, 'svg'),
+            array(\PHP\Depend\Log\Summary\Xml::CLAZZ, 'xml'),
         );
     }
 }

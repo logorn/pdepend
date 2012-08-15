@@ -45,6 +45,8 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Metrics\Listener;
+
 // @codeCoverageIgnoreStart
 
 /**
@@ -58,7 +60,7 @@
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-interface PHP_Depend_ProcessListener extends PHP_Depend_Metrics_ListenerI
+interface PHP_Depend_ProcessListener extends Listener
 {
     /**
      * Is called when PDepend starts the file parsing process.

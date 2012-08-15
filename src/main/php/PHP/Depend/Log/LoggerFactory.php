@@ -36,17 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\Log\FileAware;
+namespace PHP\Depend\Log;
 
 /**
  * This factory creates singleton instances of available loggers.
@@ -63,16 +61,14 @@ use \PHP\Depend\Log\FileAware;
  * Refers to the following file: <b>PHP/Depend/Log/MyCustomLog/Xml.php</b>, but
  * you can not reference a file named <b>PHP/Depend/Log/MyCustom/LogXml.php</b>.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_LoggerFactory
+class LoggerFactory
 {
     /**
      * Set of created logger instances.
@@ -104,13 +100,13 @@ class PHP_Depend_Log_LoggerFactory
             $class   = array_pop($words);
             $package = implode('', $words);
 
-            $className = sprintf('PHP_Depend_Log_%s_%s', $package, $class);
+            $className = sprintf('\\PHP\\Depend\\Log\\%s\\%s', $package, $class);
             $classFile = sprintf('PHP/Depend/Log/%s/%s.php', $package, $class);
 
             if (class_exists($className) === false) {
 
                 if (($handle = @fopen($classFile, 'r', true)) === false) {
-                    throw new RuntimeException(
+                    throw new \RuntimeException(
                         "Unknown logger class '{$className}'."
                     );
                 }

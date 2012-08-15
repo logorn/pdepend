@@ -36,32 +36,31 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Log;
+
+use \PHP\Depend\Metrics\Listener;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\ProjectAware;
 
 /**
  * Simple dummy analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_DummyAnalyzer implements NodeAware, ProjectAware
+class DummyAnalyzer implements NodeAware, ProjectAware
 {
     /**
      * Test project metrics
@@ -101,7 +100,7 @@ class PHP_Depend_Log_DummyAnalyzer implements NodeAware, ProjectAware
     /**
      * Returns the node metrics.
      *
-     * @param \PHP\Depend\AST\ASTNode|string $node context npde.
+     * @param \PHP\Depend\AST\ASTNode|string $node context node.
      *
      * @return array
      */
@@ -117,22 +116,22 @@ class PHP_Depend_Log_DummyAnalyzer implements NodeAware, ProjectAware
     /**
      * Adds a listener to this analyzer.
      *
-     * @param PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP\Depend\Metrics\Listener $listener
      *
      * @return void
      */
-    public function addAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener)
+    public function addAnalyzeListener(Listener $listener)
     {
     }
 
     /**
      * Removes the listener from this analyzer.
      *
-     * @param PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP\Depend\Metrics\Listener $listener
      *
      * @return void
      */
-    public function removeAnalyzeListener(PHP_Depend_Metrics_ListenerI $listener)
+    public function removeAnalyzeListener(Listener $listener)
     {
     }
 

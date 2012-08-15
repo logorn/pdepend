@@ -36,35 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Jdepend;
+
+use \PHP\Depend\Log\DummyAnalyzer;
 
 /**
  * Test case for the jdepend chart logger.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Log_Jdepend_Chart
+ * @covers     \PHP\Depend\Log\Jdepend\Chart
  * @group      pdepend
  * @group      pdepend::log
  * @group      pdepend::log::jdepend
  * @group      unittest
  */
-class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
+class ChartTest extends \PHP_Depend_AbstractTest
 {
     /**
      * Temporary output file.
@@ -109,7 +109,7 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     public function testReturnsExceptedAnalyzers()
     {
-        $logger    = new PHP_Depend_Log_Jdepend_Chart();
+        $logger    = new Chart();
         $actual    = $logger->getAcceptedAnalyzers();
         $exptected = array('PHP_Depend_Metrics_Dependency_Analyzer');
 
@@ -121,11 +121,11 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      * configured.
      *
      * @return void
-     * @expectedException PHP_Depend_Log_NoLogOutputException
+     * @expectedException \PHP\Depend\Log\NoLogOutputException
      */
     public function testThrowsExceptionForInvalidLogTarget()
     {
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
+        $logger = new Chart();
         $logger->close();
     }
 
@@ -136,8 +136,8 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     public function testChartLogAcceptsValidAnalyzer()
     {
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
-        self::assertTrue($logger->log(new PHP_Depend_Metrics_Dependency_Analyzer()));
+        $logger = new Chart();
+        self::assertTrue($logger->log(new \PHP_Depend_Metrics_Dependency_Analyzer()));
     }
 
     /**
@@ -147,8 +147,8 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     public function testChartLogRejectsInvalidAnalyzer()
     {
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
-        self::assertFalse($logger->log(new PHP_Depend_Log_DummyAnalyzer()));
+        $logger = new Chart();
+        self::assertFalse($logger->log(new DummyAnalyzer()));
     }
 
     /**
@@ -158,12 +158,12 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     public function testGeneratesCorrectSVGImageFile()
     {
-        $nodes = new PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
+        $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
 
-        $analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
         $analyzer->analyze($nodes);
 
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
+        $logger = new Chart();
         $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
@@ -179,12 +179,12 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     public function testGeneratedSvgImageContainsExpectedPackages()
     {
-        $nodes = new PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
+        $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
 
-        $analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
         $analyzer->analyze($nodes);
 
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
+        $logger = new Chart();
         $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
@@ -207,21 +207,21 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
      */
     public function testGeneratesSVGImageDoesNotContainNoneUserDefinedPackages()
     {
-        $nodes = new PHP_Depend_Code_NodeIterator($this->_createPackages(true, false, true));
+        $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, false, true));
 
-        $analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
         $analyzer->analyze($nodes);
 
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
+        $logger = new Chart();
         $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
         $logger->close();
 
-        $svg = new DOMDocument();
+        $svg = new \DOMDocument();
         $svg->load($this->outputFile);
 
-        $xpath = new DOMXPath($svg);
+        $xpath = new \DOMXPath($svg);
         $xpath->registerNamespace('s', 'http://www.w3.org/2000/svg');
 
         $this->assertEquals(0, $xpath->query("//s:ellipse[@title='package1']")->length);
@@ -236,7 +236,7 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
     {
         $nodes = $this->_createPackages(true, true);
 
-        $analyzer        = new PHP_Depend_Log_Jdepend_DependencyAnalyzer();
+        $analyzer        = new \PHP_Depend_Log_Jdepend_DependencyAnalyzer();
         $analyzer->stats = array(
             $nodes[0]->getUUID()  => array(
                 'a'   => 0,
@@ -254,19 +254,19 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
             ),
         );
 
-        $nodes = new PHP_Depend_Code_NodeIterator($nodes);
+        $nodes = new \PHP_Depend_Code_NodeIterator($nodes);
 
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
+        $logger = new Chart();
         $logger->setLogFile($this->outputFile);
         $logger->setCode($nodes);
         $logger->log($analyzer);
 
         $logger->close();
 
-        $svg = new DOMDocument();
+        $svg = new \DOMDocument();
         $svg->load($this->outputFile);
 
-        $xpath = new DOMXPath($svg);
+        $xpath = new \DOMXPath($svg);
         $xpath->registerNamespace('s', 'http://www.w3.org/2000/svg');
 
         $ellipseA = $xpath->query("//s:ellipse[@title='package0']")->item(0);
@@ -298,12 +298,12 @@ class PHP_Depend_Log_Jdepend_ChartTest extends PHP_Depend_AbstractTest
             unlink($fileName);
         }
 
-        $nodes = new PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
+        $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
 
-        $analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
         $analyzer->analyze($nodes);
 
-        $logger = new PHP_Depend_Log_Jdepend_Chart();
+        $logger = new Chart();
         $logger->setLogFile($fileName);
         $logger->setCode($nodes);
         $logger->log($analyzer);

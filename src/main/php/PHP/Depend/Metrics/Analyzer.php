@@ -68,11 +68,11 @@ interface Analyzer
     /**
      * Adds a listener to this analyzer.
      *
-     * @param \PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP\Depend\Metrics\Listener $listener The listener instance.
      *
      * @return void
      */
-    public function addAnalyzeListener(\PHP_Depend_Metrics_ListenerI $listener);
+    public function addAnalyzeListener(Listener $listener);
 
     /**
      * An analyzer that is active must return <b>true</b> to recognized by

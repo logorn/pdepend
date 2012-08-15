@@ -36,63 +36,63 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log;
+
+use \PHP\Depend\Log\Summary\Xml;
 
 /**
  * Test case for the logger factory.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_LoggerFactoryTest extends PHP_Depend_AbstractTest
+class LoggerFactoryTest extends \PHP_Depend_AbstractTest
 {
     /**
-     * Tests that {@link PHP_Depend_Log_LoggerFactory::createReport()} returns
+     * Tests that {@link \PHP\Depend\Log\LoggerFactory::createReport()} returns
      * the expected instance for a valid identifier.
      *
      * @return void
      */
     public function testCreateLoggerWithValidIdentifier()
     {
-        $factory = new PHP_Depend_Log_LoggerFactory();
+        $factory = new LoggerFactory();
         $logger  = $factory->createReport('summary-xml', 'pdepend.xml');
 
-        $this->assertInstanceOf(PHP_Depend_Log_Summary_Xml::CLAZZ, $logger);
+        $this->assertInstanceOf(Xml::CLAZZ, $logger);
     }
 
     /**
      * Tests the singleton behaviour of the logger factory method
-     * {@link PHP_Depend_Log_LoggerFactory::createReport()}.
+     * {@link \PHP\Depend\Log\LoggerFactory::createReport()}.
      *
      * @return void
      */
     public function testCreateLoggerSingletonBehaviour()
     {
-        $factory = new PHP_Depend_Log_LoggerFactory();
+        $factory = new LoggerFactory();
         $logger1 = $factory->createReport('summary-xml', 'pdepend1.xml');
         $logger2 = $factory->createReport('summary-xml', 'pdepend2.xml');
 
-        $this->assertInstanceOf(PHP_Depend_Log_Summary_Xml::CLAZZ, $logger1);
+        $this->assertInstanceOf(Xml::CLAZZ, $logger1);
         $this->assertSame($logger1, $logger2);
     }
 
     /**
-     * Tests that {@link PHP_Depend_Log_LoggerFactory::createReport()} fails with
-     * an exception for an invalid logger identifier.
+     * Tests that {@link \PHP\Depend\Log\LoggerFactory::createReport()} fails
+     * with an exception for an invalid logger identifier.
      *
      * @return void
      */
@@ -100,10 +100,10 @@ class PHP_Depend_Log_LoggerFactoryTest extends PHP_Depend_AbstractTest
     {
         $this->setExpectedException(
             'RuntimeException',
-            "Unknown logger class 'PHP_Depend_Log_FooBar_Xml'."
+            "Unknown logger class '\\PHP\\Depend\\Log\\FooBar\\Xml'."
         );
 
-        $factory = new PHP_Depend_Log_LoggerFactory();
+        $factory = new LoggerFactory();
         $factory->createReport('foo-bar-xml', 'pdepend.xml');
     }
 }

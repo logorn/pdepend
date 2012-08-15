@@ -36,35 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Overview;
+
+use \PHP\Depend\Log\DummyAnalyzer;
 
 /**
  * Test case for the overview pyramid logger.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers     PHP_Depend_Log_Overview_Pyramid
- * @group      pdepend
- * @group      pdepend::log
- * @group      pdepend::log::overview
- * @group      unittest
+ * @covers \PHP\Depend\Log\Overview\Pyramid
+ * @group  pdepend
+ * @group  pdepend::log
+ * @group  pdepend::log::overview
+ * @group  unittest
  */
-class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
+class PyramidTest extends \PHP_Depend_AbstractTest
 {
     /**
      * Tests that the logger returns the expected set of analyzers.
@@ -73,7 +73,7 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
      */
     public function testReturnsExceptedAnalyzers()
     {
-        $logger    = new PHP_Depend_Log_Overview_Pyramid();
+        $logger    = new Pyramid();
         $actual    = $logger->getAcceptedAnalyzers();
         $exptected = array(
             'PHP_Depend_Metrics_Coupling_Analyzer',
@@ -95,11 +95,11 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
     public function testThrowsExceptionForInvalidLogTarget()
     {
         $this->setExpectedException(
-            'PHP_Depend_Log_NoLogOutputException',
-            "The log target is not configured for 'PHP_Depend_Log_Overview_Pyramid'."
+            '\\PHP\\Depend\\Log\\NoLogOutputException',
+            "The log target is not configured for '\\PHP\\Depend\\Log\\Overview\\Pyramid'."
         );
 
-        $logger = new PHP_Depend_Log_Overview_Pyramid();
+        $logger = new Pyramid();
         $logger->close();
     }
 
@@ -108,10 +108,10 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
      *
      * @return void
      */
-    public function testPyramidDoesntAcceptInvalidAnalyzer()
+    public function testPyramidDoesNotAcceptInvalidAnalyzer()
     {
-        $logger = new PHP_Depend_Log_Overview_Pyramid();
-        self::assertFalse($logger->log(new PHP_Depend_Log_DummyAnalyzer()));
+        $logger = new Pyramid();
+        self::assertFalse($logger->log(new DummyAnalyzer()));
     }
 
     /**
@@ -126,12 +126,12 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             'Missing Coupling analyzer.'
         );
 
-        $log = new PHP_Depend_Log_Overview_Pyramid();
+        $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeCountAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeLocAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
 
@@ -147,12 +147,12 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             'Missing Cyclomatic Complexity analyzer.'
         );
 
-        $log = new PHP_Depend_Log_Overview_Pyramid();
+        $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeCountAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeLocAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
 
@@ -168,12 +168,12 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             'Missing Inheritance analyzer.'
         );
 
-        $log = new PHP_Depend_Log_Overview_Pyramid();
+        $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeCountAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeLocAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
 
@@ -189,12 +189,12 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             'Missing Node Count analyzer.'
         );
 
-        $log = new PHP_Depend_Log_Overview_Pyramid();
+        $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeLocAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
 
@@ -210,12 +210,12 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             'Missing Node LOC analyzer.'
         );
 
-        $log = new PHP_Depend_Log_Overview_Pyramid();
+        $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
         $log->close();
     }
 
@@ -231,13 +231,13 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             unlink($output);
         }
 
-        $log = new PHP_Depend_Log_Overview_Pyramid();
+        $log = new Pyramid();
         $log->setLogFile($output);
-        $log->log(new PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeCountAnalyzer());
-        $log->log(new PHP_Depend_Log_Overview_NodeLocAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
 
         self::assertFileExists($output);
@@ -260,7 +260,7 @@ class PHP_Depend_Log_Overview_PyramidTest extends PHP_Depend_AbstractTest
             'calls-nom'     => 4.18
         );
 
-        $svg = new DOMDocument();
+        $svg = new \DOMDocument();
         $svg->load($output);
 
         // TODO: Replace this loop assertion

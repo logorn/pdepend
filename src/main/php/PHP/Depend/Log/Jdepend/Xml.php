@@ -36,36 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Log\Jdepend;
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\FileAware;
+use \PHP\Depend\Log\NoLogOutputException;
 use \PHP\Depend\Metrics\Analyzer;
 
 /**
  * Generates an xml document with the aggregated metrics. The format is borrowed
  * from <a href="http://clarkware.com/software/JDepend.html">JDepend</a>.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Log
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
+class Xml implements CodeAware, FileAware
 {
     /**
      * The type of this class.
@@ -80,16 +79,16 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
     private $logFile = null;
 
     /**
-     * The raw {@link PHP_Depend_AST_Package} instances.
+     * The raw {@link \PHP_Depend_AST_Package} instances.
      *
-     * @var PHP_Depend_AST_NodeIterator
+     * @var \PHP_Depend_AST_NodeIterator
      */
     protected $code = null;
 
     /**
      * Set of all analyzed files.
      *
-     * @var array(string=>PHP_Depend_AST_File) $fileSet
+     * @var PHP_Depend_AST_File[] $fileSet
      */
     protected $fileSet = array();
 
@@ -162,17 +161,17 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
      */
     public function getAcceptedAnalyzers()
     {
-        return array(PHP_Depend_Metrics_Dependency_Analyzer::CLAZZ);
+        return array(\PHP_Depend_Metrics_Dependency_Analyzer::CLAZZ);
     }
 
     /**
      * Sets the context code nodes.
      *
-     * @param PHP_Depend_AST_NodeIterator $code The code nodes.
+     * @param \PHP_Depend_AST_NodeIterator $code The code nodes.
      *
      * @return void
      */
-    public function setCode(PHP_Depend_AST_NodeIterator $code)
+    public function setCode(\PHP_Depend_AST_NodeIterator $code)
     {
         $this->code = $code;
     }
@@ -187,7 +186,7 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
      */
     public function log(Analyzer $analyzer)
     {
-        if ($analyzer instanceof PHP_Depend_Metrics_Dependency_Analyzer) {
+        if ($analyzer instanceof \PHP_Depend_Metrics_Dependency_Analyzer) {
             $this->analyzer = $analyzer;
 
             return true;
@@ -199,13 +198,13 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
      * Closes the logger process and writes the output file.
      *
      * @return void
-     * @throws PHP_Depend_Log_NoLogOutputException If the no log target exists.
+     * @throws \PHP\Depend\Log\NoLogOutputException If the no log target exists.
      */
     public function close()
     {
         // Check for configured output
         if ($this->logFile === null) {
-            throw new PHP_Depend_Log_NoLogOutputException($this);
+            throw new NoLogOutputException($this);
         }
 
         $dom = new DOMDocument('1.0', 'UTF-8');
@@ -280,7 +279,7 @@ class PHP_Depend_Log_Jdepend_Xml implements CodeAware, FileAware
      *
      * @return void
      */
-    public function visitPackage(PHP_Depend_AST_Package $package)
+    public function visitPackage(\PHP_Depend_AST_Package $package)
     {
         if (!$package->isUserDefined()) {
             return;

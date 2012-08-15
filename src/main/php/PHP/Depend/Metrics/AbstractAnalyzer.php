@@ -68,7 +68,7 @@ abstract class AbstractAnalyzer implements Analyzer
     /**
      * List or registered listeners.
      *
-     * @var \PHP_Depend_Metrics_ListenerI[]
+     * @var \PHP\Depend\Metrics\Listener[]
      */
     private $listeners = array();
 
@@ -85,10 +85,11 @@ abstract class AbstractAnalyzer implements Analyzer
     /**
      * Adds a listener to this analyzer.
      *
-     * @param \PHP_Depend_Metrics_ListenerI $listener The listener instance.
+     * @param \PHP\Depend\Metrics\Listener $listener
+     *
      * @return void
      */
-    public function addAnalyzeListener(\PHP_Depend_Metrics_ListenerI $listener)
+    public function addAnalyzeListener(Listener $listener)
     {
         if (in_array($listener, $this->listeners, true) === false) {
             $this->listeners[] = $listener;

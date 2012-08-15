@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\Input\ExtensionFilter;
+use \PHP\Depend\Log\Dummy\Logger;
 
 /**
  * Test case for the catch error ticket #61.
@@ -81,7 +82,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
         $pdepend = $this->createPDependFixture();
         $pdepend->addDirectory(self::createCodeResourceUriForTest());
         $pdepend->addFileFilter(new ExtensionFilter(array('php')));
-        $pdepend->addReport(new PHP_Depend_Log_Dummy_Logger());
+        $pdepend->addReport(new Logger());
         $pdepend->analyze();
 
         $exceptions = $pdepend->getExceptions();
