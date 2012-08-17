@@ -48,8 +48,6 @@
 use \PHP\Depend\Metrics\Listener;
 use \PHP\Depend\Tokenizer;
 
-// @codeCoverageIgnoreStart
-
 /**
  * This listener can be used to get informations about the current pdepend process.
  *
@@ -70,7 +68,7 @@ interface PHP_Depend_ProcessListener extends Listener
      *
      * @return void
      */
-    function startParseProcess(PHP_Depend_Parser $parser);
+    public function startParseProcess(PHP_Depend_Parser $parser);
 
     /**
      * Is called when PDepend has finished the file parsing process.
@@ -79,7 +77,7 @@ interface PHP_Depend_ProcessListener extends Listener
      *
      * @return void
      */
-    function endParseProcess(PHP_Depend_Parser $parser);
+    public function endParseProcess(PHP_Depend_Parser $parser);
 
     /**
      * Is called when PDepend starts parsing of a new file.
@@ -88,7 +86,7 @@ interface PHP_Depend_ProcessListener extends Listener
      *
      * @return void
      */
-    function startFileParsing(Tokenizer $tokenizer);
+    public function startFileParsing(Tokenizer $tokenizer);
 
     /**
      * Is called when PDepend has finished a file.
@@ -97,35 +95,33 @@ interface PHP_Depend_ProcessListener extends Listener
      *
      * @return void
      */
-    function endFileParsing(Tokenizer $tokenizer);
+    public function endFileParsing(Tokenizer $tokenizer);
 
     /**
      * Is called when PDepend starts the analyzing process.
      *
      * @return void
      */
-    function startAnalyzeProcess();
+    public function startAnalyzeProcess();
 
     /**
      * Is called when PDepend has finished the analyzing process.
      *
      * @return void
      */
-    function endAnalyzeProcess();
+    public function endAnalyzeProcess();
 
     /**
      * Is called when PDepend starts the logging process.
      *
      * @return void
      */
-    function startLogProcess();
+    public function startLogProcess();
 
     /**
      * Is called when PDepend has finished the logging process.
      *
      * @return void
      */
-    function endLogProcess();
+    public function endLogProcess();
 }
-
-// @codeCoverageIgnoreEnd
