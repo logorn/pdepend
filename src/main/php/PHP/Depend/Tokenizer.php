@@ -37,7 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,11 +44,12 @@
  * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend;
+
 /**
  * Base interface for all tokenizers.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -57,7 +57,7 @@
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-interface PHP_Depend_Tokenizer
+interface Tokenizer
 {
 
 }

@@ -46,6 +46,7 @@
  */
 
 use \PHP\Depend\Metrics\Listener;
+use \PHP\Depend\Tokenizer;
 
 // @codeCoverageIgnoreStart
 
@@ -83,20 +84,20 @@ interface PHP_Depend_ProcessListener extends Listener
     /**
      * Is called when PDepend starts parsing of a new file.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    function startFileParsing(PHP_Depend_Tokenizer $tokenizer);
+    function startFileParsing(Tokenizer $tokenizer);
 
     /**
      * Is called when PDepend has finished a file.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    function endFileParsing(PHP_Depend_Tokenizer $tokenizer);
+    function endFileParsing(Tokenizer $tokenizer);
 
     /**
      * Is called when PDepend starts the analyzing process.

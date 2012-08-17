@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\Metrics\Analyzer;
+use \PHP\Depend\Tokenizer;
 
 // This is just fun and it is not really testable
 // @codeCoverageIgnoreStart
@@ -106,22 +107,22 @@ class PHP_Depend_DbusUI_ResultPrinter
     /**
      * Is called when PDepend starts parsing of a new file.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    public function startFileParsing(PHP_Depend_Tokenizer $tokenizer)
+    public function startFileParsing(Tokenizer $tokenizer)
     {
     }
 
     /**
      * Is called when PDepend has finished a file.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    public function endFileParsing(PHP_Depend_Tokenizer $tokenizer)
+    public function endFileParsing(Tokenizer $tokenizer)
     {
         ++$this->parsedFiles;
     }

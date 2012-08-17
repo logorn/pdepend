@@ -47,6 +47,7 @@
 
 use \PHP\Depend\Input\ExcludePathFilter;
 use \PHP\Depend\Input\FileIterator;
+use \PHP\Depend\Tokenizer\VersionAllTokenizer;
 
 /**
  * Abstract test case implementation for the PHP_Depend package.
@@ -648,7 +649,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         }
         sort($files);
 
-        $parser = new PHP_Depend_Parser(new PHP_Depend_Tokenizer_VersionAll());
+        $parser = new PHP_Depend_Parser(new VersionAllTokenizer());
 
         $compilationUnits = array();
         foreach ($files as $file) {

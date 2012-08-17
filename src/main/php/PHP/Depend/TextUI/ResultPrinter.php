@@ -48,6 +48,7 @@ namespace PHP\Depend\TextUI;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\Metrics\Analyzer;
+use \PHP\Depend\Tokenizer;
 
 /**
  * Prints current the PDepend status information.
@@ -102,11 +103,11 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
     /**
      * Is called when PDepend starts parsing of a new file.
      *
-     * @param \PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    public function startFileParsing(\PHP_Depend_Tokenizer $tokenizer)
+    public function startFileParsing(Tokenizer $tokenizer)
     {
         $this->step();
     }
@@ -114,11 +115,11 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
     /**
      * Is called when PDepend has finished a file.
      *
-     * @param \PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    public function endFileParsing(\PHP_Depend_Tokenizer $tokenizer)
+    public function endFileParsing(Tokenizer $tokenizer)
     {
 
     }

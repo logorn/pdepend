@@ -48,6 +48,8 @@
 
 namespace PHP\Depend\TextUI;
 
+use \PHP\Depend\Tokenizer\VersionAllTokenizer;
+
 /**
  * Test case for the default text ui result printer.
  *
@@ -73,7 +75,7 @@ class ResultPrinterTest extends \PHP_Depend_AbstractTest
      */
     public function testResultPrinterOutputForSingleEntry()
     {
-        $tokenizer = new \PHP_Depend_Tokenizer_VersionAll();
+        $tokenizer = new VersionAllTokenizer();
         $parser    = new \PHP_Depend_Parser($tokenizer);
 
         $printer = new ResultPrinter();
@@ -96,7 +98,7 @@ class ResultPrinterTest extends \PHP_Depend_AbstractTest
      */
     public function testResultPrinterOutputForMultipleEntries()
     {
-        $tokenizer = new \PHP_Depend_Tokenizer_VersionAll();
+        $tokenizer = new VersionAllTokenizer();
         $parser    = new \PHP_Depend_Parser($tokenizer);
 
         $printer = new ResultPrinter();

@@ -50,6 +50,7 @@ use \PHP\Depend\AST\ASTCompilationUnit;
 use \PHP\Depend\Parser\AnnotationExtractor;
 use \PHP\Depend\Parser\IdGenerator;
 use \PHP\Depend\Parser\NodeGenerator;
+use \PHP\Depend\Tokenizer;
 
 /**
  * Parser used to translate a given source file into an abstract syntax tree.
@@ -79,9 +80,9 @@ class PHP_Depend_Parser
     /**
      * Constructs a new parser instance.
      *
-     * @param \PHP_Depend_Tokenizer $tokenizer
+     * @param \PHP\Depend\Tokenizer $tokenizer
      */
-    public function __construct(\PHP_Depend_Tokenizer $tokenizer)
+    public function __construct(Tokenizer $tokenizer)
     {
         $this->parser = new \PHPParser_Parser($tokenizer);
 

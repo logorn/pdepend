@@ -54,6 +54,8 @@ use \PHP\Depend\Log\LogProcessor;
 use \PHP\Depend\Metrics\AnalyzerLoader;
 use \PHP\Depend\Metrics\Processor\CompositeProcessor;
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+use \PHP\Depend\Tokenizer;
+use \PHP\Depend\Tokenizer\VersionAllTokenizer;
 
 /**
  * PHP_Depend analyzes php class files and generates metrics.
@@ -321,11 +323,11 @@ class PHP_Depend
     /**
      * Sends the start file parsing event.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    protected function fireStartFileParsing(PHP_Depend_Tokenizer $tokenizer)
+    protected function fireStartFileParsing(Tokenizer $tokenizer)
     {
         foreach ($this->listeners as $listener) {
             $listener->startFileParsing($tokenizer);
@@ -335,11 +337,11 @@ class PHP_Depend
     /**
      * Sends the end file parsing event.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP\Depend\Tokenizer $tokenizer
      *
      * @return void
      */
-    protected function fireEndFileParsing(PHP_Depend_Tokenizer $tokenizer)
+    protected function fireEndFileParsing(Tokenizer $tokenizer)
     {
         foreach ($this->listeners as $listener) {
             $listener->endFileParsing($tokenizer);
@@ -415,7 +417,7 @@ class PHP_Depend
      */
     private function processParsing()
     {
-        $tokenizer = new PHP_Depend_Tokenizer_VersionAll();
+        $tokenizer = new VersionAllTokenizer();
         $parser    = new PHP_Depend_Parser($tokenizer);
 
         // Reset list of thrown exceptions
