@@ -47,6 +47,8 @@
  * @since      1.0.0
  */
 
+use \PHP\Depend\TextUI\Command;
+
 /**
  * Test case for bug #18459091.
  *
@@ -60,11 +62,11 @@
  * @link       https://www.pivotaltracker.com/story/show/18459091
  * @since      1.0.0
  *
- * @ticket     18459091
- * @covers     stdClass
- * @group      pdepend
- * @group      pdepend::bugs
- * @group      regressiontest
+ * @ticket 18459091
+ * @covers \stdClass
+ * @group  pdepend
+ * @group  pdepend::bugs
+ * @group  regressiontest
  */
 class PHP_Depend_Bugs_EndlessInheritanceBug18459091Test extends PHP_Depend_Bugs_AbstractTest
 {
@@ -226,7 +228,7 @@ class PHP_Depend_Bugs_EndlessInheritanceBug18459091Test extends PHP_Depend_Bugs_
 
         ob_start();
 
-        $command = new PHP_Depend_TextUI_Command();
+        $command = new Command();
         $command->run();
 
         $output = ob_get_clean();

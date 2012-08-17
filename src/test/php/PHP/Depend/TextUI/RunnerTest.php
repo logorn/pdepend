@@ -56,7 +56,7 @@ namespace PHP\Depend\TextUI;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  *
- * @covers \PHP_Depend_TextUI_Runner
+ * @covers \PHP\Depend\TextUI\Runner
  * @group  pdepend
  * @group  pdepend::textui
  * @group  unittest
@@ -104,11 +104,11 @@ class RunnerTest extends \PHP_Depend_AbstractTest
     }
 
     /**
-     * Tests that the runner exits with an exception for an invalud source
+     * Tests that the runner exits with an exception for an invalid source
      * directory.
      *
      * @return void
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testRunnerThrowsRuntimeExceptionForInvalidSourceDirectory()
     {
@@ -301,14 +301,14 @@ class RunnerTest extends \PHP_Depend_AbstractTest
     }
 
     /**
-     * Creates a test fixture of the {@link \PHP_Depend_TextUI_Runner} class.
+     * Creates a test fixture of the {@link \PHP\Depend\TextUI\Runner} class.
      *
-     * @return \PHP_Depend_TextUI_Runner
+     * @return \PHP\Depend\TextUI\Runner
      * @since 0.10.0
      */
     protected function createTextUiRunnerFixture()
     {
-        $fixture = new \PHP_Depend_TextUI_Runner();
+        $fixture = new Runner();
         $fixture->setConfiguration($this->createConfigurationFixture());
 
         return $fixture;
@@ -317,12 +317,12 @@ class RunnerTest extends \PHP_Depend_AbstractTest
     /**
      * Executes the runner class and returns an array with package statistics.
      *
-     * @param \PHP_Depend_TextUI_Runner $runner The runner instance.
+     * @param \PHP\Depend\TextUI\Runner $runner The runner instance.
      * @param string $pathName The source path.
      *
      * @return array
      */
-    private function runRunnerAndReturnStatistics(\PHP_Depend_TextUI_Runner $runner, $pathName)
+    private function runRunnerAndReturnStatistics(Runner $runner, $pathName)
     {
         $logFile = self::createRunResourceURI();
 

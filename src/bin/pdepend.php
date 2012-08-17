@@ -77,4 +77,4 @@ if (version_compare(phpversion(), '5.3.0')) {
 $autoload = new PHP_Depend_Autoload();
 $autoload->register();
 
-exit(PHP_Depend_TextUI_Command::main());
+exit(\PHP\Depend\TextUI\Command::main());

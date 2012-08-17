@@ -48,6 +48,8 @@
 
 use \PHP\Depend\Input\ExtensionFilter;
 use \PHP\Depend\Log\Dummy\Logger;
+use \PHP\Depend\TextUI\Command;
+use \PHP\Depend\TextUI\Runner;
 
 /**
  * Test case for the catch error ticket #61.
@@ -61,11 +63,11 @@ use \PHP\Depend\Log\Dummy\Logger;
  * @version    Release: @package_version@
  * @link       http://www.pdepend.org/
  *
- * @covers     PHP_Depend
- * @group      pdepend
- * @group      pdepend::issues
- * @group      pdepend::textui
- * @group      unittest
+ * @covers PHP_Depend
+ * @group  pdepend
+ * @group  pdepend::issues
+ * @group  pdepend::textui
+ * @group  unittest
  * @group 2.0
  */
 class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
@@ -93,15 +95,15 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
     }
 
     /**
-     * Tests that the {@link PHP_Depend_TextUI_Runner::hasErrors()} method will
+     * Tests that the {@link \PHP\Depend\TextUI\Runner::hasErrors()} method will
      * return <b>false</b> when not parsing error occured.
      *
      * @return void
-     * @covers PHP_Depend_TextUI_Runner
+     * @covers \PHP\Depend\TextUI\Runner
      */
     public function testRunnerReturnsFalseWhenNoErrorOccuredDuringTheParsingProcess()
     {
-        $runner = new PHP_Depend_TextUI_Runner();
+        $runner = new Runner();
         $runner->setConfiguration($this->createConfigurationFixture());
         $runner->addLogger('dummy-logger', self::createRunResourceURI('pdepend.log'));
         $runner->setSourceArguments(array(self::createCodeResourceUriForTest()));
@@ -111,15 +113,15 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
     }
 
     /**
-     * Tests that the {@link PHP_Depend_TextUI_Runner::hasErrors()} method will
+     * Tests that the {@link \PHP\Depend\TextUI\Runner::hasErrors()} method will
      * return <b>true</b> when a parsing error occured.
      *
      * @return void
-     * @covers PHP_Depend_TextUI_Runner
+     * @covers \PHP\Depend\TextUI\Runner
      */
     public function testRunnerReturnsTrueWhenAnErrorOccuredDuringTheParsingProcess()
     {
-        $runner = new PHP_Depend_TextUI_Runner();
+        $runner = new Runner();
         $runner->setConfiguration($this->createConfigurationFixture());
         $runner->addLogger('dummy-logger', self::createRunResourceURI('pdepend.log'));
         $runner->setSourceArguments(array(self::createCodeResourceUriForTest()));
@@ -133,7 +135,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
      * process was successful.
      *
      * @return void
-     * @covers PHP_Depend_TextUI_Command
+     * @covers \PHP\Depend\TextUI\Command
      */
     public function testCommandDoesNotPrintErrorOutputOnSuccessfulParsingProcess()
     {
@@ -144,7 +146,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
             )
         );
 
-        list($exitCode, $output) = $this->runTextUICommand();
+        list(, $output) = $this->runTextUiCommand();
 
         self::assertNotContains('Following errors occured:', $output);
     }
@@ -153,7 +155,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
      * testCommandPrintsExceptionMessageWhenAnErrorOccuredDuringTheParsingProcess
      *
      * @return void
-     * @covers PHP_Depend_TextUI_Command
+     * @covers \PHP\Depend\TextUI\Command
      */
     public function testCommandPrintsExceptionMessageWhenAnErrorOccuredDuringTheParsingProcess()
     {
@@ -163,7 +165,7 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
                 self::createCodeResourceUriForTest()
             )
         );
-        list(, $output) = $this->runTextUICommand();
+        list(, $output) = $this->runTextUiCommand();
 
         self::assertContains('Unexpected token T_FUNCTION on line 7 in file ', $output);
     }
@@ -188,9 +190,9 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
      *
      * @return array
      */
-    protected function runTextUICommand()
+    protected function runTextUiCommand()
     {
-        $command = new PHP_Depend_TextUI_Command();
+        $command = new Command();
 
         ob_start();
         $exitCode = $command->run();

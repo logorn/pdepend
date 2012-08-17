@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage TextUI
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\TextUI;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\Metrics\Analyzer;
@@ -52,17 +52,14 @@ use \PHP\Depend\Metrics\Analyzer;
 /**
  * Prints current the PDepend status information.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage TextUI
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_TextUI_ResultPrinter
-    implements PHP_Depend_ProcessListener
+class ResultPrinter implements \PHP_Depend_ProcessListener
 {
     /**
      * The step size.
@@ -79,11 +76,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Is called when PDepend starts the file parsing process.
      *
-     * @param PHP_Depend_Parser $parser The used node builder instance.
+     * @param \PHP_Depend_Parser $parser The used node builder instance.
      *
      * @return void
      */
-    public function startParseProcess(PHP_Depend_Parser $parser)
+    public function startParseProcess(\PHP_Depend_Parser $parser)
     {
         $this->count = 0;
 
@@ -93,11 +90,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Is called when PDepend has finished the file parsing process.
      *
-     * @param PHP_Depend_Parser $parser The used node builder instance.
+     * @param \PHP_Depend_Parser $parser The used node builder instance.
      *
      * @return void
      */
-    public function endParseProcess(PHP_Depend_Parser $parser)
+    public function endParseProcess(\PHP_Depend_Parser $parser)
     {
         $this->finish();
     }
@@ -105,11 +102,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Is called when PDepend starts parsing of a new file.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
      *
      * @return void
      */
-    public function startFileParsing(PHP_Depend_Tokenizer $tokenizer)
+    public function startFileParsing(\PHP_Depend_Tokenizer $tokenizer)
     {
         $this->step();
     }
@@ -117,11 +114,11 @@ class PHP_Depend_TextUI_ResultPrinter
     /**
      * Is called when PDepend has finished a file.
      *
-     * @param PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
+     * @param \PHP_Depend_Tokenizer $tokenizer The used tokenizer instance.
      *
      * @return void
      */
-    public function endFileParsing(PHP_Depend_Tokenizer $tokenizer)
+    public function endFileParsing(\PHP_Depend_Tokenizer $tokenizer)
     {
 
     }
