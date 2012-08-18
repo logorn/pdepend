@@ -89,11 +89,8 @@ class LoggerFactory
     public function createReport($identifier, $fileName)
     {
         if (!isset($this->instances[$identifier])) {
-            // Extract all parts from the logger identifier
-            $words = explode('-', $identifier);
 
-            // Change all words to upper case
-            $words = array_map('ucfirst', $words);
+            $words = array_map('ucfirst', explode('-', $identifier));
 
             // By definition the logger class name must be a single word.
             // Everything else is part of the package name.
@@ -111,16 +108,11 @@ class LoggerFactory
                     );
                 }
 
-                // Close file pointer and include class file
                 fclose($handle);
                 include $classFile;
             }
 
-            // Create a new logger instance.
             $logger = new $className();
-
-            // TODO: Refactor this into an external log configurator or a similar
-            //       concept.
             if ($logger instanceof FileAware) {
 
                 $logger->setLogFile($fileName);

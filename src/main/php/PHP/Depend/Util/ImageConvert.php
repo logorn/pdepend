@@ -158,29 +158,26 @@ class PHP_Depend_Util_ImageConvert
 
         $svg = file_get_contents($input);
 
-        // Check for font family
         if (isset($config->imageConvert->fontFamily)) {
-            // Get font family
+
             $fontFamily = (string)$config->imageConvert->fontFamily;
-            // Replace CSS separators
+
             $fontReplace = 'font-family:' . strtr($fontFamily, ';:', '  ');
             $fontPattern = '/font-family:\s*Arial/';
 
             $svg = preg_replace($fontPattern, $fontReplace, $svg);
         }
 
-        // Check for font size
         if (isset($config->imageConvert->fontSize)) {
-            // Get font size
+
             $fontSize = abs((float)$config->imageConvert->fontSize);
 
-            // Fetch all font-size expressions
             preg_match_all('/font-size:\s*(\d+)/', $svg, $fontSizes);
             $fontSizes = array_unique($fontSizes[1]);
 
             $resize = ($fontSize - max($fontSizes));
             foreach ($fontSizes as $fontSize) {
-                // Calculate resize value
+
                 $fontReplace = 'font-size:' . ($fontSize + $resize);
                 $fontPattern = "/font-size:\s*{$fontSize}/";
 
