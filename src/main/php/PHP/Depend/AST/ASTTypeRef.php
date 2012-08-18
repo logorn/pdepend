@@ -132,6 +132,36 @@ class ASTTypeRef extends PHPParser_NodeAbstract implements ASTType
     }
 
     /**
+     * Returns the source file that contains this ast fragment.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->getType()->getFile();
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->getType()->getStartLine();
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->getType()->getEndLine();
+    }
+
+    /**
      * Returns <b>true</b> when this node was parsed from a source file.
      *
      * @return boolean

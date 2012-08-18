@@ -153,6 +153,36 @@ class ASTInterface extends PHPParser_Node_Stmt_Interface implements ASTType
     }
 
     /**
+     * Returns the source file that contains this ast fragment.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->getAttribute('file');
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->getAttribute('startLine', -1);
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->getAttribute('endLine', -1);
+    }
+
+    /**
      * Returns <b>true</b> when this node was parsed from a source file.
      *
      * @return boolean

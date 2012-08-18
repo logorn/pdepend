@@ -57,7 +57,7 @@ namespace PHP\Depend\AST;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-interface ASTType extends ASTNode
+interface ASTType extends ASTFragment
 {
     /**
      * Returns all methods declared by this type.
