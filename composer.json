@@ -5,6 +5,9 @@
     "keywords":    ["php", "static analysis", "metrics"],
     "type":        "library",
     "license":     "BSD",
+
+    "minimum-stability": "RC",
+
     "authors": [
         {
             "name": "Manuel Pichler",
@@ -15,9 +18,17 @@
 
     "bin": ["src/bin/pdepend"],
 
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/manuelpichler/injektor"
+        }
+    ],
+
     "require": {
-        "php":              ">=5.3",
-        "nikic/php-parser": "master-dev"
+        "php": ">=5.3",
+        "nikic/php-parser": "dev-master",
+        "rg/injektor": "dev-zf2-zend-code"
     },
 
     "autoload": {
