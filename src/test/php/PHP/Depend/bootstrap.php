@@ -50,8 +50,7 @@ namespace PHP\Depend;
 define('PDEPEND_ROOT_DIR', realpath(__DIR__ . '/../../../../../'));
 
 spl_autoload_register(
-    function($class)
-    {
+    function ($class) {
         $file = strtr($class, '\\', '/');
         if (file_exists(PDEPEND_ROOT_DIR . "/src/test/php/{$file}.php")) {
 
