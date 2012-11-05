@@ -47,21 +47,17 @@
 
 namespace PHP\Depend;
 
+define('PDEPEND_ROOT_DIR', realpath(__DIR__ . '/../../../../../'));
+
 spl_autoload_register(
     function($class)
     {
-        $file = strtr($class, '\\_', '//');
+        $file = strtr($class, '\\', '/');
+        if (file_exists(PDEPEND_ROOT_DIR . "/src/test/php/{$file}.php")) {
 
-        $path = realpath(__DIR__ . '/../../../../../');
-        if (file_exists("{$path}/src/main/php/{$file}.php")) {
-
-            include "{$path}/src/main/php/{$file}.php";
-        } else if (file_exists("{$path}/src/test/php/{$file}.php")) {
-
-            include "{$path}/src/test/php/{$file}.php";
-        } else if (file_exists("{$path}/lib/PHP-Parser/lib/{$file}.php")) {
-
-            include "{$path}/lib/PHP-Parser/lib/{$file}.php";
+            require_once PDEPEND_ROOT_DIR . "/src/test/php/{$file}.php";
         }
     }
 );
+
+include_once PDEPEND_ROOT_DIR . '/vendor/autoload.php';

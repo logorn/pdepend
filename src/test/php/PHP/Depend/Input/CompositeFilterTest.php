@@ -71,7 +71,7 @@ class CompositeFilterTest extends \PHP_Depend_AbstractTest
      */
     public function testCompositeInvokesFirstAcceptInFilterChain()
     {
-        $filter0 = new \PHP_Depend_Input_DummyFilter(true);
+        $filter0 = new DummyFilter(true);
 
         $composite = new CompositeFilter();
         $composite->append($filter0);
@@ -88,8 +88,8 @@ class CompositeFilterTest extends \PHP_Depend_AbstractTest
      */
     public function testCompositeInvokesNextAcceptIfPreviousAcceptReturnsTrue()
     {
-        $filter0 = new \PHP_Depend_Input_DummyFilter(true);
-        $filter1 = new \PHP_Depend_Input_DummyFilter(true);
+        $filter0 = new DummyFilter(true);
+        $filter1 = new DummyFilter(true);
 
         $composite = new CompositeFilter();
         $composite->append($filter0);
@@ -107,8 +107,8 @@ class CompositeFilterTest extends \PHP_Depend_AbstractTest
      */
     public function testCompositeNotInvokesNextAcceptIfPreviousAcceptReturnsTrue()
     {
-        $filter0 = new \PHP_Depend_Input_DummyFilter(false);
-        $filter1 = new \PHP_Depend_Input_DummyFilter(true);
+        $filter0 = new DummyFilter(false);
+        $filter1 = new DummyFilter(true);
 
         $composite = new CompositeFilter();
         $composite->append($filter0);

@@ -18,12 +18,16 @@
 
     "bin": ["src/bin/pdepend"],
 
-    "repositories": [
-        {
+    "repositories": {
+        "zend-framework": {                                                     
+            "type": "composer",                                                 
+            "url": "http://packages.zendframework.com/"                         
+        },
+        "rg-injektor": {
             "type": "vcs",
             "url": "http://github.com/manuelpichler/injektor"
         }
-    ],
+	},
 
     "require": {
         "php": ">=5.3",
