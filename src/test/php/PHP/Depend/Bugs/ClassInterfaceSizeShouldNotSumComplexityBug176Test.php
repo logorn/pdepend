@@ -46,6 +46,8 @@
  * @link       http://tracker.pdepend.org/pdepend/issue_tracker/issue/176
  */
 
+use PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 require_once __DIR__ . '/AbstractTest.php';
 
 /**
@@ -75,21 +77,18 @@ class PHP_Depend_Bugs_ClassInterfaceSizeShouldNotSumComplexityBug176Test
      */
     public function testAnalyzerCountsNumberOfMethodsForClassInterfaceSize()
     {
-        $packages = self::parseCodeResourceForTest();
+        $ccn = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
+        $ccn->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
 
-        $class = $packages->current()
-            ->getClasses()
-            ->current();
+        $class = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $class->addAnalyzer($ccn);
 
-        $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
-        $ccnAnalyzer->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+        $processor = new DefaultProcessor();
+        $processor->register($ccn);
+        $processor->register($class);
+        $processor->process(self::parseCodeResourceForTest());
 
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
-        $analyzer->addAnalyzer($ccnAnalyzer);
-
-        $analyzer->analyze($packages);
-
-        $metrics = $analyzer->getNodeMetrics($class);
+        $metrics = $class->getNodeMetrics(__FUNCTION__ . '#c');
 
         self::assertEquals(2, $metrics['cis']);
     }
@@ -101,20 +100,18 @@ class PHP_Depend_Bugs_ClassInterfaceSizeShouldNotSumComplexityBug176Test
      */
     public function testAnalyzerCountsNumberOfMethodsForClassSize()
     {
-        $packages = self::parseCodeResourceForTest();
+        $ccn = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
+        $ccn->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
 
-        $class = $packages->current()
-            ->getClasses()
-            ->current();
+        $class = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $class->addAnalyzer($ccn);
 
-        $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
-        $ccnAnalyzer->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+        $processor = new DefaultProcessor();
+        $processor->register($ccn);
+        $processor->register($class);
+        $processor->process(self::parseCodeResourceForTest());
 
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
-        $analyzer->addAnalyzer($ccnAnalyzer);
-        $analyzer->analyze($packages);
-
-        $metrics = $analyzer->getNodeMetrics($class);
+        $metrics = $class->getNodeMetrics(__FUNCTION__ . '#c');
 
         self::assertEquals(6, $metrics['csz']);
     }

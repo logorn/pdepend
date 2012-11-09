@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of PHP_Depend.
  *
@@ -46,6 +47,8 @@
  * @link       https://www.pivotaltracker.com/story/show/9936901
  */
 
+use PHP\Depend\Metrics\Processor\DefaultProcessor;
+
 require_once __DIR__ . '/AbstractTest.php';
 
 /**
@@ -76,6 +79,21 @@ class PHP_Depend_Bugs_ClassLevelAnalyzerBug09936901Test
      */
     public function testWmciMetricIsCalculatedForCurrentAndNotParentClass()
     {
+        $ccn = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
+        $ccn->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+
+        $class = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $class->addAnalyzer($ccn);
+
+        $processor = new DefaultProcessor();
+        $processor->register($ccn);
+        $processor->register($class);
+        $processor->process(self::parseCodeResourceForTest());
+
+        $metrics = $class->getNodeMetrics(__FUNCTION__ . '#c');
+
+        self::assertEquals(2, $metrics['wmci']);
+        return;
         $packages = self::parseCodeResourceForTest();
 
         $class = $packages->current()
