@@ -129,7 +129,6 @@ class Chart implements CodeAware, FileAware
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return boolean
      */
     public function log(Analyzer $analyzer)
@@ -163,6 +162,7 @@ class Chart implements CodeAware, FileAware
         $bad   = $svg->getElementById('jdepend.bad');
         $good  = $svg->getElementById('jdepend.good');
         $layer = $svg->getElementById('jdepend.layer');
+        $legendTemplate = $svg->getElementById('jdepend.legend');
 
         $max = 0;
         $min = 0;
@@ -227,10 +227,23 @@ class Chart implements CodeAware, FileAware
             $ellipse->setAttribute('transform', $transform);
 
             $layer->appendChild($ellipse);
+
+            $result = preg_match('#\\\\([^\\\\]+)$#', $item['name'], $found);
+            if ($result && count($found)) {
+                $angle = rand(0, 314) / 100 - 1.57;
+                $legend = $legendTemplate->cloneNode(true);
+                $legend->removeAttribute('xml:id');
+                $legend->setAttribute('x', $e + $r * (1 + cos($angle)));
+                $legend->setAttribute('y', $f + $r * (1 + sin($angle)));
+                $legend->nodeValue = $found[1];
+                $legendTemplate->parentNode->appendChild($legend);
+            }
+
         }
 
         $bad->parentNode->removeChild($bad);
         $good->parentNode->removeChild($good);
+        $legendTemplate->parentNode->removeChild($legendTemplate);
 
         $temp = PHP_Depend_Util_FileUtil::getSysTempDir();
         $temp .= '/' . uniqid('pdepend_') . '.svg';
