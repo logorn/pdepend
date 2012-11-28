@@ -63,7 +63,6 @@
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
- * @group  2.0
  */
 abstract class PHP_Depend_Util_Cache_AbstractDriverTest
     extends PHP_Depend_AbstractTest

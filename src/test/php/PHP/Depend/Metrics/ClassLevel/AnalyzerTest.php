@@ -65,7 +65,6 @@ use \PHP\Depend\Metrics\Processor\DefaultProcessor;
  * @group  pdepend::metrics
  * @group  pdepend::metrics::classlevel
  * @group  unittest
- * @group  2.0
  */
 class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
 {

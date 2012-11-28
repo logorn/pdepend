@@ -60,7 +60,6 @@ namespace PHP\Depend\TextUI;
  * @group  pdepend
  * @group  pdepend::textui
  * @group  unittest
- * @group  2.0
  */
 class RunnerTest extends \PHP_Depend_AbstractTest
 {

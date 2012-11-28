@@ -62,7 +62,6 @@ use \PHP\Depend\Input\ExtensionFilter;
  * @group  pdepend
  * @group  pdepend::input
  * @group  unittest
- * @group  2.0
  */
 class FileIteratorTest extends \PHP_Depend_AbstractTest
 {

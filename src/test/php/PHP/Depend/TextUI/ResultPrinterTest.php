@@ -65,7 +65,6 @@ use \PHP\Depend\Tokenizer\VersionAllTokenizer;
  * @group  pdepend
  * @group  pdepend::textui
  * @group  unittest
- * @group  2.0
  */
 class ResultPrinterTest extends \PHP_Depend_AbstractTest
 {

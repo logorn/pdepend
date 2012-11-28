@@ -64,7 +64,6 @@ use \PHP\Depend\Input\FileIterator;
  * @group  pdepend
  * @group  pdepend::bugs
  * @group  regressiontest
- * @group  2.0
  */
 class PHP_Depend_Bugs_FileIteratorShouldOnlyFilterOnLocalPathBug164Test
     extends PHP_Depend_Bugs_AbstractTest

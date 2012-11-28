@@ -66,7 +66,6 @@ use \PHP\Depend\Metrics\Processor\DefaultProcessor;
  * @group  pdepend::metrics
  * @group  pdepend::metrics::cyclomaticcomplexity
  * @group  unittest
- * @group  2.0
  */
 class PHP_Depend_Metrics_CyclomaticComplexity_AnalyzerTest
     extends PHP_Depend_Metrics_AbstractTest

@@ -68,7 +68,6 @@ use \PHP\Depend\TextUI\Runner;
  * @group  pdepend::issues
  * @group  pdepend::textui
  * @group  unittest
- * @group 2.0
  */
 class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
     extends PHP_Depend_Issues_AbstractTest

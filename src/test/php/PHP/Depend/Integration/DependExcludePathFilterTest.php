@@ -63,7 +63,6 @@ use \PHP\Depend\Input\ExcludePathFilter;
  * @group  pdepend
  * @group  pdepend::integration
  * @group  integrationtest
- * @group  2.0
  */
 class DependExcludePathFilterTest extends \PHP_Depend_AbstractTest
 {

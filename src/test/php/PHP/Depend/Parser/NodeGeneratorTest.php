@@ -62,7 +62,6 @@ require_once __DIR__ . '/../AbstractTest.php';
  * @group  pdepend
  * @group  pdepend::parser
  * @group  unittest
- * @group  2.0
  */
 class NodeGeneratorTest extends \PHP_Depend_AbstractTest
 {

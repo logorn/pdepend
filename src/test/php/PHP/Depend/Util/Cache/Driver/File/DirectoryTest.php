@@ -65,7 +65,6 @@
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
- * @group  2.0
  */
 class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_AbstractTest
 {

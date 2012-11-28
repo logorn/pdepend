@@ -63,7 +63,6 @@
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
- * @group  2.0
  */
 class PHP_Depend_Util_Cache_FactoryTest extends PHP_Depend_AbstractTest
 {

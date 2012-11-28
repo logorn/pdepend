@@ -63,7 +63,6 @@ use \PHP\Depend\Log\LogProcessor;
  * @group  pdepend::log
  * @group  pdepend::log::summary
  * @group  unittest
- * @group  2.0
  */
 class XmlTest extends \PHP_Depend_AbstractTest
 {

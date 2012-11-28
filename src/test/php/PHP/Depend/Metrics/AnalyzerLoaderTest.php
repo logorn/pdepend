@@ -60,7 +60,6 @@ namespace PHP\Depend\Metrics;
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  unittest
- * @group  2.0
  */
 class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
 {

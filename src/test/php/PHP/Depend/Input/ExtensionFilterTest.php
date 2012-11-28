@@ -60,7 +60,6 @@ namespace PHP\Depend\Input;
  * @group  pdepend
  * @group  pdepend::input
  * @group  unittest
- * @group  2.0
  */
 class ExtensionFilterTest extends \PHP_Depend_AbstractTest
 {

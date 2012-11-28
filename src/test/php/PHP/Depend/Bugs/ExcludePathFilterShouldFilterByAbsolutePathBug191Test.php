@@ -64,7 +64,6 @@ use \PHP\Depend\Input\ExcludePathFilter;
  * @group  pdepend
  * @group  pdepend::bugs
  * @group  regressiontest
- * @group  2.0
  */
 class PHP_Depend_Input_ExcludePathFilterShouldFilterByAbsolutePathBug191Test
     extends PHP_Depend_Bugs_AbstractTest

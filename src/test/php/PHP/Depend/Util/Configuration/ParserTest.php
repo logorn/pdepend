@@ -65,7 +65,6 @@
  * @group  pdepend::util
  * @group  pdepend::util::configuration
  * @group  unittest
- * @group  2.0
  */
 class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
 {
