@@ -46,8 +46,9 @@
  * @link       http://pdepend.org/
  */
 
-use \PHP\Depend\Metrics\Analyzer;
+use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer;
+use \PHP\Depend\Metrics\Analyzer;
 
 // This is just fun and it is not really testable
 // @codeCoverageIgnoreStart
@@ -84,11 +85,10 @@ class PHP_Depend_DbusUI_ResultPrinter
     /**
      * Is called when PDepend starts the file parsing process.
      *
-     * @param PHP_Depend_Parser $parser The used parser object.
-     *
+     * @param \PHP\Depend\Parser $parser
      * @return void
      */
-    public function startParseProcess(PHP_Depend_Parser $parser)
+    public function startParseProcess(Parser $parser)
     {
         $this->startTime = time();
     }
@@ -96,11 +96,10 @@ class PHP_Depend_DbusUI_ResultPrinter
     /**
      * Is called when PDepend has finished the file parsing process.
      *
-     * @param PHP_Depend_Parser $parser The used node builder instance.
-     *
+     * @param \PHP\Depend\Parser $parser
      * @return void
      */
-    public function endParseProcess(PHP_Depend_Parser $parser)
+    public function endParseProcess(Parser $parser)
     {
     }
 
@@ -108,7 +107,6 @@ class PHP_Depend_DbusUI_ResultPrinter
      * Is called when PDepend starts parsing of a new file.
      *
      * @param \PHP\Depend\Tokenizer $tokenizer
-     *
      * @return void
      */
     public function startFileParsing(Tokenizer $tokenizer)
@@ -119,7 +117,6 @@ class PHP_Depend_DbusUI_ResultPrinter
      * Is called when PDepend has finished a file.
      *
      * @param \PHP\Depend\Tokenizer $tokenizer
-     *
      * @return void
      */
     public function endFileParsing(Tokenizer $tokenizer)

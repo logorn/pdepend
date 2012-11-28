@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_Context;
+use \PHP\Depend\Context;
 
 /**
  * Container class that holds nodes referenced by a property.
@@ -62,7 +62,7 @@ use \PHP_Depend_Context;
 class ASTPropertyRefs
 {
     /**
-     * @var \PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
@@ -84,13 +84,13 @@ class ASTPropertyRefs
     /**
      * Constructs a new reference context for an object property.
      *
-     * @param \PHP_Depend_Context $context
+     * @param \PHP\Depend\Context $context
      * @param string $namespace
      * @param string $declaringType
      * @param string $type
      */
     public function __construct(
-        PHP_Depend_Context $context,
+        Context $context,
         $namespace,
         $declaringType,
         $type = null

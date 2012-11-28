@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_Context;
+use \PHP\Depend\Context;
 use \PHPParser_NodeAbstract;
 use \PHPParser_Node_Name;
 
@@ -71,17 +71,17 @@ class ASTTypeRef extends PHPParser_NodeAbstract implements ASTType
     private $name;
 
     /**
-     * @var \PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
     /**
      * Constructs a new type reference.
      *
-     * @param \PHP_Depend_Context $context
+     * @param \PHP\Depend\Context $context
      * @param string $name
      */
-    public function __construct(PHP_Depend_Context $context, $name)
+    public function __construct(Context $context, $name)
     {
         parent::__construct(
             array('namespacedName' => new PHPParser_Node_Name($name))

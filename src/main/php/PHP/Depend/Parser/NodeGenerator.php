@@ -113,7 +113,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
     private $modifier;
 
     /**
-     * @var \PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
@@ -122,7 +122,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
      */
     public function __construct()
     {
-        $this->context = new \PHP_Depend_Context();
+        $this->context = new \PHP\Depend\Context();
     }
 
     /**

@@ -69,6 +69,18 @@
 class PHP_Depend_Bugs_InstanceOfExpressionReferenceHandlingBug062Test extends PHP_Depend_Bugs_AbstractTest
 {
     /**
+     * Marks this test as incomplete.
+     *
+     * @return void
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->markTestIncomplete('@todo 2.0');
+    }
+
+    /**
      * Tests that the parser handles an interface within an instanceof operator
      * correct.
      *

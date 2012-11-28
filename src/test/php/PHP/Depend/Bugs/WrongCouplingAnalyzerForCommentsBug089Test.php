@@ -70,6 +70,18 @@ class PHP_Depend_Bugs_WrongCouplingAnalyzerForCommentsBug089Test
     extends PHP_Depend_Bugs_AbstractTest
 {
     /**
+     * Marks this test as incomplete.
+     *
+     * @return void
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->markTestIncomplete('@todo 2.0');
+    }
+
+    /**
      * Tests that the analyzer calculates the expected result.
      *
      * @return void

@@ -45,6 +45,7 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Parser;
 use \PHP\Depend\Input\ExcludePathFilter;
 use \PHP\Depend\Input\FileIterator;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
@@ -409,7 +410,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         }
 
         foreach (new DirectoryIterator($dir) as $file) {
-            if ($file == '.' || $file == '..' || $file == '.svn') {
+            if (in_array($file, array('.', '..', '.svn', '.gitkeep'))) {
                 continue;
             }
             $pathName = realpath($file->getPathname());
@@ -649,7 +650,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         }
         sort($files);
 
-        $parser = new PHP_Depend_Parser(new VersionAllTokenizer());
+        $parser = new Parser(new VersionAllTokenizer());
 
         $compilationUnits = array();
         foreach ($files as $file) {

@@ -37,7 +37,8 @@
 
     "autoload": {
         "psr-0": {
-            "PHP": "src/main/php/"
+            "PHP\\Depend": "src/main/php/",
+            "PHP_Depend": "src/main/php/"
         }
     }
 }

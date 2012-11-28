@@ -45,6 +45,7 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\Parser;
 use \PHP\Depend\Input\CompositeFilter;
 use \PHP\Depend\Input\FileFilter;
 use \PHP\Depend\Input\FileIterator;
@@ -295,28 +296,26 @@ class PHP_Depend
     /**
      * Send the start parsing process event.
      *
-     * @param PHP_Depend_Parser $builder The used node builder instance.
-     *
+     * @param \PHP\Depend\Parser $parser
      * @return void
      */
-    protected function fireStartParseProcess(PHP_Depend_Parser $builder)
+    protected function fireStartParseProcess(Parser $parser)
     {
         foreach ($this->listeners as $listener) {
-            $listener->startParseProcess($builder);
+            $listener->startParseProcess($parser);
         }
     }
 
     /**
      * Send the end parsing process event.
      *
-     * @param PHP_Depend_Parser $builder The used node builder instance.
-     *
+     * @param \PHP\Depend\Parser $parser
      * @return void
      */
-    protected function fireEndParseProcess(PHP_Depend_Parser $builder)
+    protected function fireEndParseProcess(Parser $parser)
     {
         foreach ($this->listeners as $listener) {
-            $listener->endParseProcess($builder);
+            $listener->endParseProcess($parser);
         }
     }
 
@@ -324,7 +323,6 @@ class PHP_Depend
      * Sends the start file parsing event.
      *
      * @param \PHP\Depend\Tokenizer $tokenizer
-     *
      * @return void
      */
     protected function fireStartFileParsing(Tokenizer $tokenizer)
@@ -338,7 +336,6 @@ class PHP_Depend
      * Sends the end file parsing event.
      *
      * @param \PHP\Depend\Tokenizer $tokenizer
-     *
      * @return void
      */
     protected function fireEndFileParsing(Tokenizer $tokenizer)
@@ -418,7 +415,7 @@ class PHP_Depend
     private function processParsing()
     {
         $tokenizer = new VersionAllTokenizer();
-        $parser    = new PHP_Depend_Parser($tokenizer);
+        $parser    = new Parser($tokenizer);
 
         // Reset list of thrown exceptions
         $this->parseExceptions = array();

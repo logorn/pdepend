@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_Context;
+use \PHP\Depend\Context;
 
 /**
  * Reference context for an AST function node.
@@ -65,7 +65,7 @@ use \PHP_Depend_Context;
 class ASTFunctionRefs
 {
     /**
-     * @var PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
@@ -82,12 +82,12 @@ class ASTFunctionRefs
     /**
      * Instantiates a new function reference object.
      *
-     * @param \PHP_Depend_Context $context
+     * @param \PHP\Depend\Context $context
      * @param string $namespace
      * @param string $returnType
      */
     public function __construct(
-        PHP_Depend_Context $context,
+        Context $context,
         $namespace,
         $returnType
     )

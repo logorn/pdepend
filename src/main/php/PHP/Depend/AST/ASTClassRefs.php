@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_Context;
+use \PHP\Depend\Context;
 
 /**
  * Container holding nodes referenced by a class.
@@ -62,7 +62,7 @@ use \PHP_Depend_Context;
 class ASTClassRefs
 {
     /**
-     * @var \PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
@@ -84,13 +84,13 @@ class ASTClassRefs
     /**
      * asdasd
      *
-     * @param \PHP_Depend_Context $context
+     * @param \PHP\Depend\Context $context
      * @param string $namespaceId
      * @param string $parentClassId
      * @param string[] $implementedInterfaceIds
      */
     public function __construct(
-        PHP_Depend_Context $context,
+        Context $context,
         $namespaceId,
         $parentClassId,
         array $implementedInterfaceIds

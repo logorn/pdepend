@@ -77,7 +77,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();
@@ -93,7 +93,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();
@@ -109,7 +109,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected token: {, line: 2, col: 28, file: '
+            'Unexpected token \'{\' on line 2'
         );
 
         self::parseCodeResourceForTest();
@@ -125,7 +125,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();
@@ -141,7 +141,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();
@@ -157,7 +157,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();
@@ -173,7 +173,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();
@@ -189,7 +189,7 @@ class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_A
     {
         $this->setExpectedException(
             'RuntimeException',
-            'Unexpected end of token stream in file: '
+            'Unexpected token EOF on line 3'
         );
 
         self::parseCodeResourceForTest();

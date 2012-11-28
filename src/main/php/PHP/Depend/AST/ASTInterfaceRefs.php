@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_Context;
+use \PHP\Depend\Context;
 
 /**
  * Container class that holds nodes referenced by an interface.
@@ -62,7 +62,7 @@ use \PHP_Depend_Context;
 class ASTInterfaceRefs
 {
     /**
-     * @var \PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
@@ -79,12 +79,12 @@ class ASTInterfaceRefs
     /**
      * Constructs a new reference context for an interface.
      *
-     * @param \PHP_Depend_Context $context
+     * @param \PHP\Depend\Context $context
      * @param string $namespace
      * @param string[] $parentInterfaces
      */
     public function __construct(
-        PHP_Depend_Context $context,
+        Context $context,
         $namespace,
         array $parentInterfaces
     )

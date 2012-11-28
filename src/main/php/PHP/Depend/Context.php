@@ -37,13 +37,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   SVN: $Id$
  * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTClass;
@@ -57,7 +58,6 @@ use \PHP\Depend\AST\ASTNamespaceRefs;
  * Context is used at runtime to establish inter node dependencies.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -65,7 +65,7 @@ use \PHP\Depend\AST\ASTNamespaceRefs;
  * @link      http://pdepend.org/
  * @since     2.0.0
  */
-class PHP_Depend_Context
+class Context
 {
     /**
      * All registered nodes.
@@ -101,8 +101,8 @@ class PHP_Depend_Context
         }
 
         return new ASTNamespace(
-            new PHPParser_Node_Stmt_Namespace(
-                new PHPParser_Node_Name($id ? $id : '+global'),
+            new \PHPParser_Node_Stmt_Namespace(
+                new \PHPParser_Node_Name($id ? $id : '+global'),
                 array(),
                 array(
                     'user_defined' => false,
@@ -131,7 +131,7 @@ class PHP_Depend_Context
 
             // TODO 2.0 extract name/namespace from id.
             return new ASTClass(
-                new PHPParser_Node_Stmt_Class(
+                new \PHPParser_Node_Stmt_Class(
                     $id,
                     array('namespacedName' => $id),
                     array('user_defined' => false, 'id' => "{$id}#c")
@@ -162,7 +162,7 @@ class PHP_Depend_Context
 
             // TODO 2.0 extract name/namespace from id.
             return new ASTInterface(
-                new PHPParser_Node_Stmt_Interface(
+                new \PHPParser_Node_Stmt_Interface(
                     $id,
                     array('namespacedName' => $id),
                     array('user_defined' => false, 'id' => "{$id}#i")

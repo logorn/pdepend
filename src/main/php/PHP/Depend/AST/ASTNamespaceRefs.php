@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\AST;
 
-use \PHP_Depend_Context;
+use \PHP\Depend\Context;
 
 /**
  * Container holding nodes referenced by a single namespace.
@@ -62,16 +62,16 @@ use \PHP_Depend_Context;
 class ASTNamespaceRefs
 {
     /**
-     * @var \PHP_Depend_Context
+     * @var \PHP\Depend\Context
      */
     private $context;
 
     /**
      * Constructs a new namespace reference instance.
      *
-     * @param \PHP_Depend_Context $context
+     * @param \PHP\Depend\Context $context
      */
-    public function __construct(PHP_Depend_Context $context)
+    public function __construct(Context $context)
     {
         $this->context = $context;
     }

@@ -48,6 +48,7 @@
 
 namespace PHP\Depend\TextUI;
 
+use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
 
 /**
@@ -76,7 +77,7 @@ class ResultPrinterTest extends \PHP_Depend_AbstractTest
     public function testResultPrinterOutputForSingleEntry()
     {
         $tokenizer = new VersionAllTokenizer();
-        $parser    = new \PHP_Depend_Parser($tokenizer);
+        $parser    = new Parser($tokenizer);
 
         $printer = new ResultPrinter();
 
@@ -99,7 +100,7 @@ class ResultPrinterTest extends \PHP_Depend_AbstractTest
     public function testResultPrinterOutputForMultipleEntries()
     {
         $tokenizer = new VersionAllTokenizer();
-        $parser    = new \PHP_Depend_Parser($tokenizer);
+        $parser    = new Parser($tokenizer);
 
         $printer = new ResultPrinter();
 

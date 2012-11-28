@@ -85,7 +85,7 @@ class Chart implements CodeAware, FileAware
     /**
      * The context analyzer instance.
      *
-     * @var PHP_Depend_Metrics_Dependency_Analyzer
+     * @var \PHP_Depend_Metrics_Dependency_Analyzer
      */
     private $analyzer = null;
 
@@ -109,7 +109,7 @@ class Chart implements CodeAware, FileAware
      */
     public function getAcceptedAnalyzers()
     {
-        return array(PHP_Depend_Metrics_Dependency_Analyzer::CLAZZ);
+        return array(\PHP_Depend_Metrics_Dependency_Analyzer::CLAZZ);
     }
 
     /**
@@ -119,7 +119,7 @@ class Chart implements CodeAware, FileAware
      *
      * @return void
      */
-    public function setCode(PHP_Depend_Code_NodeIterator $code)
+    public function setCode(\PHP_Depend_Code_NodeIterator $code)
     {
         $this->code = $code;
     }
@@ -133,7 +133,7 @@ class Chart implements CodeAware, FileAware
      */
     public function log(Analyzer $analyzer)
     {
-        if ($analyzer instanceof PHP_Depend_Metrics_Dependency_Analyzer) {
+        if ($analyzer instanceof \PHP_Depend_Metrics_Dependency_Analyzer) {
             $this->analyzer = $analyzer;
 
             return true;
@@ -249,7 +249,7 @@ class Chart implements CodeAware, FileAware
         $temp .= '/' . uniqid('pdepend_') . '.svg';
         $svg->save($temp);
 
-        PHP_Depend_Util_ImageConvert::convert($temp, $this->logFile);
+        \PHP_Depend_Util_ImageConvert::convert($temp, $this->logFile);
 
         // Remove temp file
         unlink($temp);

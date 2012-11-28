@@ -140,7 +140,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Adds a required sub analyzer.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function addAnalyzer(Analyzer $analyzer)
@@ -325,8 +324,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * related metrics.
      *
      * @param \PHP\Depend\AST\ASTProperty $property
-     * @param $data
-     *
+     * @param array $data
      * @return mixed
      */
     public function visitASTPropertyBefore(ASTProperty $property, $data)
@@ -348,7 +346,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * hierarchy of this given class.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return integer
      */
     private function calculateImpl(ASTClass $class)
@@ -360,9 +357,8 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Collects a unique set with all interfaces implemented by the given class,
      * one of it's parents or any implemented interface.
      *
-     * @param null\PHP\Depend\AST\ASTClass $class
-     *
-     * @return array
+     * @param \PHP\Depend\AST\ASTClass $class
+     * @return \PHP\Depend\AST\ASTClass[]
      */
     private function collectImpl(ASTClass $class = null)
     {
@@ -380,9 +376,8 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Collect a unique set of interfaces with the whole interface inheritance
      * hierarchy.
      *
-     * @param array $interfaces
-     *
-     * @return array
+     * @param \PHP\Depend\AST\ASTInterface[] $interfaces
+     * @return \PHP\Depend\AST\ASTInterface[]
      */
     private function collectInterfaces(array $interfaces)
     {
@@ -404,7 +399,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * counts protected and public properties of parent classes.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return integer
      */
     private function calculateVARSi(ASTClass $class)

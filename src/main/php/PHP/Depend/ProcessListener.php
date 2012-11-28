@@ -45,8 +45,9 @@
  * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\Metrics\Listener;
+use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer;
+use \PHP\Depend\Metrics\Listener;
 
 /**
  * This listener can be used to get informations about the current pdepend process.
@@ -64,26 +65,23 @@ interface PHP_Depend_ProcessListener extends Listener
     /**
      * Is called when PDepend starts the file parsing process.
      *
-     * @param PHP_Depend_Parser $parser The used node builder instance.
-     *
+     * @param \PHP\Depend\Parser $parser
      * @return void
      */
-    public function startParseProcess(PHP_Depend_Parser $parser);
+    public function startParseProcess(Parser $parser);
 
     /**
      * Is called when PDepend has finished the file parsing process.
      *
-     * @param PHP_Depend_Parser $parser The used node builder instance.
-     *
+     * @param \PHP\Depend\Parser $parser
      * @return void
      */
-    public function endParseProcess(PHP_Depend_Parser $parser);
+    public function endParseProcess(Parser $parser);
 
     /**
      * Is called when PDepend starts parsing of a new file.
      *
      * @param \PHP\Depend\Tokenizer $tokenizer
-     *
      * @return void
      */
     public function startFileParsing(Tokenizer $tokenizer);
@@ -92,7 +90,6 @@ interface PHP_Depend_ProcessListener extends Listener
      * Is called when PDepend has finished a file.
      *
      * @param \PHP\Depend\Tokenizer $tokenizer
-     *
      * @return void
      */
     public function endFileParsing(Tokenizer $tokenizer);

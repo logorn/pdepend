@@ -78,6 +78,8 @@ class PHP_Depend_Bugs_PHPDependBug13405179Test extends PHP_Depend_Bugs_AbstractT
      */
     public function testLogFileIsCreatedForUnstructuredCode($className, $extension)
     {
+        $this->markTestIncomplete('@todo 2.0');
+
         $file = self::createRunResourceURI() . '.' . $extension;
 
         $logger = new $className();

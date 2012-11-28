@@ -114,7 +114,7 @@ class PHP_Depend_Bugs_ClosureResultsInExceptionBug070Test extends PHP_Depend_Bug
      * Tests that the parser handles a closure function with bound variables.
      *
      * @return void
-     * @expectedException PHP_Depend_Parser_UnexpectedTokenException
+     * @expectedException \PHPParser_Error
      */
     public function testParserThrowsExceptionForInvalidBoundClosureVariableBug70()
     {

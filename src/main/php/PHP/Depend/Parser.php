@@ -36,36 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend;
 
 use \PHP\Depend\AST\ASTCompilationUnit;
 use \PHP\Depend\Parser\AnnotationExtractor;
 use \PHP\Depend\Parser\IdGenerator;
 use \PHP\Depend\Parser\NodeGenerator;
-use \PHP\Depend\Tokenizer;
 
 /**
  * Parser used to translate a given source file into an abstract syntax tree.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage AST
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      2.0.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
  */
-class PHP_Depend_Parser
+class Parser
 {
     /**
      * @var \PHPParser_Parser
@@ -88,8 +85,8 @@ class PHP_Depend_Parser
 
         $this->idGenerator = new IdGenerator();
 
-        $this->traverser = new PHPParser_NodeTraverser();
-        $this->traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver());
+        $this->traverser = new \PHPParser_NodeTraverser();
+        $this->traverser->addVisitor(new \PHPParser_NodeVisitor_NameResolver());
         $this->traverser->addVisitor($this->idGenerator);
         $this->traverser->addVisitor(new NodeGenerator());
         $this->traverser->addVisitor(new AnnotationExtractor());
@@ -99,7 +96,6 @@ class PHP_Depend_Parser
      * Transforms the given token stream into an abstract syntax tree.
      *
      * @param string $file
-     *
      * @return \PHP\Depend\AST\ASTCompilationUnit
      */
     public function parse($file)

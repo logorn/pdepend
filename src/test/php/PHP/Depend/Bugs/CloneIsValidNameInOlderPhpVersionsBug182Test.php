@@ -75,6 +75,8 @@ class PHP_Depend_Bugs_CloneIsValidNameInOlderPhpVersionsBug182Test
      */
     public function testParserAcceptsCloneAsFunctionName()
     {
+        $this->markTestIncomplete('@todo 2.0');
+
         self::parseCodeResourceForTest();
     }
 
@@ -85,6 +87,8 @@ class PHP_Depend_Bugs_CloneIsValidNameInOlderPhpVersionsBug182Test
      */
     public function testParserAcceptsCloneAsMethodName()
     {
+        $this->markTestIncomplete('@todo 2.0');
+
         self::parseCodeResourceForTest();
     }
 
@@ -95,6 +99,8 @@ class PHP_Depend_Bugs_CloneIsValidNameInOlderPhpVersionsBug182Test
      */
     public function testParserAcceptsCloneAsClassName()
     {
+        $this->markTestIncomplete('@todo 2.0');
+
         self::parseCodeResourceForTest();
     }
 
@@ -105,6 +111,8 @@ class PHP_Depend_Bugs_CloneIsValidNameInOlderPhpVersionsBug182Test
      */
     public function testParserAcceptsCloneAsInterfaceName()
     {
+        $this->markTestIncomplete('@todo 2.0');
+
         self::parseCodeResourceForTest();
     }
 }
