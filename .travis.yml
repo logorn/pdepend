@@ -13,4 +13,4 @@ before_script:
 script: phpunit --configuration $TEST_CONFIG
 
 notifications:
-  irc: "irc.freenode.org#phpmd"
+  irc: "irc.freenode.org#pdepend"
