@@ -46,8 +46,7 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once __DIR__ . '/../AbstractTest.php';
-
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Log\Summary\Xml;
 
 /**
@@ -62,7 +61,7 @@ use \PHP\Depend\Log\Summary\Xml;
  * @version    Release: @package_version@
  * @link       http://www.pdepend.org/
  */
-abstract class PHP_Depend_Bugs_AbstractTest extends PHP_Depend_AbstractTest
+abstract class PHP_Depend_Bugs_AbstractTest extends AbstractTest
 {
     /**
      * Creates the PDepend summary report for the source associated with the

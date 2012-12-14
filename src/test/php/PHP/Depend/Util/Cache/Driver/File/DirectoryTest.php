@@ -36,23 +36,25 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver_File
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
 
+namespace PHP\Depend\Util\Cache\Driver\File;
+
+use \PHP\Depend\AbstractTest;
+
+use PHP\Depend\Util\Cache\CacheDriver;
+
 /**
- * Test case for the {@link PHP_Depend_Util_Cache_Driver_File_Directory} class.
+ * Test case for the {@link \PHP\Depend\Util\Cache\Driver\File\Directory} class.
  *
  * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver_File
  * @author     Manuel Pichler <mapi@pdepend.org>
  * @copyright  2008-2012 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
@@ -60,13 +62,13 @@
  * @link       http://pdepend.org/
  * @since      0.10.0
  *
- * @covers PHP_Depend_Util_Cache_Driver_File_Directory
+ * @covers \PHP\Depend\Util\Cache\Driver\File\Directory
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
  */
-class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_AbstractTest
+class DirectoryTest extends AbstractTest
 {
     /**
      * Temporary cache directory.
@@ -83,7 +85,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
     protected $versionFile = null;
 
     /**
-     * Initializes a temporary workling directory.
+     * Initializes a temporary working directory.
      *
      * @return void
      */
@@ -102,7 +104,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
      */
     public function testCreatesNotExistingCacheDirectory()
     {
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertFileExists($this->cacheDir);
     }
 
@@ -113,7 +115,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
      */
     public function testAddsCacheVersionFileToNewlyCreatedCache()
     {
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertFileExists($this->versionFile);
     }
 
@@ -124,9 +126,9 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
      */
     public function testCacheVersionFileContainsExpectedVersionString()
     {
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertEquals(
-            PHP_Depend_Util_Cache_Driver::VERSION,
+            CacheDriver::VERSION,
             file_get_contents($this->versionFile)
         );
     }
@@ -141,9 +143,9 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
         mkdir($this->cacheDir, 0755, true);
         file_put_contents($this->versionFile, '1234567890');
 
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertEquals(
-            PHP_Depend_Util_Cache_Driver::VERSION,
+            CacheDriver::VERSION,
             file_get_contents($this->versionFile)
         );
     }
@@ -161,7 +163,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
         file_put_contents($cacheFile, 'Manuel Pichler');
         file_put_contents($this->versionFile, '1234567890');
 
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertFileNotExists($cacheFile);
     }
 
@@ -177,7 +179,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
         mkdir($cacheDir, 0755, true);
         file_put_contents($this->versionFile, '1234567890');
 
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertFileNotExists($cacheDir);
     }
 
@@ -195,7 +197,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
         file_put_contents($cacheFile, __FUNCTION__);
         file_put_contents($this->versionFile, '1234567890');
 
-        new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        new Directory($this->cacheDir);
         self::assertFileNotExists("{$this->cacheDir}/test");
     }
 
@@ -206,7 +208,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
      */
     public function testCreateCacheDirectoryReturnsExpectedSubDirectory()
     {
-        $dir  = new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        $dir  = new Directory($this->cacheDir);
         $path = $dir->createCacheDirectory('abcdef0123456789');
 
         self::assertEquals("{$this->cacheDir}/ab", $path);
@@ -219,7 +221,7 @@ class PHP_Depend_Util_Cache_Driver_File_DirectoryTest extends PHP_Depend_Abstrac
      */
     public function testCreateCacheDirectoryAlsoCreatesThePhysicalDirectory()
     {
-        $dir = new PHP_Depend_Util_Cache_Driver_File_Directory($this->cacheDir);
+        $dir = new Directory($this->cacheDir);
         self::assertFileExists($dir->createCacheDirectory('abcdef0123456789'));
     }
 }

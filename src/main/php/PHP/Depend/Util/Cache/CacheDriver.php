@@ -36,33 +36,29 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
 
-// @codeCoverageIgnoreStart
+namespace PHP\Depend\Util\Cache;
 
 /**
  * Base interface for a concrete cache driver.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
-interface PHP_Depend_Util_Cache_Driver
+interface CacheDriver
 {
     /**
      * The current cache version.
@@ -77,9 +73,8 @@ interface PHP_Depend_Util_Cache_Driver
      * you must invoke right before every call to <em>restore()</em> or
      * <em>store()</em>.
      *
-     * @param string $type The name or object type for the next storage method call.
-     *
-     * @return PHP_Depend_Util_Cache_Driver
+     * @param string $type
+     * @return CacheDriver
      */
     public function type($type);
 
@@ -90,10 +85,9 @@ interface PHP_Depend_Util_Cache_Driver
      * hash and the supplied hash are not identical, that cache entry will be
      * removed and not returned.
      *
-     * @param string $key  The cache key for the given data.
-     * @param mixed  $data Any data that should be cached.
-     * @param string $hash Optional hash that will be used for verification.
-     *
+     * @param string $key
+     * @param mixed  $data
+     * @param string $hash
      * @return  void
      */
     public function store($key, $data, $hash = null);
@@ -105,9 +99,8 @@ interface PHP_Depend_Util_Cache_Driver
      * Then it returns the cached entry. Otherwise this method will return
      * <b>NULL</b>.
      *
-     * @param string $key  The cache key for the given data.
-     * @param string $hash Optional hash that will be used for verification.
-     *
+     * @param string $key
+     * @param string $hash
      * @return mixed
      */
     public function restore($key, $hash = null);
@@ -119,11 +112,8 @@ interface PHP_Depend_Util_Cache_Driver
      * nothing.
      *
      * @param string $pattern The cache key pattern.
-     *
      * @return void
      */
     public function remove($pattern);
 }
-
-// @codeCoverageIgnoreEnd
 

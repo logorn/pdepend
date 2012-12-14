@@ -48,6 +48,7 @@
 namespace PHP\Depend\Metrics;
 
 use \PHP\Depend\AST\ASTNode;
+use \PHP\Depend\Util\Cache\CacheDriver;
 
 /**
  * This abstract class provides an analyzer that provides the basic infrastructure
@@ -82,18 +83,17 @@ abstract class AbstractCachingAnalyzer
     /**
      * Injected cache driver.
      *
-     * @var PHP_Depend_Util_Cache_Driver
+     * @var \PHP\Depend\Util\Cache\CacheDriver
      */
     private $cache;
 
     /**
      * Setter method for the system wide used cache.
      *
-     * @param \PHP_Depend_Util_Cache_Driver $cache Used cache object.
-     *
+     * @param \PHP\Depend\Util\Cache\CacheDriver $cache Used cache object.
      * @return void
      */
-    public function setCache(\PHP_Depend_Util_Cache_Driver $cache)
+    public function setCache(CacheDriver $cache)
     {
         $this->cache = $cache;
     }
@@ -104,7 +104,6 @@ abstract class AbstractCachingAnalyzer
      * value will be <b>FALSE</b>.
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return boolean
      */
     protected function restoreFromCache(ASTNode $node)

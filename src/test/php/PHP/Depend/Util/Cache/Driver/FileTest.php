@@ -36,36 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Util\Cache\Driver;
+
 /**
- * Test case for the {@link PHP_Depend_Util_Cache_Driver_File} class.
+ * Test case for the {@link \PHP\Depend\Util\Cache\Driver\File} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Util_Cache_Driver_File
+ * @covers \PHP\Depend\Util\Cache\Driver\File
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
  */
-class PHP_Depend_Util_Cache_Driver_FileTest
-    extends PHP_Depend_Util_Cache_AbstractDriverTest
+class FileTest extends \PHP_Depend_Util_Cache_AbstractDriverTest
 {
     /**
      * Temporary cache directory.
@@ -89,11 +86,11 @@ class PHP_Depend_Util_Cache_Driver_FileTest
     /**
      * Creates a test fixture.
      *
-     * @return PHP_Depend_Util_Cache_Driver
+     * @return \PHP\Depend\Util\Cache\Driver
      */
     protected function createDriver()
     {
-        return new PHP_Depend_Util_Cache_Driver_File($this->cacheDir);
+        return new File($this->cacheDir);
     }
 
     /**
@@ -104,7 +101,7 @@ class PHP_Depend_Util_Cache_Driver_FileTest
      */
     public function testFileDriverStoresFileWithCacheKeyIfPresent()
     {
-        $cache = new PHP_Depend_Util_Cache_Driver_File($this->cacheDir, 'foo');
+        $cache = new File($this->cacheDir, 'foo');
         $cache->type('bar')->store('baz', __METHOD__);
 
         $key = md5('baz' . 'foo');
@@ -121,7 +118,7 @@ class PHP_Depend_Util_Cache_Driver_FileTest
      */
     public function testFileDriverRestoresFileWithCacheKeyIfPresent()
     {
-        $cache = new PHP_Depend_Util_Cache_Driver_File($this->cacheDir, 'foo');
+        $cache = new File($this->cacheDir, 'foo');
         $cache->type('bar')->store('baz', __METHOD__);
 
         $this->assertEquals(__METHOD__, $cache->type('bar')->restore('baz'));

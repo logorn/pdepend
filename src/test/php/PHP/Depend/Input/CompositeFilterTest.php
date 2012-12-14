@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\Input;
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Test case for the composite filter.
  *
@@ -61,7 +63,7 @@ namespace PHP\Depend\Input;
  * @group  pdepend::input
  * @group  unittest
  */
-class CompositeFilterTest extends \PHP_Depend_AbstractTest
+class CompositeFilterTest extends AbstractTest
 {
     /**
      * testCompositeInvokesFirstAcceptInFilterChain

@@ -36,31 +36,29 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util;
 
 /**
  * Simple utility class that is used to create different image formats. This
  * class can use the ImageMagick cli tool <b>convert</b> and the pecl extension
  * <b>pecl/imagick</b>.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Util_ImageConvert
+class ImageConvert
 {
     /**
      * Tries to converts the <b>$input</b> image into the <b>$output</b> format.
@@ -88,7 +86,7 @@ class PHP_Depend_Util_ImageConvert
         if ($inputType === $outputType) {
             file_put_contents($output, file_get_contents($input));
         } elseif (extension_loaded('imagick') === true) {
-            $imagick = new Imagick($input);
+            $imagick = new \Imagick($input);
             $imagick->setImageFormat($outputType);
             $imagick->writeImage($output);
 
@@ -152,7 +150,7 @@ class PHP_Depend_Util_ImageConvert
     protected static function prepareSvg($input)
     {
         // Check for a configuration instance
-        if (($config = PHP_Depend_Util_ConfigurationInstance::get()) === null) {
+        if (($config = ConfigurationInstance::get()) === null) {
             return;
         }
 

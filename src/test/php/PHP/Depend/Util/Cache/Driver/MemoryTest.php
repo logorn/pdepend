@@ -36,44 +36,41 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Util\Cache\Driver;
+
 /**
- * Test case for the {@link PHP_Depend_Util_Cache_Driver_Memory} class.
+ * Test case for the {@link \PHP\Depend\Util\Cache\Driver\Memory} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Util_Cache_Driver_Memory
+ * @covers \PHP\Depend\Util\Cache\Driver\Memory
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
  */
-class PHP_Depend_Util_Cache_Driver_MemoryTest
-    extends PHP_Depend_Util_Cache_AbstractDriverTest
+class MemoryTest extends \PHP_Depend_Util_Cache_AbstractDriverTest
 {
     /**
      * Creates a test fixture.
      *
-     * @return PHP_Depend_Util_Cache_Driver
+     * @return \PHP\Depend\Util\Cache\Driver
      */
     protected function createDriver()
     {
-        return new PHP_Depend_Util_Cache_Driver_Memory();
+        return new Memory();
     }
 }

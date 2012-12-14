@@ -47,6 +47,7 @@
  */
 
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+use PHP\Depend\Util\Cache\Driver\Memory;
 
 /**
  * Test case for the class level analyzer.
@@ -610,7 +611,7 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
         $source = self::parseTestCaseSource(self::getCallingTestMethod());
 
         $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
-        $ccnAnalyzer->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+        $ccnAnalyzer->setCache(new Memory());
 
         $processor = new DefaultProcessor();
         $processor->register($ccnAnalyzer);
@@ -823,7 +824,7 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     private function calculateTraitMetrics()
     {
         $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
-        $ccnAnalyzer->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+        $ccnAnalyzer->setCache(new Memory());
 
         $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
         $analyzer->addAnalyzer($ccnAnalyzer);

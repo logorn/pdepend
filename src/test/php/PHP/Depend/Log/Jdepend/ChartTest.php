@@ -46,6 +46,7 @@
 
 namespace PHP\Depend\Log\Jdepend;
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Log\DummyAnalyzer;
 
 /**
@@ -64,7 +65,7 @@ use \PHP\Depend\Log\DummyAnalyzer;
  * @group      pdepend::log::jdepend
  * @group      unittest
  */
-class ChartTest extends \PHP_Depend_AbstractTest
+class ChartTest extends AbstractTest
 {
     /**
      * Temporary output file.

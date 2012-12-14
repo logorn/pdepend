@@ -36,36 +36,36 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver_File
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
+
+namespace PHP\Depend\Util\Cache\Driver\File;
+
+use \PHP\Depend\Util\Cache\CacheDriver;
 
 /**
  * Directory helper for the file system based cache implementation.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver_File
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
-class PHP_Depend_Util_Cache_Driver_File_Directory
+class Directory
 {
     /**
      * The current cache version/hash number.
      */
-    const VERSION = PHP_Depend_Util_Cache_Driver::VERSION;
+    const VERSION = CacheDriver::VERSION;
 
     /**
      * The cache root directory.
@@ -210,7 +210,7 @@ class PHP_Depend_Util_Cache_Driver_File_Directory
      */
     protected function flushDirectory($cacheDir)
     {
-        foreach (new DirectoryIterator($cacheDir) as $child) {
+        foreach (new \DirectoryIterator($cacheDir) as $child) {
             $this->flushEntry($child);
         }
     }
@@ -219,12 +219,12 @@ class PHP_Depend_Util_Cache_Driver_File_Directory
      * Flushes the cache record for the given file info instance, independent if
      * it is a file, directory or symlink.
      *
-     * @param SplFileInfo $file File info object that represents an entity
-     *                          within the cache's file system.
+     * @param \SplFileInfo $file File info object that represents an entity
+     *                           within the cache's file system.
      *
      * @return void
      */
-    protected function flushEntry(SplFileInfo $file)
+    protected function flushEntry(\SplFileInfo $file)
     {
         $path = $file->getRealPath();
         if ($file->isDot()) {

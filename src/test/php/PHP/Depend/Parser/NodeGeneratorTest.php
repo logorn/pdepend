@@ -46,7 +46,7 @@
 
 namespace PHP\Depend\Parser;
 
-require_once __DIR__ . '/../AbstractTest.php';
+use \PHP\Depend\AbstractTest;
 
 /**
  * Test case for the node generator class.
@@ -63,7 +63,7 @@ require_once __DIR__ . '/../AbstractTest.php';
  * @group  pdepend::parser
  * @group  unittest
  */
-class NodeGeneratorTest extends \PHP_Depend_AbstractTest
+class NodeGeneratorTest extends AbstractTest
 {
     /**
      * @var \PHP\Depend\Parser\NodeGenerator

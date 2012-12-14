@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\Metrics;
 
+use \PHP\Depend\Util\Cache\CacheDriver;
+
 /**
  * This class provides a simple way to load all required analyzers by class,
  * implemented interface or parent class.
@@ -78,7 +80,7 @@ class AnalyzerLoader
     /**
      * The system wide used cache.
      *
-     * @var \PHP_Depend_Util_Cache_Driver
+     * @var \PHP\Depend\Util\Cache\CacheDriver
      * @since 1.0.0
      */
     private $cache;
@@ -94,13 +96,13 @@ class AnalyzerLoader
      * Constructs a new analyzer loader.
      *
      * @param \PHP_Depend_Metrics_AnalyzerClassLocator $classLocator
-     * @param \PHP_Depend_Util_Cache_Driver $cache
+     * @param \PHP\Depend\Util\Cache\CacheDriver $cache
      * @param string[] $acceptedTypes
      * @param array $options
      */
     public function __construct(
         \PHP_Depend_Metrics_AnalyzerClassLocator $classLocator,
-        \PHP_Depend_Util_Cache_Driver $cache,
+        CacheDriver $cache,
         array $acceptedTypes,
         array $options = array()
     )

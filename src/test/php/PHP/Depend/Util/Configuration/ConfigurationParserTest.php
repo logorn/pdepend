@@ -36,37 +36,38 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Configuration
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
 
+namespace PHP\Depend\Util\Configuration;
+
+use \PHP\Depend\AbstractTest;
+
 /**
- * Test case for the {@link PHP_Depend_Util_Configuration_Parser} class.
+ * Test case for the {@link \PHP\Depend\Util\Configuration\ConfigurationParser}
+ * class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Configuration
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  *
- * @covers PHP_Depend_Util_Configuration_Parser
+ * @covers \PHP\Depend\Util\Configuration\ConfigurationParser
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::configuration
  * @group  unittest
  */
-class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
+class ConfigurationParserTest extends AbstractTest
 {
     /**
      * testParserHandlesEmptyConfigurationFile
@@ -75,7 +76,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserHandlesEmptyConfigurationFile()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser(new stdClass());
+        $parser = new ConfigurationParser(new \stdClass());
         $this->assertNotNull($parser->parse($this->getTestConfiguration('pdepend.xml')));
     }
 
@@ -86,7 +87,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserHandlesCacheDriverConfigurationValue()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
 
         self::assertEquals('memory', $values->cache->driver);
@@ -99,7 +100,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserHandlesCacheLocationConfigurationValue()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
 
         self::assertEquals('/foo/bar/baz', $values->cache->location);
@@ -112,7 +113,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserHandlesImagickFontFamilyConfigurationValue()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
 
         self::assertEquals('Courier New', $values->imageConvert->fontFamily);
@@ -125,7 +126,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserHandlesImagickFontSizeConfigurationValue()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
 
         self::assertEquals(23, $values->imageConvert->fontSize);
@@ -138,7 +139,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserHandlesParserNestingConfigurationValue()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
 
         self::assertEquals(423, $values->parser->nesting);
@@ -151,7 +152,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserModifiesConfigurationAdaptive()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $parser->parse($this->getTestConfiguration('pdepend.xml.dist'));
 
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
@@ -166,7 +167,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
      */
     public function testParserOverwritesAlreadyDefinedConfigurationValues()
     {
-        $parser = new PHP_Depend_Util_Configuration_Parser($this->createFixture());
+        $parser = new ConfigurationParser($this->createFixture());
         $parser->parse($this->getTestConfiguration('pdepend.xml.dist'));
 
         $values = $parser->parse($this->getTestConfiguration('pdepend.xml'));
@@ -189,7 +190,7 @@ class PHP_Depend_Util_Configuration_ParserTest extends PHP_Depend_AbstractTest
     /**
      * Creates a test configuration fixture.
      *
-     * @return stdClass
+     * @return \stdClass
      */
     protected function createFixture()
     {

@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\Parser;
 
+use \PHP\Depend\Util\Type;
+
 /**
  * Visitor class that extracts doc comment annotations.
  *
@@ -188,7 +190,7 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
         foreach ($matches[1] as $match) {
             $match = rtrim($match, '[]');
 
-            if (false === \PHP_Depend_Util_Type::isScalarType($match)) {
+            if (false === Type::isScalarType($match)) {
                 $names[] = $this->resolveClassName(new \PHPParser_Node_Name($match));
             }
         }

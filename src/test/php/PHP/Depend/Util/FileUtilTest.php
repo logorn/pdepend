@@ -36,34 +36,34 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Util;
+
+use \PHP\Depend\AbstractTest;
+
 /**
- * Test case for the {@link PHP_Depend_Util_FileUtil} class.
+ * Test case for the {@link \PHP\Depend\Util\FileUtil} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Util_FileUtil
+ * @covers \PHP\Depend\Util\FileUtil
  * @group  pdepend
  * @group  pdepend::util
  * @group  unittest
  */
-class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
+class FileUtilTest extends AbstractTest
 {
     /**
      * testGetSysTempDirReturnsExpectedDirectory
@@ -74,7 +74,7 @@ class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
     {
         $this->assertEquals(
             sys_get_temp_dir(),
-            PHP_Depend_Util_FileUtil::getSysTempDir()
+            FileUtil::getSysTempDir()
         );
     }
 
@@ -87,7 +87,7 @@ class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
     {
         $this->assertEquals(
             getenv('HOME'),
-            PHP_Depend_Util_FileUtil::getUserHomeDir()
+            FileUtil::getUserHomeDir()
         );
     }
 
@@ -100,7 +100,7 @@ class PHP_Depend_Util_FileUtilTest extends PHP_Depend_AbstractTest
     {
         $this->assertEquals(
             getenv('HOME'),
-            PHP_Depend_Util_FileUtil::getUserHomeDirOrSysTempDir()
+            FileUtil::getUserHomeDirOrSysTempDir()
         );
     }
 

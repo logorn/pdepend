@@ -1,4 +1,6 @@
 <?php
+use PHP\Depend\Util\Cache\Driver\Memory;
+
 /**
  * This file is part of PHP_Depend.
  *
@@ -68,7 +70,7 @@
 class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
 {
     /**
-     * @var PHP_Depend_Util_Cache_Driver
+     * @var \PHP\Depend\Util\Cache\CacheDriver
      * @since 1.0.0
      */
     private $cache;
@@ -84,7 +86,7 @@ class PHP_Depend_Metrics_NodeLoc_AnalyzerTest extends PHP_Depend_Metrics_Abstrac
 
         $this->markTestIncomplete('@todo 2.0');
 
-        $this->cache = new PHP_Depend_Util_Cache_Driver_Memory();
+        $this->cache = new Memory();
     }
 
     /**

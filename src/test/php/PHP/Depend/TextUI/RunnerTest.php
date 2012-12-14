@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\TextUI;
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Test case for the text ui runner.
  *
@@ -61,7 +63,7 @@ namespace PHP\Depend\TextUI;
  * @group  pdepend::textui
  * @group  unittest
  */
-class RunnerTest extends \PHP_Depend_AbstractTest
+class RunnerTest extends AbstractTest
 {
     /**
      * @var string

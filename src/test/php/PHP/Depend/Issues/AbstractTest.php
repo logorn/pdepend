@@ -46,6 +46,8 @@
  * @link       http://www.pdepend.org/
  */
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Abstract base class for issue tests.
  *
@@ -58,7 +60,7 @@
  * @version    Release: @package_version@
  * @link       http://www.pdepend.org/
  */
-abstract class PHP_Depend_Issues_AbstractTest extends PHP_Depend_AbstractTest
+abstract class PHP_Depend_Issues_AbstractTest extends AbstractTest
 {
     /**
      * Returns the parameters of the first function in the test case file.

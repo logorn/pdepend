@@ -46,7 +46,7 @@
  * @link       http://www.pdepend.org/
  */
 
-require_once __DIR__ . '/../AbstractTest.php';
+use \PHP\Depend\AbstractTest;
 
 /**
  * Test case related to bug 65.
@@ -65,7 +65,7 @@ require_once __DIR__ . '/../AbstractTest.php';
  * @group      pdepend::bugs
  * @group      regressiontest
  */
-class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends PHP_Depend_AbstractTest
+class PHP_Depend_Bugs_ClassDeclarationWithoutBodyBug065Test extends AbstractTest
 {
     /**
      * Tests that the parser does not end in an endless loop when it detects an

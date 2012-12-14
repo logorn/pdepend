@@ -46,6 +46,7 @@
 
 namespace PHP\Depend\Log\Overview;
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Log\DummyAnalyzer;
 
 /**
@@ -64,7 +65,7 @@ use \PHP\Depend\Log\DummyAnalyzer;
  * @group  pdepend::log::overview
  * @group  unittest
  */
-class PyramidTest extends \PHP_Depend_AbstractTest
+class PyramidTest extends AbstractTest
 {
     /**
      * Tests that the logger returns the expected set of analyzers.

@@ -50,6 +50,8 @@ use \PHP\Depend\Log\CodeAware;
 use \PHP\Depend\Log\FileAware;
 use \PHP\Depend\Log\NoLogOutputException;
 use \PHP\Depend\Metrics\Analyzer;
+use \PHP\Depend\Util\FileUtil;
+use \PHP\Depend\Util\ImageConvert;
 
 /**
  * Generates a chart with the aggregated metrics.
@@ -115,8 +117,7 @@ class Chart implements CodeAware, FileAware
     /**
      * Sets the context code nodes.
      *
-     * @param PHP_Depend_Code_NodeIterator $code The code nodes.
-     *
+     * @param \PHP_Depend_Code_NodeIterator $code The code nodes.
      * @return void
      */
     public function setCode(\PHP_Depend_Code_NodeIterator $code)
@@ -245,11 +246,11 @@ class Chart implements CodeAware, FileAware
         $good->parentNode->removeChild($good);
         $legendTemplate->parentNode->removeChild($legendTemplate);
 
-        $temp = PHP_Depend_Util_FileUtil::getSysTempDir();
+        $temp = FileUtil::getSysTempDir();
         $temp .= '/' . uniqid('pdepend_') . '.svg';
         $svg->save($temp);
 
-        \PHP_Depend_Util_ImageConvert::convert($temp, $this->logFile);
+        ImageConvert::convert($temp, $this->logFile);
 
         // Remove temp file
         unlink($temp);

@@ -36,30 +36,28 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   PHP
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://www.pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://www.pdepend.org/
  */
+
+namespace PHP\Depend\Util;
 
 /**
  * This is a simply utility class that will perform mathematical operations with
  * bcmath when the extension exists, otherwise it will use default math operations.
  *
- * @category   PHP
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://www.pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://www.pdepend.org/
  */
-final class PHP_Depend_Util_MathUtil
+final class MathUtil
 {
     /**
      * This method will multiply the two given operands with the bcmath extension
@@ -67,7 +65,6 @@ final class PHP_Depend_Util_MathUtil
      *
      * @param string $left  The left arithmetic operand.
      * @param string $right The right arithmetic operand.
-     *
      * @return string
      */
     public static function mul($left, $right)
@@ -75,7 +72,7 @@ final class PHP_Depend_Util_MathUtil
         if (function_exists('bcmul')) {
             return bcmul($left, $right);
         }
-        return (string)((int)$left * (int)$right);
+        return (string) ((int) $left * (int) $right);
     }
 
     /**
@@ -84,7 +81,6 @@ final class PHP_Depend_Util_MathUtil
      *
      * @param string $left  The left arithmetic operand.
      * @param string $right The right arithmetic operand.
-     *
      * @return string
      */
     public static function add($left, $right)
@@ -92,7 +88,7 @@ final class PHP_Depend_Util_MathUtil
         if (function_exists('bcadd')) {
             return bcadd($left, $right);
         }
-        return (string)((int)$left + (int)$right);
+        return (string) ((int) $left + (int) $right);
     }
 }
 

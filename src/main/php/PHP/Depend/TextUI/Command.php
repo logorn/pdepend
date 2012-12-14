@@ -46,6 +46,9 @@
 
 namespace PHP\Depend\TextUI;
 
+use \PHP\Depend\Util\ConfigurationInstance;
+use \PHP\Depend\Util\Configuration\ConfigurationFactory;
+
 /**
  * Handles the command line stuff and starts the text ui runner.
  *
@@ -325,7 +328,7 @@ class Command
             unset($this->options['--bad-documentation']);
         }
 
-        $configurationFactory = new \PHP_Depend_Util_Configuration_Factory();
+        $configurationFactory = new ConfigurationFactory();
 
         // Check for configuration option
         if (isset($this->options['--configuration'])) {
@@ -339,7 +342,7 @@ class Command
             $configuration = $configurationFactory->createDefault();
         }
         // Store in config registry
-        \PHP_Depend_Util_ConfigurationInstance::set($configuration);
+        ConfigurationInstance::set($configuration);
 
         $this->runner->setConfiguration($configuration);
 

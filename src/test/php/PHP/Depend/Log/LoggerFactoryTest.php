@@ -46,6 +46,7 @@
 
 namespace PHP\Depend\Log;
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Log\Summary\Xml;
 
 /**
@@ -58,7 +59,7 @@ use \PHP\Depend\Log\Summary\Xml;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class LoggerFactoryTest extends \PHP_Depend_AbstractTest
+class LoggerFactoryTest extends AbstractTest
 {
     /**
      * Tests that {@link \PHP\Depend\Log\LoggerFactory::createReport()} returns

@@ -36,35 +36,36 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
+
+namespace PHP\Depend\Util\Cache\Driver;
+
+use PHP\Depend\Util\Cache\CacheDriver;
+use PHP\Depend\Util\Cache\Driver\File\Directory;
 
 /**
  * A file system based cache implementation.
  *
- * This class implements the {@link PHP_Depend_Util_Cache_Driver} interface based
- * on the local file system. It creates a special directory structure and stores
- * all cache entries in files under this directory structure.
+ * This class implements the {@link \PHP\Depend\Util\Cache\CacheDriver} interface
+ * based on the local file system. It creates a special directory structure and
+ * stores all cache entries in files under this directory structure.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache_Driver
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
-class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
+class File implements CacheDriver
 {
     /**
      * The type of this class.
@@ -79,7 +80,7 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
     /**
      * The cache directory handler
      *
-     * @var PHP_Depend_Util_Cache_Driver_File_Directory
+     * @var PHP\Depend\Util\Cache\Driver\File\Directory
      */
     protected $directory;
 
@@ -114,7 +115,7 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      */
     public function __construct($root, $cacheKey = null)
     {
-        $this->directory = new PHP_Depend_Util_Cache_Driver_File_Directory($root);
+        $this->directory = new Directory($root);
         $this->version   = preg_replace('(^(\d+\.\d+).*)', '\\1', phpversion());
 
         $this->cacheKey = $cacheKey;
@@ -129,8 +130,7 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      * <em>store()</em>.
      *
      * @param string $type The name or object type for the next storage method call.
-     *
-     * @return PHP_Depend_Util_Cache_Driver
+     * @return \PHP\Depend\Util\Cache\CacheDriver
      */
     public function type($type)
     {
@@ -148,7 +148,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      * @param string $key  The cache key for the given data.
      * @param mixed  $data Any data that should be cached.
      * @param string $hash Optional hash that will be used for verification.
-     *
      * @return  void
      */
     public function store($key, $data, $hash = null)
@@ -162,7 +161,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      *
      * @param string $file The cache file name.
      * @param string $data Serialized cache data.
-     *
      * @return void
      */
     protected function write($file, $data)
@@ -183,7 +181,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      *
      * @param string $key  The cache key for the given data.
      * @param string $hash Optional hash that will be used for verification.
-     *
      * @return mixed
      */
     public function restore($key, $hash = null)
@@ -202,7 +199,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      *
      * @param string $file The cache file name.
      * @param string $hash The verification hash.
-     *
      * @return mixed
      */
     protected function restoreFile($file, $hash)
@@ -218,7 +214,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      * This method reads the raw data from the given <em>$file</em>.
      *
      * @param string $file The cache file name.
-     *
      * @return string
      */
     protected function read($file)
@@ -241,7 +236,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      * nothing.
      *
      * @param string $pattern The cache key pattern.
-     *
      * @return void
      */
     public function remove($pattern)
@@ -258,7 +252,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      * directory and the current entry type.
      *
      * @param string $key The cache key for the given data.
-     *
      * @return string
      */
     protected function getCacheFile($key)
@@ -279,7 +272,6 @@ class PHP_Depend_Util_Cache_Driver_File implements PHP_Depend_Util_Cache_Driver
      * extension.
      *
      * @param string $key The cache key for the given data.
-     *
      * @return string
      */
     protected function getCacheFileWithoutExtension($key)

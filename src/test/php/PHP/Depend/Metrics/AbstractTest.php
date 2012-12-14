@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Abstract base class for tests of the metrics package.
  *
@@ -58,7 +60,7 @@
  * @version    Release: @package_version@
  * @link       http://pdepend.org/
  */
-abstract class PHP_Depend_Metrics_AbstractTest extends PHP_Depend_AbstractTest
+abstract class PHP_Depend_Metrics_AbstractTest extends AbstractTest
 {
     /**
      * Parses the given source file or directory with the default tokenizer

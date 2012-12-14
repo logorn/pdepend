@@ -57,6 +57,7 @@ use \PHP\Depend\Metrics\Processor\CompositeProcessor;
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 use \PHP\Depend\Tokenizer;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
+use \PHP\Depend\Util\Configuration;
 
 /**
  * PHP_Depend analyzes php class files and generates metrics.
@@ -87,7 +88,7 @@ class PHP_Depend
     /**
      * The system configuration.
      *
-     * @var PHP_Depend_Util_Configuration
+     * @var \PHP\Depend\Util\Configuration
      * @since 0.10.0
      */
     private $configuration = null;
@@ -160,9 +161,9 @@ class PHP_Depend
     /**
      * Constructs a new php depend facade.
      *
-     * @param PHP_Depend_Util_Configuration $configuration The system configuration.
+     * @param \PHP\Depend\Util\Configuration $configuration
      */
-    public function __construct(PHP_Depend_Util_Configuration $configuration)
+    public function __construct(Configuration $configuration)
     {
         $this->configuration = $configuration;
 

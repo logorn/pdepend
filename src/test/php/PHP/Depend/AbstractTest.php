@@ -37,7 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,23 +44,24 @@
  * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\Parser;
+namespace PHP\Depend;
+
 use \PHP\Depend\Input\ExcludePathFilter;
 use \PHP\Depend\Input\FileIterator;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
+use \PHP\Depend\Util\Configuration\ConfigurationFactory;
 
 /**
  * Abstract test case implementation for the PHP_Depend package.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
+abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The current working directory.
@@ -163,191 +163,6 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns a node instance for the currently executed test case.
-     *
-     * @param string $testCase Name of the calling test case.
-     * @param string $nodeType The searched node class.
-     *
-     * @return PHP_Depend_Code_ASTNode
-     */
-    protected function getFirstNodeOfTypeInFunction($testCase, $nodeType)
-    {
-        return $this->getFirstFunctionForTestCase($testCase)
-            ->getFirstChildOfType($nodeType);
-    }
-
-    /**
-     * Returns the first function found in a test file associated with the
-     * given test case.
-     *
-     * @return PHP_Depend_Code_Function
-     */
-    protected function getFirstFunctionForTestCase()
-    {
-        return self::parseCodeResourceForTest()
-            ->current()
-            ->getFunctions()
-            ->current();
-    }
-
-    /**
-     * Returns a node instance for the currently executed test case.
-     *
-     * @param string $nodeType The searched node class.
-     *
-     * @return PHP_Depend_Code_ASTNode
-     * @since 1.0.0
-     */
-    protected function getFirstNodeOfTypeInTrait($nodeType)
-    {
-        return $this->getFirstTraitForTestCase()
-            ->getFirstChildOfType($nodeType);
-    }
-
-    /**
-     * Returns a node instance for the currently executed test case.
-     *
-     * @param string $testCase Name of the calling test case.
-     * @param string $nodeType The searched node class.
-     *
-     * @return PHP_Depend_Code_ASTNode
-     */
-    protected function getFirstNodeOfTypeInClass($testCase, $nodeType)
-    {
-        return $this->getFirstClassForTestCase($testCase)
-            ->getFirstChildOfType($nodeType);
-    }
-
-    /**
-     * Returns a node instance for the currently executed test case.
-     *
-     * @param string $testCase Name of the calling test case.
-     * @param string $nodeType The searched node class.
-     *
-     * @return PHP_Depend_Code_ASTNode
-     */
-    protected function getFirstNodeOfTypeInInterface($testCase, $nodeType)
-    {
-        return $this->getFirstInterfaceForTestCase($testCase)
-            ->getFirstChildOfType($nodeType);
-    }
-
-    /**
-     * Returns the first trait found in a test file associated with the given
-     * test case.
-     *
-     * @return PHP_Depend_AST_Trait
-     * @since 1.0.0
-     */
-    protected function getFirstTraitForTestCase()
-    {
-        return self::parseCodeResourceForTest()
-            ->current()
-            ->getTraits()
-            ->current();
-    }
-
-    /**
-     * Returns the first class found in a test file associated with the given
-     * test case.
-     *
-     * @return \PHP\Depend\AST\ASTClass
-     */
-    protected function getFirstClassForTestCase()
-    {
-        return self::parseCodeResourceForTest()
-            ->current()
-            ->getClasses()
-            ->current();
-    }
-
-    /**
-     * Returns the first interface that could be found in the source file
-     * associated with the calling test case.
-     *
-     * @return PHP_Depend_Code_Interface
-     */
-    protected function getFirstInterfaceForTestCase()
-    {
-        return self::parseCodeResourceForTest()
-            ->current()
-            ->getInterfaces()
-            ->current();
-    }
-
-    /**
-     * Collects all children from a given node.
-     *
-     * @param PHP_Depend_Code_ASTNode $node   The current root node.
-     * @param array                   $actual Previous filled list.
-     *
-     * @return array(string)
-     */
-    protected static function collectChildNodes(
-        PHP_Depend_Code_ASTNode $node,
-        array $actual = array()
-    )
-    {
-        foreach ($node->getChildren() as $child) {
-            $actual[] = get_class($child);
-            $actual   = self::collectChildNodes($child, $actual);
-        }
-        return $actual;
-    }
-
-    /**
-     * Tests that the given node and its children represent the expected ast
-     * object graph.
-     *
-     * @param PHP_Depend_Code_ASTNode $node     The root node.
-     * @param array(string)           $expected Expected class structure.
-     *
-     * @return void
-     */
-    protected static function assertGraphEquals(
-        PHP_Depend_Code_ASTNode $node,
-        array $expected
-    )
-    {
-        $actual = self::collectChildNodes($node);
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * Collects all children from a given node.
-     *
-     * @param PHP_Depend_Code_ASTNode $node The current root node.
-     *
-     * @return array
-     */
-    protected static function collectGraph(PHP_Depend_Code_ASTNode $node)
-    {
-        $graph = array();
-        foreach ($node->getChildren() as $child) {
-            $graph[] = get_class($child) . ' (' . $child->getImage() . ')';
-            if (0 < count($child->getChildren())) {
-                $graph[] = self::collectGraph($child);
-            }
-        }
-        return $graph;
-    }
-
-    /**
-     * Tests that the given node and its children represent the expected ast
-     * object graph.
-     *
-     * @param PHP_Depend_Code_ASTNode $node  The root node.
-     * @param array                   $graph Expected class structure.
-     *
-     * @return void
-     */
-    protected static function assertGraph(PHP_Depend_Code_ASTNode $node, $graph)
-    {
-        $actual = self::collectGraph($node);
-        self::assertEquals($graph, $actual);
-    }
-
-    /**
      * Helper method to allow PHPUnit versions < 3.5.x
      *
      * @param string $expected The expected class or interface.
@@ -409,7 +224,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
             $dir = __DIR__ . '/_run';
         }
 
-        foreach (new DirectoryIterator($dir) as $file) {
+        foreach (new \DirectoryIterator($dir) as $file) {
             if (in_array($file, array('.', '..', '.svn', '.gitkeep'))) {
                 continue;
             }
@@ -426,12 +241,12 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     /**
      * Creates a test configuration instance.
      *
-     * @return PHP_Depend_Util_Configuration
+     * @return \PHP\Depend\Util\Configuration
      * @since 0.10.0
      */
     protected function createConfigurationFixture()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         return $config;
@@ -450,7 +265,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
             $this->createCodeResourceURI('config/')
         );
 
-        return new PHP_Depend($this->createConfigurationFixture());
+        return new \PHP_Depend($this->createConfigurationFixture());
     }
 
     /**
@@ -464,7 +279,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     {
         $uri = __DIR__ . '/_run/' . ($fileName ? $fileName : uniqid());
         if (file_exists($uri) === true) {
-            throw new ErrorException("File '{$fileName}' already exists.");
+            throw new \ErrorException("File '{$fileName}' already exists.");
         }
         return $uri;
     }
@@ -482,7 +297,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         $uri = realpath($uri);
 
         if (file_exists($uri) === false) {
-            throw new ErrorException("File '{$fileName}' does not exists.");
+            throw new \ErrorException("File '{$fileName}' does not exists.");
         }
         return $uri;
     }
@@ -513,7 +328,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
         $fileName = substr(join('/', $parts), 0, -4) . "/{$method}";
         try {
             return self::createCodeResourceURI($fileName);
-        } catch (ErrorException $e) {
+        } catch (\ErrorException $e) {
             return self::createCodeResourceURI("{$fileName}.php");
         }
     }
@@ -530,7 +345,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
                 return "{$frame['class']}::{$frame['function']}";
             }
         }
-        throw new ErrorException("No calling test case found.");
+        throw new \ErrorException("No calling test case found.");
     }
 
     /**
@@ -565,7 +380,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
      */
     private static function initVersionCompatibility()
     {
-        $reflection = new ReflectionClass('Iterator');
+        $reflection = new \ReflectionClass('Iterator');
         $extension  = strtolower($reflection->getExtensionName());
         $extension  = ($extension === '' ? 'standard' : $extension);
 
@@ -607,7 +422,7 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
 
         try {
             $fileOrDirectory = self::createCodeResourceURI($fileName);
-        } catch (ErrorException $e) {
+        } catch (\ErrorException $e) {
             $fileOrDirectory = self::createCodeResourceURI($fileName . '.php');
         }
 
@@ -631,13 +446,13 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
 
         if (is_dir($fileOrDirectory)) {
             $it = new FileIterator(
-                new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($fileOrDirectory)
+                new \RecursiveIteratorIterator(
+                    new \RecursiveDirectoryIterator($fileOrDirectory)
                 ),
                 new ExcludePathFilter(array('.svn'))
             );
         } else {
-            $it = new ArrayIterator(array($fileOrDirectory));
+            $it = new \ArrayIterator(array($fileOrDirectory));
         }
 
         $files = array();
@@ -665,4 +480,4 @@ abstract class PHP_Depend_AbstractTest extends PHPUnit_Framework_TestCase
     }
 }
 
-PHP_Depend_AbstractTest::init();
+AbstractTest::init();

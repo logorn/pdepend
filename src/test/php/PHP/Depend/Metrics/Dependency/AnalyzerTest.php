@@ -45,6 +45,7 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
 /**
@@ -64,7 +65,7 @@ use \PHP\Depend\Metrics\Processor\DefaultProcessor;
  * @group  pdepend::metrics::dependency
  * @group  unittest
  */
-class PHP_Depend_Metrics_Dependency_AnalyzerTest extends PHP_Depend_AbstractTest
+class PHP_Depend_Metrics_Dependency_AnalyzerTest extends AbstractTest
 {
     /**
      * Input test data.

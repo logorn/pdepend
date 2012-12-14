@@ -49,6 +49,7 @@ namespace PHP\Depend\TextUI;
 use \PHP\Depend\Input\ExcludePathFilter;
 use \PHP\Depend\Input\ExtensionFilter;
 use \PHP\Depend\Log\LoggerFactory;
+use \PHP\Depend\Util\Configuration;
 
 /**
  * The command line runner starts a PDepend process.
@@ -75,7 +76,7 @@ class Runner
     /**
      * The system configuration.
      *
-     * @var \PHP_Depend_Util_Configuration
+     * @var \PHP\Depend\Util\Configuration
      * @since 0.10.0
      */
     protected $configuration = null;
@@ -149,12 +150,11 @@ class Runner
     /**
      * Sets the system configuration.
      *
-     * @param \PHP_Depend_Util_Configuration $configuration The system configuration.
-     *
+     * @param \PHP\Depend\Util\Configuration $configuration
      * @return void
      * @since 0.10.0
      */
-    public function setConfiguration(\PHP_Depend_Util_Configuration $configuration)
+    public function setConfiguration(Configuration $configuration)
     {
         $this->configuration = $configuration;
     }

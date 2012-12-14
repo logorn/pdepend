@@ -48,6 +48,8 @@
 
 namespace PHP\Depend\TextUI;
 
+use \PHP\Depend\AbstractTest;
+
 use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
 
@@ -66,7 +68,7 @@ use \PHP\Depend\Tokenizer\VersionAllTokenizer;
  * @group  pdepend::textui
  * @group  unittest
  */
-class ResultPrinterTest extends \PHP_Depend_AbstractTest
+class ResultPrinterTest extends AbstractTest
 {
     /**
      * Tests the output for a single file entry.

@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Abstract test case that validates the behavior of concrete driver
  * implementations.
@@ -64,8 +66,7 @@
  * @group  pdepend::util::cache
  * @group  unittest
  */
-abstract class PHP_Depend_Util_Cache_AbstractDriverTest
-    extends PHP_Depend_AbstractTest
+abstract class PHP_Depend_Util_Cache_AbstractDriverTest extends AbstractTest
 {
     /**
      * testTypeMethodReturnsSameObjectInstance
@@ -226,7 +227,7 @@ abstract class PHP_Depend_Util_Cache_AbstractDriverTest
     /**
      * Creates a test fixture.
      *
-     * @return PHP_Depend_Util_Cache_Driver
+     * @return \PHP\Depend\Util\Cache\CacheDriver
      */
     protected abstract function createDriver();
 }

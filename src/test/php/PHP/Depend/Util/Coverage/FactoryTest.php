@@ -46,6 +46,8 @@
  * @link       http://pdepend.org/
  */
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Test case for the {@link PHP_Depend_Util_Coverage_Factory} class.
  *
@@ -64,7 +66,7 @@
  * @group  pdepend::util::coverage
  * @group  unittest
  */
-class PHP_Depend_Util_Coverage_FactoryTest extends PHP_Depend_AbstractTest
+class PHP_Depend_Util_Coverage_FactoryTest extends AbstractTest
 {
     /**
      * testCreateReturnsCloverReportInstanceForCloverInputFile

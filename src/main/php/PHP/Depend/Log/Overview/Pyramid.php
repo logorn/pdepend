@@ -49,6 +49,8 @@ namespace PHP\Depend\Log\Overview;
 use \PHP\Depend\Log\FileAware;
 use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Log\NoLogOutputException;
+use \PHP\Depend\Util\FileUtil;
+use \PHP\Depend\Util\ImageConvert;
 
 /**
  * This logger generates a system overview pyramid, as described in the book
@@ -187,6 +189,7 @@ class Pyramid implements FileAware
     /**
      * Closes the logger process and writes the output file.
      *
+     * @throws \PHP\Depend\Log\NoLogOutputException
      * @return void
      */
     public function close()
@@ -222,11 +225,11 @@ class Pyramid implements FileAware
             $rect->setAttribute('style', $style);
         }
 
-        $temp = PHP_Depend_Util_FileUtil::getSysTempDir();
+        $temp = FileUtil::getSysTempDir();
         $temp .= '/' . uniqid('pdepend_') . '.svg';
         $svg->save($temp);
 
-        PHP_Depend_Util_ImageConvert::convert($temp, $this->logFile);
+        ImageConvert::convert($temp, $this->logFile);
 
         // Remove temp file
         unlink($temp);

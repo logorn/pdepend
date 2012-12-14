@@ -46,6 +46,7 @@
 
 namespace PHP\Depend\Integration;
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Input\ExcludePathFilter;
 
 /**
@@ -64,7 +65,7 @@ use \PHP\Depend\Input\ExcludePathFilter;
  * @group  pdepend::integration
  * @group  integrationtest
  */
-class DependExcludePathFilterTest extends \PHP_Depend_AbstractTest
+class DependExcludePathFilterTest extends AbstractTest
 {
     /**
      * testPDependFiltersByRelativePath

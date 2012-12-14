@@ -46,6 +46,10 @@
 
 namespace PHP\Depend\TextUI;
 
+use \PHP\Depend\AbstractTest;
+
+use PHP\Depend\Util\ConfigurationInstance;
+
 /**
  * Test case for the text ui command.
  *
@@ -61,7 +65,7 @@ namespace PHP\Depend\TextUI;
  * @group  pdepend::textui
  * @group  unittest
  */
-class CommandTest extends \PHP_Depend_AbstractTest
+class CommandTest extends AbstractTest
 {
     /**
      * @var string
@@ -497,11 +501,11 @@ class CommandTest extends \PHP_Depend_AbstractTest
         );
 
         // Result previous instance
-        \PHP_Depend_Util_ConfigurationInstance::set(null);
+        ConfigurationInstance::set(null);
 
         $this->executeCommand($argv);
 
-        $config = \PHP_Depend_Util_ConfigurationInstance::get();
+        $config = ConfigurationInstance::get();
         $this->assertEquals('memory', $config->cache->driver);
     }
 

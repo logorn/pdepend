@@ -36,37 +36,40 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Configuration
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
 
+namespace PHP\Depend\Util\Configuration;
+
+use \PHP\Depend\AbstractTest;
+
+use \PHP\Depend\Util\FileUtil;
+
 /**
- * Test case for the {@link PHP_Depend_Util_Configuration_Factory} class.
+ * Test case for the {@link \PHP\Depend\Util\Configuration\ConfigurationFactory}
+ * class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Configuration
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  *
- * @covers PHP_Depend_Util_Configuration_Factory
+ * @covers \PHP\Depend\Util\Configuration\ConfigurationFactory
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::configuration
  * @group  unittest
  */
-class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
+class ConfigurationFactoryTest extends AbstractTest
 {
     /**
      * The current working directory.
@@ -108,7 +111,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
      */
     public function testDefaultConfigurationHasExpectedCacheDriver()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals('file', $config->cache->driver);
@@ -121,11 +124,11 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
      */
     public function testDefaultConfigurationHasExpectedCacheLocation()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals(
-            PHP_Depend_Util_FileUtil::getUserHomeDirOrSysTempDir() . '/.pdepend',
+            FileUtil::getUserHomeDirOrSysTempDir() . '/.pdepend',
             $config->cache->location
         );
     }
@@ -137,7 +140,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
      */
     public function testDefaultConfigurationHasExpectedFontFamily()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals('Arial', $config->imageConvert->fontFamily);
@@ -150,7 +153,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
      */
     public function testDefaultConfigurationHasExpectedFontSize()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals(11, $config->imageConvert->fontSize);
@@ -165,7 +168,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
     {
         chdir(self::createCodeResourceUriForTest());
 
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals(23, $config->imageConvert->fontSize);
@@ -180,7 +183,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
     {
         chdir(self::createCodeResourceUriForTest());
 
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals(42, $config->imageConvert->fontSize);
@@ -195,7 +198,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
     {
         chdir(self::createCodeResourceUriForTest());
 
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals(42, $config->imageConvert->fontSize);
@@ -208,7 +211,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
      */
     public function testDefaultConfigurationHasExpectedParserNesting()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->createDefault();
 
         self::assertEquals(8192, $config->parser->nesting);
@@ -222,7 +225,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
      */
     public function testCreateForNotExistingFileThrowsExpectedException()
     {
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $factory->create(md5(microtime()) . '.xml');
     }
 
@@ -235,7 +238,7 @@ class PHP_Depend_Util_Configuration_FactoryTest extends PHP_Depend_AbstractTest
     {
         $file = self::createCodeResourceUriForTest() . '/pdepend.xml';
 
-        $factory = new PHP_Depend_Util_Configuration_Factory();
+        $factory = new ConfigurationFactory();
         $config  = $factory->create($file);
 
         self::assertEquals(42, $config->imageConvert->fontSize);

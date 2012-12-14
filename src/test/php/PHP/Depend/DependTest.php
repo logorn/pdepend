@@ -45,6 +45,7 @@
  * @link      http://pdepend.org/
  */
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Input\ExtensionFilter;
 
 /**
@@ -62,7 +63,7 @@ use \PHP\Depend\Input\ExtensionFilter;
  * @group     pdepend
  * @group     unittest
  */
-class PHP_Depend_DependTest extends PHP_Depend_AbstractTest
+class PHP_Depend_DependTest extends AbstractTest
 {
     /**
      * Tests that the {@link PHP_Depend::addDirectory()} method fails with an

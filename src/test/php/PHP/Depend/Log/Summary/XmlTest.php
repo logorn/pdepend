@@ -46,6 +46,7 @@
 
 namespace PHP\Depend\Log\Summary;
 
+use \PHP\Depend\AbstractTest;
 use \PHP\Depend\Log\LogProcessor;
 
 /**
@@ -64,7 +65,7 @@ use \PHP\Depend\Log\LogProcessor;
  * @group  pdepend::log::summary
  * @group  unittest
  */
-class XmlTest extends \PHP_Depend_AbstractTest
+class XmlTest extends AbstractTest
 {
     /**
      * The temporary file name for the logger result.

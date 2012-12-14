@@ -36,35 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util;
 
 /**
  * Simple container class that holds settings for PHP_Depend and all its sub
  * systems.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Util_Configuration
+class Configuration
 {
     /**
      * Simple object tree holding the concrete configuration values.
      *
-     * @var stdClass
+     * @var \stdClass
      * @since 0.10.0
      */
     protected $settings = null;
@@ -72,11 +70,10 @@ class PHP_Depend_Util_Configuration
     /**
      * Constructs a new configuration instance with the given settings tree.
      *
-     * @param stdClass $settings The concrete configuration values.
-     *
+     * @param \stdClass $settings The concrete configuration values.
      * @since 0.10.0
      */
-    public function __construct(stdClass $settings)
+    public function __construct(\stdClass $settings)
     {
         $this->settings = $settings;
     }
@@ -89,9 +86,8 @@ class PHP_Depend_Util_Configuration
      * a matching entry exists. Otherwise this method will throw an exception.
      *
      * @param string $name Name of the requested configuration value.
-     *
      * @return mixed
-     * @throws OutOfRangeException If no matching configuration value exists.
+     * @throws \OutOfRangeException If no matching configuration value exists.
      * @since 0.10.0
      */
     public function __get($name)
@@ -99,7 +95,7 @@ class PHP_Depend_Util_Configuration
         if (isset($this->settings->{$name})) {
             return $this->settings->{$name};
         }
-        throw new OutOfRangeException(
+        throw new \OutOfRangeException(
             sprintf("A configuration option '%s' not exists.", $name)
         );
     }
@@ -108,18 +104,17 @@ class PHP_Depend_Util_Configuration
      * Magic setter method that will be called by PHP's runtime engine when a
      * write operation is performed on an undeclared object property. This
      * implementation of the magic set method always throws an exception, because
-     * configuration settings are inmutable.
+     * configuration settings are immutable.
      *
      * @param string $name  Name of the write property.
      * @param mixed  $value The new property value.
-     *
      * @return void
-     * @throws OutOfRangeException Whenever this method is called.
+     * @throws \OutOfRangeException Whenever this method is called.
      * @since 0.10.0
      */
     public function __set($name, $value)
     {
-        throw new OutOfRangeException(
+        throw new \OutOfRangeException(
             sprintf("A configuration option '%s' not exists.", $name)
         );
     }
@@ -131,7 +126,6 @@ class PHP_Depend_Util_Configuration
      * for the given <b>$name</b> exists.
      *
      * @param string $name Name of the requested property.
-     *
      * @return boolean
      * @since 0.10.0
      */

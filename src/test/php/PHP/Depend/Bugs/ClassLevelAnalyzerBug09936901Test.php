@@ -47,6 +47,7 @@
  */
 
 use PHP\Depend\Metrics\Processor\DefaultProcessor;
+use PHP\Depend\Util\Cache\Driver\Memory;
 
 require_once __DIR__ . '/AbstractTest.php';
 
@@ -81,7 +82,7 @@ class PHP_Depend_Bugs_ClassLevelAnalyzerBug09936901Test
         $this->markTestIncomplete('@todo 2.0');
 
         $ccn = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
-        $ccn->setCache(new PHP_Depend_Util_Cache_Driver_Memory());
+        $ccn->setCache(new Memory());
 
         $class = new PHP_Depend_Metrics_ClassLevel_Analyzer();
         $class->addAnalyzer($ccn);

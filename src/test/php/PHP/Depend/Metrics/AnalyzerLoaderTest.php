@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\Metrics;
 
+use \PHP\Depend\AbstractTest;
+
 /**
  * Test case for the analyzer loader.
  *
@@ -61,7 +63,7 @@ namespace PHP\Depend\Metrics;
  * @group  pdepend::metrics
  * @group  unittest
  */
-class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
+class AnalyzerLoaderTest extends AbstractTest
 {
     /**
      * @var string
@@ -116,7 +118,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
 
         $loader = new AnalyzerLoader(
             new \PHP_Depend_Metrics_AnalyzerClassFileSystemLocator(),
-            $this->getMock('PHP_Depend_Util_Cache_Driver'),
+            $this->getMock('\\PHP\\Depend\\Util\\Cache\\CacheDriver'),
             $expected
         );
 
@@ -157,7 +159,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
 
         $loader = new AnalyzerLoader(
             $locator,
-            $this->getMock('PHP_Depend_Util_Cache_Driver'),
+            $this->getMock('\\PHP\\Depend\\Util\\Cache\\CacheDriver'),
             array('PHP\Depend\Metrics\Analyzer')
         );
 
@@ -189,7 +191,7 @@ class AnalyzerLoaderTest extends \PHP_Depend_AbstractTest
 
         $loader = new AnalyzerLoader(
             $locator,
-            $this->getMock('PHP_Depend_Util_Cache_Driver'),
+            $this->getMock('\\PHP\\Depend\\Util\\Cache\\CacheDriver'),
             array('PHP\Depend\Metrics\Analyzer')
         );
 

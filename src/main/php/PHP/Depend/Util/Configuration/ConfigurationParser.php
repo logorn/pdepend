@@ -36,16 +36,16 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Configuration
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
+
+namespace PHP\Depend\Util\Configuration;
 
 /**
  * Default implementation of a PHP_Depend configuration parser.
@@ -58,29 +58,27 @@
  * allows us the established concept of a default configuration file named
  * <em>pdepend.xml.dist</em> and a local customization <em>pdepend.xml</em>.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Configuration
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
-class PHP_Depend_Util_Configuration_Parser
+class ConfigurationParser
 {
     /**
      * The default configuration settings.
      *
-     * @var stdClass
+     * @var \stdClass
      */
     protected $settings = null;
 
     /**
      * Root element of the currently parsed configuration file.
      *
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     protected $sxml = null;
 
@@ -88,9 +86,9 @@ class PHP_Depend_Util_Configuration_Parser
      * Constructs a new parser instance that uses the given settings as a default
      * configuration.
      *
-     * @param stdClass $settings The default configuration values.
+     * @param \stdClass $settings
      */
-    public function __construct(stdClass $settings)
+    public function __construct(\stdClass $settings)
     {
         $this->settings = $settings;
     }
@@ -100,13 +98,12 @@ class PHP_Depend_Util_Configuration_Parser
      * are specified in the given configuration file. The return value of this
      * method represents the updated PHP_Depend configuration values.
      *
-     * @param string $file Path to a PHP_Depend configuration.
-     *
-     * @return stdClass
+     * @param string $file
+     * @return \stdClass
      */
     public function parse($file)
     {
-        $this->sxml = new SimpleXMLElement($file, null, true);
+        $this->sxml = new \SimpleXMLElement($file, null, true);
 
         $this->parseCache();
         $this->parseParser();
@@ -123,10 +120,10 @@ class PHP_Depend_Util_Configuration_Parser
     protected function parseCache()
     {
         if (isset($this->sxml->cache->driver)) {
-            $this->settings->cache->driver = (string)$this->sxml->cache->driver;
+            $this->settings->cache->driver = (string) $this->sxml->cache->driver;
         }
         if (isset($this->sxml->cache->location)) {
-            $this->settings->cache->location = (string)$this->sxml->cache->location;
+            $this->settings->cache->location = (string) $this->sxml->cache->location;
         }
     }
 
@@ -139,11 +136,11 @@ class PHP_Depend_Util_Configuration_Parser
     {
         if (isset($this->sxml->imageConvert->fontFamily)) {
             $this->settings->imageConvert->fontFamily
-                = (string)$this->sxml->imageConvert->fontFamily;
+                = (string) $this->sxml->imageConvert->fontFamily;
         }
         if (isset($this->sxml->imageConvert->fontSize)) {
             $this->settings->imageConvert->fontSize
-                = (float)$this->sxml->imageConvert->fontSize;
+                = (float) $this->sxml->imageConvert->fontSize;
         }
     }
 
@@ -156,7 +153,7 @@ class PHP_Depend_Util_Configuration_Parser
     protected function parseParser()
     {
         if (isset($this->sxml->parser->nesting)) {
-            $this->settings->parser->nesting = (int)$this->sxml->parser->nesting;
+            $this->settings->parser->nesting = (int) $this->sxml->parser->nesting;
         }
     }
 }

@@ -36,41 +36,39 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util;
 
 /**
  * Registry class for the PHP_Depend configuration class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Util_ConfigurationInstance
+class ConfigurationInstance
 {
     /**
      * The unique configuration instance.
      *
-     * @var PHP_Depend_Util_Configuration
+     * @var \PHP\Depend\Util\Configuration
      */
     private static $configuration = null;
 
     /**
      * Returns a configured config instance or <b>null</b>.
      *
-     * @return PHP_Depend_Util_Configuration
+     * @return \PHP\Depend\Util\Configuration
      */
     public static function get()
     {
@@ -80,11 +78,10 @@ class PHP_Depend_Util_ConfigurationInstance
     /**
      * Sets the configuration instance.
      *
-     * @param PHP_Depend_Util_Configuration $configuration The config instance.
-     *
+     * @param \PHP\Depend\Util\Configuration $configuration
      * @return void
      */
-    public static function set(PHP_Depend_Util_Configuration $configuration = null)
+    public static function set(Configuration $configuration = null)
     {
         self::$configuration = $configuration;
     }

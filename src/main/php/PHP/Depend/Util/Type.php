@@ -36,29 +36,27 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   PHP
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://www.pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://www.pdepend.org/
  */
+
+namespace PHP\Depend\Util;
 
 /**
  * Utility class that can be used to detect simpl scalars or internal types.
  *
- * @category   PHP
- * @package    PHP_Depend
- * @subpackage Util
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://www.pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://www.pdepend.org/
  */
-final class PHP_Depend_Util_Type
+final class Type
 {
     /**
      * Constants for valid php data types.
@@ -402,7 +400,7 @@ final class PHP_Depend_Util_Type
         $extensionNames = array_map('strtolower', $extensionNames);
 
         foreach ($extensionNames as $extensionName) {
-            $extension = new ReflectionExtension($extensionName);
+            $extension = new \ReflectionExtension($extensionName);
 
             $classNames = $extension->getClassNames();
             $classNames = array_map('strtolower', $classNames);
