@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\Util\Cache\Driver;
 
+use PHP\Depend\Util\Cache\AbstractDriverTest;
+
 /**
  * Test case for the {@link \PHP\Depend\Util\Cache\Driver\File} class.
  *
@@ -62,7 +64,7 @@ namespace PHP\Depend\Util\Cache\Driver;
  * @group  pdepend::util::cache
  * @group  unittest
  */
-class FileTest extends \PHP_Depend_Util_Cache_AbstractDriverTest
+class FileTest extends AbstractDriverTest
 {
     /**
      * Temporary cache directory.
@@ -86,7 +88,7 @@ class FileTest extends \PHP_Depend_Util_Cache_AbstractDriverTest
     /**
      * Creates a test fixture.
      *
-     * @return \PHP\Depend\Util\Cache\Driver
+     * @return \PHP\Depend\Util\Cache\CacheDriver
      */
     protected function createDriver()
     {

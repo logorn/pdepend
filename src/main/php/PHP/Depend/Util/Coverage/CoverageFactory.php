@@ -37,8 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Coverage
  * @author     Manuel Pichler <mapi@pdepend.org>
  * @copyright  2008-2012 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -46,29 +44,28 @@
  * @link       http://pdepend.org/
  */
 
+namespace PHP\Depend\Util\Coverage;
+
 /**
  * Factory used to abstract concrete coverage report formats from the pdepend
  * application.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Coverage
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Util_Coverage_Factory
+class CoverageFactory
 {
     /**
      * Factory method that tries to create coverage report instance for a given
      * path name.
      *
      * @param string $pathName Qualified path name of a coverage report file.
-     *
-     * @return PHP_Depend_Util_Coverage_CloverReport
-     * @throws RuntimeException When the given path name does not point to a
+     * @return \PHP\Depend\Util\Coverage\CloverReport
+     * @throws \RuntimeException When the given path name does not point to a
      *         valid coverage file or onto an unsupported coverage format.
      */
     public function create($pathName)
@@ -77,9 +74,9 @@ class PHP_Depend_Util_Coverage_Factory
         if ($sxml->project) {
             include_once 'PHP/Depend/Util/Coverage/CloverReport.php';
 
-            return new PHP_Depend_Util_Coverage_CloverReport($sxml);
+            return new CloverReport($sxml);
         }
-        throw new RuntimeException('Unsupported coverage report format.');
+        throw new \RuntimeException('Unsupported coverage report format.');
     }
 
     /**
@@ -87,9 +84,8 @@ class PHP_Depend_Util_Coverage_Factory
      * the given path name.
      *
      * @param string $pathName Qualified path name of a coverage report file.
-     *
-     * @return SimpleXMLElement
-     * @throws RuntimeException When the given path name does not point to a
+     * @return \SimpleXMLElement
+     * @throws \RuntimeException When the given path name does not point to a
      *         valid xml file.
      */
     private function loadXml($pathName)
@@ -99,7 +95,7 @@ class PHP_Depend_Util_Coverage_Factory
         libxml_use_internal_errors($mode);
 
         if ($sxml === false) {
-            throw new RuntimeException(trim(libxml_get_last_error()->message));
+            throw new \RuntimeException(trim(libxml_get_last_error()->message));
         }
         return $sxml;
     }

@@ -48,6 +48,7 @@ namespace PHP\Depend\TextUI;
 
 use \PHP\Depend\Util\ConfigurationInstance;
 use \PHP\Depend\Util\Configuration\ConfigurationFactory;
+use PHP\Depend\Util\Log;
 
 /**
  * Handles the command line stuff and starts the text ui runner.
@@ -349,7 +350,7 @@ class Command
         if (isset($this->options['--debug'])) {
             unset($this->options['--debug']);
 
-            \PHP_Depend_Util_Log::setSeverity(\PHP_Depend_Util_Log::DEBUG);
+            Log::setSeverity(Log::DEBUG);
         }
 
         return true;

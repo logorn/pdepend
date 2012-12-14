@@ -36,31 +36,29 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Coverage
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util\Coverage;
 
 use \PHP\Depend\AST\ASTFragment;
 
 /**
  * Coverage report implementation for clover formatted xml files.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Coverage
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Util_Coverage_CloverReport implements PHP_Depend_Util_Coverage_Report
+class CloverReport implements CoverageReport
 {
     /**
      * The type of this class.
@@ -77,9 +75,9 @@ class PHP_Depend_Util_Coverage_CloverReport implements PHP_Depend_Util_Coverage_
     /**
      * Constructs a new clover report instance.
      *
-     * @param SimpleXMLElement $sxml The context simple xml element.
+     * @param \SimpleXMLElement $sxml The context simple xml element.
      */
-    public function __construct(SimpleXMLElement $sxml)
+    public function __construct(\SimpleXMLElement $sxml)
     {
         $this->readProjectCoverage($sxml->project);
     }
@@ -87,11 +85,10 @@ class PHP_Depend_Util_Coverage_CloverReport implements PHP_Depend_Util_Coverage_
     /**
      * Reads the coverage information for a project.
      *
-     * @param SimpleXMLElement $sxml Element representing the clover project tag.
-     *
+     * @param \SimpleXMLElement $sxml Element representing the clover project tag.
      * @return void
      */
-    private function readProjectCoverage(SimpleXMLElement $sxml)
+    private function readProjectCoverage(\SimpleXMLElement $sxml)
     {
         $this->readFileCoverage($sxml);
         foreach ($sxml->package as $package) {
@@ -104,11 +101,10 @@ class PHP_Depend_Util_Coverage_CloverReport implements PHP_Depend_Util_Coverage_
      * Reads the coverage information for all file elements under the given
      * parent.
      *
-     * @param SimpleXMLElement $sxml Element representing a file parent element.
-     *
+     * @param \SimpleXMLElement $sxml Element representing a file parent element.
      * @return void
      */
-    private function readFileCoverage(SimpleXMLElement $sxml)
+    private function readFileCoverage(\SimpleXMLElement $sxml)
     {
         foreach ($sxml->file as $file) {
             $lines = array();

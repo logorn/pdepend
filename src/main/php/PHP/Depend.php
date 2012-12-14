@@ -58,6 +58,7 @@ use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 use \PHP\Depend\Tokenizer;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
 use \PHP\Depend\Util\Configuration;
+use PHP\Depend\Util\Cache\CacheFactory;
 
 /**
  * PHP_Depend analyzes php class files and generates metrics.
@@ -153,7 +154,7 @@ class PHP_Depend
     /**
      * The configured cache factory.
      *
-     * @var PHP_Depend_Util_Cache_Factory
+     * @var \PHP\Depend\Util\Cache\CacheFactory
      * @since 1.0.0
      */
     private $cacheFactory;
@@ -169,7 +170,7 @@ class PHP_Depend
 
         $this->fileFilter = new CompositeFilter();
 
-        $this->cacheFactory = new PHP_Depend_Util_Cache_Factory($configuration);
+        $this->cacheFactory = new CacheFactory($configuration);
     }
 
     /**

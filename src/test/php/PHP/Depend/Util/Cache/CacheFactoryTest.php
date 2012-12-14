@@ -36,39 +36,37 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util\Cache;
 
 use \PHP\Depend\AbstractTest;
 use PHP\Depend\Util\Cache\Driver\File;
 use PHP\Depend\Util\Cache\Driver\Memory;
 
 /**
- * Test case for the {@link PHP_Depend_Util_Cache_Factory} class.
+ * Test case for the {@link \PHP\Depend\Util\Cache\CacheFactory} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Util_Cache_Factory
+ * @covers \PHP\Depend\Util\Cache\CacheFactory
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
  */
-class PHP_Depend_Util_Cache_FactoryTest extends AbstractTest
+class CacheFactoryTest extends AbstractTest
 {
     /**
      * testCreateReturnsDriverInstance
@@ -77,7 +75,7 @@ class PHP_Depend_Util_Cache_FactoryTest extends AbstractTest
      */
     public function testCreateReturnsDriverInstance()
     {
-        $factory = new PHP_Depend_Util_Cache_Factory(
+        $factory = new CacheFactory(
             $this->createConfigurationFixture()
         );
         self::assertInstanceOf('\\PHP\\Depend\\Util\\Cache\\CacheDriver', $factory->create());
@@ -90,7 +88,7 @@ class PHP_Depend_Util_Cache_FactoryTest extends AbstractTest
      */
     public function testCreateHasSingletonBehaviorForIdenticalCacheNames()
     {
-        $factory = new PHP_Depend_Util_Cache_Factory(
+        $factory = new CacheFactory(
             $this->createConfigurationFixture()
         );
 
@@ -107,7 +105,7 @@ class PHP_Depend_Util_Cache_FactoryTest extends AbstractTest
      */
     public function testCreateReturnsDifferentInstancesForDifferentCacheNames()
     {
-        $factory = new PHP_Depend_Util_Cache_Factory(
+        $factory = new CacheFactory(
             $this->createConfigurationFixture()
         );
 
@@ -164,11 +162,11 @@ class PHP_Depend_Util_Cache_FactoryTest extends AbstractTest
     /**
      * Creates a prepared factory instance.
      *
-     * @return PHP_Depend_Util_Cache_Factory
+     * @return CacheFactory
      */
     protected function createFactoryFixture()
     {
-        return new PHP_Depend_Util_Cache_Factory(
+        return new CacheFactory(
             $this->createConfigurationFixture()
         );
     }

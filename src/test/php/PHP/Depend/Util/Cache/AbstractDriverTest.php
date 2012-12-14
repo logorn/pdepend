@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util\Cache;
 
 use \PHP\Depend\AbstractTest;
 
@@ -52,21 +52,19 @@ use \PHP\Depend\AbstractTest;
  * Abstract test case that validates the behavior of concrete driver
  * implementations.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::cache
  * @group  unittest
  */
-abstract class PHP_Depend_Util_Cache_AbstractDriverTest extends AbstractTest
+abstract class AbstractDriverTest extends AbstractTest
 {
     /**
      * testTypeMethodReturnsSameObjectInstance
@@ -229,5 +227,5 @@ abstract class PHP_Depend_Util_Cache_AbstractDriverTest extends AbstractTest
      *
      * @return \PHP\Depend\Util\Cache\CacheDriver
      */
-    protected abstract function createDriver();
+    abstract protected function createDriver();
 }

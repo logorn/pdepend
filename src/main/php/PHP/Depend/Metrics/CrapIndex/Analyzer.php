@@ -53,6 +53,7 @@ use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\AbstractAnalyzer;
 use \PHP\Depend\Metrics\AggregateAnalyzer;
+use PHP\Depend\Util\Coverage\CoverageFactory;
 
 /**
  * This analyzer calculates the C.R.A.P. index for methods an functions when a
@@ -99,7 +100,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * The coverage report instance representing the supplied coverage report
      * file.
      *
-     * @var PHP_Depend_Util_Coverage_Report
+     * @var CoverageReport
      */
     private $report;
 
@@ -239,7 +240,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * Returns a previously created report instance or creates a new report
      * instance.
      *
-     * @return PHP_Depend_Util_Coverage_Report
+     * @return CoverageReport
      */
     private function createOrReturnCoverageReport()
     {
@@ -253,11 +254,11 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Creates a new coverage report instance.
      *
-     * @return PHP_Depend_Util_Coverage_Report
+     * @return CoverageReport
      */
     private function createCoverageReport()
     {
-        $factory = new PHP_Depend_Util_Coverage_Factory();
+        $factory = new CoverageFactory();
         return $factory->create($this->options[self::REPORT_OPTION]);
     }
 }

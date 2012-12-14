@@ -36,37 +36,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Coverage
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Util\Coverage;
 
 use \PHP\Depend\AbstractTest;
 
 /**
- * Test case for the {@link PHP_Depend_Util_Coverage_Factory} class.
+ * Test case for the {@link \PHP\Depend\Util\Coverage\CoverageFactory} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Coverage
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Util_Coverage_Factory
+ * @covers \PHP\Depend\Util\Coverage\CoverageFactory
  * @group  pdepend
  * @group  pdepend::util
  * @group  pdepend::util::coverage
  * @group  unittest
  */
-class PHP_Depend_Util_Coverage_FactoryTest extends AbstractTest
+class CoverageFactoryTest extends AbstractTest
 {
     /**
      * testCreateReturnsCloverReportInstanceForCloverInputFile
@@ -75,21 +73,21 @@ class PHP_Depend_Util_Coverage_FactoryTest extends AbstractTest
      */
     public function testCreateReturnsCloverReportInstanceForCloverInputFile()
     {
-        $factory = new PHP_Depend_Util_Coverage_Factory();
+        $factory = new CoverageFactory();
         $report  = $factory->create(__DIR__ . '/_files/clover.xml');
 
-        $this->assertInstanceOf(PHP_Depend_Util_Coverage_CloverReport::CLAZZ, $report);
+        $this->assertInstanceOf(CloverReport::CLAZZ, $report);
     }
 
     /**
      * testCreateMethodThrowsExceptionWhenFileDoesNotExist
      *
      * @return void
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testCreateMethodThrowsExceptionWhenFileDoesNotExist()
     {
-        $factory = new PHP_Depend_Util_Coverage_Factory();
+        $factory = new CoverageFactory();
         $factory->create(__FUNCTION__);
     }
 
@@ -97,11 +95,11 @@ class PHP_Depend_Util_Coverage_FactoryTest extends AbstractTest
      * testCreateMethodThrowsExceptionWhenFileIsNotValidXml
      *
      * @return void
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testCreateMethodThrowsExceptionWhenFileIsNotValidXml()
     {
-        $factory = new PHP_Depend_Util_Coverage_Factory();
+        $factory = new CoverageFactory();
         $factory->create(__FILE__);
     }
 
@@ -109,11 +107,11 @@ class PHP_Depend_Util_Coverage_FactoryTest extends AbstractTest
      * testCreateMethodThrowsExceptionForUnsupportedReportFormat
      *
      * @return void
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testCreateMethodThrowsExceptionForUnsupportedReportFormat()
     {
-        $factory = new PHP_Depend_Util_Coverage_Factory();
+        $factory = new CoverageFactory();
         $factory->create(__DIR__ . '/_files/fail.xml');
     }
 }

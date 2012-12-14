@@ -46,6 +46,8 @@
 
 namespace PHP\Depend\Util\Cache\Driver;
 
+use PHP\Depend\Util\Cache\AbstractDriverTest;
+
 /**
  * Test case for the {@link \PHP\Depend\Util\Cache\Driver\Memory} class.
  *
@@ -62,12 +64,12 @@ namespace PHP\Depend\Util\Cache\Driver;
  * @group  pdepend::util::cache
  * @group  unittest
  */
-class MemoryTest extends \PHP_Depend_Util_Cache_AbstractDriverTest
+class MemoryTest extends AbstractDriverTest
 {
     /**
      * Creates a test fixture.
      *
-     * @return \PHP\Depend\Util\Cache\Driver
+     * @return \PHP\Depend\Util\Cache\CacheDriver
      */
     protected function createDriver()
     {

@@ -47,7 +47,7 @@
 
 namespace PHP\Depend\Metrics\Processor;
 
-use \PHP_Depend_Util_Cache_Factory as CacheFactory;
+use \CacheFactory as CacheFactory;
 
 /**
  * Builder that creates a processor from a given set of loggers.
@@ -65,7 +65,7 @@ class ProcessorBuilder
     /**
      * The configured cache factory.
      *
-     * @var \PHP_Depend_Util_Cache_Factory
+     * @var \CacheFactory
      */
     private $cacheFactory;
 
@@ -79,7 +79,7 @@ class ProcessorBuilder
     /**
      * Constructs a new processor builder
      *
-     * @param \PHP_Depend_Util_Cache_Factory $cacheFactory
+     * @param \CacheFactory $cacheFactory
      * @param array $options
      */
     public function __construct(CacheFactory $cacheFactory, array $options)

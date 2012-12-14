@@ -36,36 +36,33 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
 
-use \PHP\Depend\Util\Configuration;
-use \PHP\Depend\Util\Cache\CacheDriver;
+namespace PHP\Depend\Util\Cache;
+
+use PHP\Depend\Util\Configuration;
 use PHP\Depend\Util\Cache\Driver\Memory;
 use PHP\Depend\Util\Cache\Driver\File;
 
 /**
  * Factory that encapsulates the creation of a concrete cache instance.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Util_Cache
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
- * @since      0.10.0
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     0.10.0
  */
-class PHP_Depend_Util_Cache_Factory
+class CacheFactory
 {
     /**
      * The system configuration.
@@ -111,7 +108,7 @@ class PHP_Depend_Util_Cache_Factory
      *
      * @param string $cacheKey The name/identifier for the cache instance.
      * @return \PHP\Depend\Util\Cache\CacheDriver
-     * @throws InvalidArgumentException If the configured cache driver is unknown.
+     * @throws \InvalidArgumentException If the configured cache driver is unknown.
      */
     protected function createCache($cacheKey)
     {
@@ -124,7 +121,7 @@ class PHP_Depend_Util_Cache_Factory
             case 'memory':
                 return $this->createMemoryCache();
         }
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
             "Unknown cache driver '{$this->configuration->cache->driver}' given."
         );
     }
