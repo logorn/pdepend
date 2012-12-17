@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -47,7 +47,7 @@
 namespace PHP\Depend\AST;
 
 /**
- * Base interface of PHP_Depend's custom AST nodes.
+ * Base interface of PDepend's custom AST nodes.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>

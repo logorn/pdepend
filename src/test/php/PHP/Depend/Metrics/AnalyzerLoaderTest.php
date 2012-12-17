@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -45,8 +45,6 @@
  */
 
 namespace PHP\Depend\Metrics;
-
-use \PHP\Depend\AbstractTest;
 
 /**
  * Test case for the analyzer loader.
@@ -112,21 +110,19 @@ class AnalyzerLoaderTest extends AbstractTest
     public function testLoadKnownAnalyzersByInstance()
     {
         $expected = array(
-            'PHP_Depend_Metrics_CodeRank_Analyzer',
-            'PHP_Depend_Metrics_Inheritance_Analyzer',
+            'PHP\\Depend\\Metrics\\CodeRank\\Analyzer',
+            'PHP\\Depend\\Metrics\\Inheritance\\Analyzer',
         );
 
         $loader = new AnalyzerLoader(
-            new \PHP_Depend_Metrics_AnalyzerClassFileSystemLocator(),
+            new AnalyzerClassFileSystemLocator(),
             $this->getMock('\\PHP\\Depend\\Util\\Cache\\CacheDriver'),
             $expected
         );
 
         $actual = array();
         foreach ($loader->getAnalyzers() as $analyzers) {
-
             foreach ($analyzers as $analyzer) {
-
                 $actual[] = get_class($analyzer);
             }
         }
@@ -152,7 +148,7 @@ class AnalyzerLoaderTest extends AbstractTest
             ->method('newInstance')
             ->will($this->returnValue($analyzer));
 
-        $locator = $this->getMock('PHP_Depend_Metrics_AnalyzerClassLocator');
+        $locator = $this->getMock('PHP\\Depend\\Metrics\\AnalyzerClassLocator');
         $locator->expects($this->once())
             ->method('findAll')
             ->will($this->returnValue(array($reflection)));
@@ -184,7 +180,7 @@ class AnalyzerLoaderTest extends AbstractTest
             ->method('newInstance')
             ->will($this->returnValue($analyzer));
 
-        $locator = $this->getMock('PHP_Depend_Metrics_AnalyzerClassLocator');
+        $locator = $this->getMock('PHP\\Depend\\Metrics\\AnalyzerClassLocator');
         $locator->expects($this->once())
             ->method('findAll')
             ->will($this->returnValue(array($reflection)));

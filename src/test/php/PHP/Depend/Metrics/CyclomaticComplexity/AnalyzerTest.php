@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,40 +36,38 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\CyclomaticComplexity; 
 
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 use PHP\Depend\Util\Cache\Driver\Memory;
+use PHP\Depend\Metrics\AbstractTest;
 
 /**
  * Test case for the cyclomatic analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
  * @covers \PHP\Depend\Metrics\AbstractCachingAnalyzer
- * @covers PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+ * @covers \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::cyclomaticcomplexity
  * @group  unittest
  */
-class PHP_Depend_Metrics_CyclomaticComplexity_AnalyzerTest
-    extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * @var \PHP\Depend\Util\Cache\CacheDriver
@@ -350,12 +348,12 @@ class PHP_Depend_Metrics_CyclomaticComplexity_AnalyzerTest
     /**
      * Returns a pre configured ccn analyzer.
      *
-     * @return PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+     * @return \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
      * @since 1.0.0
      */
     private function createAnalyzer()
     {
-        $analyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer();
         $analyzer->setCache($this->cache);
 
         return $analyzer;

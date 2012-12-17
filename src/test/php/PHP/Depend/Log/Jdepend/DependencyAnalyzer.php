@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -59,7 +59,7 @@
  * @link       http://pdepend.org/
  */
 class PHP_Depend_Log_Jdepend_DependencyAnalyzer
-    extends PHP_Depend_Metrics_Dependency_Analyzer
+    extends \PHP\Depend\Metrics\Dependency\Analyzer
 {
     /**
      * Dummy package statistics
@@ -72,7 +72,6 @@ class PHP_Depend_Log_Jdepend_DependencyAnalyzer
      * Returns the statistics for the requested node.
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return array
      */
     public function getStats($node)

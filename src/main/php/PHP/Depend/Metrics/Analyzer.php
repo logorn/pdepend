@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -69,7 +69,6 @@ interface Analyzer
      * Adds a listener to this analyzer.
      *
      * @param \PHP\Depend\Metrics\Listener $listener The listener instance.
-     *
      * @return void
      */
     public function addAnalyzeListener(Listener $listener);

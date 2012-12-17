@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -38,7 +38,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -74,7 +73,7 @@ if (version_compare(phpversion(), '5.3.0')) {
     error_reporting(error_reporting() & ~E_STRICT);
 }
 
-$autoload = new PHP_Depend_Autoload();
+$autoload = new \PHP\Depend\Autoload();
 $autoload->register();
 
 exit(\PHP\Depend\TextUI\Command::main());

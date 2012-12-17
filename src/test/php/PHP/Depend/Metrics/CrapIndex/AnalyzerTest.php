@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,37 +36,37 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics_CrapIndex
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\CrapIndex;
+
+use PHP\Depend\Metrics\AbstractTest;
 
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
 /**
- * Test cases for the {@link PHP_Depend_Metrics_CrapIndex_Analyzer} class.
+ * Test cases for the {@link \PHP\Depend\Metrics\CrapIndex\Analyzer} class.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics_CrapIndex
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_CrapIndex_Analyzer
+ * @covers \PHP\Depend\Metrics\CrapIndex\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::crapindex
  * @group  unittest
  */
-class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * testReturnsExpectedDependencies
@@ -75,9 +75,9 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testReturnsExpectedDependencies()
     {
-        $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\CrapIndex\Analyzer();
         $actual   = $analyzer->getRequiredAnalyzers();
-        $expected = array(PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ);
+        $expected = array(\PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ);
 
         $this->assertEquals($expected, $actual);
     }
@@ -89,7 +89,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      */
     public function testCrapIndexIsDisabledWhenReportNotSupplied()
     {
-        $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\CrapIndex\Analyzer();
 
         $this->assertFalse($analyzer->isEnabled());
     }
@@ -102,7 +102,7 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
     public function testCrapIndexIsEnabledWhenReportSupplied()
     {
         $options  = array('coverage-report' => $this->createCloverReportFile());
-        $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer($options);
+        $analyzer = new \PHP\Depend\Metrics\CrapIndex\Analyzer($options);
 
         $this->assertTrue($analyzer->isEnabled());
     }
@@ -185,7 +185,6 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * @param string  $nodeId
      * @param integer $ccn
      * @param integer $crapIndex
-     *
      * @return void
      */
     private function doTestCrapIndexCalculation($nodeId, $ccn, $crapIndex)
@@ -199,13 +198,12 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      *
      * @param string  $nodeId
      * @param integer $ccn
-     *
      * @return array
      */
     private function calculateCrapIndex($nodeId, $ccn)
     {
         $options  = array('coverage-report' => $this->createCloverReportFile());
-        $analyzer = new PHP_Depend_Metrics_CrapIndex_Analyzer($options);
+        $analyzer = new \PHP\Depend\Metrics\CrapIndex\Analyzer($options);
         $analyzer->addAnalyzer($this->createCyclomaticComplexityAnalyzerMock($ccn));
 
         $processor = new DefaultProcessor();
@@ -235,12 +233,11 @@ class PHP_Depend_Metrics_CrapIndex_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * Creates a mocked instance of the cyclomatic complexity analyzer.
      *
      * @param integer $ccn The expected ccn result value.
-     *
-     * @return PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+     * @return \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
      */
     private function createCyclomaticComplexityAnalyzerMock($ccn = 42)
     {
-        $mock = $this->getMock(PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ);
+        $mock = $this->getMock(\PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ);
         $mock->expects($this->any())
             ->method('getCCN2')
             ->will($this->returnValue($ccn));

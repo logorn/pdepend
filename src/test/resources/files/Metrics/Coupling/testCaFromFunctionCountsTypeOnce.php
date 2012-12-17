@@ -8,7 +8,6 @@ class testCaFromFunctionCountsTypeOnce extends Exception
  * @throws testCaFromFunctionCountsTypeOnce
  *
  * @param testCaFromFunctionCountsTypeOnce $o
- *
  * @return testCaFromFunctionCountsTypeOnce
  */
 function foo(testCaFromFunctionCountsTypeOnce $o)

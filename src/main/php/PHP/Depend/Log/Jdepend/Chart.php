@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -80,14 +80,14 @@ class Chart implements CodeAware, FileAware
     /**
      * The context source code.
      *
-     * @var PHP_Depend_Code_NodeIterator
+     * @var \PHP_Depend_Code_NodeIterator
      */
     private $code = null;
 
     /**
      * The context analyzer instance.
      *
-     * @var \PHP_Depend_Metrics_Dependency_Analyzer
+     * @var \PHP\Depend\Metrics\Dependency\Analyzer
      */
     private $analyzer = null;
 
@@ -95,7 +95,6 @@ class Chart implements CodeAware, FileAware
      * Sets the output log file.
      *
      * @param string $logFile The output log file.
-     *
      * @return void
      */
     public function setLogFile($logFile)
@@ -111,7 +110,7 @@ class Chart implements CodeAware, FileAware
      */
     public function getAcceptedAnalyzers()
     {
-        return array(\PHP_Depend_Metrics_Dependency_Analyzer::CLAZZ);
+        return array(\PHP\Depend\Metrics\Dependency\Analyzer::CLAZZ);
     }
 
     /**
@@ -134,7 +133,7 @@ class Chart implements CodeAware, FileAware
      */
     public function log(Analyzer $analyzer)
     {
-        if ($analyzer instanceof \PHP_Depend_Metrics_Dependency_Analyzer) {
+        if ($analyzer instanceof \PHP\Depend\Metrics\Dependency\Analyzer) {
             $this->analyzer = $analyzer;
 
             return true;

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -49,7 +49,7 @@ namespace PHP\Depend\Log;
 use \PHP\Depend\Metrics\Analyzer;
 
 /**
- * Base interface for all PHP_Depend reports.
+ * Base interface for all PDepend reports.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -65,7 +65,6 @@ interface Report
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer The analyzer to log.
-     *
      * @return boolean
      */
     public function log(Analyzer $analyzer);

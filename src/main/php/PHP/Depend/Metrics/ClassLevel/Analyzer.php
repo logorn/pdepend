@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,21 +36,20 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\ClassLevel;
 
 use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTProperty;
-use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\AbstractAnalyzer;
 use \PHP\Depend\Metrics\AggregateAnalyzer;
@@ -61,19 +60,14 @@ use \PHP\Depend\Metrics\AggregateAnalyzer;
  *
  * http://www.aivosto.com/project/help/pm-oo-misc.html
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_ClassLevel_Analyzer
-    extends AbstractAnalyzer
-    implements AggregateAnalyzer,
-               NodeAware
+class Analyzer extends AbstractAnalyzer implements AggregateAnalyzer, NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -119,7 +113,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     /**
      * The internal used cyclomatic complexity analyzer.
      *
-     * @var PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+     * @var \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
      */
     private $ccnAnalyzer = null;
 
@@ -132,7 +126,7 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
     public function getRequiredAnalyzers()
     {
         return array(
-            PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ
+            \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ
         );
     }
 
@@ -142,14 +136,14 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
      * @return void
      */
-    public function addAnalyzer(Analyzer $analyzer)
+    public function addAnalyzer(\PHP\Depend\Metrics\Analyzer $analyzer)
     {
-        if ($analyzer instanceof PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
+        if ($analyzer instanceof \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer) {
 
             $this->ccnAnalyzer = $analyzer;
         } else {
 
-            throw new InvalidArgumentException('CC Analyzer required.');
+            throw new \InvalidArgumentException('CC Analyzer required.');
         }
     }
 
@@ -167,7 +161,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)
@@ -187,7 +180,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * for <b>$class</b>.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return array
      */
     public function visitASTClassBefore(ASTClass $class)
@@ -216,7 +208,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      *
      * @param \PHP\Depend\AST\ASTClass $class
      * @param array $data
-     *
      * @return null
      */
     public function visitASTClassAfter(ASTClass $class, $data)
@@ -297,7 +288,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      *
      * @param \PHP\Depend\AST\ASTMethod $method
      * @param array $data
-     *
      * @return array
      */
     public function visitASTMethodBefore(ASTMethod $method, $data)
@@ -436,7 +426,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * protected and public methods of parent classes.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return integer
      */
     private function calculateWMCiForClass(ASTClass $class)
@@ -467,7 +456,6 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the Weight Method Per Class metric for a trait.
      *
      * @param PHP_Depend_AST_Trait $trait The context trait instance.
-     *
      * @return integer
      */
     private function calculateWMCiForTrait(PHP_Depend_AST_Trait $trait)
@@ -479,8 +467,8 @@ class PHP_Depend_Metrics_ClassLevel_Analyzer
      * Calculates the Weight Method Per Class metric.
      *
      * @param \PHP\Depend\AST\ASTType $type
-     *
      * @return integer[]
+     * @throws \RuntimeException
      */
     private function calculateWMCi(ASTType $type)
     {

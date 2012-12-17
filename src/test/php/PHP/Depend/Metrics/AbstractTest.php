@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,46 +36,41 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\AbstractTest;
+namespace PHP\Depend\Metrics;
 
 /**
  * Abstract base class for tests of the metrics package.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-abstract class PHP_Depend_Metrics_AbstractTest extends AbstractTest
+abstract class AbstractTest extends \PHP\Depend\AbstractTest
 {
     /**
      * Parses the given source file or directory with the default tokenizer
      * and node builder implementations.
      *
-     * @param string  $testCase          Qualified test case name.
+     * @param string  $testCase Qualified test case name.
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
-     *
      * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     public static function parseTestCaseSource($testCase, $ignoreAnnotations = false)
     {
         list($class, $method) = explode('::', $testCase);
 
-        $parts = explode('_', $class);
+        $parts = explode('\\', $class);
 
         try {
             return parent::parseSource(
@@ -86,7 +81,7 @@ abstract class PHP_Depend_Metrics_AbstractTest extends AbstractTest
                 ),
                 $ignoreAnnotations
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return parent::parseSource(
                 sprintf(
                     'Metrics/%s/%s',

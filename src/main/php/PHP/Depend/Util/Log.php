@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -82,7 +82,6 @@ final class Log
      * severities.
      *
      * @param integer $severity The log severity levels.
-     *
      * @return void
      */
     public static function setSeverity($severity)
@@ -94,7 +93,6 @@ final class Log
      * Logs the given message with debug severity.
      *
      * @param string $message The debug log message.
-     *
      * @return void
      */
     public static function debug($message)
@@ -108,7 +106,6 @@ final class Log
      * Generic log method for all severities.
      *
      * @param string $message The log message.
-     *
      * @return void
      */
     public static function log($message)

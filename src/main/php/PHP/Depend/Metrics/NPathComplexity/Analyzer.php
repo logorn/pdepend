@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   PHP
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://www.pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://www.pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\NPathComplexity;
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
@@ -53,24 +53,21 @@ use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\AbstractCachingAnalyzer;
 use \PHP\Depend\Util\MathUtil;
+use PHP\Depend\AST\ASTCallable;
 
 /**
  * This analyzer calculates the NPath complexity of functions and methods. The
  * NPath complexity metric measures the acyclic execution paths through a method
  * or function. See Nejmeh, Communications of the ACM Feb 1988 pp 188-200.
  *
- * @category   PHP
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://www.pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://www.pdepend.org/
  */
-class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
-    extends AbstractCachingAnalyzer
-   implements NodeAware*/
+class Analyzer extends AbstractCachingAnalyzer implements NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -83,77 +80,42 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
     const M_NPATH_COMPLEXITY = 'npath';
 
     /**
-     * Processes all {@link PHP_Depend_Code_Package} code nodes.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages All code packages.
-     *
-     * @return void
-     */
-    public function analyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-        if ($this->metrics === null) {
-            $this->loadCache();
-
-            $this->metrics = array();
-            foreach ($packages as $package) {
-
-                $package->accept($this);
-            }
-
-            $this->unloadCache();
-        }
-    }
-
-    /**
      * This method will return an <b>array</b> with all generated metric values
-     * for the node with the given <b>$uuid</b> identifier. If there are no
-     * metrics for the requested node, this method will return an empty <b>array</b>.
+     * for the given node or node identifier. If there are no metrics for the
+     * requested node, this method will return an empty <b>array</b>.
      *
      * <code>
      * array(
-     *     'npath'  =>  '17'
+     *     'noc'  =>  23,
+     *     'nom'  =>  17,
+     *     'nof'  =>  42
      * )
      * </code>
      *
-     * @param PHP_Depend_Code_NodeI $node The context node instance.
-     *
+     * @param \PHP\Depend\AST\ASTNode|string $node
      * @return array
      */
     public function getNodeMetrics($node)
     {
-        $metric = array();
-        if (isset($this->metrics[$node->getUUID()])) {
-            $metric = array(
-                self::M_NPATH_COMPLEXITY  => $this->metrics[$node->getUUID()]
-            );
-        }
-        return $metric;
-    }
+        $nodeId = (string)is_object($node) ? $node->getId() : $node;
 
-    /**
-     * Visits a code interface object.
-     *
-     * @param \PHP\Depend\AST\ASTInterface $interface
-     *
-     * @return void
-     */
-    public function visitASTInterfaceBefore(ASTInterface $interface)
-    {
-        // Empty visit method, we don't want interface metrics
+        if (isset($this->metrics[$nodeId])) {
+            return $this->metrics[$nodeId];
+        }
+        return array();
     }
 
     /**
      * Visits a function node.
      *
      * @param \PHP\Depend\AST\ASTFunction $function
-     *
      * @return void
      */
     public function visitASTFunctionBefore(ASTFunction $function)
     {
         if (false === $this->restoreFromCache($function)) {
 
-            $this->calculateComplexity($function);
+            //$this->calculateComplexity($function);
         }
     }
 
@@ -161,14 +123,13 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      * Visits a method node.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
-     *
      * @return void
      */
     public function visitASTMethodBefore(ASTMethod $method)
     {
         if (false === $this->restoreFromCache($method)) {
 
-            $this->calculateComplexity($method);
+            //$this->calculateComplexity($method);
         }
     }
 
@@ -176,14 +137,11 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      * This method will calculate the NPath complexity for the given callable
      * instance.
      *
-     * @param PHP_Depend_Code_AbstractCallable $callable The context callable.
-     *
+     * @param \PHP\Depend\AST\ASTCallable $callable
      * @return void
      * @since 0.9.12
      */
-    protected function calculateComplexity(
-        PHP_Depend_Code_AbstractCallable $callable
-    )
+    protected function calculateComplexity(ASTCallable $callable)
     {
         $npath = '1';
         foreach ($callable->getChildren() as $child) {
@@ -191,26 +149,7 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
             $npath = MathUtil::mul($npath, $stmt);
         }
 
-        $this->metrics[$callable->getUUID()] = $npath;
-    }
-
-    /**
-     * Magic call method used to provide simplified visitor implementations.
-     * With this method we can call <b>visit${NodeClassName}</b> on each node.
-     *
-     * @param string $method Name of the called method.
-     * @param array  $args   Array with method argument.
-     *
-     * @return mixed
-     * @since 0.9.12
-     */
-    public function __call($method, $args)
-    {
-        $value = $args[1];
-        foreach ($args[0]->getChildren() as $child) {
-            $value = $child->accept($this, $value);
-        }
-        return $value;
+        $this->metrics[$callable->getId()] = $npath;
     }
 
     /**
@@ -225,7 +164,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -263,7 +201,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -301,7 +238,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -336,7 +272,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -370,7 +305,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -412,7 +346,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -446,7 +379,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -474,7 +406,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -516,7 +447,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -546,7 +476,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
      * @param string                   $data The previously calculated npath value.
-     *
      * @return string
      * @since 0.9.12
      */
@@ -565,7 +494,6 @@ class PHP_Depend_Metrics_NPathComplexity_Analyzer/*
      * Calculates the expression sum of the given node.
      *
      * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
-     *
      * @return string
      * @since 0.9.12
      * @todo  I don't like this method implementation, it should be possible to

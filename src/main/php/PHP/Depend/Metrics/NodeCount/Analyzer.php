@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\NodeCount;
 
 use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
@@ -60,18 +60,14 @@ use \PHP\Depend\Metrics\AbstractAnalyzer;
  * This analyzer collects different count metrics for code artifacts like
  * classes, methods, functions or packages.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_NodeCount_Analyzer
-    extends AbstractAnalyzer
-    implements NodeAware, ProjectAware
+class Analyzer extends AbstractAnalyzer implements NodeAware, ProjectAware
 {
     /**
      * Type of this analyzer class.
@@ -82,12 +78,12 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      * Metrics provided by the analyzer implementation.
      */
     const M_NUMBER_OF_PACKAGES       = 'nop',
-        M_NUMBER_OF_CLASSES          = 'noc',
-        M_NUMBER_OF_INTERFACES       = 'noi',
-        M_NUMBER_OF_METHODS          = 'nom',
-        M_NUMBER_OF_FUNCTIONS        = 'nof',
-        M_NUMBER_OF_ABSTRACT_CLASSES = 'clsa',
-        M_NUMBER_OF_CONCRETE_CLASSES = 'clsc';
+          M_NUMBER_OF_CLASSES          = 'noc',
+          M_NUMBER_OF_INTERFACES       = 'noi',
+          M_NUMBER_OF_METHODS          = 'nom',
+          M_NUMBER_OF_FUNCTIONS        = 'nof',
+          M_NUMBER_OF_ABSTRACT_CLASSES = 'clsa',
+          M_NUMBER_OF_CONCRETE_CLASSES = 'clsc';
 
     /**
      * Number Of Packages.
@@ -152,7 +148,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)
@@ -198,7 +193,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTClass $class
      * @param mixed $data
-     *
      * @return mixed
      */
     public function visitASTClassBefore(ASTClass $class, $data = null)
@@ -221,7 +215,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTInterface $interface
      * @param mixed $data
-     *
      * @return mixed
      */
     public function visitASTInterfaceBefore(ASTInterface $interface, $data)
@@ -240,7 +233,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTMethod $method
      * @param mixed $data
-     *
      * @return mixed
      * @todo Do not count methods declared in an interface
      */
@@ -259,7 +251,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTFunction $function
      * @param mixed $data
-     *
      * @return mixed
      */
     public function visitASTFunctionBefore(ASTFunction $function, $data)
@@ -276,7 +267,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTNamespace $ns
      * @param mixed $data
-     *
      * @return mixed
      */
     public function visitASTNamespaceBefore(ASTNamespace $ns, $data)
@@ -300,7 +290,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTNamespace $namespace
      * @param string $metricId
-     *
      * @return void
      */
     private function updateNamespace(ASTNamespace $namespace, $metricId)
@@ -316,7 +305,6 @@ class PHP_Depend_Metrics_NodeCount_Analyzer
      *
      * @param \PHP\Depend\AST\ASTType $type
      * @param string $metricId
-     *
      * @return void
      */
     private function updateType(ASTType $type, $metricId)

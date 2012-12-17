@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -47,7 +47,7 @@
 namespace PHP\Depend\Util;
 
 /**
- * Simple container class that holds settings for PHP_Depend and all its sub
+ * Simple container class that holds settings for PDepend and all its sub
  * systems.
  *
  * @category  QualityAssurance

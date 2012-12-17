@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -37,7 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -46,11 +45,12 @@
  * @since     0.10.0
  */
 
+namespace PHP\Depend;
+
 /**
- * Class that implements autoloading for PHP_Depend.
+ * Class that implements autoloading for PDepend.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -58,7 +58,7 @@
  * @link      http://pdepend.org/
  * @since     0.10.0
  */
-class PHP_Depend_Autoload
+class Autoload
 {
     /**
      * Registers this autoload instance at the spl autoloader stack.
@@ -75,7 +75,6 @@ class PHP_Depend_Autoload
      * a class with the given name does not exist.
      *
      * @param string $className Name of the missing class.
-     *
      * @return void
      */
     public function autoload($className)

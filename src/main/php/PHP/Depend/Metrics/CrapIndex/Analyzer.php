@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,20 +36,19 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics_CrapIndex
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\CrapIndex;
 
 use \PHP\Depend\AST\ASTCallable;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTMethod;
-use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\AbstractAnalyzer;
 use \PHP\Depend\Metrics\AggregateAnalyzer;
@@ -60,19 +59,14 @@ use PHP\Depend\Util\Coverage\CoverageFactory;
  * clover coverage report was supplied. This report can be supplied by using the
  * command line option <b>--coverage-report=</b>.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics_CrapIndex
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_CrapIndex_Analyzer
-    extends AbstractAnalyzer
-   implements AggregateAnalyzer,
-              NodeAware
+class Analyzer extends AbstractAnalyzer implements AggregateAnalyzer, NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -100,13 +94,13 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * The coverage report instance representing the supplied coverage report
      * file.
      *
-     * @var CoverageReport
+     * @var \PHP\Depend\Util\Coverage\CoverageReport
      */
     private $report;
 
     /**
      *
-     * @var PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+     * @var \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
      */
     private $ccnAnalyzer = array();
 
@@ -134,7 +128,6 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)
@@ -142,7 +135,6 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
         $nodeId = (string) is_object($node) ? $node->getId() : $node;
 
         if (isset($this->metrics[$nodeId])) {
-
             return $this->metrics[$nodeId];
         }
         return array();
@@ -156,17 +148,16 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      */
     public function getRequiredAnalyzers()
     {
-        return array(PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ);
+        return array(\PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ);
     }
 
     /**
      * Adds an analyzer that this analyzer depends on.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
-    public function addAnalyzer(Analyzer $analyzer)
+    public function addAnalyzer(\PHP\Depend\Metrics\Analyzer $analyzer)
     {
         $this->ccnAnalyzer = $analyzer;
     }
@@ -175,13 +166,11 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * Visits the given method.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
-     *
      * @return void
      */
     public function visitASTMethodBefore(ASTMethod $method)
     {
         if (false === $method->isAbstract()) {
-
             $this->visitCallable($method);
         }
     }
@@ -189,8 +178,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Visits the given function.
      *
-     * @param \PHP\Depend\AST\ASTFunction $function The context function.
-     *
+     * @param \PHP\Depend\AST\ASTFunction $function
      * @return void
      */
     public function visitASTFunctionBefore(ASTFunction $function)
@@ -202,7 +190,6 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * Visits the given callable instance.
      *
      * @param \PHP\Depend\AST\ASTCallable $callable
-     *
      * @return void
      */
     private function visitCallable(ASTCallable $callable)
@@ -216,7 +203,6 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * Calculates the crap index for the given callable.
      *
      * @param \PHP\Depend\AST\ASTCallable $callable
-     *
      * @return float
      */
     private function calculateCrapIndex(ASTCallable $callable)
@@ -240,7 +226,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
      * Returns a previously created report instance or creates a new report
      * instance.
      *
-     * @return CoverageReport
+     * @return \PHP\Depend\Util\Coverage\CoverageReport
      */
     private function createOrReturnCoverageReport()
     {
@@ -254,7 +240,7 @@ class PHP_Depend_Metrics_CrapIndex_Analyzer
     /**
      * Creates a new coverage report instance.
      *
-     * @return CoverageReport
+     * @return \PHP\Depend\Util\Coverage\CoverageReport
      */
     private function createCoverageReport()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -183,7 +183,6 @@ class CloverReportTest extends AbstractTest
      * Creates a mocked method instance.
      *
      * @param string $name Name of the mock method.
-     *
      * @return \PHP\Depend\AST\ASTMethod
      */
     private function createMethodMock($name)

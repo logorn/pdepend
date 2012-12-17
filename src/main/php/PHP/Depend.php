@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -59,6 +59,8 @@ use \PHP\Depend\Tokenizer;
 use \PHP\Depend\Tokenizer\VersionAllTokenizer;
 use \PHP\Depend\Util\Configuration;
 use PHP\Depend\Util\Cache\CacheFactory;
+use PHP\Depend\Metrics\AnalyzerClassFileSystemLocator;
+use PHP\Depend\ProcessListener;
 
 /**
  * PHP_Depend analyzes php class files and generates metrics.
@@ -132,7 +134,7 @@ class PHP_Depend
     /**
      * List or registered listeners.
      *
-     * @var PHP_Depend_ProcessListener[]
+     * @var \PHP\Depend\ProcessListener[]
      */
     private $listeners = array();
 
@@ -177,7 +179,6 @@ class PHP_Depend
      * Adds the specified directory to the list of directories to be analyzed.
      *
      * @param string $directory The php source directory.
-     *
      * @return void
      */
     public function addDirectory($directory)
@@ -197,7 +198,6 @@ class PHP_Depend
      * Adds a single source code file to the list of files to be analysed.
      *
      * @param string $file The source file name.
-     *
      * @return void
      */
     public function addFile($file)
@@ -217,7 +217,6 @@ class PHP_Depend
      * Adds a report to the output list.
      *
      * @param \PHP\Depend\Log\Report $report
-     *
      * @return void
      */
     public function addReport(Report $report)
@@ -229,7 +228,6 @@ class PHP_Depend
      * Adds a new input/file filter.
      *
      * @param \PHP\Depend\Input\FileFilter $filter New file filter instance.
-     *
      * @return void
      */
     public function addFileFilter(FileFilter $filter)
@@ -241,7 +239,6 @@ class PHP_Depend
      * Sets analyzer options.
      *
      * @param array(string=>mixed) $options The analyzer options.
-     *
      * @return void
      */
     public function setOptions(array $options = array())
@@ -262,11 +259,10 @@ class PHP_Depend
     /**
      * Adds a process listener.
      *
-     * @param PHP_Depend_ProcessListener $listener The listener instance.
-     *
+     * @param \PHP\Depend\ProcessListener $listener
      * @return void
      */
-    public function addProcessListener(PHP_Depend_ProcessListener $listener)
+    public function addProcessListener(ProcessListener $listener)
     {
         if (in_array($listener, $this->listeners, true) === false) {
             $this->listeners[] = $listener;
@@ -459,7 +455,6 @@ class PHP_Depend
      * applies them to the source tree.
      *
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnits
-     *
      * @return \PHP\Depend\Metrics\Analyzer[]
      */
     private function processAnalyzing(array $compilationUnits)
@@ -493,7 +488,6 @@ class PHP_Depend
     /**
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnits
      * @param \PHP\Depend\Metrics\Analyzer[] $analyzers
-     *
      * @return void
      */
     private function processLogging(array $compilationUnits, array $analyzers)
@@ -528,7 +522,6 @@ class PHP_Depend
      * interested listeners.
      *
      * @param \PHP\Depend\Metrics\AnalyzerLoader $analyzerLoader
-     *
      * @return \PHP\Depend\Metrics\AnalyzerLoader
      */
     private function initAnalyseListeners(AnalyzerLoader $analyzerLoader)
@@ -600,7 +593,6 @@ class PHP_Depend
      * logger instances.
      *
      * @param array $options The command line options received for this run.
-     *
      * @return \PHP\Depend\Metrics\AnalyzerLoader
      */
     private function createAnalyzerLoader(array $options)
@@ -622,7 +614,7 @@ class PHP_Depend
         $cacheKey = md5(serialize($this->files) . serialize($this->directories));
 
         $loader = new AnalyzerLoader(
-            new PHP_Depend_Metrics_AnalyzerClassFileSystemLocator(),
+            new AnalyzerClassFileSystemLocator(),
             $this->cacheFactory->create($cacheKey),
             $analyzerSet,
             $options

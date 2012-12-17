@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -64,7 +64,6 @@ interface Processor
      * Processes the given compilation units with all registered analyzers.
      *
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnit
-     *
      * @return void
      */
     public function process(array $compilationUnit);

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -62,7 +62,6 @@ interface FileAware extends Report
      * Sets the output log file.
      *
      * @param string $logFile
-     *
      * @return void
      */
     public function setLogFile($logFile);

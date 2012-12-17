@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -289,7 +289,6 @@ class XmlTest extends AbstractTest
      * the xml reports from different file system locations.
      *
      * @param string $fileName
-     *
      * @return string
      */
     protected function getNormalizedPathXml($fileName)

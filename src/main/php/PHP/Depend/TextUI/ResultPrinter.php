@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -50,6 +50,7 @@ use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer;
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\Metrics\Analyzer;
+use PHP\Depend\ProcessListener;
 
 /**
  * Prints current the PDepend status information.
@@ -61,7 +62,7 @@ use \PHP\Depend\Metrics\Analyzer;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class ResultPrinter implements \PHP_Depend_ProcessListener
+class ResultPrinter implements ProcessListener
 {
     /**
      * The step size.
@@ -165,7 +166,6 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
      * Is called when PDepend starts a new analyzer.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function startAnalyzer(Analyzer $analyzer)
@@ -180,7 +180,6 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
      * Is called when PDepend has finished one analyzing process.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function endAnalyzer(Analyzer $analyzer)
@@ -192,7 +191,6 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
      * Generic notification method that is called for every node start.
      *
      * @param \PHP\Depend\AST\ASTNode $node The context node instance.
-     *
      * @return void
      */
     public function startVisitNode(ASTNode $node)
@@ -204,7 +202,6 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
      * Prints a single dot for the current step.
      *
      * @param integer $size The number of processed items that result in a new dot.
-     *
      * @return void
      */
     protected function step($size = 1)
@@ -222,7 +219,6 @@ class ResultPrinter implements \PHP_Depend_ProcessListener
      * Closes the current dot line.
      *
      * @param integer $size The number of processed items that result in a new dot.
-     *
      * @return void
      */
     protected function finish($size = 1)

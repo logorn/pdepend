@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -94,7 +94,6 @@ abstract class PHP_Depend_Bugs_AbstractTest extends AbstractTest
      *
      * @param string  $testCase          Full test case name.
      * @param boolean $ignoreAnnotations Ignore annotations?
-     *
      * @return PHP_Depend_Code_NodeIterator
      */
     public static function parseTestCaseSource($testCase, $ignoreAnnotations = false)
@@ -108,7 +107,6 @@ abstract class PHP_Depend_Bugs_AbstractTest extends AbstractTest
      * Returns the source file for the given test case.
      *
      * @param string $testCase The qualified test case name.
-     *
      * @return string
      */
     protected static function getSourceFileForTestCase($testCase)

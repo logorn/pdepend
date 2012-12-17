@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -93,7 +93,6 @@ class Directory
      * full qualified path for that cache directory.
      *
      * @param string $key The cache for an entry.
-     *
      * @return string
      */
     public function createCacheDirectory($key)
@@ -107,7 +106,6 @@ class Directory
      * the full qualified path for that cache directory.
      *
      * @param string $key The cache for an entry.
-     *
      * @return string
      */
     protected function createOrReturnCacheDirectory($key)
@@ -123,7 +121,6 @@ class Directory
      * Ensures that the given <b>$cacheDir</b> really exists.
      *
      * @param string $cacheDir The cache root directory.
-     *
      * @return string
      */
     protected function ensureExists($cacheDir)
@@ -205,7 +202,6 @@ class Directory
      * Deletes all files and directories below the given <b>$cacheDir</b>.
      *
      * @param string $cacheDir A cache directory.
-     *
      * @return void
      */
     protected function flushDirectory($cacheDir)

@@ -26,7 +26,6 @@ class MyMethodCouplingClass
      *
      * @param ArrayAccess $items The input items.
      * @param integer     $index The requested index.
-     *
      * @return MyObjectItem
      * @throws OutOfRangeException For invalid index values.
      * @throws DomainException For invalid index values.
@@ -55,7 +54,6 @@ class MyMethodCouplingClass
      *
      * @param ArrayObject $items The input items.
      * @param integer     $index The requested index.
-     *
      * @return void
      * @throws OutOfRangeException For invalid index values.
      */
@@ -92,7 +90,6 @@ interface MyMethodCouplingInterface
      *
      * @param ArrayObject $items The input items.
      * @param integer     $index The requested index.
-     *
      * @return void
      * @throws OutOfRangeException For invalid index values.
      */

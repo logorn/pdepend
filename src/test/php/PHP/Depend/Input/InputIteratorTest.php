@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -151,7 +151,6 @@ class FileIteratorTest extends AbstractTest
      * Creates an array of file names that were returned by the input iterator.
      *
      * @param array(string) $extensions The accepted file extension.
-     *
      * @return array(string)
      */
     protected function createFilteredFileList(array $extensions)

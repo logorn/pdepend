@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\NodeLoc;
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTFunction;
@@ -74,18 +74,14 @@ use \PHP\Depend\Tokenizer;
  *
  * The same rule applies to class methods. mapi, <b>PLEASE, FIX THIS ISSUE.</b>
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
-    extends AbstractCachingAnalyzer
-   implements NodeAware, ProjectAware*/
+class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAware
 {
     /**
      * Type of this analyzer class.
@@ -134,29 +130,28 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
 
     /**
      * This method will return an <b>array</b> with all generated metric values
-     * for the given <b>$node</b> instance. If there are no metrics for the
+     * for the given node or node identifier. If there are no metrics for the
      * requested node, this method will return an empty <b>array</b>.
      *
      * <code>
      * array(
-     *     'loc'    =>  23,
-     *     'cloc'   =>  17,
-     *     'eloc'   =>  17,
-     *     'ncloc'  =>  42
+     *     'noc'  =>  23,
+     *     'nom'  =>  17,
+     *     'nof'  =>  42
      * )
      * </code>
      *
-     * @param PHP_Depend_Code_NodeI $node The context node instance.
-     *
+     * @param \PHP\Depend\AST\ASTNode|string $node
      * @return array
      */
     public function getNodeMetrics($node)
     {
-        $metrics = array();
-        if (isset($this->metrics[$node->getUUID()])) {
-            $metrics = $this->metrics[$node->getUUID()];
+        $nodeId = (string)is_object($node) ? $node->getId() : $node;
+
+        if (isset($this->metrics[$nodeId])) {
+            return $this->metrics[$nodeId];
         }
-        return $metrics;
+        return array();
     }
 
     /**
@@ -178,32 +173,9 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
     }
 
     /**
-     * Processes all {@link PHP_Depend_Code_Package} code nodes.
-     *
-     * @param PHP_Depend_Code_NodeIterator $packages All code packages.
-     *
-     * @return void
-     */
-    public function analyze(PHP_Depend_Code_NodeIterator $packages)
-    {
-        if ($this->metrics === null) {
-            $this->loadCache();
-
-            $this->metrics = array();
-            foreach ($packages as $package) {
-
-                $package->accept($this);
-            }
-
-            $this->unloadCache();
-        }
-    }
-
-    /**
      * Visits a class node.
      *
      * @param \PHP\Depend\AST\ASTClass $class The current class node.
-     *
      * @return void
      */
     public function visitClass(ASTClass $class)
@@ -239,7 +211,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * Visits a file node.
      *
      * @param PHP_Depend_AST_File $file The current file node.
-     *
      * @return void
      */
     public function visitFile(PHP_Depend_AST_File $file)
@@ -279,11 +250,12 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * Visits a function node.
      *
      * @param \PHP\Depend\AST\ASTFunction $function
-     *
      * @return void
      */
     public function visitASTFunctionBefore(ASTFunction $function)
     {
+        return; // @todo 2.0
+
         $function->getSourceFile()->accept($this);
 
         if ($this->restoreFromCache($function)) {
@@ -311,11 +283,12 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * Visits a code interface object.
      *
      * @param \PHP\Depend\AST\ASTInterface $interface
-     *
      * @return void
      */
     public function visitASTInterface(ASTInterface $interface)
     {
+        return; // @todo 2.0
+
         $interface->getSourceFile()->accept($this);
 
         foreach ($interface->getMethods() as $method) {
@@ -344,11 +317,12 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * Visits a method node.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
-     *
      * @return void
      */
     public function visitASTMethodBefore(ASTMethod $method)
     {
+        return; // @todo 2.0
+
         if ($this->restoreFromCache($method)) {
             return;
         }
@@ -383,7 +357,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      * given <b>$uuid</b>.
      *
      * @param string $uuid The unique identifier of a node.
-     *
      * @return void
      */
     private function updateProjectMetrics($uuid)
@@ -408,7 +381,6 @@ class PHP_Depend_Metrics_NodeLoc_Analyzer/* TODO 2.0
      *
      * @param array   $tokens The raw token stream.
      * @param boolean $search Optional boolean flag, search start.
-     *
      * @return array
      */
     private function linesOfCode(array $tokens, $search = false)

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,37 +36,36 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Metrics\NodeCount;
+
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+use PHP\Depend\Metrics\AbstractTest;
 
 /**
  * Test case for the node count analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_NodeCount_Analyzer
+ * @covers \PHP\Depend\Metrics\NodeCount\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::nodecount
  * @group  unittest
  */
-class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * testGetProjectMetricsReturnsExpectedSetOfMetrics
@@ -76,7 +75,7 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
     public function testGetProjectMetricsReturnsExpectedSetOfMetrics()
     {
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_NodeCount_Analyzer());
+        $processor->register($analyzer = new Analyzer());
         $processor->process(self::parseTestCaseSource(__METHOD__));
 
         $metrics = $analyzer->getProjectMetrics();
@@ -100,7 +99,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * Tests that the analyzer calculates the correct number of packages value.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -113,7 +111,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * testCalculatesExpectedNumberOfClassesInProject
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -126,7 +123,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * testCalculatesExpectedNumberOfInterfacesInProject
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -139,7 +135,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * testCalculatesExpectedNumberOfFunctionsInProject
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -152,7 +147,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * testCalculatesExpectedNumberOfMethodsInProject
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -165,7 +159,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * testCalculatesExpectedNumberOfAbstractClasses
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -178,7 +171,6 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
      * testCalculatesExpectedNumberOfConcreteClasses
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -190,12 +182,12 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
     /**
      * testGetNodeMetricsOnNamespace
      *
-     * @return PHP_Depend_Metrics_NodeCount_Analyzer
+     * @return Analyzer
      */
     public function testGetNodeMetricsOnNamespace()
     {
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_NodeCount_Analyzer());
+        $processor->register($analyzer = new Analyzer());
         $processor->process(self::parseTestCaseSource(__METHOD__));
 
         $metrics = $analyzer->getNodeMetrics('A#n');
@@ -215,8 +207,7 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
     /**
      * testNamespaceMetrics
      *
-     * @param PHP_Depend_Metrics_NodeCount_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsOnNamespace
      */
@@ -241,12 +232,11 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
     /**
      * testNumberOfMethodsInClass
      *
-     * @param PHP_Depend_Metrics_NodeCount_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testNamespaceMetrics
      */
-    public function testNumberOfMethodsInClass(PHP_Depend_Metrics_NodeCount_Analyzer $analyzer)
+    public function testNumberOfMethodsInClass(Analyzer $analyzer)
     {
         $this->assertEquals(
             array('nom'  => 2),
@@ -257,12 +247,11 @@ class PHP_Depend_Metrics_NodeCount_AnalyzerTest extends PHP_Depend_Metrics_Abstr
     /**
      * testNumberOfMethodsInInterface
      *
-     * @param PHP_Depend_Metrics_NodeCount_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testNamespaceMetrics
      */
-    public function testNumberOfMethodsInInterface(PHP_Depend_Metrics_NodeCount_Analyzer $analyzer)
+    public function testNumberOfMethodsInInterface(Analyzer $analyzer)
     {
         $this->assertEquals(
             array('nom'  => 2),

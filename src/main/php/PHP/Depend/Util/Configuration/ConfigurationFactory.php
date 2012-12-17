@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -114,7 +114,6 @@ class ConfigurationFactory
      * declared in the given configuration file.
      *
      * @param string $file The configuration file name.
-     *
      * @return \PHP\Depend\Util\Configuration
      * @throws \InvalidArgumentException If the given file does not point to an
      *         existing configuration file.
@@ -161,7 +160,6 @@ class ConfigurationFactory
      * existing settings.
      *
      * @param string $file A configuration source file.
-     *
      * @return \stdClass
      */
     protected function read($file)

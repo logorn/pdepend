@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -109,14 +109,14 @@ class Xml implements CodeAware, FileAware
     /**
      * The depedency result set.
      *
-     * @var PHP_Depend_Metrics_Dependency_Analyzer $analyzer
+     * @var \PHP\Depend\Metrics\Dependency\Analyzer
      */
     protected $analyzer = null;
 
     /**
      * The Packages dom element.
      *
-     * @var DOMElement $packages
+     * @var \DOMElement
      */
     protected $packages = null;
 
@@ -145,7 +145,6 @@ class Xml implements CodeAware, FileAware
      * Sets the output log file.
      *
      * @param string $logFile The output log file.
-     *
      * @return void
      */
     public function setLogFile($logFile)
@@ -161,19 +160,7 @@ class Xml implements CodeAware, FileAware
      */
     public function getAcceptedAnalyzers()
     {
-        return array(\PHP_Depend_Metrics_Dependency_Analyzer::CLAZZ);
-    }
-
-    /**
-     * Sets the context code nodes.
-     *
-     * @param \PHP_Depend_AST_NodeIterator $code The code nodes.
-     *
-     * @return void
-     */
-    public function setCode(\PHP_Depend_AST_NodeIterator $code)
-    {
-        $this->code = $code;
+        return array(\PHP\Depend\Metrics\Dependency\Analyzer::CLAZZ);
     }
 
     /**
@@ -181,12 +168,11 @@ class Xml implements CodeAware, FileAware
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return boolean
      */
     public function log(Analyzer $analyzer)
     {
-        if ($analyzer instanceof \PHP_Depend_Metrics_Dependency_Analyzer) {
+        if ($analyzer instanceof \PHP\Depend\Metrics\Dependency\Analyzer) {
             $this->analyzer = $analyzer;
 
             return true;
@@ -228,7 +214,6 @@ class Xml implements CodeAware, FileAware
      * Visits a class node.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      */
     public function visitClass(ASTClass $class)
@@ -254,7 +239,6 @@ class Xml implements CodeAware, FileAware
      * Visits a code interface object.
      *
      * @param \PHP\Depend\AST\ASTInterface $interface
-     *
      * @return void
      */
     public function visitInterface(ASTInterface $interface)
@@ -276,7 +260,6 @@ class Xml implements CodeAware, FileAware
      * Visits a package node.
      *
      * @param PHP_Depend_AST_Package $package
-     *
      * @return void
      */
     public function visitPackage(\PHP_Depend_AST_Package $package)

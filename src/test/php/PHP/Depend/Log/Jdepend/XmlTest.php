@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -77,7 +77,7 @@ class XmlTest extends AbstractTest
     /**
      * Test dependency analyzer.
      *
-     * @var PHP_Depend_Metrics_Dependency_Analyzer
+     * @var \PHP\Depend\Metrics\Dependency\Analyzer
      */
     protected $analyzer;
 
@@ -121,7 +121,7 @@ class XmlTest extends AbstractTest
     {
         $logger    = new Xml();
         $actual    = $logger->getAcceptedAnalyzers();
-        $expected = array('PHP_Depend_Metrics_Dependency_Analyzer');
+        $expected = array('PHP\\Depend\\Metrics\\Dependency\\Analyzer');
 
         $this->assertEquals($expected, $actual);
     }
@@ -156,7 +156,7 @@ class XmlTest extends AbstractTest
 
         $this->packages = self::parseCodeResourceForTest();
 
-        $this->analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
+        $this->analyzer = new \PHP\Depend\Metrics\Dependency\Analyzer();
         $this->analyzer->analyze($this->packages);
 
         $log = new Xml();
@@ -182,14 +182,13 @@ class XmlTest extends AbstractTest
         $logger = new Xml();
 
         $this->assertFalse($logger->log(new DummyAnalyzer()));
-        $this->assertTrue($logger->log(new \PHP_Depend_Metrics_Dependency_Analyzer()));
+        $this->assertTrue($logger->log(new \PHP\Depend\Metrics\Dependency\Analyzer()));
     }
 
     /**
      * Normalizes the file references within the expected result document.
      *
      * @param string $fileName File name of the expected result document.
-     *
      * @return string
      */
     protected function getNormalizedPathXml($fileName)

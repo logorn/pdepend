@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -37,7 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,22 +44,23 @@
  * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend;
+
 use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer;
 use \PHP\Depend\Metrics\Listener;
 
 /**
- * This listener can be used to get informations about the current pdepend process.
+ * This listener can be used to get information about the current pdepend process.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-interface PHP_Depend_ProcessListener extends Listener
+interface ProcessListener extends Listener
 {
     /**
      * Is called when PDepend starts the file parsing process.

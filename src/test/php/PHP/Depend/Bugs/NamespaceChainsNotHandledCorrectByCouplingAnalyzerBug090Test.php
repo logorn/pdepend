@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -91,7 +91,7 @@ class PHP_Depend_Bugs_NamespaceChainsNotHandledCorrectByCouplingAnalyzerBug090Te
     {
         $packages = self::parseCodeResourceForTest();
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Coupling\Analyzer();
         $analyzer->analyze($packages);
 
         $project = $analyzer->getProjectMetrics();
@@ -107,7 +107,7 @@ class PHP_Depend_Bugs_NamespaceChainsNotHandledCorrectByCouplingAnalyzerBug090Te
     {
         $packages = self::parseCodeResourceForTest();
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Coupling\Analyzer();
         $analyzer->analyze($packages);
 
         $project = $analyzer->getProjectMetrics();
@@ -123,7 +123,7 @@ class PHP_Depend_Bugs_NamespaceChainsNotHandledCorrectByCouplingAnalyzerBug090Te
     {
         $packages = self::parseCodeResourceForTest();
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Coupling\Analyzer();
         $analyzer->analyze($packages);
 
         $project = $analyzer->getProjectMetrics();
@@ -139,7 +139,7 @@ class PHP_Depend_Bugs_NamespaceChainsNotHandledCorrectByCouplingAnalyzerBug090Te
     {
         $packages = self::parseCodeResourceForTest();
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Coupling\Analyzer();
         $analyzer->analyze($packages);
 
         $project = $analyzer->getProjectMetrics();
@@ -155,7 +155,7 @@ class PHP_Depend_Bugs_NamespaceChainsNotHandledCorrectByCouplingAnalyzerBug090Te
     {
         $packages = self::parseCodeResourceForTest();
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Coupling\Analyzer();
         $analyzer->analyze($packages);
 
         $project = $analyzer->getProjectMetrics();

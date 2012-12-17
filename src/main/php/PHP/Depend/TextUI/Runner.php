@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -50,6 +50,7 @@ use \PHP\Depend\Input\ExcludePathFilter;
 use \PHP\Depend\Input\ExtensionFilter;
 use \PHP\Depend\Log\LoggerFactory;
 use \PHP\Depend\Util\Configuration;
+use PHP\Depend\ProcessListener;
 
 /**
  * The command line runner starts a PDepend process.
@@ -133,10 +134,10 @@ class Runner
     private $options = array();
 
     /**
-     * This of process listeners that will be hooked into PHP_Depend's analyzing
+     * This of process listeners that will be hooked into PDepend's analyzing
      * process.
      *
-     * @var \PHP_Depend_ProcessListener[]
+     * @var \ProcessListener[]
      */
     private $processListeners = array();
 
@@ -165,7 +166,6 @@ class Runner
      * NOTE: If you call this method, it will replace the default file extensions.
      *
      * @param array(string) $extensions List of file extensions.
-     *
      * @return void
      */
     public function setFileExtensions(array $extensions)
@@ -179,7 +179,6 @@ class Runner
      * NOTE: If this method is called, it will overwrite the default settings.
      *
      * @param array(string) $excludeDirectories All exclude directories.
-     *
      * @return void
      */
     public function setExcludeDirectories(array $excludeDirectories)
@@ -191,7 +190,6 @@ class Runner
      * Sets a list of exclude packages.
      *
      * @param array(string) $excludePackages Exclude packages.
-     *
      * @return void
      */
     public function setExcludePackages(array $excludePackages)
@@ -203,7 +201,6 @@ class Runner
      * Sets a list of source directories and files.
      *
      * @param array(string) $sourceArguments The source directories.
-     *
      * @return void
      */
     public function setSourceArguments(array $sourceArguments)
@@ -226,7 +223,6 @@ class Runner
      *
      * @param string $loggerID    The logger identifier.
      * @param string $logFileName The log file name.
-     *
      * @return void
      */
     public function addLogger($loggerID, $logFileName)
@@ -239,7 +235,6 @@ class Runner
      *
      * @param string       $identifier The option identifier.
      * @param string|array $value      The option value.
-     *
      * @return void
      */
     public function addOption($identifier, $value)
@@ -248,14 +243,13 @@ class Runner
     }
 
     /**
-     * Adds a process listener instance that will be hooked into PHP_Depends
+     * Adds a process listener instance that will be hooked into PDepend's
      * analyzing process.
      *
-     * @param \PHP_Depend_ProcessListener $processListener A process listener.
-     *
+     * @param \PHP\Depend\ProcessListener $processListener A process listener.
      * @return void
      */
-    public function addProcessListener(\PHP_Depend_ProcessListener $processListener)
+    public function addProcessListener(ProcessListener $processListener)
     {
         $this->processListeners[] = $processListener;
     }

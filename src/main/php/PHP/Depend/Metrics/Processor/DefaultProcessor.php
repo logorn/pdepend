@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -71,7 +71,6 @@ class DefaultProcessor extends Util\Processor implements Processor
      * Registers the given analyzer for the next AST processing.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function register(Analyzer $analyzer)

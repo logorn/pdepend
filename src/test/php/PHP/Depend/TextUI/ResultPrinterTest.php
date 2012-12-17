@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,14 +36,12 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage TextUI
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
 namespace PHP\Depend\TextUI;
@@ -130,7 +128,7 @@ class ResultPrinterTest extends AbstractTest
 
         // Create dummy objects
         $method   = new PHP_Depend_Code_Method('method');
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\ClassLevel\Analyzer();
 
         $printer = new ResultPrinter();
 
@@ -159,7 +157,7 @@ class ResultPrinterTest extends AbstractTest
 
         // Create dummy objects
         $method   = new PHP_Depend_Code_Method('method');
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\ClassLevel\Analyzer();
 
         $printer = new ResultPrinter();
 

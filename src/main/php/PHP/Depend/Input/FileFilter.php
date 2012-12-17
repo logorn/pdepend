@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -63,7 +63,6 @@ interface FileFilter
      *
      * @param string $relative The relative path to the specified root.
      * @param string $absolute The absolute path to a source file.
-     *
      * @return boolean
      */
     function accept($relative, $absolute);

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -37,7 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,27 +44,29 @@
  * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Metrics\Dependency;
+
 use \PHP\Depend\AbstractTest;
+
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
 /**
  * Tests the for the package metrics visitor.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_Dependency_Analyzer
+ * @covers \PHP\Depend\Metrics\Dependency\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::dependency
  * @group  unittest
  */
-class PHP_Depend_Metrics_Dependency_AnalyzerTest extends AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * Input test data.
@@ -122,7 +123,7 @@ class PHP_Depend_Metrics_Dependency_AnalyzerTest extends AbstractTest
      */
     public function testGenerateMetrics()
     {
-        $analyzer = new PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new Analyzer();
 
         $processor = new DefaultProcessor();
         $processor->register($analyzer);

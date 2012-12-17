@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -64,7 +64,7 @@ use \PHP\Depend\AST\ASTProperty;
 use \PHP\Depend\AST\ASTPropertyRefs;
 
 /**
- * Visitor class that generates custom nodes used by PHP_Depend.
+ * Visitor class that generates custom nodes used by PDepend.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -133,7 +133,6 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
      *  * otherwise: $node is set to the return value
      *
      * @param \PHPParser_Node $node
-     *
      * @return \PHPParser_Node|null
      */
     public function enterNode(\PHPParser_Node $node)
@@ -162,7 +161,6 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
      * node attribute named <b>"id"</b>.
      *
      * @param \PHPParser_Node $node Node
-     *
      * @return null|\PHPParser_Node
      */
     public function leaveNode(\PHPParser_Node $node)
@@ -334,7 +332,6 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
      * into the real class names.
      *
      * @param string $name
-     *
      * @return string
      */
     private function resolveSpecialName($name)
@@ -361,7 +358,6 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
      * this method returns the pseudo global namespace.
      *
      * @param \PHPParser_Node $node
-     *
      * @return string
      */
     private function extractNamespaceName(\PHPParser_Node $node)
@@ -385,7 +381,6 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
      * when the node itself is not within a valid php namespace.
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return \PHP\Depend\AST\ASTNamespace|\PHP\Depend\AST\ASTNode
      */
     private function wrapOptionalNamespace(ASTNode $node)

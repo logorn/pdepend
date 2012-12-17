@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -145,7 +145,6 @@ class ASTClassRefs
      * Registers the given class in the shared code context.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      */
     public function initialize(ASTClass $class)

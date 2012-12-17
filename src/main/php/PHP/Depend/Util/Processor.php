@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -102,7 +102,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      * Registers the given visitor for the next AST processing.
      *
      * @param stdClass $visitor
-     *
      * @return void
      */
     protected function registerVisitor($visitor)
@@ -141,7 +140,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      * Processes the given compilation units with all registered analyzers.
      *
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnit
-     *
      * @return void
      */
     public function process(array $compilationUnit)
@@ -157,7 +155,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      *  * otherwise: $nodes is set to the return value
      *
      * @param PHPParser_Node[] $nodes Array of nodes
-     *
      * @return null|PHPParser_Node[] Array of nodes
      */
     public function beforeTraverse(array $nodes)
@@ -181,7 +178,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      *  * otherwise: $node is set to the return value
      *
      * @param PHPParser_Node $node Node
-     *
      * @return null|PHPParser_Node Node
      */
     public function enterNode(PHPParser_Node $node)
@@ -200,7 +196,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      *  * otherwise: $node is set to the return value
      *
      * @param PHPParser_Node $node Node
-     *
      * @return null|PHPParser_Node|false|PHPParser_Node[] Node
      */
     public function leaveNode(PHPParser_Node $node)
@@ -216,7 +211,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      *  * otherwise: $nodes is set to the return value
      *
      * @param PHPParser_Node[] $nodes Array of nodes
-     *
      * @return null|PHPParser_Node[] Array of nodes
      */
     public function afterTraverse(array $nodes)
@@ -239,7 +233,6 @@ abstract class Processor extends PHPParser_NodeTraverser implements PHPParser_No
      *
      * @param PHPParser_Node $node
      * @param string         $eventType
-     *
      * @return void
      */
     private function invoke(PHPParser_Node $node, $eventType)

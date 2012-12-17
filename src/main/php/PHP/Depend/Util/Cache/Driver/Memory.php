@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -190,7 +190,6 @@ class Memory implements CacheDriver
      * type, so that it is only valid for a single call.
      *
      * @param string $key The concrete object key.
-     *
      * @return string
      */
     protected function getCacheKey($key)

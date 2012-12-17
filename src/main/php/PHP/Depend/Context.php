@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -78,7 +78,6 @@ class Context
      * Registers the given node in the global context.
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return void
      */
     public function registerNode(ASTNode $node)
@@ -91,7 +90,6 @@ class Context
      * matching namespace exists.
      *
      * @param string $id
-     *
      * @return \PHP\Depend\AST\ASTNamespace
      */
     public function getNamespace($id)
@@ -118,7 +116,6 @@ class Context
      * matching class exists.
      *
      * @param string $id
-     *
      * @return \PHP\Depend\AST\ASTClass
      */
     public function getClass($id)
@@ -148,7 +145,6 @@ class Context
      * matching interface exists.
      *
      * @param string $id
-     *
      * @return null|\PHP\Depend\AST\ASTInterface
      */
     public function getInterface($id)
@@ -179,7 +175,6 @@ class Context
      * matching type exists.
      *
      * @param string $id
-     *
      * @return \PHP\Depend\AST\ASTType
      * @todo Implement traits
      */
@@ -198,7 +193,6 @@ class Context
      * matching method exists.
      *
      * @param string $id
-     *
      * @return null|\PHP\Depend\AST\ASTMethod
      */
     public function getMethod($id)
@@ -211,7 +205,6 @@ class Context
      * matching function exists.
      *
      * @param string $id
-     *
      * @return null|\PHP\Depend\AST\ASTFunction
      */
     public function getFunction($id)
@@ -224,7 +217,6 @@ class Context
      * matching node exists.
      *
      * @param string $id
-     *
      * @return null|\PHP\Depend\AST\ASTNode
      */
     private function getNode($id)

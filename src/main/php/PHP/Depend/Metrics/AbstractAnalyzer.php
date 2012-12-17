@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -86,7 +86,6 @@ abstract class AbstractAnalyzer implements Analyzer
      * Adds a listener to this analyzer.
      *
      * @param \PHP\Depend\Metrics\Listener $listener
-     *
      * @return void
      */
     public function addAnalyzeListener(Listener $listener)

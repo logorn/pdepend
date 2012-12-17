@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\Dependency;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTType;
@@ -53,7 +53,6 @@ use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\AST\ASTNamespace;
-use \PHP\Depend\Metrics\Analyzer;
 use \PHP\Depend\Metrics\AbstractAnalyzer;
 
 /**
@@ -65,20 +64,16 @@ use \PHP\Depend\Metrics\AbstractAnalyzer;
  *
  * - http://objectmentor.com/resources/articles/oodmetrc.pdf
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
  * @todo 2.0 Implement NodeAware interface
  */
-class PHP_Depend_Metrics_Dependency_Analyzer
-    extends AbstractAnalyzer
-   implements Analyzer
+class Analyzer extends AbstractAnalyzer implements \PHP\Depend\Metrics\Analyzer
 {
     /**
      * Type of this analyzer class.
@@ -156,7 +151,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      * @todo 2.0 Refactor this into getNodeMetrics
      */
@@ -175,7 +169,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Returns an array of all afferent nodes.
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return \PHP\Depend\AST\ASTNode[]
      */
     public function getAfferents(ASTNode $node)
@@ -192,7 +185,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * Returns an array of all efferent nodes.
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return \PHP\Depend\AST\ASTNode[]
      */
     public function getEfferents(ASTNode $node)
@@ -211,7 +203,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * returns <b>null</b> if no cycle exists .
      *
      * @param \PHP\Depend\AST\ASTNode $node
-     *
      * @return \PHP\Depend\AST\ASTNode[]
      */
     public function getCycle(ASTNode $node)
@@ -253,7 +244,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      * returns a metric data container for the given namespace.
      *
      * @param \PHP\Depend\AST\ASTNamespace $namespace
-     *
      * @return array
      */
     public function visitASTNamespaceBefore(ASTNamespace $namespace)
@@ -272,7 +262,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param \PHP\Depend\AST\ASTNamespace $namespace
      * @param array $data
-     *
      * @return void
      */
     public function visitASTNamespaceAfter(ASTNamespace $namespace, $data)
@@ -288,7 +277,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param \PHP\Depend\AST\ASTClass $class
      * @param array $data
-     *
      * @return array
      */
     public function visitASTClassBefore(ASTClass $class, $data)
@@ -321,7 +309,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param \PHP\Depend\AST\ASTInterface $interface
      * @param array $data
-     *
      * @return array
      */
     public function visitASTInterfaceBefore(ASTInterface $interface, $data)
@@ -342,7 +329,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param \PHP\Depend\AST\ASTMethod $method
      * @param array $data
-     *
      * @return array
      */
     public function visitASTMethodBefore(ASTMethod $method, $data)
@@ -365,7 +351,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param \PHP\Depend\AST\ASTTypeRef $typeRef
      * @param array $data
-     *
      * @return array
      */
     public function visitASTTypeRefBefore(ASTTypeRef $typeRef, $data)
@@ -378,7 +363,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param \PHP\Depend\AST\ASTType $type
      * @param array $data
-     *
      * @return array
      */
     private function updateEfferent(ASTType $type, $data)
@@ -402,8 +386,7 @@ class PHP_Depend_Metrics_Dependency_Analyzer
 
             $efferent = array_filter(
                 array_unique($metric[self::M_EFFERENT_COUPLING]),
-                function($efferentId) use ($uuid)
-                {
+                function ($efferentId) use ($uuid) {
                     return ($efferentId !== $uuid);
                 }
             );
@@ -480,7 +463,7 @@ class PHP_Depend_Metrics_Dependency_Analyzer
 
             $this->metrics[$uuid][self::M_DISTANCE] = abs(
                 $metrics[self::M_ABSTRACTION] +
-                    $metrics[self::M_INSTABILITY] - 1
+                $metrics[self::M_INSTABILITY] - 1
             );
         }
     }
@@ -491,7 +474,6 @@ class PHP_Depend_Metrics_Dependency_Analyzer
      *
      * @param PHP_Depend_AST_Package[] &$list Already visited packages.
      * @param PHP_Depend_AST_Package $package The context code package.
-     *
      * @return boolean If this method detects a cycle the return value is
      *         <b>true</b> otherwise this method will return <b>false</b>.
      */

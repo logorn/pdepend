@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -119,7 +119,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * calling test case.
      *
      * @param string $directory Optional working directory.
-     *
      * @return void
      * @since 0.10.0
      */
@@ -168,7 +167,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * @param string $expected The expected class or interface.
      * @param mixed  $actual   The actual variable/value.
      * @param string $message  Optional error/fail message.
-     *
      * @return void
      * @since 0.10.2
      */
@@ -186,7 +184,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * @param string $expected The expected internal type.
      * @param mixed  $actual   The actual variable/value.
      * @param string $message  Optional error/fail message.
-     *
      * @return void
      * @since 0.10.2
      */
@@ -202,7 +199,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * Creates a mocked class instance without calling the constructor.
      *
      * @param string $className Name of the class to mock.
-     *
      * @return stdClass
      * @since 0.10.0
      */
@@ -215,7 +211,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * Clears all temporary resources.
      *
      * @param string $dir The root directory.
-     *
      * @return void
      */
     private function clearRunResources($dir = null)
@@ -272,8 +267,8 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * Creates a temporary resource for the given file name.
      *
      * @param string $fileName Optional temporary local file name.
-     *
      * @return string
+     * @throws \ErrorException
      */
     protected static function createRunResourceURI($fileName = null)
     {
@@ -288,8 +283,8 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * Creates a code uri for the given file name.
      *
      * @param string $fileName The code file name.
-     *
      * @return string
+     * @throws \ErrorException
      */
     protected static function createCodeResourceURI($fileName)
     {
@@ -393,7 +388,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * Parses the test code associated with the calling test method.
      *
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
-     *
      * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     protected static function parseCodeResourceForTest($ignoreAnnotations = false)
@@ -410,7 +404,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @param string  $testCase          Qualified name of the test case.
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
-     *
      * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     public static function parseTestCaseSource($testCase, $ignoreAnnotations = false)
@@ -435,8 +428,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @param string  $fileOrDirectory   A source file or a source directory.
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
-     *
-     * @return PHP_Depend_Code_NodeIterator
+     * @return \PHP\Depend\AST\ASTCompilationUnit[]
      */
     public static function parseSource($fileOrDirectory, $ignoreAnnotations = false)
     {

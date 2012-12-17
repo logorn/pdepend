@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -37,7 +37,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,26 +44,29 @@
  * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Metrics\CodeRank;
+
+use PHP\Depend\Metrics\AbstractTest;
+
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 
 /**
  * Test case for the code metric analyzer class.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_CodeRank_Analyzer
+ * @covers \PHP\Depend\Metrics\CodeRank\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::coderank
  * @group  unittest
  */
-class PHP_Depend_Metrics_CodeRank_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * testCodeRankOfSimpleInheritanceExample
@@ -369,7 +371,7 @@ class PHP_Depend_Metrics_CodeRank_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     }
 
     /**
-     * Tests that {@link PHP_Depend_Metrics_CodeRank_Analyzer::getNodeMetrics()}
+     * Tests that {@link \PHP\Depend\Metrics\CodeRank\Analyzer::getNodeMetrics()}
      * returns an empty <b>array</b> for an unknown identifier.
      *
      * @return void
@@ -449,7 +451,7 @@ class PHP_Depend_Metrics_CodeRank_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      */
     private function getMetrics(array $ids, array $options = array())
     {
-        $analyzer = new PHP_Depend_Metrics_CodeRank_Analyzer($options);
+        $analyzer = new Analyzer($options);
 
         $processor = new DefaultProcessor();
         $processor->register($analyzer);

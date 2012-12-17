@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -77,7 +77,7 @@ class CommandTest extends AbstractTest
      *
      * @var string
      */
-    private $versionOutput = "PHP_Depend @package_version@\n\n";
+    private $versionOutput = "PDepend @package_version@\n\n";
 
     /**
      * Expected output of the --usage option.
@@ -367,7 +367,6 @@ class CommandTest extends AbstractTest
      *
      * @param array  $argv     The cli arguments.
      * @param string $pathName The source path.
-     *
      * @return array
      */
     private function runCommandAndReturnStatistics(array $argv, $pathName)
@@ -583,7 +582,6 @@ class CommandTest extends AbstractTest
      *
      * @param string $actual     The cli output.
      * @param string $prologText Optional prolog text.
-     *
      * @return void
      */
     protected function assertHelpOutput($actual, $prologText = '')
@@ -592,7 +590,7 @@ class CommandTest extends AbstractTest
         $startsWith = '/^' . preg_quote($startsWith) . '/';
         $this->assertRegExp($startsWith, $actual);
 
-        $this->assertRegExp('(  --configuration=<file>[ ]+Optional\s+PHP_Depend\s+configuration\s+file\.)', $actual);
+        $this->assertRegExp('(  --configuration=<file>[ ]+Optional\s+PDepend\s+configuration\s+file\.)', $actual);
         $this->assertRegExp('(  --suffix=<ext\[,\.{3}\]>[ ]+List\s+of\s+valid\s+PHP\s+file\s+extensions\.)', $actual);
         $this->assertRegExp('(  --ignore=<dir\[,\.{3}\]>[ ]+List\s+of\s+exclude\s+directories\.)', $actual);
         $this->assertRegExp('(  --exclude=<pkg\[,\.{3}\]>[ ]+List\s+of\s+exclude\s+packages\.)', $actual);
@@ -607,7 +605,6 @@ class CommandTest extends AbstractTest
      * an array <b>array($exitCode, $output)</b>.
      *
      * @param array $argv The cli parameters.
-     *
      * @return array(mixed)
      */
     private function executeCommand(array $argv = null)
@@ -626,7 +623,6 @@ class CommandTest extends AbstractTest
      * Prepares a fake <b>$argv</b>.
      *
      * @param array $argv The cli parameters.
-     *
      * @return void
      */
     private function prepareArgv(array $argv = null)

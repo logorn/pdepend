@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -73,7 +73,6 @@ class CompositeProcessor implements Processor
      * Adds a sub processor to this composite.
      *
      * @param \PHP\Depend\Metrics\Processor $processor
-     *
      * @return void
      */
     public function add(Processor $processor)
@@ -85,7 +84,6 @@ class CompositeProcessor implements Processor
      * Processes the given compilation units with all registered analyzers.
      *
      * @param \PHP\Depend\AST\ASTCompilationUnit[] $compilationUnit
-     *
      * @return void
      */
     public function process(array $compilationUnit)

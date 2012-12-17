@@ -27,7 +27,6 @@ interface MyCouplingInterface
      *
      * @param ArrayAccess $items The input items.
      * @param integer     $index The requested index.
-     *
      * @return void
      * @throws OutOfRangeException For invalid index values.
      */
@@ -82,7 +81,6 @@ class MyCouplingClass
      *
      * @param ArrayObject $items The input items.
      * @param integer     $index The requested index.
-     *
      * @return void
      * @throws OutOfRangeException For invalid index values.
      */
@@ -105,7 +103,6 @@ class MyCouplingClass
      *
      * @param ArrayAccess $items The input items.
      * @param integer     $index The requested index.
-     *
      * @return MyObjectItem
      * @throws OutOfBoundsException For invalid index values.
      * @throws DomainException For invalid index values.

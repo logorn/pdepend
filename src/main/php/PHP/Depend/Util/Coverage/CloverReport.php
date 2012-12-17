@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -119,7 +119,6 @@ class CloverReport implements CoverageReport
      * Returns the percentage code coverage for the given item instance.
      *
      * @param \PHP\Depend\AST\ASTFragment $fragment
-     *
      * @return float
      */
     public function getCoverage(ASTFragment $fragment)
@@ -150,7 +149,6 @@ class CloverReport implements CoverageReport
      * Returns the lines of the covered file.
      *
      * @param string $fileName The source file name.
-     *
      * @return array(boolean)
      */
     private function getLines($fileName)

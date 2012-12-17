@@ -5,7 +5,6 @@
 
 /**
  * @param array $a
- *
  * @return Iterator
  * @throws MyException
  */

@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -38,7 +38,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -46,19 +45,19 @@
  * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend;
 
 /**
  * This script updates the PEAR-Package-Manifest.
  *
  * @category  QualityAssurance
- * @package   PHP_Depend
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2012 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class PHP_Depend_ManifestUpdater
+class ManifestUpdater
 {
     /**
      * The pear manifest file.
@@ -75,8 +74,8 @@ class PHP_Depend_ManifestUpdater
     {
         $this->_manifestFile = dirname(__FILE__) . '/../src/conf/package.xml';
 
-        $manifest = $this->_createManifest();
-        $struct   = $this->_createContentStruct();
+        $manifest = $this->createManifest();
+        $struct   = $this->createContentStruct();
 
         $contents = $manifest->getElementsByTagName('dir')->item(0);
 
@@ -90,13 +89,12 @@ class PHP_Depend_ManifestUpdater
     /**
      * Inserts the new content structure.
      *
-     * @param DOMElement $parent The parent directory element.
-     * @param array      $struct The content structure.
-     * @param string     $role   The pear manifest role.
-     *
+     * @param \DOMElement $parent The parent directory element.
+     * @param array $struct The content structure.
+     * @param string $role The pear manifest role.
      * @return void
      */
-    private function _insertContents(DOMElement $parent, array $struct, $role)
+    private function _insertContents(\DOMElement $parent, array $struct, $role)
     {
         $manifest = $parent->ownerDocument;
 
@@ -126,18 +124,18 @@ class PHP_Depend_ManifestUpdater
     /**
      * Creates the raw manifest without source contents.
      *
-     * @return DOMDocument
+     * @return \DOMDocument
      */
-    private function _createManifest()
+    private function createManifest()
     {
-        $manifest = new DOMDocument('1.0', 'UTF-8');
+        $manifest = new \DOMDocument('1.0', 'UTF-8');
 
         $manifest->formatOutput       = true;
         $manifest->preserveWhiteSpace = false;
 
         $manifest->load($this->_manifestFile);
 
-        $xpath = new DOMXPath($manifest);
+        $xpath = new \DOMXPath($manifest);
         $xpath->registerNamespace('a', 'http://pear.php.net/dtd/package-2.0');
 
         $result = $xpath->query('//a:contents/a:dir[@name="/"]/a:dir');
@@ -153,16 +151,15 @@ class PHP_Depend_ManifestUpdater
      *
      * @return array(string => array)
      */
-    private function _createContentStruct()
+    private function createContentStruct()
     {
         $struct = array(
             'PHP'  =>  array('php', array()),
-            // 'tests/PHP/Depend'  =>  array('test', array()),
         );
 
         foreach (array_keys($struct) as $name) {
             $contents         = dirname(__FILE__) . "/../src/main/php/{$name}";
-            $struct[$name][1] = $this->_readContent($contents);
+            $struct[$name][1] = $this->readContent($contents);
         }
         return $struct;
     }
@@ -171,13 +168,12 @@ class PHP_Depend_ManifestUpdater
      * Reads all manifest contents.
      *
      * @param string $dir The source directory.
-     *
      * @return array(string => boolean|array)
      */
-    private function _readContent($dir)
+    private function readContent($dir)
     {
         $struct = array();
-        $files  = new DirectoryIterator($dir);
+        $files  = new \DirectoryIterator($dir);
         foreach ($files as $file) {
             if ($file->isDot() || strpos($file->getFilename(), '.') === 0) {
                 continue;
@@ -185,13 +181,13 @@ class PHP_Depend_ManifestUpdater
 
             $fileName = $file->getFilename();
             if ($file->isDir()) {
-                $struct[$fileName] = $this->_readContent($file->getPathname());
+                $struct[$fileName] = $this->readContent($file->getPathname());
             } else {
                 $struct[$fileName] = true;
             }
         }
 
-        uasort($struct, array($this, '_sortContent'));
+        uasort($struct, array($this, 'sortContent'));
 
         return $struct;
     }
@@ -201,10 +197,9 @@ class PHP_Depend_ManifestUpdater
      *
      * @param boolean|array $contentA First sort entry.
      * @param boolean|array $contentB Second sort entry.
-     *
      * @return integer
      */
-    private function _sortContent($contentA, $contentB)
+    private function sortContent($contentA, $contentB)
     {
         return strcmp(gettype($contentA), gettype($contentB));
     }
@@ -213,13 +208,12 @@ class PHP_Depend_ManifestUpdater
      * Starts the update process.
      *
      * @param array $args The cli arguments.
-     *
      * @return void
      */
     public static function main(array $args)
     {
-        $updater = new PHP_Depend_ManifestUpdater();
+        new ManifestUpdater();
     }
 }
 
-PHP_Depend_ManifestUpdater::main($_SERVER['argv']);
+ManifestUpdater::main($_SERVER['argv']);

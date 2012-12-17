@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\Inheritance;
 
 use \PHP\Depend\AST\ASTClass;
 use \PHP\Depend\Metrics\NodeAware;
@@ -61,18 +61,14 @@ use \PHP\Depend\Metrics\AbstractAnalyzer;
  * <b>AHH - Average Hierarchy Height</b>: The computed average of all inheritance
  * trees within the analyzed system, external classes or interfaces are ignored.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_Inheritance_Analyzer
-    extends AbstractAnalyzer
-    implements NodeAware, ProjectAware
+class Analyzer extends AbstractAnalyzer implements NodeAware, ProjectAware
 {
     /**
      * Type of this analyzer class.
@@ -151,7 +147,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)
@@ -217,7 +212,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * Visits a class node.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      */
     public function visitASTClassBefore(ASTClass $class)
@@ -239,7 +233,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * Calculates the number of derived classes.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      * @since 0.9.5
      */
@@ -260,7 +253,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * Calculates the maximum HIT for the given class.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      * @since 0.9.10
      */
@@ -298,7 +290,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * overwritten methods.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      * @since 0.9.10
      */
@@ -341,7 +332,6 @@ class PHP_Depend_Metrics_Inheritance_Analyzer
      * Initializes a empty metric container for the given class node.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      * @since 0.9.10
      */

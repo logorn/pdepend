@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\CodeRank;
 
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTType;
@@ -58,20 +58,16 @@ use \PHP\Depend\Metrics\AbstractAnalyzer;
 /**
  * Calculates the code rank metric for classes and packages.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
  * @todo 2.0 Implement visitInstanceOf(), visitNew(), visitCatch() ...
  */
-class PHP_Depend_Metrics_CodeRank_Analyzer
-    extends AbstractAnalyzer
-    implements NodeAware
+class Analyzer extends AbstractAnalyzer implements NodeAware
 {
     /**
      * Type of this analyzer class.
@@ -159,7 +155,6 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)
@@ -216,7 +211,6 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
      *
      * @param string $id1 Identifier for the incoming edges.
      * @param string $id2 Identifier for the outgoing edges.
-     *
      * @return array
      */
     private function computeCodeRank($id1, $id2)
@@ -297,7 +291,6 @@ class PHP_Depend_Metrics_CodeRank_Analyzer
 
     /**
      * @param \PHP\Depend\AST\ASTProperty $property
-     *
      * @return mixed
      */
     public function visitASTPropertyBefore(ASTProperty $property)

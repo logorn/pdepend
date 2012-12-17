@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -74,7 +74,6 @@ class PHP_Depend_Bugs_PHPDependBug13405179Test extends PHP_Depend_Bugs_AbstractT
      *
      * @param string $className Class name of a logger implementation.
      * @param string $extension Log file extension.
-     *
      * @return void
      * @dataProvider getLoggerClassNames
      */

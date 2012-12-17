@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -73,7 +73,6 @@ class PHP_Depend_Issues_KeepTypeInformationForPrimitivesIssue084Test
      *
      * @param string $actual   The actual used type identifier.
      * @param string $expected The expected primitive type image.
-     *
      * @return void
      * @dataProvider dataProviderParserSetsExpectedPrimitivePropertyType
      */

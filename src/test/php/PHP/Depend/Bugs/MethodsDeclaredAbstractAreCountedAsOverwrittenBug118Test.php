@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -88,7 +88,7 @@ class PHP_Depend_Bugs_MethodsDeclaredAbstractAreCountedAsOverwrittenBug118Test
         $packages = self::parseCodeResourceForTest();
         $class    = $packages->current()->getClasses()->current();
 
-        $analyzer = new PHP_Depend_Metrics_Inheritance_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Inheritance\Analyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);
@@ -105,7 +105,7 @@ class PHP_Depend_Bugs_MethodsDeclaredAbstractAreCountedAsOverwrittenBug118Test
         $packages = self::parseCodeResourceForTest();
         $class    = $packages->current()->getClasses()->current();
 
-        $analyzer = new PHP_Depend_Metrics_Inheritance_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Inheritance\Analyzer();
         $analyzer->analyze($packages);
 
         $metrics = $analyzer->getNodeMetrics($class);

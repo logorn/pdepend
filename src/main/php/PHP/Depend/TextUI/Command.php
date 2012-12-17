@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -49,6 +49,7 @@ namespace PHP\Depend\TextUI;
 use \PHP\Depend\Util\ConfigurationInstance;
 use \PHP\Depend\Util\Configuration\ConfigurationFactory;
 use PHP\Depend\Util\Log;
+use PHP\Depend\DbusUI\ResultPrinter;
 
 /**
  * Handles the command line stuff and starts the text ui runner.
@@ -188,7 +189,7 @@ class Command
 
         if (isset($options['--notify-me'])) {
             $this->runner->addProcessListener(
-                new \PHP_Depend_DbusUI_ResultPrinter()
+                new ResultPrinter()
             );
             unset($options['--notify-me']);
         }
@@ -357,17 +358,17 @@ class Command
     }
 
     /**
-     * Outputs the current PHP_Depend version.
+     * Outputs the current PDepend version.
      *
      * @return void
      */
     protected function printVersion()
     {
-        echo 'PHP_Depend @package_version@', PHP_EOL, PHP_EOL;
+        echo 'PDepend @package_version@', PHP_EOL, PHP_EOL;
     }
 
     /**
-     * Outputs the base usage of PHP_Depend.
+     * Outputs the base usage of PDepend.
      *
      * @return void
      */
@@ -378,7 +379,7 @@ class Command
     }
 
     /**
-     * Outputs the main help of PHP_Depend.
+     * Outputs the main help of PDepend.
      *
      * @return void
      */
@@ -391,7 +392,7 @@ class Command
 
         $this->printOption(
             '--configuration=<file>',
-            'Optional PHP_Depend configuration file.',
+            'Optional PDepend configuration file.',
             $length
         );
         echo PHP_EOL;
@@ -525,7 +526,6 @@ class Command
      * Prints the analyzer options.
      *
      * @param integer $length Length of the longest option.
-     *
      * @return integer
      */
     protected function printAnalyzerOptions($length)
@@ -622,7 +622,6 @@ class Command
      * @param string  $option  The option identifier.
      * @param string  $message The option help message.
      * @param integer $length  The length of the longest option.
-     *
      * @return void
      */
     private function printOption($option, $message, $length)
@@ -652,7 +651,6 @@ class Command
      * is loaded.
      *
      * @param integer $length Padding length for the option.
-     *
      * @return void
      */
     private function printDbusOption($length)

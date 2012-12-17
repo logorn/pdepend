@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -209,7 +209,6 @@ class ASTClass extends PHPParser_Node_Stmt_Class implements ASTType
      * Checks if this type is a subtype of the given <b>$type</b>.
      *
      * @param \PHP\Depend\AST\ASTType $type
-     *
      * @return boolean
      */
     public function isSubtypeOf(ASTType $type)

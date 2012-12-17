@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -92,7 +92,6 @@ class AnalyzerNodeAndProjectAwareDummy implements NodeAware, ProjectAware
      * Adds a listener to this analyzer.
      *
      * @param \PHP\Depend\Metrics\Listener $listener
-     *
      * @return void
      */
     public function addAnalyzeListener(Listener $listener)
@@ -103,7 +102,6 @@ class AnalyzerNodeAndProjectAwareDummy implements NodeAware, ProjectAware
      * Removes the listener from this analyzer.
      *
      * @param \PHP\Depend\Metrics\Listener $listener
-     *
      * @return void
      */
     public function removeAnalyzeListener(Listener $listener)
@@ -136,7 +134,6 @@ class AnalyzerNodeAndProjectAwareDummy implements NodeAware, ProjectAware
      * Returns an array with metrics for the requested node.
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)

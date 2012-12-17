@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,37 +36,36 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
+namespace PHP\Depend\Metrics\Inheritance;
+
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+use PHP\Depend\Metrics\AbstractTest;
 
 /**
  * Test case for the inheritance analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_Inheritance_Analyzer
+ * @covers \PHP\Depend\Metrics\Inheritance\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::inheritance
  * @group  unittest
  */
-class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * testGetProjectMetricsReturnsExpectedSetOfMetrics
@@ -76,7 +75,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     public function testGetProjectMetricsReturnsExpectedSetOfMetrics()
     {
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_Inheritance_Analyzer());
+        $processor->register($analyzer = new \PHP\Depend\Metrics\Inheritance\Analyzer());
         $processor->process(self::parseTestCaseSource(__METHOD__));
 
         $metrics = $analyzer->getProjectMetrics();
@@ -89,7 +88,6 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      * testMaxDepthOfInheritanceTree
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -103,7 +101,6 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      * classes.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -116,7 +113,6 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      * Tests that the analyzer calculates the correct average hierarchy height.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -129,7 +125,6 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      * testNumberOfLeafClasses
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -142,7 +137,6 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
      * testCalculatesExpectedNumberOfRootClasses
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testGetProjectMetricsReturnsExpectedSetOfMetrics
      */
@@ -154,11 +148,11 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testGetNodeMetricsReturnsExpectedSetOfMetrics
      *
-     * @return PHP_Depend_Metrics_Inheritance_Analyzer
+     * @return \PHP\Depend\Metrics\Inheritance\Analyzer
      */
     public function testGetNodeMetricsReturnsExpectedSetOfMetrics()
     {
-        $analyzer = new PHP_Depend_Metrics_Inheritance_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Inheritance\Analyzer();
 
         $processor = new DefaultProcessor();
         $processor->register($analyzer);
@@ -181,8 +175,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoccMetricForClassWithoutChildren
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -195,8 +188,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoccMetricForClassWithDirectChildren
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -209,8 +201,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoccMetricForClassWithDirectAndIndirectChildren
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -223,8 +214,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoamMetricForClassWithDirectParent
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -237,8 +227,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoamMetricForClassWithoutParent
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -251,8 +240,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoamMetricForClassWithIndirectParent
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -265,8 +253,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoomMetricForClassWithoutParent
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -279,8 +266,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoomMetricForClassWithParent
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -293,8 +279,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculatesExpectedNoomMetricForClassWithParentPrivateMethods
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -307,8 +292,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * Tests that the analyzer calculates the correct DIT values.
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -321,8 +305,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * Tests that the analyzer calculates the correct DIT values.
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -335,8 +318,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * Tests that the analyzer calculates the correct DIT values.
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -349,8 +331,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * Tests that the analyzer calculates the correct DIT values.
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -363,8 +344,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * Tests that the analyzer calculates the correct DIT values.
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -377,8 +357,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculateDITMetricForUnknownParentIncrementsMetricWithTwo
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -391,8 +370,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testCalculateDITMetricForInternalParentIncrementsMetricWithTwo
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -405,8 +383,7 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     /**
      * testAnalyzerIgnoresClassesThatAreNotUserDefined
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -417,11 +394,10 @@ class PHP_Depend_Metrics_Inheritance_AnalyzerTest extends PHP_Depend_Metrics_Abs
     }
 
     /**
-     * Tests that {@link PHP_Depend_Metrics_Inheritance_Analyzer::analyze()}
+     * Tests that {@link \PHP\Depend\Metrics\Inheritance\Analyzer::analyze()}
      * calculates the expected DIT values.
      *
-     * @param PHP_Depend_Metrics_Inheritance_Analyzer $analyzer
-     *
+     * @param \PHP\Depend\Metrics\Inheritance\Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */

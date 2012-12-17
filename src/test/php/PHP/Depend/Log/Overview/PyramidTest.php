@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -77,11 +77,11 @@ class PyramidTest extends AbstractTest
         $logger    = new Pyramid();
         $actual    = $logger->getAcceptedAnalyzers();
         $exptected = array(
-            '\\PHP_Depend_Metrics_Coupling_Analyzer',
-            '\\PHP_Depend_Metrics_CyclomaticComplexity_Analyzer',
-            '\\PHP_Depend_Metrics_Inheritance_Analyzer',
-            '\\PHP_Depend_Metrics_NodeCount_Analyzer',
-            '\\PHP_Depend_Metrics_NodeLoc_Analyzer'
+            \PHP\Depend\Metrics\Coupling\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\Inheritance\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\NodeCount\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\NodeLoc\Analyzer::CLAZZ
         );
 
         self::assertEquals($exptected, $actual);
@@ -131,9 +131,9 @@ class PyramidTest extends AbstractTest
 
         $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log($this->getCyclomaticComplexityAnalyzer());
+        $log->log($this->getInheritanceAnalyzer());
+        $log->log($this->getNodeCountAnalyzer());
         $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
@@ -154,9 +154,9 @@ class PyramidTest extends AbstractTest
 
         $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log($this->getCouplingAnalyzer());
+        $log->log($this->getInheritanceAnalyzer());
+        $log->log($this->getNodeCountAnalyzer());
         $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
@@ -177,9 +177,9 @@ class PyramidTest extends AbstractTest
 
         $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log($this->getCouplingAnalyzer());
+        $log->log($this->getCyclomaticComplexityAnalyzer());
+        $log->log($this->getNodeCountAnalyzer());
         $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
@@ -200,9 +200,9 @@ class PyramidTest extends AbstractTest
 
         $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
+        $log->log($this->getCouplingAnalyzer());
+        $log->log($this->getCyclomaticComplexityAnalyzer());
+        $log->log($this->getInheritanceAnalyzer());
         $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
     }
@@ -223,10 +223,10 @@ class PyramidTest extends AbstractTest
 
         $log = new Pyramid();
         $log->setLogFile(self::createRunResourceURI('_tmp_.svg'));
-        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log($this->getCouplingAnalyzer());
+        $log->log($this->getCyclomaticComplexityAnalyzer());
+        $log->log($this->getInheritanceAnalyzer());
+        $log->log($this->getNodeCountAnalyzer());
         $log->close();
     }
 
@@ -246,10 +246,10 @@ class PyramidTest extends AbstractTest
 
         $log = new Pyramid();
         $log->setLogFile($output);
-        $log->log(new \PHP_Depend_Log_Overview_CouplingAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_CyclomaticComplexityAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_InheritanceAnalyzer());
-        $log->log(new \PHP_Depend_Log_Overview_NodeCountAnalyzer());
+        $log->log($this->getCouplingAnalyzer());
+        $log->log($this->getCyclomaticComplexityAnalyzer());
+        $log->log($this->getInheritanceAnalyzer());
+        $log->log($this->getNodeCountAnalyzer());
         $log->log(new \PHP_Depend_Log_Overview_NodeLocAnalyzer());
         $log->close();
 
@@ -284,5 +284,106 @@ class PyramidTest extends AbstractTest
         }
 
         unlink($output);
+    }
+
+    /**
+     * Returns a mocked inheritance analyzer.
+     *
+     * @return \PHP\Depend\Metrics\Inheritance\Analyzer
+     */
+    private function getInheritanceAnalyzer()
+    {
+        return $this->getAnalyzerMock(
+            \PHP\Depend\Metrics\Inheritance\Analyzer::CLAZZ,
+            array(
+                'andc'  => 0.31,
+                'ahh'   => 0.12
+            )
+        );
+    }
+
+    /**
+     * Returns a mocked coupling analyzer.
+     *
+     * @return \PHP\Depend\Metrics\Coupling\Analyzer
+     */
+    private function getCouplingAnalyzer()
+    {
+        return $this->getAnalyzerMock(
+            \PHP\Depend\Metrics\Coupling\Analyzer::CLAZZ,
+            array(
+                'fanout'  => 8590,
+                'calls'   => 15128
+            )
+        );
+    }
+
+    /**
+     * Returns a mocked cyclomatic complexity analyzer.
+     *
+     * @return \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
+     */
+    private function getCyclomaticComplexityAnalyzer()
+    {
+        return $this->getAnalyzerMock(
+            \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ,
+            array(
+                'ccn2'  => 5579
+            )
+        );
+    }
+
+    /**
+     * Returns a mocked node count analyzer.
+     *
+     * @return \PHP\Depend\Metrics\NodeCount\Analyzer
+     */
+    private function getNodeCountAnalyzer()
+    {
+        return $this->getAnalyzerMock(
+            \PHP\Depend\Metrics\NodeCount\Analyzer::CLAZZ,
+            array(
+                'nop'  => 19,
+                'noc'  => 384,
+                'nom'  => 2018,
+                'nof'  => 1600
+            )
+        );
+    }
+
+    /**
+     * Returns a mocked node loc analyzer.
+     *
+     * @return \PHP\Depend\Metrics\NodeLoc\Analyzer
+     */
+    private function getNodeLocAnalyzer()
+    {
+        return $this->getAnalyzerMock(
+            \PHP\Depend\Metrics\NodeLoc\Analyzer::CLAZZ,
+            array(
+                'eloc'  => 35175
+            )
+        );
+    }
+
+    /**
+     * @param string $class
+     * @param array $data
+     * @return \PHP\Depend\Metrics\Analyzer
+     */
+    private function getAnalyzerMock($class, array $data)
+    {
+        $analyzer = $this->getMockWithoutConstructor($class);
+        $analyzer->expects($this->any())
+            ->method('getProjectMetrics')
+            ->will(
+                $this->returnCallback(
+                    function () use ($data) {
+                        return $data;
+                    }
+                )
+            );
+
+        return $analyzer;
     }
 }

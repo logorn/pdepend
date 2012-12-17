@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -96,7 +96,6 @@ class ExtensionFilterTest extends AbstractTest
      * filter.
      *
      * @param array(string) $includes The file extensions
-     *
      * @return array(string)
      */
     protected function createFilteredFileList(array $includes)

@@ -1,6 +1,8 @@
 <?php
+use PHP\Depend\Metrics\Coupling\Analyzer;
+
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -81,7 +83,7 @@ class PHP_Depend_Bugs_CouplingAnalyzerBug014Test extends PHP_Depend_Bugs_Abstrac
         self::assertEquals(1, $packages->count());
         self::assertEquals(1, $packages->current()->getFunctions()->count());
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new Analyzer();
         $analyzer->analyze($packages);
 
         $project = $analyzer->getProjectMetrics();

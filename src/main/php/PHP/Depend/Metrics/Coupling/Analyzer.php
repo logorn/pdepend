@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,15 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\Coupling;
 
 use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTClass;
@@ -78,18 +78,14 @@ use \PHP\Depend\Metrics\AbstractAnalyzer;
  * The implemented algorithm counts each type only once for a method and function.
  * Any type that is either a supertype or a subtype of the class is not counted.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_Metrics_Coupling_Analyzer
-    extends AbstractAnalyzer
-    implements NodeAware, ProjectAware
+class Analyzer extends AbstractAnalyzer implements NodeAware, ProjectAware
 {
     /**
      * Type of this analyzer class.
@@ -108,7 +104,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Used subtree serializer.
      *
-     * @var PHPParser_PrettyPrinterAbstract
+     * @var \PHPParser_PrettyPrinterAbstract
      */
     private $serializer;
 
@@ -174,7 +170,7 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     {
         parent::__construct($options);
 
-        $this->serializer = new PHPParser_PrettyPrinter_Zend();
+        $this->serializer = new \PHPParser_PrettyPrinter_Zend();
     }
 
 
@@ -212,7 +208,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * </code>
      *
      * @param \PHP\Depend\AST\ASTNode|string $node
-     *
      * @return array
      */
     public function getNodeMetrics($node)
@@ -258,7 +253,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Visits the given compilation unit ast node.
      *
      * @param \PHP\Depend\AST\ASTCompilationUnit $unit
-     *
      * @return void
      */
     public function visitCompilationUnitBefore(ASTCompilationUnit $unit)
@@ -281,7 +275,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Visits the given function and calculates it's dependency data.
      *
      * @param \PHP\Depend\AST\ASTFunction $function
-     *
      * @return void
      */
     public function visitASTFunctionBefore(ASTFunction $function)
@@ -317,7 +310,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Visits the given class and initializes it's dependencies.
      *
      * @param \PHP\Depend\AST\ASTClass $class
-     *
      * @return void
      */
     public function visitASTClassBefore(ASTClass $class)
@@ -346,7 +338,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Visits a interface ast node.
      *
      * @param \PHP\Depend\AST\ASTInterface $interface
-     *
      * @return mixed
      */
     public function visitASTInterfaceBefore(ASTInterface $interface)
@@ -372,7 +363,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Visits the given method and calculates it's dependency data.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
-     *
      * @return void
      */
     public function visitASTMethodBefore(ASTMethod $method)
@@ -394,7 +384,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Visits a property node.
      *
      * @param \PHP\Depend\AST\ASTProperty $property
-     *
      * @return void
      */
     public function visitASTPropertyBefore(ASTProperty $property)
@@ -405,11 +394,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits a catch statement that will contain a class reference.
      *
-     * @param PHPParser_Node_Stmt_Catch $catch
-     *
+     * @param \PHPParser_Node_Stmt_Catch $catch
      * @return void
      */
-    public function visitStmtCatchBefore(PHPParser_Node_Stmt_Catch $catch)
+    public function visitStmtCatchBefore(\PHPParser_Node_Stmt_Catch $catch)
     {
         $this->calculateCoupling($catch->typeRef);
     }
@@ -417,11 +405,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits an instance allocation node.
      *
-     * @param PHPParser_Node_Expr_New $new
-     *
+     * @param \PHPParser_Node_Expr_New $new
      * @return void
      */
-    public function visitExprNewBefore(PHPParser_Node_Expr_New $new)
+    public function visitExprNewBefore(\PHPParser_Node_Expr_New $new)
     {
         $this->calculateCoupling($new->typeRef);
     }
@@ -429,11 +416,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits an instanceof ast node.
      *
-     * @param PHPParser_Node_Expr_Instanceof $instanceof
-     *
+     * @param \PHPParser_Node_Expr_Instanceof $instanceof
      * @return void
      */
-    public function visitExprInstanceofBefore(PHPParser_Node_Expr_Instanceof $instanceof)
+    public function visitExprInstanceofBefore(\PHPParser_Node_Expr_Instanceof $instanceof)
     {
         $this->calculateCoupling($instanceof->typeRef);
     }
@@ -441,11 +427,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits a static method call node.
      *
-     * @param PHPParser_Node_Expr_StaticCall $call
-     *
+     * @param \PHPParser_Node_Expr_StaticCall $call
      * @return void
      */
-    public function visitExprStaticCallBefore(PHPParser_Node_Expr_StaticCall $call)
+    public function visitExprStaticCallBefore(\PHPParser_Node_Expr_StaticCall $call)
     {
         $this->calculateCoupling($call->typeRef);
 
@@ -455,11 +440,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits the given class property fetch ast node.
      *
-     * @param PHPParser_Node_Expr_StaticPropertyFetch $fetch
-     *
+     * @param \PHPParser_Node_Expr_StaticPropertyFetch $fetch
      * @return void
      */
-    public function visitExprStaticPropertyFetchBefore(PHPParser_Node_Expr_StaticPropertyFetch $fetch)
+    public function visitExprStaticPropertyFetchBefore(\PHPParser_Node_Expr_StaticPropertyFetch $fetch)
     {
         $this->calculateCoupling($fetch->typeRef);
     }
@@ -467,11 +451,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits the given class constant fetch ast node.
      *
-     * @param PHPParser_Node_Expr_ClassConstFetch $fetch
-     *
+     * @param \PHPParser_Node_Expr_ClassConstFetch $fetch
      * @return void
      */
-    public function visitExprClassConstFetchBefore(PHPParser_Node_Expr_ClassConstFetch $fetch)
+    public function visitExprClassConstFetchBefore(\PHPParser_Node_Expr_ClassConstFetch $fetch)
     {
         $this->calculateCoupling($fetch->typeRef);
     }
@@ -479,11 +462,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits a function call ast node.
      *
-     * @param PHPParser_Node_Expr_FuncCall $call
-     *
+     * @param \PHPParser_Node_Expr_FuncCall $call
      * @return void
      */
-    public function visitExprFuncCallBefore(PHPParser_Node_Expr_FuncCall $call)
+    public function visitExprFuncCallBefore(\PHPParser_Node_Expr_FuncCall $call)
     {
         $this->updateInvokes($call);
     }
@@ -491,11 +473,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Visits an object method call.
      *
-     * @param PHPParser_Node_Expr_MethodCall $call
-     *
+     * @param \PHPParser_Node_Expr_MethodCall $call
      * @return void
      */
-    public function visitExprMethodCallBefore(PHPParser_Node_Expr_MethodCall $call)
+    public function visitExprMethodCallBefore(\PHPParser_Node_Expr_MethodCall $call)
     {
         $this->updateInvokes($call);
     }
@@ -503,11 +484,10 @@ class PHP_Depend_Metrics_Coupling_Analyzer
     /**
      * Updates the number of invokes.
      *
-     * @param PHPParser_Node_Expr $expr
-     *
+     * @param \PHPParser_Node_Expr $expr
      * @return void
      */
-    private function updateInvokes(PHPParser_Node_Expr $expr)
+    private function updateInvokes(\PHPParser_Node_Expr $expr)
     {
         $clone       = clone $expr;
         $clone->args = array();
@@ -519,7 +499,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * Calculates the coupling between the given types.
      *
      * @param \PHP\Depend\AST\ASTType $afferentType
-     *
      * @return void
      * @since 0.10.2
      */
@@ -557,7 +536,6 @@ class PHP_Depend_Metrics_Coupling_Analyzer
      * given class or interface instance.
      *
      * @param \PHP\Depend\AST\ASTType $type
-     *
      * @return void
      * @since 0.10.2
      */

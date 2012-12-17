@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -193,7 +193,6 @@ class NodeGeneratorTest extends AbstractTest
      * Returns test class statements with a corresponding static expr nodes.
      *
      * @param string $specialName
-     *
      * @return array
      */
     public static function getReferences($specialName)

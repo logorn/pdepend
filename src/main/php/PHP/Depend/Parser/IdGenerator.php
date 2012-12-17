@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -72,7 +72,6 @@ class IdGenerator extends \PHPParser_NodeVisitorAbstract
      * used node identifier tree.
      *
      * @param \PHPParser_Node $node
-     *
      * @return null
      */
     public function enterNode(\PHPParser_Node $node)
@@ -103,7 +102,6 @@ class IdGenerator extends \PHPParser_NodeVisitorAbstract
      * node attribute named <b>"id"</b>.
      *
      * @param \PHPParser_Node $node Node
-     *
      * @return null
      */
     public function leaveNode(\PHPParser_Node $node)

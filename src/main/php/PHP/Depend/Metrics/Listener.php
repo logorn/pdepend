@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -63,7 +63,6 @@ interface Listener
      * This method is called when the analyzer starts code processing.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function startAnalyzer(Analyzer $analyzer);
@@ -72,7 +71,6 @@ interface Listener
      * This method is called when the analyzer has finished code processing.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function endAnalyzer(Analyzer $analyzer);

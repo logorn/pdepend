@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -82,35 +82,35 @@ class Pyramid implements FileAware
     /**
      * The used coupling analyzer.
      *
-     * @var \PHP_Depend_Metrics_Coupling_Analyzer
+     * @var \PHP\Depend\Metrics\Coupling\Analyzer
      */
     private $coupling;
 
     /**
      * The used cyclomatic complexity analyzer.
      *
-     * @var \PHP_Depend_Metrics_CyclomaticComplexity_Analyzer
+     * @var \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer
      */
     private $cyclomaticComplexity;
 
     /**
      * The used inheritance analyzer.
      *
-     * @var \PHP_Depend_Metrics_Inheritance_Analyzer
+     * @var \PHP\Depend\Metrics\Inheritance\Analyzer
      */
     private $inheritance;
 
     /**
      * The used node count analyzer.
      *
-     * @var \PHP_Depend_Metrics_NodeCount_Analyzer
+     * @var \PHP\Depend\Metrics\NodeCount\Analyzer
      */
     private $nodeCount;
 
     /**
      * The used node loc analyzer.
      *
-     * @var \PHP_Depend_Metrics_NodeLoc_Analyzer
+     * @var \PHP\Depend\Metrics\NodeLoc\Analyzer
      */
     private $nodeLoc;
 
@@ -135,7 +135,6 @@ class Pyramid implements FileAware
      * Sets the output log file.
      *
      * @param string $logFile The output log file.
-     *
      * @return void
      */
     public function setLogFile($logFile)
@@ -152,11 +151,11 @@ class Pyramid implements FileAware
     public function getAcceptedAnalyzers()
     {
         return array(
-            '\PHP_Depend_Metrics_Coupling_Analyzer',
-            '\PHP_Depend_Metrics_CyclomaticComplexity_Analyzer',
-            '\PHP_Depend_Metrics_Inheritance_Analyzer',
-            '\PHP_Depend_Metrics_NodeCount_Analyzer',
-            '\PHP_Depend_Metrics_NodeLoc_Analyzer'
+            \PHP\Depend\Metrics\Coupling\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\Inheritance\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\NodeCount\Analyzer::CLAZZ,
+            \PHP\Depend\Metrics\NodeLoc\Analyzer::CLAZZ
         );
     }
 
@@ -165,20 +164,19 @@ class Pyramid implements FileAware
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer The analyzer to log.
-     *
      * @return boolean
      */
     public function log(Analyzer $analyzer)
     {
-        if ($analyzer instanceof \PHP_Depend_Metrics_CyclomaticComplexity_Analyzer) {
+        if ($analyzer instanceof \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer) {
             $this->cyclomaticComplexity = $analyzer;
-        } else if ($analyzer instanceof \PHP_Depend_Metrics_Coupling_Analyzer) {
+        } else if ($analyzer instanceof \PHP\Depend\Metrics\Coupling\Analyzer) {
             $this->coupling = $analyzer;
-        } else if ($analyzer instanceof \PHP_Depend_Metrics_Inheritance_Analyzer) {
+        } else if ($analyzer instanceof \PHP\Depend\Metrics\Inheritance\Analyzer) {
             $this->inheritance = $analyzer;
-        } else if ($analyzer instanceof \PHP_Depend_Metrics_NodeCount_Analyzer) {
+        } else if ($analyzer instanceof \PHP\Depend\Metrics\NodeCount\Analyzer) {
             $this->nodeCount = $analyzer;
-        } else if ($analyzer instanceof \PHP_Depend_Metrics_NodeLoc_Analyzer) {
+        } else if ($analyzer instanceof \PHP\Depend\Metrics\NodeLoc\Analyzer) {
             $this->nodeLoc = $analyzer;
         } else {
             return false;
@@ -242,7 +240,6 @@ class Pyramid implements FileAware
      *
      * @param string $name  The metric/field identfier.
      * @param mixed  $value The metric/field value.
-     *
      * @return string
      */
     private function computeThreshold($name, $value)
@@ -271,7 +268,6 @@ class Pyramid implements FileAware
      * Computes the proportions between the given metrics.
      *
      * @param array $metrics The aggregated project metrics.
-     *
      * @return array(string => float)
      */
     private function computeProportions(array $metrics)

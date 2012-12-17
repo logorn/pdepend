@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -137,7 +137,6 @@ class ASTPropertyRefs
      * Initializes this reference instance for the given property.
      *
      * @param \PHP\Depend\AST\ASTProperty $property
-     *
      * @return void
      */
     public function initialize(ASTProperty $property)

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -127,7 +127,6 @@ class Xml implements CodeAware, FileAware
      * Sets the output log file.
      *
      * @param string $logFile The output log file.
-     *
      * @return void
      */
     public function setLogFile($logFile)
@@ -154,7 +153,6 @@ class Xml implements CodeAware, FileAware
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return boolean
      */
     public function log(Analyzer $analyzer)

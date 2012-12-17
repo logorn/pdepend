@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -64,7 +64,6 @@ class LogProcessor extends Util\Processor
      * Registers the given report for the next ast traversal.
      *
      * @param \PHP\Depend\Log\Report $report
-     *
      * @return void
      */
     public function register(Report $report)

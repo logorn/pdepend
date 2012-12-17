@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -91,7 +91,6 @@ class Logger implements Report, CodeAware, FileAware
      * Sets the output log file.
      *
      * @param string $logFile The output log file.
-     *
      * @return void
      */
     public function setLogFile($logFile)
@@ -114,7 +113,6 @@ class Logger implements Report, CodeAware, FileAware
      * Sets the context code nodes.
      *
      * @param PHP_Depend_Code_NodeIterator $code The code nodes.
-     *
      * @return void
      */
     public function setCode(PHP_Depend_Code_NodeIterator $code)
@@ -127,7 +125,6 @@ class Logger implements Report, CodeAware, FileAware
      * with return <b>true</b>, otherwise the return value is <b>false</b>.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer The analyzer to log.
-     *
      * @return boolean
      */
     public function log(Analyzer $analyzer)

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -173,7 +173,6 @@ class PHP_Depend_Issues_PHPDependCatchesParsingErrorsIssue061Test
      * Sets a command line argument vector.
      *
      * @param array(string) $argv The temporary command line argument vector
-     *
      * @return void
      */
     protected function prepareArgv($argv)

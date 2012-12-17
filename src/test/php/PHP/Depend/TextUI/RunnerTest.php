@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -320,7 +320,6 @@ class RunnerTest extends AbstractTest
      *
      * @param \PHP\Depend\TextUI\Runner $runner The runner instance.
      * @param string $pathName The source path.
-     *
      * @return array
      */
     private function runRunnerAndReturnStatistics(Runner $runner, $pathName)

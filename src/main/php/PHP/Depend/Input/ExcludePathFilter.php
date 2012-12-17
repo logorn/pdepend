@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -93,7 +93,6 @@ class ExcludePathFilter implements FileFilter
      *
      * @param string $relative The relative path to the specified root.
      * @param string $absolute The absolute path to a source file.
-     *
      * @return boolean
      */
     public function accept($relative, $absolute)
@@ -106,7 +105,6 @@ class ExcludePathFilter implements FileFilter
      * exclude patterns as an absolute path.
      *
      * @param string $path The absolute path to a source file.
-     *
      * @return boolean
      * @since 0.10.0
      */
@@ -120,7 +118,6 @@ class ExcludePathFilter implements FileFilter
      * exclude patterns as an relative path.
      *
      * @param string $path The relative path to a source file.
-     *
      * @return boolean
      * @since 0.10.0
      */

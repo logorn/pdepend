@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -123,7 +123,6 @@ class ASTFunctionRefs
      * Initializes this reference instance for the given function.
      *
      * @param \PHP\Depend\AST\ASTFunction $function
-     *
      * @return void
      */
     public function initialize(ASTFunction $function)

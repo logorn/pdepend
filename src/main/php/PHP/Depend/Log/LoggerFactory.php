@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -83,7 +83,6 @@ class LoggerFactory
      *
      * @param string $identifier
      * @param string $fileName
-     *
      * @return \PHP\Depend\Log\Report
      */
     public function createReport($identifier, $fileName)

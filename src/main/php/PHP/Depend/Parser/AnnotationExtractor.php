@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -80,7 +80,6 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
      * Resets some internal state properties.
      *
      * @param \PHPParser_Node[] $nodes
-     *
      * @return void
      */
     public function beforeTraverse(array $nodes)
@@ -95,7 +94,6 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
      * function etc. nodes.
      *
      * @param \PHPParser_Node $node
-     *
      * @return void
      * @throws PHPParser_Error
      */
@@ -137,7 +135,6 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
      * This post visit method resets some internal state properties.
      *
      * @param \PHPParser_Node $node
-     *
      * @return void
      */
     public function leaveNode(\PHPParser_Node $node)
@@ -155,7 +152,6 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
      *
      * @param \PHPParser_Node $node
      * @param string         $tag
-     *
      * @return null|\PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
      */
     private function extractType(\PHPParser_Node $node, $tag)
@@ -172,7 +168,6 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
      *
      * @param \PHPParser_Node $node
      * @param string         $tag
-     *
      * @return \PHPParser_Node_Name[]
      * @todo 2.0 Handle special doc comments like TypeA|TypeB|..., Type[], array(Type)
      */
@@ -205,7 +200,6 @@ class AnnotationExtractor extends \PHPParser_NodeVisitor_NameResolver
      * with the PHPParser project.
      *
      * @param \PHPParser_Node_Name $name
-     *
      * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
      */
     protected function resolveClassName(\PHPParser_Node_Name $name)

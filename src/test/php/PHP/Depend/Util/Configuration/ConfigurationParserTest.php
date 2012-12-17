@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -179,7 +179,6 @@ class ConfigurationParserTest extends AbstractTest
      * Returns a full qualified configuration file name.
      *
      * @param string $file The local config file name.
-     *
      * @return string
      */
     protected function getTestConfiguration($file)

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -112,7 +112,7 @@ class ChartTest extends AbstractTest
     {
         $logger    = new Chart();
         $actual    = $logger->getAcceptedAnalyzers();
-        $exptected = array('PHP_Depend_Metrics_Dependency_Analyzer');
+        $exptected = array('PHP\\Depend\\Metrics\\Dependency\\Analyzer');
 
         self::assertEquals($exptected, $actual);
     }
@@ -138,7 +138,7 @@ class ChartTest extends AbstractTest
     public function testChartLogAcceptsValidAnalyzer()
     {
         $logger = new Chart();
-        self::assertTrue($logger->log(new \PHP_Depend_Metrics_Dependency_Analyzer()));
+        self::assertTrue($logger->log(new \PHP\Depend\Metrics\Dependency\Analyzer()));
     }
 
     /**
@@ -163,7 +163,7 @@ class ChartTest extends AbstractTest
 
         $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
 
-        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Dependency\Analyzer();
         $analyzer->analyze($nodes);
 
         $logger = new Chart();
@@ -186,7 +186,7 @@ class ChartTest extends AbstractTest
 
         $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
 
-        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Dependency\Analyzer();
         $analyzer->analyze($nodes);
 
         $logger = new Chart();
@@ -216,7 +216,7 @@ class ChartTest extends AbstractTest
 
         $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, false, true));
 
-        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Dependency\Analyzer();
         $analyzer->analyze($nodes);
 
         $logger = new Chart();
@@ -311,7 +311,7 @@ class ChartTest extends AbstractTest
 
         $nodes = new \PHP_Depend_Code_NodeIterator($this->_createPackages(true, true));
 
-        $analyzer = new \PHP_Depend_Metrics_Dependency_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\Dependency\Analyzer();
         $analyzer->analyze($nodes);
 
         $logger = new Chart();

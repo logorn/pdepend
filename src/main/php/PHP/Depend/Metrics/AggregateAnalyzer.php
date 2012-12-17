@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -71,7 +71,6 @@ interface AggregateAnalyzer extends Analyzer
      * Adds a required sub analyzer.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function addAnalyzer(Analyzer $analyzer);

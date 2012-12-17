@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,19 +36,20 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage DbusUI
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\DbusUI;
 
 use \PHP\Depend\Parser;
 use \PHP\Depend\Tokenizer;
 use \PHP\Depend\Metrics\Analyzer;
+use PHP\Depend\ProcessListener;
 
 // This is just fun and it is not really testable
 // @codeCoverageIgnoreStart
@@ -56,17 +57,14 @@ use \PHP\Depend\Metrics\Analyzer;
 /**
  * Fun result printer that uses dbus to show a notification window.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage DbusUI
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-class PHP_Depend_DbusUI_ResultPrinter
-    implements PHP_Depend_ProcessListener
+class ResultPrinter implements ProcessListener
 {
     /**
      * Time when it the process has started.
@@ -162,7 +160,7 @@ class PHP_Depend_DbusUI_ResultPrinter
             return;
         }
 
-        $dbus  = new Dbus(Dbus::BUS_SESSION);
+        $dbus  = new \Dbus(\Dbus::BUS_SESSION);
         $proxy = $dbus->createProxy(
             "org.freedesktop.Notifications", // connection name
             "/org/freedesktop/Notifications", // object
@@ -170,16 +168,16 @@ class PHP_Depend_DbusUI_ResultPrinter
         );
         $proxy->Notify(
             'PDepend',
-            new DBusUInt32(0),
+            new \DBusUInt32(0),
             'pdepend',
-            'PHP_Depend',
+            'PDepend',
             sprintf(
                 '%d files analyzed in %s minutes...',
                 $this->parsedFiles,
                 (date('i:s', time() - $this->startTime))
             ),
-            new DBusArray(DBus::STRING, array()),
-            new DBusDict(DBus::VARIANT, array()),
+            new \DBusArray(\DBus::STRING, array()),
+            new \DBusDict(\DBus::VARIANT, array()),
             1000
         );
     }
@@ -188,7 +186,6 @@ class PHP_Depend_DbusUI_ResultPrinter
      * Is called when PDepend starts a new analyzer.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return void
      */
     public function startAnalyzer(Analyzer $analyzer)
@@ -199,7 +196,6 @@ class PHP_Depend_DbusUI_ResultPrinter
      * Is called when PDepend has finished one analyzing process.
      *
      * @param Analyzer $analyzer
-     *
      * @return void
      */
     public function endAnalyzer(Analyzer $analyzer)

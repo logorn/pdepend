@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -88,25 +88,24 @@ class AnalyzerLoader
     /**
      * Used locator for installed analyzer classes.
      *
-     * @var \PHP_Depend_Metrics_AnalyzerClassLocator
+     * @var \PHP\Depend\Metrics\AnalyzerClassLocator
      */
     private $classLocator;
 
     /**
      * Constructs a new analyzer loader.
      *
-     * @param \PHP_Depend_Metrics_AnalyzerClassLocator $classLocator
+     * @param \PHP\Depend\Metrics\AnalyzerClassLocator $classLocator
      * @param \PHP\Depend\Util\Cache\CacheDriver $cache
      * @param string[] $acceptedTypes
      * @param array $options
      */
     public function __construct(
-        \PHP_Depend_Metrics_AnalyzerClassLocator $classLocator,
+        AnalyzerClassLocator $classLocator,
         CacheDriver $cache,
         array $acceptedTypes,
         array $options = array()
-    )
-    {
+    ) {
         $this->cache        = $cache;
         $this->classLocator = $classLocator;
 
@@ -151,7 +150,6 @@ class AnalyzerLoader
      * Filters all analyzers that are not enabled.
      *
      * @param \PHP\Depend\Metrics\Analyzer[] $analyzers
-     *
      * @return \PHP\Depend\Metrics\Analyzer[]
      */
     private function filter(array $analyzers)
@@ -171,16 +169,13 @@ class AnalyzerLoader
      * Loads all accepted node analyzers.
      *
      * @param array $types Accepted/expected analyzer types.
-     *
      * @return \PHP\Depend\Metrics\Analyzer[]
      */
     private function loadByType(array $types)
     {
         $analyzers = array();
         foreach ($this->classLocator->findAll() as $reflection) {
-
             if ($this->isInstanceOf($reflection, $types)) {
-
                 $analyzers[] = $this->createOrReturnAnalyzer($reflection);
             }
         }
@@ -193,22 +188,18 @@ class AnalyzerLoader
      *
      * @param \ReflectionClass $reflection
      * @param array $types
-     *
      * @return boolean
      * @since 0.9.10
      */
     private function isInstanceOf(\ReflectionClass $reflection, array $types)
     {
         foreach ($types as $type) {
-
             if (interface_exists($type) && $reflection->implementsInterface($type)) {
                 return true;
             }
-
             if (class_exists($type) && $reflection->isSubclassOf($type)) {
                 return true;
             }
-
             if (strcasecmp($reflection->getName(), $type) === 0) {
                 return true;
             }
@@ -221,7 +212,6 @@ class AnalyzerLoader
      * created instance of the given reflection instance.
      *
      * @param \ReflectionClass $reflection Reflection class for an analyzer.
-     *
      * @return \PHP\Depend\Metrics\Analyzer
      * @since 0.9.10
      */
@@ -242,7 +232,6 @@ class AnalyzerLoader
      * Creates an analyzer instance of the given reflection class instance.
      *
      * @param \ReflectionClass $reflection Reflection class for an analyzer.
-     *
      * @return \PHP\Depend\Metrics\Analyzer
      * @since 0.9.10
      */
@@ -263,7 +252,6 @@ class AnalyzerLoader
      * Initializes the given analyzer instance.
      *
      * @param \PHP\Depend\Metrics\Analyzer $analyzer
-     *
      * @return \PHP\Depend\Metrics\Analyzer
      * @since 0.9.10
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,47 +36,47 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
-use \PHP\Depend\Metrics\Processor\DefaultProcessor;
+namespace PHP\Depend\Metrics\Coupling;
+
+use PHP\Depend\Metrics\AbstractTest;
+
+use PHP\Depend\Metrics\Processor\DefaultProcessor;
 
 /**
  * Test case for the coupling analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_Coupling_Analyzer
+ * @covers \PHP\Depend\Metrics\Coupling\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::coupling
  * @group  unittest
  */
-class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
      * testGetNodeMetricsReturnsExpectedSetOfMetrics
      *
-     * @return PHP_Depend_Metrics_Coupling_Analyzer
+     * @return Analyzer
      */
     public function testGetNodeMetricsReturnsExpectedSetOfMetrics()
     {
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_Coupling_Analyzer());
+        $processor->register($analyzer = new Analyzer());
         $processor->process(self::parseTestCaseSource(__METHOD__));
 
         $metrics = $analyzer->getNodeMetrics('ClassWithoutDependencies#c');
@@ -88,8 +88,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     /**
      * testGetNodeMetricsReturnsAnEmptyArrayByDefault
      *
-     * @param PHP_Depend_Metrics_Coupling_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -101,8 +100,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     /**
      * testCaMetricForClassWithoutDependencies
      *
-     * @param PHP_Depend_Metrics_Coupling_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -115,8 +113,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     /**
      * testCboMetricForClassWithoutDependencies
      *
-     * @param PHP_Depend_Metrics_Coupling_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -129,8 +126,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     /**
      * testCeMetricForClassWithoutDependencies
      *
-     * @param PHP_Depend_Metrics_Coupling_Analyzer $analyzer
-     *
+     * @param Analyzer $analyzer
      * @return void
      * @depends testGetNodeMetricsReturnsExpectedSetOfMetrics
      */
@@ -157,7 +153,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboMetricWithPropertyDependency
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithPropertyDependency
      */
@@ -170,7 +165,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeMetricWithPropertyDependency
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithPropertyDependency
      */
@@ -207,7 +201,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboMetricWithMethodReturnTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithMethodReturnTypeReference
      */
@@ -220,7 +213,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeMetricWithMethodReturnTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithMethodReturnTypeReference
      */
@@ -246,7 +238,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboMetricWithClassMethodExceptionReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithClassMethodExceptionReference
      */
@@ -259,7 +250,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeMetricWithClassMethodExceptionReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithClassMethodExceptionReference
      */
@@ -296,7 +286,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboMetricWithCatchStatementReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithCatchStatementReference
      */
@@ -309,7 +298,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeMetricWithCatchStatementReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaMetricWithCatchStatementReference
      */
@@ -335,7 +323,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboWithObjectInstantiation
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithObjectInstantiation
      */
@@ -348,7 +335,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeWithObjectInstantiation
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithObjectInstantiation
      */
@@ -374,7 +360,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboWithStaticMethodCall
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithStaticMethodCall
      */
@@ -387,7 +372,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeWithStaticMethodCall
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithStaticMethodCall
      */
@@ -413,7 +397,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboWithReturnTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithReturnTypeReference
      */
@@ -426,7 +409,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeWithReturnTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithReturnTypeReference
      */
@@ -452,7 +434,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboWithoutDuplicates
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithoutDuplicates
      */
@@ -465,7 +446,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeWithoutDuplicates
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaWithoutDuplicates
      */
@@ -491,7 +471,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboForParameterTypeReferences
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForParameterTypeReferences
      */
@@ -504,7 +483,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeForParameterTypeReferences
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForParameterTypeReferences
      */
@@ -530,7 +508,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboForParentTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForParentTypeReference
      */
@@ -543,7 +520,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeForParentTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForParentTypeReference
      */
@@ -569,7 +545,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboForChildTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForChildTypeReference
      */
@@ -582,7 +557,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeForChildTypeReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForChildTypeReference
      */
@@ -608,7 +582,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCboForInstanceOfReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForInstanceOfReference
      */
@@ -621,7 +594,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCeForInstanceOfReference
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testCaForInstanceOfReference
      */
@@ -716,7 +688,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      *
      * @param string $metric
      * @param string $name
-     *
      * @return integer
      */
     private function getMetricForClass($metric, $name)
@@ -729,7 +700,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * Returns all metrics or a class that matches the given <b>$name</b>.
      *
      * @param string $name
-     *
      * @return array
      */
     private function getMetricsForClass($name)
@@ -741,7 +711,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * Returns all metrics or an interface that matches the given <b>$name</b>.
      *
      * @param string $name
-     *
      * @return array
      */
     private function getMetricsForInterface($name)
@@ -755,13 +724,12 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      *
      * @param string $name
      * @param string $type
-     *
      * @return array
      */
     private function getMetricsForTypeWithName($name, $type)
     {
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_Coupling_Analyzer());
+        $processor->register($analyzer = new Analyzer());
         $processor->process(self::parseTestCaseSource(self::getCallingTestMethod()));
 
         return $analyzer->getNodeMetrics("{$name}#{$type}");
@@ -868,7 +836,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testReturnedMetricSetForTrait
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetNodeMetricsForTrait
@@ -882,7 +849,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCalculateCEMetricForTrait
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetNodeMetricsForTrait
@@ -896,7 +862,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCalculateCBOMetricForTrait
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetNodeMetricsForTrait
@@ -910,7 +875,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCalculateCAMetricForTrait
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetNodeMetricsForTrait
@@ -930,7 +894,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
     {
         $this->markTestSkipped('TODO 2.0');
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new Analyzer();
         $analyzer->analyze($this->parseCodeResourceForTest());
 
         $metrics = $analyzer->getProjectMetrics();
@@ -943,7 +907,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testGetProjectMetricsForTraitReturnsExpectedMetricSet
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetProjectMetricsForTrait
@@ -957,7 +920,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCalculateCallsMetricForTrait
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetProjectMetricsForTrait
@@ -971,7 +933,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * testCalculateFanoutMetricForTrait
      *
      * @param array $metrics Calculated coupling metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testGetProjectMetricsForTrait
@@ -994,7 +955,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
         $packages = $this->parseCodeResourceForTest();
         $package  = $packages->current();
 
-        $analyzer = new PHP_Depend_Metrics_Coupling_Analyzer();
+        $analyzer = new Analyzer();
         $analyzer->analyze($packages);
 
         return $analyzer->getNodeMetrics($package->getTraits()->current());
@@ -1006,7 +967,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * @param string  $testCase File with test source.
      * @param integer $calls    Number of expected calls.
      * @param integer $fanout   Expected fanout value.
-     *
      * @return void
      * @dataProvider dataProviderAnalyzerCalculatesExpectedCallCount
      */
@@ -1023,7 +983,6 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
      * the calculated project metrics.
      *
      * @param string $testCase Optional name of the calling test case.
-     *
      * @return array(string=>mixed)
      * @since 0.10.2
      */
@@ -1032,7 +991,7 @@ class PHP_Depend_Metrics_Coupling_AnalyzerTest extends PHP_Depend_Metrics_Abstra
         $testCase = ($testCase ? $testCase : self::getCallingTestMethod());
 
         $processor = new DefaultProcessor();
-        $processor->register($analyzer = new PHP_Depend_Metrics_Coupling_Analyzer());
+        $processor->register($analyzer = new Analyzer());
         $processor->process(self::parseTestCaseSource($testCase));
 
         return $analyzer->getProjectMetrics();

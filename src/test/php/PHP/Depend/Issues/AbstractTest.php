@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -80,7 +80,6 @@ abstract class PHP_Depend_Issues_AbstractTest extends AbstractTest
      * Parses the sourse for the calling test case.
      *
      * @param string $testCase Optional test case name.
-     *
      * @return PHP_Depend_Code_NodeIterator
      */
     protected static function parseTestCase($testCase = null)
@@ -97,14 +96,14 @@ abstract class PHP_Depend_Issues_AbstractTest extends AbstractTest
      *
      * @param string  $testCase          Qualified name of the test case.
      * @param boolean $ignoreAnnotations The parser should ignore annotations.
-     *
-     * @return PHP_Depend_Code_NodeIterator
+     * @return \PHP_Depend_Code_NodeIterator
+     * @throws \ErrorException
      */
     public static function parseTestCaseSource($testCase, $ignoreAnnotations = false)
     {
         list($class, $method) = explode('::', $testCase);
         if (preg_match('([^\d](\d+)Test$)', $class, $match) === 0) {
-            throw new ErrorException('Unexpected class name format');
+            throw new \ErrorException('Unexpected class name format');
         }
         return self::parseSource('issues/' . $match[1] . '/' . $method . '.php');
     }
@@ -113,6 +112,7 @@ abstract class PHP_Depend_Issues_AbstractTest extends AbstractTest
      * Returns a php callback for the calling test case method.
      *
      * @return string
+     * @throws \ErrorException
      */
     protected static function getTestCaseMethod()
     {
@@ -122,6 +122,6 @@ abstract class PHP_Depend_Issues_AbstractTest extends AbstractTest
                 return $frame['class'] . '::' . $frame['function'];
             }
         }
-        throw new ErrorException('Cannot locate test case method.');
+        throw new \ErrorException('Cannot locate test case method.');
     }
 }

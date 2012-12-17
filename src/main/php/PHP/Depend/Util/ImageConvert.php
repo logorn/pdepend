@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -65,7 +65,6 @@ class ImageConvert
      *
      * @param string $input  The input file.
      * @param string $output The output file.
-     *
      * @return void
      */
     public static function convert($input, $output)
@@ -144,7 +143,6 @@ class ImageConvert
      * file.
      *
      * @param string $input The input svg file.
-     *
      * @return void
      */
     protected static function prepareSvg($input)

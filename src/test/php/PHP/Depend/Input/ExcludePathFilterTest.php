@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -209,7 +209,6 @@ class ExcludePathFilterTest extends AbstractTest
      * path filter.
      *
      * @param array(string) $excludes The filtered patterns
-     *
      * @return array(string)
      */
     protected function createFilteredFileList(array $excludes)

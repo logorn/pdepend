@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -137,7 +137,6 @@ class ASTMethodRefs
      * Initializes this reference instance for the given method.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
-     *
      * @return void
      */
     public function initialize(ASTMethod $method)

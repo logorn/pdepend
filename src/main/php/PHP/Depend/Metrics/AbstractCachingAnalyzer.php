@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -62,9 +62,7 @@ use \PHP\Depend\Util\Cache\CacheDriver;
  * @link      http://pdepend.org/
  * @since     1.0.0
  */
-abstract class AbstractCachingAnalyzer
-    extends AbstractAnalyzer
-    implements CacheAware
+abstract class AbstractCachingAnalyzer extends AbstractAnalyzer implements CacheAware
 {
     /**
      * Collected node metrics
@@ -108,6 +106,9 @@ abstract class AbstractCachingAnalyzer
      */
     protected function restoreFromCache(ASTNode $node)
     {
+        // @todo 2.0
+        return false;
+
         $id = $node->getId();
         if ($node->isCached() && isset($this->metricsCached[$id])) {
             $this->metrics[$id] = $this->metricsCached[$id];

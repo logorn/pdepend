@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -208,7 +208,6 @@ class PHP_Depend_Code_Package
      * package.
      *
      * @param string $className The class/type we are looking for.
-     *
      * @return PHP_Depend_Code_NodeIterator
      * @since 1.0.0
      */
@@ -238,7 +237,6 @@ class PHP_Depend_Code_Package
      * Adds the given type to this package and returns the input type instance.
      *
      * @param PHP_Depend_Code_AbstractType $type The new package type.
-     *
      * @return PHP_Depend_Code_AbstractType
      */
     public function addType(PHP_Depend_Code_AbstractType $type)
@@ -264,7 +262,6 @@ class PHP_Depend_Code_Package
      * Removes the given type instance from this package.
      *
      * @param PHP_Depend_Code_AbstractType $type The type instance to remove.
-     *
      * @return void
      */
     public function removeType(PHP_Depend_Code_AbstractType $type)
@@ -291,7 +288,6 @@ class PHP_Depend_Code_Package
      * Adds the given function to this package and returns the input instance.
      *
      * @param PHP_Depend_Code_Function $function The new package function.
-     *
      * @return PHP_Depend_Code_Function
      */
     public function addFunction(PHP_Depend_Code_Function $function)
@@ -312,7 +308,6 @@ class PHP_Depend_Code_Package
      * Removes the given function from this package.
      *
      * @param PHP_Depend_Code_Function $function The function to remove
-     *
      * @return void
      */
     public function removeFunction(PHP_Depend_Code_Function $function)

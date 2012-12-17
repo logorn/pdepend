@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -36,15 +36,17 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id$
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
+
+namespace PHP\Depend\Metrics\ClassLevel;
+
+use PHP\Depend\Metrics\AbstractTest;
 
 use \PHP\Depend\Metrics\Processor\DefaultProcessor;
 use PHP\Depend\Util\Cache\Driver\Memory;
@@ -52,25 +54,23 @@ use PHP\Depend\Util\Cache\Driver\Memory;
 /**
  * Test case for the class level analyzer.
  *
- * @category   QualityAssurance
- * @package    PHP_Depend
- * @subpackage Metrics
- * @author     Manuel Pichler <mapi@pdepend.org>
- * @copyright  2008-2012 Manuel Pichler. All rights reserved.
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: @package_version@
- * @link       http://pdepend.org/
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  *
- * @covers PHP_Depend_Metrics_ClassLevel_Analyzer
+ * @covers \PHP\Depend\Metrics\ClassLevel\Analyzer
  * @group  pdepend
  * @group  pdepend::metrics
  * @group  pdepend::metrics::classlevel
  * @group  unittest
  */
-class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_AbstractTest
+class AnalyzerTest extends AbstractTest
 {
     /**
-     * Tests that the {@link PHP_Depend_Metrics_ClassLevel_Analyzer::analyzer()}
+     * Tests that the {@link \PHP\Depend\Metrics\ClassLevel\Analyzer::analyzer()}
      * method fails with an exception if no cc analyzer was set.
      *
      * @return void
@@ -79,12 +79,12 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
     public function testClassLevelFailsWithoutCCNAnalyzer()
     {
         $processor = new DefaultProcessor();
-        $processor->register(new PHP_Depend_Metrics_ClassLevel_Analyzer());
+        $processor->register(new \PHP\Depend\Metrics\ClassLevel\Analyzer());
         $processor->process(self::parseCodeResourceForTest());
     }
 
     /**
-     * Tests that {@link PHP_Depend_Metrics_ClassLevel_Analyzer::addAnalyzer()}
+     * Tests that {@link \PHP\Depend\Metrics\ClassLevel\Analyzer::addAnalyzer()}
      * fails for an invalid child analyzer.
      *
      * @return void
@@ -92,8 +92,8 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      */
     public function testAddAnalyzerFailsForAnInvalidAnalyzerTypeFail()
     {
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
-        $analyzer->addAnalyzer(new PHP_Depend_Metrics_CodeRank_Analyzer());
+        $analyzer = new \PHP\Depend\Metrics\ClassLevel\Analyzer();
+        $analyzer->addAnalyzer(new \PHP\Depend\Metrics\CodeRank\Analyzer());
     }
 
     /**
@@ -103,9 +103,9 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      */
     public function testGetRequiredAnalyzersReturnsExpectedClassNames()
     {
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\ClassLevel\Analyzer();
         $this->assertEquals(
-            array(PHP_Depend_Metrics_CyclomaticComplexity_Analyzer::CLAZZ),
+            array(\PHP\Depend\Metrics\CyclomaticComplexity\Analyzer::CLAZZ),
             $analyzer->getRequiredAnalyzers()
         );
     }
@@ -142,7 +142,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct IMPL values.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -155,7 +154,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class Interface Size(CSI) is correct.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -168,7 +166,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class SiZe(CSZ) metric is correct.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -181,7 +178,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateNpmMetricZeroInheritance
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -194,7 +190,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARS metric
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -207,7 +202,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARSi metric
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -220,7 +214,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARSnp metric
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -233,7 +226,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMC metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -246,7 +238,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCi metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -259,7 +250,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCnp metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testZeroInheritance
      */
@@ -300,7 +290,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct IMPL values.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -313,7 +302,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class Interface Size(CSI) is correct.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -326,7 +314,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class SiZe(CSZ) metric is correct.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -339,7 +326,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateNpmMetricForEmptyClass
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -352,7 +338,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARS metric
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -365,7 +350,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARSi metric
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -378,7 +362,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARSnp metric
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -391,7 +374,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMC metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -404,7 +386,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMC metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -417,7 +398,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCnp metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testOneLevelInheritance
      */
@@ -458,7 +438,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct IMPL values.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -471,7 +450,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class Interface Size(CSI) is correct.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -484,7 +462,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateCSZMetricTwoLevelInheritance
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -497,7 +474,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateNpmMetricTwoLevelInheritance
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -510,7 +486,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateVARSMetricTwoLevelInheritance
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -523,7 +498,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateVARSiMetricTwoLevelInheritance
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -536,7 +510,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateVARSnpMetricTwoLevelInheritance
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -549,7 +522,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMC metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -562,7 +534,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCi metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -575,7 +546,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCnp metric.
      *
      * @param array $metrics
-     *
      * @return void
      * @depends testTwoLevelInheritance
      */
@@ -589,7 +559,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * a single measured metric.
      *
      * @param string $name Name of the searched metric.
-     *
      * @return mixed
      */
     private function calculateClassMetric($name)
@@ -603,21 +572,20 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * returns all measured metrics.
      *
      * @param string $class
-     *
      * @return mixed
      */
     private function calculateClassMetrics($class = 'Foo')
     {
         $source = self::parseTestCaseSource(self::getCallingTestMethod());
 
-        $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
+        $ccnAnalyzer = new \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer();
         $ccnAnalyzer->setCache(new Memory());
 
         $processor = new DefaultProcessor();
         $processor->register($ccnAnalyzer);
         $processor->process($source);
 
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\ClassLevel\Analyzer();
         $analyzer->addAnalyzer($ccnAnalyzer);
 
         $processor = new DefaultProcessor();
@@ -648,7 +616,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testReturnedMetricSetForTrait
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return array
      * @since   1.0.6
      * @depends testGetNodeMetricsForTrait
@@ -678,7 +645,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct IMPL values.
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -692,7 +658,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class Interface Size(CSI) is correct.
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -706,7 +671,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the calculated Class SiZe(CSZ) metric is correct.
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -720,7 +684,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * testCalculateNpmMetricForClassWithPublicMethod
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -734,7 +697,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARS metric
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -748,7 +710,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARSi metric
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -762,7 +723,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct VARSnp metric
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -776,7 +736,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMC metric.
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -790,7 +749,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCi metric.
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -804,7 +762,6 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      * Tests that the analyzer calculates the correct WMCnp metric.
      *
      * @param array $metrics Calculated class metrics.
-     *
      * @return void
      * @since   1.0.6
      * @depends testReturnedMetricSetForTrait
@@ -823,10 +780,10 @@ class PHP_Depend_Metrics_ClassLevel_AnalyzerTest extends PHP_Depend_Metrics_Abst
      */
     private function calculateTraitMetrics()
     {
-        $ccnAnalyzer = new PHP_Depend_Metrics_CyclomaticComplexity_Analyzer();
+        $ccnAnalyzer = new \PHP\Depend\Metrics\CyclomaticComplexity\Analyzer();
         $ccnAnalyzer->setCache(new Memory());
 
-        $analyzer = new PHP_Depend_Metrics_ClassLevel_Analyzer();
+        $analyzer = new \PHP\Depend\Metrics\ClassLevel\Analyzer();
         $analyzer->addAnalyzer($ccnAnalyzer);
 
         $processor = new DefaultProcessor();

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -124,7 +124,6 @@ class ASTInterfaceRefs
      * Initializes this reference instance for the given interface.
      *
      * @param \PHP\Depend\AST\ASTInterface $interface
-     *
      * @return void
      */
     public function initialize(ASTInterface $interface)

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -70,7 +70,6 @@ class CompositeFilter implements FileFilter
      * Adds a file filter to this composite.
      *
      * @param \PHP\Depend\Input\FileFilter $filter The new filter object.
-     *
      * @return void
      */
     public function append(FileFilter $filter)
@@ -84,7 +83,6 @@ class CompositeFilter implements FileFilter
      *
      * @param string $relative The relative path to the specified root.
      * @param string $absolute The absolute path to a source file.
-     *
      * @return boolean
      */
     public function accept($relative, $absolute)

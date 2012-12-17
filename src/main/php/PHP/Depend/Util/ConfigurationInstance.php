@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of PHP_Depend.
+ * This file is part of PDepend.
  *
  * PHP Version 5
  *
@@ -47,7 +47,7 @@
 namespace PHP\Depend\Util;
 
 /**
- * Registry class for the PHP_Depend configuration class.
+ * Registry class for the PDepend configuration class.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
