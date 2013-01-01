@@ -46,6 +46,9 @@
 
 namespace PHP\Depend\Metrics\CyclomaticComplexity;
 
+use PHP\Depend\AST\ASTElseIfStatement;
+use PHP\Depend\AST\ASTForStatement;
+use PHP\Depend\AST\ASTForeachStatement;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
@@ -320,11 +323,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits an elseif statement.
      *
-     * @param \PHPParser_Node_Stmt_ElseIf $node
+     * @param \PHP\Depend\AST\ASTElseIfStatement $stmt
      * @param array $data
      * @return array
      */
-    public function visitStmtElseIfBefore(\PHPParser_Node_Stmt_ElseIf $node, $data)
+    public function visitASTElseIfStatementBefore(ASTElseIfStatement $stmt, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_1];
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
@@ -335,11 +338,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits a for statement.
      *
-     * @param \PHPParser_Node_Stmt_For $node
+     * @param \PHP\Depend\AST\ASTForStatement $stmt
      * @param array $data
      * @return array
      */
-    public function visitStmtForBefore(\PHPParser_Node_Stmt_For $node, $data)
+    public function visitASTForStatementBefore(ASTForStatement $stmt, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_1];
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
@@ -350,11 +353,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits a foreach statement.
      *
-     * @param \PHPParser_Node_Stmt_Foreach $node
+     * @param \PHP\Depend\AST\ASTForeachStatement $stmt
      * @param array $data
      * @return array
      */
-    public function visitStmtForeachBefore(\PHPParser_Node_Stmt_Foreach $node, $data)
+    public function visitASTForeachStatementBefore(ASTForeachStatement $stmt, array $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_1];
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];

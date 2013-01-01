@@ -46,11 +46,11 @@
 
 namespace PHP\Depend\Metrics\NPathComplexity;
 
-use \PHP\Depend\AST\ASTClass;
 use PHP\Depend\AST\ASTElseIfStatement;
 use PHP\Depend\AST\ASTElseStatement;
+use PHP\Depend\AST\ASTForStatement;
+use PHP\Depend\AST\ASTForeachStatement;
 use \PHP\Depend\AST\ASTFunction;
-use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\AbstractCachingAnalyzer;
@@ -139,7 +139,7 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
     public function visitASTMethodBefore(ASTMethod $method, array $data = null)
     {
         $this->stack[] = $data;
-        return array('1');
+        return array('1', '1');
     }
 
     /**
@@ -151,10 +151,7 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
      */
     public function visitASTMethodAfter(ASTMethod $method, array $data)
     {
-        $npath = '1';
-        foreach ($data as $childNpath) {
-            $npath = MathUtil::mul($npath, $childNpath);
-        }
+        $npath = MathUtil::mul($data[0], $data[1]);
 
         $this->metrics[$method->getId()] = array(self::M_NPATH_COMPLEXITY => $npath);
 
@@ -198,6 +195,7 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
      */
     public function visitASTConditionalExprBefore(ASTConditionalExpr $expr, array $data)
     {
+        return $data; // TODO: Fix conditional
         $this->stack[] = $data;
         return array();
     }
@@ -218,6 +216,7 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
      */
     public function visitASTConditionalExprAfter(ASTConditionalExpr $expr, array $data)
     {
+        return $data; // TODO: Fix conditional
         $npath = '2';
 
         foreach (array_pad($data, 3, '1') as $childNpath) {
@@ -306,68 +305,34 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
     }
 
     /**
-     * This method calculates the NPath Complexity of a for-statement, the
+     * This method calculates the NPath Complexity of an if-statement, the
      * meassured value is then returned as a string.
      *
      * <code>
-     * for (<expr1>; <expr2>; <expr3>)
-     *   <for-range>
+     * if (<expr>)
+     *   <if-range>
      * S;
      *
-     * -- NP(for) = NP(<for-range>) + NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 1 --
-     * </code>
+     * -- NP(if) = NP(<if-range>) + NP(<expr>) + 1 --
      *
-     * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
-     * @param string                   $data The previously calculated npath value.
-     * @return string
-     * @since 0.9.12
-     */
-    public function visitForStatement($node, $data)
-    {
-        $npath = '1';
-        foreach ($node->getChildren() as $child) {
-            if ($child instanceof PHP_Depend_Code_ASTStatement) {
-                $stmt  = $child->accept($this, 1);
-                $npath = MathUtil::add($npath, $stmt);
-            } else if ($child instanceof PHP_Depend_Code_ASTExpression) {
-                $expr  = $this->sumComplexity($child);
-                $npath = MathUtil::add($npath, $expr);
-            }
-        }
-
-        return MathUtil::mul($npath, $data);
-    }
-
-    /**
-     * This method calculates the NPath Complexity of a for-statement, the
-     * meassured value is then returned as a string.
      *
-     * <code>
-     * fpreach (<expr>)
-     *   <foreach-range>
+     * if (<expr>)
+     *   <if-range>
+     * else
+     *   <else-range>
      * S;
      *
-     * -- NP(foreach) = NP(<foreach-range>) + NP(<expr>) + 1 --
+     * -- NP(if) = NP(<if-range>) + NP(<expr>) + NP(<else-range> --
      * </code>
      *
-     * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
-     * @param string                   $data The previously calculated npath value.
-     * @return string
-     * @since 0.9.12
+     * @param \PHP\Depend\AST\ASTIfStatement $stmt
+     * @param array $data
+     * @return array
      */
-    public function visitForeachStatement($node, $data)
+    public function visitASTIfStatementBefore(ASTIfStatement $stmt, array $data)
     {
-        $npath = $this->sumComplexity($node->getChild(0));
-        $npath = MathUtil::add($npath, '1');
-
-        foreach ($node->getChildren() as $child) {
-            if ($child instanceof PHP_Depend_Code_ASTStatement) {
-                $stmt  = $child->accept($this, 1);
-                $npath = MathUtil::add($npath, $stmt);
-            }
-        }
-
-        return MathUtil::mul($npath, $data);
+        $this->stack[] = $data;
+        return array('0', '1');
     }
 
     /**
@@ -391,63 +356,165 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
      * -- NP(if) = NP(<if-range>) + NP(<expr>) + NP(<else-range> --
      * </code>
      *
-     * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
-     * @param string                   $data The previously calculated npath value.
-     * @return string
-     * @since 0.9.12
+     * @param \PHP\Depend\AST\ASTIfStatement $stmt
+     * @param array $data
+     * @return array
      */
-    public function visitIfStatement($node, $data)
-    {
-        $npath = $this->sumComplexity($node->getChild(0));
-
-        foreach ($node->getChildren() as $child) {
-            if ($child instanceof PHP_Depend_Code_ASTStatement) {
-                $stmt  = $child->accept($this, 1);
-                $npath = MathUtil::add($npath, $stmt);
-            }
-        }
-
-        if (!$node->hasElse()) {
-            $npath = MathUtil::add($npath, '1');
-        }
-
-        return MathUtil::mul($npath, $data);
-    }
-
-    public function visitASTIfStatementBefore(ASTIfStatement $stmt, array $data)
-    {
-        $this->stack[] = $data;
-        return array('1');
-    }
-
     public function visitASTIfStatementAfter(ASTIfStatement $stmt, array $data)
     {
-        $npath = '1';
+        $sum = '0';
+        if (!$stmt->else) {
+            $sum = MathUtil::add($sum, '1');
+        }
+
+        foreach ($data as $npath) {
+            $sum = MathUtil::add($sum, $npath);
+        }
 
         $result = array_pop($this->stack);
-        $result[] = MathUtil::mul($npath, array_pop($result));
+        $result[1] = MathUtil::mul($sum, $result[1]);
 
         return $result;
     }
 
     public function visitASTElseIfStatementBefore(ASTElseIfStatement $stmt, array $data)
     {
-        return $data;
+        $this->stack[] = $data;
+        return array('0', '1');
     }
 
     public function visitASTElseIfStatementAfter(ASTElseIfStatement $stmt, array $data)
     {
-        return $data;
+        $npath = '0';
+        foreach ($data as $childNPath) {
+            $npath = MathUtil::add($npath, $childNPath);
+        }
+
+        $result = array_pop($this->stack);
+        $result[1] = MathUtil::mul($npath, $result[1]);
+
+        return $result;
     }
 
     public function visitASTElseStatementBefore(ASTElseStatement $stmt, array $data)
     {
-        return $data;
+        $this->stack[] = $data;
+        return array('0', '1');
     }
 
     public function visitASTElseStatementAfter(ASTElseStatement $stmt, array $data)
     {
-        return $data;
+        $sum = '1';
+        foreach ($data as $npath) {
+            $sum = MathUtil::add($sum, $npath);
+        }
+
+        $result = array_pop($this->stack);
+        $result[1] = MathUtil::mul($sum, $result[1]);
+
+        return $result;
+    }
+
+    /**
+     * This method calculates the NPath Complexity of a for-statement, the
+     * meassured value is then returned as a string.
+     *
+     * <code>
+     * for (<expr1>; <expr2>; <expr3>)
+     *   <for-range>
+     * S;
+     *
+     * -- NP(for) = NP(<for-range>) + NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 1 --
+     * </code>
+     *
+     * @param \PHP\Depend\AST\ASTForStatement $stmt
+     * @param array $data
+     * @return array
+     */
+    public function visitASTForStatementBefore(ASTForStatement $stmt, array $data)
+    {
+        $this->stack[] = $data;
+        return array('0', '1');
+    }
+
+    /**
+     * This method calculates the NPath Complexity of a for-statement, the
+     * meassured value is then returned as a string.
+     *
+     * <code>
+     * for (<expr1>; <expr2>; <expr3>)
+     *   <for-range>
+     * S;
+     *
+     * -- NP(for) = NP(<for-range>) + NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 1 --
+     * </code>
+     *
+     * @param \PHP\Depend\AST\ASTForStatement $stmt
+     * @param array $data
+     * @return array
+     */
+    public function visitASTForStatementAfter(ASTForStatement $stmt, array $data)
+    {
+        $sum = '1';
+        foreach ($data as $npath) {
+            $sum = MathUtil::add($sum, $npath);
+        }
+
+        $result = array_pop($this->stack);
+        $result[1] = MathUtil::mul($sum, $result[1]);
+
+        return $result;
+    }
+
+    /**
+     * This method calculates the NPath Complexity of a foreach-statement, the
+     * meassured value is then returned as a string.
+     *
+     * <code>
+     * foreach (<expr>)
+     *   <foreach-range>
+     * S;
+     *
+     * -- NP(foreach) = NP(<foreach-range>) + NP(<expr>) + 1 --
+     * </code>
+     *
+     * @param \PHP\Depend\AST\ASTForeachStatement $stmt
+     * @param array $data
+     * @return array
+     */
+    public function visitASTForeachStatementBefore(ASTForeachStatement $stmt, array $data)
+    {
+        $this->stack[] = $data;
+        return array('0', '1');
+    }
+
+    /**
+     * This method calculates the NPath Complexity of a foreach-statement, the
+     * meassured value is then returned as a string.
+     *
+     * <code>
+     * foreach (<expr>)
+     *   <foreach-range>
+     * S;
+     *
+     * -- NP(foreach) = NP(<foreach-range>) + NP(<expr>) + 1 --
+     * </code>
+     *
+     * @param \PHP\Depend\AST\ASTForeachStatement $stmt
+     * @param array $data
+     * @return array
+     */
+    public function visitASTForeachStatementAfter(ASTForeachStatement $stmt, array $data)
+    {
+        $sum = '1';
+        foreach ($data as $npath) {
+            $sum = MathUtil::add($sum, $npath);
+        }
+
+        $result = array_pop($this->stack);
+        $result[1] = MathUtil::mul($sum, $result[1]);
+
+        return $result;
     }
 
     /**
@@ -548,21 +615,18 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
     public function visitASTWhileStatementBefore(ASTWhileStatement $node, array $data)
     {
         $this->stack[] = $data;
-        return array();
+        return array('0', '1');
     }
 
     public function visitASTWhileStatementAfter(ASTWhileStatement $node, array $data)
     {
-        $npath = '1';
-        foreach (array_slice($data, 1) as $childNpath) {
-            $npath = MathUtil::mul($npath, $childNpath);
+        $npath = '0';
+        foreach ($data as $childNPath) {
+            $npath = MathUtil::add($npath, $childNPath);
         }
 
-        $npath = MathUtil::add($npath, $data[1]);
-        $npath = MathUtil::add($npath, '1');
-
         $result = array_pop($this->stack);
-        $result[] = $npath;
+        $result[1] = MathUtil::mul($npath, $result[1]);
 
         return $result;
     }
@@ -619,21 +683,13 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
 
     private function visitASTExprBefore(array $data)
     {
-        $this->stack[] = $data;
-        return array();
+        $data[0] = MathUtil::add('1', $data[0]);
+        return $data;
     }
 
     private function visitASTExprAfter(array $data)
     {
-        $npath = '1';
-        foreach ($data as $childNpath) {
-            $npath = MathUtil::add($npath, $childNpath);
-        }
-
-        $result = array_pop($this->stack);
-        $result[] = $npath;
-
-        return $result;
+        return $data;
     }
 
     /**

@@ -49,6 +49,8 @@ namespace PHP\Depend\Parser;
 use PHP\Depend\AST\ASTCompilationUnit;
 use PHP\Depend\AST\ASTElseIfStatement;
 use PHP\Depend\AST\ASTElseStatement;
+use PHP\Depend\AST\ASTForStatement;
+use PHP\Depend\AST\ASTForeachStatement;
 use PHP\Depend\AST\ASTFragment;
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTType;
@@ -348,6 +350,10 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
             $newNode = new ASTElseStatement($node);
         } elseif ($node instanceof \PHPParser_Node_Stmt_ElseIf) {
             $newNode = new ASTElseIfStatement($node);
+        } elseif ($node instanceof \PHPParser_Node_Stmt_For) {
+            $newNode = new ASTForStatement($node);
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Foreach) {
+            $newNode = new ASTForeachStatement($node);
         } elseif ($node instanceof \PHPParser_Node_Stmt_While) {
             $newNode = new ASTWhileStatement($node);
         }
