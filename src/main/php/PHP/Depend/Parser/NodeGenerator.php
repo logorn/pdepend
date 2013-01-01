@@ -46,6 +46,10 @@
 
 namespace PHP\Depend\Parser;
 
+use PHP\Depend\AST\ASTCompilationUnit;
+use PHP\Depend\AST\ASTElseIfStatement;
+use PHP\Depend\AST\ASTElseStatement;
+use PHP\Depend\AST\ASTFragment;
 use \PHP\Depend\AST\ASTNode;
 use \PHP\Depend\AST\ASTType;
 use \PHP\Depend\AST\ASTTypeRef;
@@ -158,7 +162,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
         } elseif ($node instanceof \PHPParser_Node_Stmt_Property) {
 
             $this->modifier = $node->type;
-        } elseif ($node instanceof \PHP\Depend\AST\ASTCompilationUnit) {
+        } elseif ($node instanceof ASTCompilationUnit) {
 
             $this->file = $node->getName();
         }
@@ -340,11 +344,15 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
             $newNode = new ASTLogicalXorExpr($node);
         } elseif ($node instanceof \PHPParser_Node_Stmt_If) {
             $newNode = new ASTIfStatement($node);
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Else) {
+            $newNode = new ASTElseStatement($node);
+        } elseif ($node instanceof \PHPParser_Node_Stmt_ElseIf) {
+            $newNode = new ASTElseIfStatement($node);
         } elseif ($node instanceof \PHPParser_Node_Stmt_While) {
             $newNode = new ASTWhileStatement($node);
         }
 
-        if ($newNode instanceof \PHP\Depend\AST\ASTFragment) {
+        if ($newNode instanceof ASTFragment) {
 
             $newNode->setAttribute('file', $this->file);
         }

@@ -47,6 +47,8 @@
 namespace PHP\Depend\Metrics\NPathComplexity;
 
 use \PHP\Depend\AST\ASTClass;
+use PHP\Depend\AST\ASTElseIfStatement;
+use PHP\Depend\AST\ASTElseStatement;
 use \PHP\Depend\AST\ASTFunction;
 use \PHP\Depend\AST\ASTInterface;
 use \PHP\Depend\AST\ASTMethod;
@@ -426,6 +428,26 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
         $result[] = MathUtil::mul($npath, array_pop($result));
 
         return $result;
+    }
+
+    public function visitASTElseIfStatementBefore(ASTElseIfStatement $stmt, array $data)
+    {
+        return $data;
+    }
+
+    public function visitASTElseIfStatementAfter(ASTElseIfStatement $stmt, array $data)
+    {
+        return $data;
+    }
+
+    public function visitASTElseStatementBefore(ASTElseStatement $stmt, array $data)
+    {
+        return $data;
+    }
+
+    public function visitASTElseStatementAfter(ASTElseStatement $stmt, array $data)
+    {
+        return $data;
     }
 
     /**

@@ -47,7 +47,7 @@
 namespace PHP\Depend\AST;
 
 /**
- * AST node that represents an <em>if</em>-statement.
+ * AST node that represents an <em>else</em>-statement.
  *
  * @category  QualityAssurance
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -57,11 +57,8 @@ namespace PHP\Depend\AST;
  * @link      http://pdepend.org/
  * @since     2.0.0
  *
- * @property-read PHPParser_Node_Expr $cond
- * @property-read PHPParser_Node[] $stmts
- * @property-read \PHP\Depend\AST\ASTElseIfStatement[] $elseifs
- * @property-read null|\PHP\Depend\AST\ASTElseStatement $else
+ * @property-read \PHPParser_Node[] $stmts
  */
-class ASTIfStatement extends ASTStatement
+class ASTElseStatement extends ASTStatement
 {
 }
