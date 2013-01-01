@@ -51,6 +51,14 @@ use \PHP\Depend\AST\ASTMethod;
 use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\ProjectAware;
 use \PHP\Depend\Metrics\AbstractCachingAnalyzer;
+use PHP\Depend\AST\ASTConditionalExpr;
+use PHP\Depend\AST\ASTWhileStatement;
+use PHP\Depend\AST\ASTBooleanOrExpr;
+use PHP\Depend\AST\ASTBooleanAndExpr;
+use PHP\Depend\AST\ASTIfStatement;
+use PHP\Depend\AST\ASTLogicalAndExpr;
+use PHP\Depend\AST\ASTLogicalOrExpr;
+use PHP\Depend\AST\ASTLogicalXorExpr;
 
 /**
  * This class calculates the Cyclomatic Complexity Number(CCN) for the project,
@@ -254,11 +262,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits a boolean AND-expression.
      *
-     * @param \PHPParser_Node_Expr_BooleanAnd $node
+     * @param \PHP\Depend\AST\ASTBooleanAndExpr $node
      * @param array $data
      * @return array
      */
-    public function visitExprBooleanAndBefore(\PHPParser_Node_Expr_BooleanAnd $node, $data)
+    public function visitASTBooleanAndExprBefore(ASTBooleanAndExpr $node, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
         return $data;
@@ -267,11 +275,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits a boolean OR-expression.
      *
-     * @param \PHPParser_Node_Expr_BooleanOr $node
+     * @param \PHP\Depend\AST\ASTBooleanOrExpr $node
      * @param array $data
      * @return array
      */
-    public function visitExprBooleanOrBefore(\PHPParser_Node_Expr_BooleanOr $node, $data)
+    public function visitASTBooleanOrExprBefore(ASTBooleanOrExpr $node, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
         return $data;
@@ -357,11 +365,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits an if statement.
      *
-     * @param \PHPParser_Node_Stmt_If $node
+     * @param \PHP\Depend\AST\ASTIfStatement $expr
      * @param array $data
      * @return array
      */
-    public function visitStmtIfBefore(\PHPParser_Node_Stmt_If $node, $data)
+    public function visitASTIfStatementBefore(ASTIfStatement $expr, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_1];
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
@@ -370,26 +378,39 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     }
 
     /**
-     * Visits a logical AND expression.
+     * Visits a logical <em>and</em>-expression.
      *
-     * @param \PHPParser_Node_Expr_LogicalAnd $node
+     * @param \PHP\Depend\AST\ASTLogicalAndExpr $expr
      * @param array $data
      * @return array
      */
-    public function visitExprLogicalAndBefore(\PHPParser_Node_Expr_LogicalAnd $node, $data)
+    public function visitASTLogicalAndExprBefore(ASTLogicalAndExpr $expr, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
         return $data;
     }
 
     /**
-     * Visits a logical OR expression.
+     * Visits a logical <em>or</em>-expression.
      *
-     * @param \PHPParser_Node_Expr_LogicalOr $node
+     * @param \PHP\Depend\AST\ASTLogicalOrExpr $expr
      * @param array $data
      * @return array
      */
-    public function visitExprLogicalOrBefore(\PHPParser_Node_Expr_LogicalOr $node, $data)
+    public function visitASTLogicalOrExprBefore(ASTLogicalOrExpr $expr, $data)
+    {
+        ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
+        return $data;
+    }
+
+    /**
+     * Visits a logical <em>xor</em>-expression.
+     *
+     * @param \PHP\Depend\AST\ASTLogicalXorExpr $expr
+     * @param array $data
+     * @return array
+     */
+    public function visitASTLogicalXorExprBefore(ASTLogicalXorExpr $expr, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
         return $data;
@@ -398,11 +419,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits a ternary operator.
      *
-     * @param \PHPParser_Node_Expr_Ternary $node
+     * @param \PHP\Depend\AST\ASTConditionalExpr $node
      * @param array $data
      * @return array
      */
-    public function visitExprTernaryBefore(\PHPParser_Node_Expr_Ternary $node, $data)
+    public function visitASTConditionalExprBefore(ASTConditionalExpr $node, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_1];
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];
@@ -413,11 +434,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware, ProjectAwar
     /**
      * Visits a while-statement.
      *
-     * @param \PHPParser_Node_Stmt_While $node
+     * @param \PHP\Depend\AST\ASTWhileStatement $node
      * @param array $data
      * @return array
      */
-    public function visitStmtWhileBefore(\PHPParser_Node_Stmt_While $node, $data)
+    public function visitASTWhileStatementBefore(ASTWhileStatement $node, $data)
     {
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_1];
         ++$data[self::M_CYCLOMATIC_COMPLEXITY_2];

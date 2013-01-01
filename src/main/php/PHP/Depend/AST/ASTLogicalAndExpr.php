@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /**
  * This file is part of PDepend.
@@ -45,33 +44,23 @@
  * @link      http://pdepend.org/
  */
 
-// PEAR/svn workaround
-if (strpos('@php_bin@', '@php_bin') === 0) {
-    set_include_path('.' . PATH_SEPARATOR . __DIR__ . '/../main/php');
+namespace PHP\Depend\AST;
+
+/**
+ * AST node that represents a logical <em>and</em>-expression.
+ *
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
+ *
+ * @property-read \PHPParser_Node_Expr $left
+ * @property-read \PHPParser_Node_Expr $right
+ */
+class ASTLogicalAndExpr extends ASTExpr
+{
+
 }
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-// Allow as much memory as possible by default
-if (extension_loaded('suhosin') && is_numeric(ini_get('suhosin.memory_limit'))) {
-    $limit = ini_get('memory_limit');
-    if (preg_match('(^(\d+)([BKMGT]))', $limit, $match)) {
-        $shift = array('B' => 0, 'K' => 10, 'M' => 20, 'G' => 30, 'T' => 40);
-        $limit = ($match[1] * (1 << $shift[$match[2]]));
-    }
-    if (ini_get('suhosin.memory_limit') > $limit && $limit > -1) {
-        ini_set('memory_limit', ini_get('suhosin.memory_limit'));
-    }
-} else {
-    ini_set('memory_limit', -1);
-}
-
-// Disable E_STRICT for all PHP versions < 5.3.x
-if (version_compare(phpversion(), '5.3.0')) {
-    error_reporting(error_reporting() & ~E_STRICT);
-}
-
-$autoload = new \PHP\Depend\Autoload();
-$autoload->register();
-
-exit(\PHP\Depend\TextUI\Command::main());

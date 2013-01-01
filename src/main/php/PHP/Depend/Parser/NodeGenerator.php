@@ -62,6 +62,14 @@ use \PHP\Depend\AST\ASTNamespaceRefs;
 use \PHP\Depend\AST\ASTProperties;
 use \PHP\Depend\AST\ASTProperty;
 use \PHP\Depend\AST\ASTPropertyRefs;
+use PHP\Depend\AST\ASTConditionalExpr;
+use PHP\Depend\AST\ASTWhileStatement;
+use PHP\Depend\AST\ASTBooleanOrExpr;
+use PHP\Depend\AST\ASTBooleanAndExpr;
+use PHP\Depend\AST\ASTIfStatement;
+use PHP\Depend\AST\ASTLogicalAndExpr;
+use PHP\Depend\AST\ASTLogicalXorExpr;
+use PHP\Depend\AST\ASTLogicalOrExpr;
 
 /**
  * Visitor class that generates custom nodes used by PDepend.
@@ -144,13 +152,13 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
             $this->declaringPackage = $this->extractNamespaceName($node);
 
             $this->parentClass = (string) (is_array($node->extends) ? null :$node->extends);
-        } else if ($node instanceof \PHPParser_Node_Stmt_Namespace) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Namespace) {
 
             $this->declaringNamespace = (string) $node->name;
-        } else if ($node instanceof \PHPParser_Node_Stmt_Property) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Property) {
 
             $this->modifier = $node->type;
-        } else if ($node instanceof \PHP\Depend\AST\ASTCompilationUnit) {
+        } elseif ($node instanceof \PHP\Depend\AST\ASTCompilationUnit) {
 
             $this->file = $node->getName();
         }
@@ -169,11 +177,12 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
         if ($node instanceof \PHPParser_Node_Stmt_Namespace) {
 
             $newNode = new ASTNamespace(
-                $node, new ASTNamespaceRefs($this->context)
+                $node,
+                new ASTNamespaceRefs($this->context)
             );
 
             $this->declaringNamespace = null;
-        } else if ($node instanceof \PHPParser_Node_Stmt_Class) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Class) {
 
             $implemented = array();
             foreach ($node->implements as $implements) {
@@ -195,7 +204,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 
             $this->declaringType    = null;
             $this->declaringPackage = null;
-        } else if ($node instanceof \PHPParser_Node_Stmt_Interface) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Interface) {
 
             $extends = array();
             foreach ($node->extends as $extend) {
@@ -216,12 +225,12 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 
             $this->declaringType    = null;
             $this->declaringPackage = null;
-        } else if ($node instanceof \PHPParser_Node_Stmt_Property) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Property) {
 
             $this->modifier = 0;
 
             $newNode = new ASTProperties($node);
-        } else if ($node instanceof \PHPParser_Node_Stmt_PropertyProperty) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_PropertyProperty) {
 
             $newNode = new ASTProperty(
                 $node,
@@ -233,7 +242,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
                 ),
                 $this->modifier
             );
-        } else if ($node instanceof \PHPParser_Node_Stmt_ClassMethod) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_ClassMethod) {
 
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
@@ -257,7 +266,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
                 )
             );
 
-        } else if ($node instanceof \PHPParser_Node_Stmt_Function) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Function) {
 
             $thrownExceptions = array();
             foreach ($node->exceptions as $exception) {
@@ -283,13 +292,13 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
             );
 
             $this->declaringPackage = null;
-        } else if ($node instanceof \PHPParser_Node_Stmt_Catch) {
+        } elseif ($node instanceof \PHPParser_Node_Stmt_Catch) {
 
             $node->typeRef = new ASTTypeRef(
                 $this->context,
                 (string) $node->type
             );
-        } else if ($node instanceof \PHPParser_Node_Expr_StaticCall
+        } elseif ($node instanceof \PHPParser_Node_Expr_StaticCall
             || $node instanceof \PHPParser_Node_Expr_StaticPropertyFetch
             || $node instanceof \PHPParser_Node_Expr_ClassConstFetch
             || $node instanceof \PHPParser_Node_Expr_New
@@ -305,7 +314,7 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 
                 $node->typeRef = null;
             }
-        } else if ($node instanceof \PHPParser_Node_Param) {
+        } elseif ($node instanceof \PHPParser_Node_Param) {
 
             if ($node->type instanceof \PHPParser_Node_Name) {
 
@@ -317,6 +326,22 @@ class NodeGenerator extends \PHPParser_NodeVisitorAbstract
 
                 $node->typeRef = null;
             }
+        } elseif ($node instanceof \PHPParser_Node_Expr_Ternary) {
+            $newNode = new ASTConditionalExpr($node);
+        } elseif ($node instanceof \PHPParser_Node_Expr_BooleanAnd) {
+            $newNode = new ASTBooleanAndExpr($node);
+        } elseif ($node instanceof \PHPParser_Node_Expr_BooleanOr) {
+            $newNode = new ASTBooleanOrExpr($node);
+        } elseif ($node instanceof \PHPParser_Node_Expr_LogicalAnd) {
+            $newNode = new ASTLogicalAndExpr($node);
+        } elseif ($node instanceof \PHPParser_Node_Expr_LogicalOr) {
+            $newNode = new ASTLogicalOrExpr($node);
+        } elseif ($node instanceof \PHPParser_Node_Expr_LogicalXor) {
+            $newNode = new ASTLogicalXorExpr($node);
+        } elseif ($node instanceof \PHPParser_Node_Stmt_If) {
+            $newNode = new ASTIfStatement($node);
+        } elseif ($node instanceof \PHPParser_Node_Stmt_While) {
+            $newNode = new ASTWhileStatement($node);
         }
 
         if ($newNode instanceof \PHP\Depend\AST\ASTFragment) {

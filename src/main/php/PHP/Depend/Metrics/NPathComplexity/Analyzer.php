@@ -54,6 +54,14 @@ use \PHP\Depend\Metrics\NodeAware;
 use \PHP\Depend\Metrics\AbstractCachingAnalyzer;
 use \PHP\Depend\Util\MathUtil;
 use PHP\Depend\AST\ASTCallable;
+use PHP\Depend\AST\ASTConditionalExpr;
+use PHP\Depend\AST\ASTWhileStatement;
+use PHP\Depend\AST\ASTBooleanOrExpr;
+use PHP\Depend\AST\ASTBooleanAndExpr;
+use PHP\Depend\AST\ASTLogicalAndExpr;
+use PHP\Depend\AST\ASTLogicalOrExpr;
+use PHP\Depend\AST\ASTLogicalXorExpr;
+use PHP\Depend\AST\ASTIfStatement;
 
 /**
  * This analyzer calculates the NPath complexity of functions and methods. The
@@ -123,14 +131,32 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
      * Visits a method node.
      *
      * @param \PHP\Depend\AST\ASTMethod $method
+     * @param array $data
      * @return void
      */
-    public function visitASTMethodBefore(ASTMethod $method)
+    public function visitASTMethodBefore(ASTMethod $method, array $data = null)
     {
-        if (false === $this->restoreFromCache($method)) {
+        $this->stack[] = $data;
+        return array('1');
+    }
 
-            //$this->calculateComplexity($method);
+    /**
+     * Visits a method node.
+     *
+     * @param \PHP\Depend\AST\ASTMethod $method
+     * @param array $data
+     * @return void
+     */
+    public function visitASTMethodAfter(ASTMethod $method, array $data)
+    {
+        $npath = '1';
+        foreach ($data as $childNpath) {
+            $npath = MathUtil::mul($npath, $childNpath);
         }
+
+        $this->metrics[$method->getId()] = array(self::M_NPATH_COMPLEXITY => $npath);
+
+        return array_pop($this->stack);
     }
 
     /**
@@ -152,9 +178,11 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
         $this->metrics[$callable->getId()] = $npath;
     }
 
+    private $stack = array();
+
     /**
      * This method calculates the NPath Complexity of a conditional-statement,
-     * the meassured value is then returned as a string.
+     * the measured value is then returned as a string.
      *
      * <code>
      * <expr1> ? <expr2> : <expr3>
@@ -162,33 +190,50 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
      * -- NP(?) = NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 2 --
      * </code>
      *
-     * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
-     * @param string                   $data The previously calculated npath value.
-     * @return string
-     * @since 0.9.12
+     * @param \PHP\Depend\AST\ASTConditionalExpr $expr
+     * @param array $data
+     * @return array
      */
-    public function visitConditionalExpression($node, $data)
+    public function visitASTConditionalExprBefore(ASTConditionalExpr $expr, array $data)
     {
-        // New PHP 5.3 ifsetor-operator $x ?: $y
-        if (count($node->getChildren()) === 1) {
-            $npath = '4';
-        } else {
-            $npath = '3';
-        }
+        $this->stack[] = $data;
+        return array();
+    }
 
-        foreach ($node->getChildren() as $child) {
-            if (($cn = $this->sumComplexity($child)) === '0') {
-                $cn = '1';
+    /**
+     * This method calculates the NPath Complexity of a conditional-statement,
+     * the measured value is then returned as a string.
+     *
+     * <code>
+     * <expr1> ? <expr2> : <expr3>
+     *
+     * -- NP(?) = NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 2 --
+     * </code>
+     *
+     * @param \PHP\Depend\AST\ASTConditionalExpr $expr
+     * @param array $data
+     * @return array
+     */
+    public function visitASTConditionalExprAfter(ASTConditionalExpr $expr, array $data)
+    {
+        $npath = '2';
+
+        foreach (array_pad($data, 3, '1') as $childNpath) {
+            if (0 == $childNpath) {
+                $childNpath = '1';
             }
-            $npath = MathUtil::add($npath, $cn);
+            $npath = MathUtil::add($npath, $childNpath);
         }
 
-        return MathUtil::mul($npath, $data);
+        $result = array_pop($this->stack);
+        $result[] = MathUtil::mul($npath, array_pop($result));
+
+        return $result;
     }
 
     /**
      * This method calculates the NPath Complexity of a do-while-statement, the
-     * meassured value is then returned as a string.
+     * measured value is then returned as a string.
      *
      * <code>
      * do
@@ -367,9 +412,25 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
         return MathUtil::mul($npath, $data);
     }
 
+    public function visitASTIfStatementBefore(ASTIfStatement $stmt, array $data)
+    {
+        $this->stack[] = $data;
+        return array('1');
+    }
+
+    public function visitASTIfStatementAfter(ASTIfStatement $stmt, array $data)
+    {
+        $npath = '1';
+
+        $result = array_pop($this->stack);
+        $result[] = MathUtil::mul($npath, array_pop($result));
+
+        return $result;
+    }
+
     /**
      * This method calculates the NPath Complexity of a return-statement, the
-     * meassured value is then returned as a string.
+     * measured value is then returned as a string.
      *
      * <code>
      * return <expr>;
@@ -462,32 +523,95 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
         return MathUtil::mul($npath, $data);
     }
 
-    /**
-     * This method calculates the NPath Complexity of a while-statement, the
-     * meassured value is then returned as a string.
-     *
-     * <code>
-     * while (<expr>)
-     *   <while-range>
-     * S;
-     *
-     * -- NP(while) = NP(<while-range>) + NP(<expr>) + 1 --
-     * </code>
-     *
-     * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
-     * @param string                   $data The previously calculated npath value.
-     * @return string
-     * @since 0.9.12
-     */
-    public function visitWhileStatement($node, $data)
+    public function visitASTWhileStatementBefore(ASTWhileStatement $node, array $data)
     {
-        $expr = $this->sumComplexity($node->getChild(0));
-        $stmt = $node->getChild(1)->accept($this, 1);
+        $this->stack[] = $data;
+        return array();
+    }
 
-        $npath = MathUtil::add($expr, $stmt);
+    public function visitASTWhileStatementAfter(ASTWhileStatement $node, array $data)
+    {
+        $npath = '1';
+        foreach (array_slice($data, 1) as $childNpath) {
+            $npath = MathUtil::mul($npath, $childNpath);
+        }
+
+        $npath = MathUtil::add($npath, $data[1]);
         $npath = MathUtil::add($npath, '1');
 
-        return MathUtil::mul($npath, $data);
+        $result = array_pop($this->stack);
+        $result[] = $npath;
+
+        return $result;
+    }
+
+    public function visitASTBooleanAndExprBefore(ASTBooleanAndExpr $expr, array $data)
+    {
+        return $this->visitASTExprBefore($data);
+    }
+
+    public function visitASTBooleanAndExprAfter(ASTBooleanAndExpr $expr, array $data)
+    {
+        return $this->visitASTExprAfter($data);
+    }
+
+    public function visitASTBooleanOrExprBefore(ASTBooleanOrExpr $expr, array $data)
+    {
+        return $this->visitASTExprBefore($data);
+    }
+
+    public function visitASTBooleanOrExprAfter(ASTBooleanOrExpr $expr, array $data)
+    {
+        return $this->visitASTExprAfter($data);
+    }
+
+    public function visitASTLogicalAndExprBefore(ASTLogicalAndExpr $expr, array $data)
+    {
+        return $this->visitASTExprBefore($data);
+    }
+
+    public function visitASTLogicalAndExprAfter(ASTLogicalAndExpr $expr, array $data)
+    {
+        return $this->visitASTExprAfter($data);
+    }
+
+    public function visitASTLogicalOrExprBefore(ASTLogicalOrExpr $expr, array $data)
+    {
+        return $this->visitASTExprBefore($data);
+    }
+
+    public function visitASTLogicalOrExprAfter(ASTLogicalOrExpr $expr, array $data)
+    {
+        return $this->visitASTExprAfter($data);
+    }
+
+    public function visitASTLogicalXorExprBefore(ASTLogicalXorExpr $expr, array $data)
+    {
+        return $this->visitASTExprBefore($data);
+    }
+
+    public function visitASTLogicalXorExprAfter(ASTLogicalXorExpr $expr, array $data)
+    {
+        return $this->visitASTExprAfter($data);
+    }
+
+    private function visitASTExprBefore(array $data)
+    {
+        $this->stack[] = $data;
+        return array();
+    }
+
+    private function visitASTExprAfter(array $data)
+    {
+        $npath = '1';
+        foreach ($data as $childNpath) {
+            $npath = MathUtil::add($npath, $childNpath);
+        }
+
+        $result = array_pop($this->stack);
+        $result[] = $npath;
+
+        return $result;
     }
 
     /**
@@ -519,5 +643,62 @@ class Analyzer extends AbstractCachingAnalyzer implements NodeAware
             }
         }
         return $sum;
+    }
+
+    //==========================================================================
+
+    /**
+     *
+     *
+     * idoskk@param PHP_Depend_Code_ASTNodeI $node The currently visited node.
+     * @param string                   $data The previously calculated npath value.
+     * @return string
+     * @since 0.9.12
+     */
+    public function visitConditionalExpression($node, $data)
+    {
+        // New PHP 5.3 ifsetor-operator $x ?: $y
+        if (count($node->getChildren()) === 1) {
+            $npath = '4';
+        } else {
+            $npath = '3';
+        }
+
+        foreach ($node->getChildren() as $child) {
+            if (($cn = $this->sumComplexity($child)) === '0') {
+                $cn = '1';
+            }
+            $npath = MathUtil::add($npath, $cn);
+        }
+
+        return MathUtil::mul($npath, $data);
+    }
+
+    /**
+     * This method calculates the NPath Complexity of a while-statement, the
+     * measured value is then returned as a string.
+     *
+     * <code>
+     * while (<expr>)
+     *   <while-range>
+     * S;
+     *
+     * -- NP(while) = NP(<while-range>) + NP(<expr>) + 1 --
+     * </code>
+     *
+     * @param PHP_Depend_Code_ASTNodeI $node The currently visited node.
+     * @param string                   $data The previously calculated npath value.
+     * @return string
+     * @since 0.9.12
+     */
+    public function visitWhileStatement($node, $data)
+    {
+        $expr = $this->sumComplexity($node->getChild(0));
+        $stmt = $node->getChild(1)->accept($this, 1);
+
+        $npath = MathUtil::add($expr, $stmt);
+        $npath = MathUtil::add($npath, '1');
+
+        return MathUtil::mul($npath, $data);
     }
 }

@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /**
  * This file is part of PDepend.
@@ -45,33 +44,94 @@
  * @link      http://pdepend.org/
  */
 
-// PEAR/svn workaround
-if (strpos('@php_bin@', '@php_bin') === 0) {
-    set_include_path('.' . PATH_SEPARATOR . __DIR__ . '/../main/php');
-}
+namespace PHP\Depend\AST;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-// Allow as much memory as possible by default
-if (extension_loaded('suhosin') && is_numeric(ini_get('suhosin.memory_limit'))) {
-    $limit = ini_get('memory_limit');
-    if (preg_match('(^(\d+)([BKMGT]))', $limit, $match)) {
-        $shift = array('B' => 0, 'K' => 10, 'M' => 20, 'G' => 30, 'T' => 40);
-        $limit = ($match[1] * (1 << $shift[$match[2]]));
+/**
+ * Base class for custom AST expression nodes.
+ *
+ * @category  QualityAssurance
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2012 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ * @since     2.0.0
+ */
+abstract class ASTExpr extends \PHPParser_Node_Expr implements ASTFragment
+{
+    /**
+     * Constructs a new expression instance.
+     *
+     * @param \PHPParser_Node_Expr $expr
+     */
+    public function __construct(\PHPParser_Node_Expr $expr)
+    {
+        parent::__construct(
+            $expr->subNodes,
+            array_merge(
+                array('user_defined' => true),
+                $expr->attributes
+            )
+        );
     }
-    if (ini_get('suhosin.memory_limit') > $limit && $limit > -1) {
-        ini_set('memory_limit', ini_get('suhosin.memory_limit'));
+
+    /**
+     * Returns the global identifier for this node.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->getAttribute('id');
     }
-} else {
-    ini_set('memory_limit', -1);
+
+    /**
+     * Returns the name for this node.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return __CLASS__;
+    }
+
+    /**
+     * Returns the source file that contains this ast fragment.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->getAttribute('file');
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->getAttribute('startLine', -1);
+    }
+
+    /**
+     * Returns the start line for this ast fragment.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->getAttribute('endLine', -1);
+    }
+
+    /**
+     * Returns <b>true</b> when this node was parsed from a source file.
+     *
+     * @return boolean
+     */
+    public function isUserDefined()
+    {
+        return $this->attributes['user_defined'];
+    }
 }
-
-// Disable E_STRICT for all PHP versions < 5.3.x
-if (version_compare(phpversion(), '5.3.0')) {
-    error_reporting(error_reporting() & ~E_STRICT);
-}
-
-$autoload = new \PHP\Depend\Autoload();
-$autoload->register();
-
-exit(\PHP\Depend\TextUI\Command::main());

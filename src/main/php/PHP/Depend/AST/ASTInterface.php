@@ -74,10 +74,7 @@ class ASTInterface extends PHPParser_Node_Stmt_Interface implements ASTType
      * @param \PHPParser_Node_Stmt_Interface $interface
      * @param \PHP\Depend\AST\ASTInterfaceRefs $refs
      */
-    public function __construct(
-        PHPParser_Node_Stmt_Interface $interface,
-        ASTInterfaceRefs $refs
-    )
+    public function __construct(PHPParser_Node_Stmt_Interface $interface, ASTInterfaceRefs $refs)
     {
         parent::__construct(
             $interface->name,
